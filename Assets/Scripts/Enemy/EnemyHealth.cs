@@ -7,7 +7,7 @@ using Unity.Netcode;
 public class EnemyHealth : NetworkBehaviour
 {
     private Enemy enemy;
-    private NetworkVariable<int> HP_stat = new NetworkVariable<int>(10);
+    public NetworkVariable<int> HP_stat = new NetworkVariable<int>(10);
 
     public override void OnNetworkSpawn()
     {
