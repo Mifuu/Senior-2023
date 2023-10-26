@@ -9,21 +9,11 @@ public class MapGenerator : MonoBehaviour
     public enum DrawMode { NoiseMap, ColorMap, Mesh }
     public DrawMode drawMode;
 
-    public bool useFlatShading;
+    public TerrainData terrainData;
+    public NoiseData noiseData;
+
     [Range(0, 6)]
     public int editorPreviewLOD;
-    public float noiseScale;
-
-    public int octaves;
-    [Range(0, 1)]
-    public float persistance;
-    public float lacunarity;
-
-    public int seed;
-    public Vector2 offset;
-
-    public float meshHeightMultiplier;
-    public AnimationCurve meshHeightCurve;
 
     public bool autoUpdate;
 
@@ -33,13 +23,21 @@ public class MapGenerator : MonoBehaviour
     Queue<MapThreadInfo<MapData>> mapDataThreadInfoQueue = new Queue<MapThreadInfo<MapData>>();
     Queue<MapThreadInfo<MeshData>> meshDataThreadInfoQueue = new Queue<MapThreadInfo<MeshData>>();
 
+    void OnValuesUpdate()
+    {
+        if (!Application.isPlaying)
+        {
+            DrawMapInEditor();
+        }
+    }
+
     public static int mapChunkSize
     {
         get
         {
             if (instance == null)
                 instance = FindObjectOfType<MapGenerator>();
-            if (instance.useFlatShading)
+            if (instance.terrainData.useFlatShading)
                 return 95;
             else
                 return 239;
@@ -61,7 +59,7 @@ public class MapGenerator : MonoBehaviour
                 display.DrawTexture(TextureGenerator.TextureFromColorMap(mapData.colorMap, mapChunkSize, mapChunkSize));
                 break;
             case DrawMode.Mesh:
-                display.DrawMesh(MeshGenerator.GenerateTerrainMesh(mapData.heightMap, meshHeightMultiplier, meshHeightCurve, editorPreviewLOD, useFlatShading), TextureGenerator.TextureFromColorMap(mapData.colorMap, mapChunkSize, mapChunkSize));
+                display.DrawMesh(MeshGenerator.GenerateTerrainMesh(mapData.heightMap, terrainData.meshHeightMultiplier, terrainData.meshHeightCurve, editorPreviewLOD, terrainData.useFlatShading), TextureGenerator.TextureFromColorMap(mapData.colorMap, mapChunkSize, mapChunkSize));
                 break;
         }
     }
@@ -103,7 +101,7 @@ public class MapGenerator : MonoBehaviour
 
     public void MeshDataThread(MapData mapData, int lod, Action<MeshData> callback)
     {
-        MeshData meshData = MeshGenerator.GenerateTerrainMesh(mapData.heightMap, meshHeightMultiplier, meshHeightCurve, lod, useFlatShading);
+        MeshData meshData = MeshGenerator.GenerateTerrainMesh(mapData.heightMap, terrainData.meshHeightMultiplier, terrainData.meshHeightCurve, lod, terrainData.useFlatShading);
         lock (meshDataThreadInfoQueue)
         {
             meshDataThreadInfoQueue.Enqueue(new MapThreadInfo<MeshData>(callback, meshData));
@@ -133,7 +131,7 @@ public class MapGenerator : MonoBehaviour
 
     MapData GenerateMapData(Vector2 center)
     {
-        float[,] noiseMap = NoiseV2.GenerateNoiseMap(mapChunkSize + 2, mapChunkSize + 2, seed, noiseScale, octaves, persistance, lacunarity, center + offset);
+        float[,] noiseMap = NoiseV2.GenerateNoiseMap(mapChunkSize + 2, mapChunkSize + 2, noiseData.seed, noiseData.noiseScale, noiseData.octaves, noiseData.persistance, noiseData.lacunarity, center + noiseData.offset);
 
         // setting color
         Color[] colorMap = new Color[mapChunkSize * mapChunkSize];
@@ -159,14 +157,6 @@ public class MapGenerator : MonoBehaviour
         return new MapData(noiseMap, colorMap);
     }
 
-    void OnValidate()
-    {
-        if (lacunarity < 1)
-            lacunarity = 1;
-        if (octaves < 0)
-            octaves = 0;
-    }
-
     struct MapThreadInfo<T>
     {
         public readonly Action<T> callback;
@@ -176,6 +166,20 @@ public class MapGenerator : MonoBehaviour
         {
             this.callback = callback;
             this.parameter = parameter;
+        }
+    }
+
+    void OnValidate()
+    {
+        if (terrainData != null)
+        {
+            terrainData.OnValuesUpdated -= OnValuesUpdate;
+            terrainData.OnValuesUpdated += OnValuesUpdate;
+        }
+        if (noiseData != null)
+        {
+            noiseData.OnValuesUpdated -= OnValuesUpdate;
+            noiseData.OnValuesUpdated += OnValuesUpdate;
         }
     }
 }
