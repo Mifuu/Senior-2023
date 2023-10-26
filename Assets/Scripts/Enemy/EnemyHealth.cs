@@ -4,10 +4,11 @@ using UnityEngine;
 using Unity.Netcode;
 
 [RequireComponent(typeof(Enemy))]
+[RequireComponent(typeof(NetworkObject))]
 public class EnemyHealth : NetworkBehaviour
 {
     private Enemy enemy;
-    public NetworkVariable<int> HP_stat = new NetworkVariable<int>(10);
+    public NetworkVariable<int> HP_stat = new NetworkVariable<int>();
 
     public override void OnNetworkSpawn()
     {
@@ -22,22 +23,24 @@ public class EnemyHealth : NetworkBehaviour
                     HP_stat.Value = enemy.enemyConfig.HP_stat;
                 }
             };
-        }
 
-        HP_stat.OnValueChanged += (_, current) => 
-        {
-            if (IsServer && current <= 0)
+            HP_stat.OnValueChanged += (_, current) =>
             {
-                Destroy(gameObject);
-            }
-        };
+                if (current <= 0)
+                {
+                    GetComponent<NetworkObject>().Despawn();
+                    Destroy(gameObject);
+                }
+            };
+        }
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnCollisionEnter(Collision collision)
     {
-        if (IsServer && other.CompareTag("Bullet"))
+        // Player tag is temp and is used for testing only 
+        if (IsServer && collision.gameObject.CompareTag("Player"))
         {
-            HP_stat.Value -= 10;
+            HP_stat.Value -= 100;
         }
     }
 }
