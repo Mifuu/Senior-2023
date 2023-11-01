@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: HardEnemy
   description: Hard Enemy
-  HP_stat: 300
-  ATK_stat: 300
-  DEF_stat: 300
-  Movement_SPD_stat: 15
+  hpStat: 300
+  atkStat: 300
+  defStat: 300
+  movementSpdStat: 15
   mat: {fileID: 2100000, guid: 514eaded2760e5e4fa4ed05f785ed09c, type: 2}
