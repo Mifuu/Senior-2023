@@ -7,26 +7,23 @@ using Unity.Netcode;
 public class Enemy : NetworkBehaviour
 {
     [SerializeField] private NetworkVariable<bool> isMoving = new NetworkVariable<bool>();
-    [SerializeField] public NetworkVariable<bool> isReady = new NetworkVariable<bool>(false);
-    private NetworkVariable<int> enemyConfigId = new NetworkVariable<int>(-1); // crucial must be set to non zero
+    [SerializeField] public NetworkVariable<bool> isReady = new NetworkVariable<bool>();
+    private readonly NetworkVariable<int> _enemyConfigId = new NetworkVariable<int>(-1); // crucial must be set to non zero
     public EnemyScriptableObject enemyConfig;
-    GameObject followingPlayer;
+    GameObject _followingPlayer;
 
     void Update()
     {
-        if (isMoving.Value && isReady.Value && followingPlayer != null)
-        {
-            Vector3 direction = (followingPlayer.transform.position - transform.position).normalized;
-            direction.y = 0f;
-            transform.Translate(direction
-               * enemyConfig.Movement_SPD_stat * Time.deltaTime);
-        }
+        if (!isMoving.Value || !isReady.Value) return;
+        Vector3 direction = (_followingPlayer.transform.position - transform.position).normalized;
+        direction.y = 0f;
+        transform.Translate(direction * (enemyConfig.movementSpdStat * Time.deltaTime));
     }
 
     public override void OnNetworkSpawn()
     {
         base.OnNetworkSpawn();
-        enemyConfigId.OnValueChanged += (_, current) =>
+        _enemyConfigId.OnValueChanged += (_, _) =>
         {
             Initialize();
         };
@@ -36,7 +33,7 @@ public class Enemy : NetworkBehaviour
     {
         if (IsServer)
         {
-            enemyConfigId.Value = id;
+            _enemyConfigId.Value = id;
         }
     }
 
@@ -58,16 +55,16 @@ public class Enemy : NetworkBehaviour
 
     private void Initialize()
     {
-        followingPlayer = FindClosestPlayer();
-        enemyConfig = EnemySpawnManager.Instance.GetEnemyConfigById(enemyConfigId.Value);
+        _followingPlayer = FindClosestPlayer();
+        enemyConfig = EnemySpawnManager.Instance.GetEnemyConfigById(_enemyConfigId.Value);
         GetComponent<Renderer>().material = enemyConfig.mat;
 
         if (IsServer)
         {
-            isMoving.Value = followingPlayer == null ? false : true;
+            isMoving.Value = _followingPlayer != null;
         }
 
-        if (enemyConfig != null && followingPlayer != null)
+        if (enemyConfig != null && _followingPlayer != null)
         {
             isReady.Value = true;
         }

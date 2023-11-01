@@ -10,13 +10,7 @@ public class EnemySpawnManager : Singleton<EnemySpawnManager>
     [SerializeField] GameObject enemyPrefab;
     [SerializeField] NetworkVariable<bool> isSpawning = new NetworkVariable<bool>(false);
 
-    public bool IsSpawning
-    {
-        get
-        {
-            return isSpawning.Value;
-        }
-    }
+    public bool IsSpawning => isSpawning.Value;
 
     public void SetIsSpawn(bool value)
     {
