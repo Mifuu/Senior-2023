@@ -57,6 +57,7 @@ public class EndlessTerrain : MonoBehaviour
 
     void UpdateVisibleChunks()
     {
+        Debug.Log(visibleTerrainChunk.Count);
         HashSet<Vector2> alreadyUpdatedChunkCoord = new HashSet<Vector2>();
 
         // Set visibility of last update chunk
@@ -200,8 +201,6 @@ public class EndlessTerrain : MonoBehaviour
                             lodMesh.RequestMesh(mapData);
                         }
                     }
-
-                    visibleTerrainChunk.Add(this);
                 }
 
                 if (wasVisible != visible)
