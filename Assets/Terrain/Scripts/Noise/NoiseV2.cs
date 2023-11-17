@@ -12,12 +12,16 @@ public static class NoiseV2
 
     public enum NormalizeMode { Local, Global };
 
-    public static float[,] GenerateNoiseMap(int mapWidth, int mapHeight, NoiseSettings settings, Vector2 sampleCenter)
+    public static float[,] GenerateNoiseMap(int mapWidth, int mapHeight, NoiseSettings settings, Vector2 sampleCenter, int seed = 0)
     {
         float[,] noiseMap = new float[mapWidth, mapHeight];
 
         // pseudo rng offset
-        System.Random prng = new System.Random(settings.seed);
+        System.Random prng = new System.Random();
+        if (seed == 0)
+            prng = new System.Random(settings.seed);
+        else
+            prng = new System.Random(seed);
         Vector2[] octaveOffsets = new Vector2[settings.octaves];
 
         float maxPossibleHeight = 0;

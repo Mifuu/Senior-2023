@@ -5,7 +5,8 @@ using Unity.Netcode;
 
 public class TerrainNetworkManager : Singleton<TerrainNetworkManager>
 {
-    [SerializeField] public NetworkVariable<TerrainInfo> terrainInfo = new NetworkVariable<TerrainInfo>(new TerrainInfo());
+    // public NetworkVariable<TerrainInfo> terrainInfo = new NetworkVariable<TerrainInfo>(new TerrainInfo());
+    public NetworkVariable<int> seed = new NetworkVariable<int>(0);
 
     public void TryGenerate()
     {
@@ -17,14 +18,15 @@ public class TerrainNetworkManager : Singleton<TerrainNetworkManager>
             return;
         }
 
-        GenerateServerRpc();
+        GenerateTerrainServerRpc();
     }
 
     [ServerRpc]
-    void GenerateServerRpc()
+    void GenerateTerrainServerRpc()
     {
-        Debug.Log("TerrainNetworkManager.GenerateServerRpc()");
+        Debug.Log("TerrainNetworkManager.GenerateTerrainServerRpc()");
 
+        /*
         // set up terrain information
         TerrainInfo _terrainInfo = new TerrainInfo()
         {
@@ -40,22 +42,34 @@ public class TerrainNetworkManager : Singleton<TerrainNetworkManager>
 
         // set network variable
         terrainInfo.Value = _terrainInfo;
+        */
+
+        seed.Value = Random.Range(int.MinValue, int.MaxValue);
+        GenerateTerrainClientRpc(seed.Value);
+    }
+
+    [ClientRpc]
+    void GenerateTerrainClientRpc(int seedValue)
+    {
+        TerrainManager.Instance.SetSeed(seedValue);
+        TerrainManager.Instance.Generate();
     }
 
     public override void OnNetworkSpawn()
     {
         base.OnNetworkSpawn();
 
-        terrainInfo.OnValueChanged += OnTerrainInfoChanged;
+        // terrainInfo.OnValueChanged += OnTerrainInfoChanged;
     }
 
     public override void OnNetworkDespawn()
     {
         base.OnNetworkDespawn();
 
-        terrainInfo.OnValueChanged -= OnTerrainInfoChanged;
+        // terrainInfo.OnValueChanged -= OnTerrainInfoChanged;
     }
 
+    /*
     public void OnTerrainInfoChanged(TerrainInfo previousValue, TerrainInfo newValue)
     {
         Debug.Log("TerrainNetworkManager.OnTerrainInfoChanged()");
@@ -77,4 +91,5 @@ public class TerrainNetworkManager : Singleton<TerrainNetworkManager>
             serializedHeightCurve.NetworkSerialize(serializer);
         }
     }
+    */
 }

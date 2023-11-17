@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class HeightMapGenerator
 {
-    public static HeightMap GenerateHeightMap(int width, int height, HeightMapSettings settings, Vector2 sampleCenter)
+    public static HeightMap GenerateHeightMap(int width, int height, HeightMapSettings settings, Vector2 sampleCenter, int seed = 0)
     {
-        float[,] values = NoiseV2.GenerateNoiseMap(width, height, settings.noiseSettings, sampleCenter);
+        float[,] values = NoiseV2.GenerateNoiseMap(width, height, settings.noiseSettings, sampleCenter, seed);
 
         AnimationCurve heightCurve_threadsafe = new AnimationCurve(settings.heightCurve.keys);
 

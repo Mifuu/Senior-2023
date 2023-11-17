@@ -27,6 +27,11 @@ public class EndlessTerrain : MonoBehaviour
 
     void Start()
     {
+
+    }
+
+    public void Init()
+    {
         mapGenerator = FindObjectOfType<MapGenerator>();
 
         maxViewDst = detailLevels[detailLevels.Length - 1].visibleDstThreshold;
@@ -34,6 +39,16 @@ public class EndlessTerrain : MonoBehaviour
         chunksVisibleInViewDst = Mathf.RoundToInt(maxViewDst / meshWorldSize);
 
         UpdateVisibleChunks();
+    }
+
+    public void Clear()
+    {
+        foreach (var t in terrainChunkDictionary)
+        {
+            Destroy(t.Value.meshObject);
+        }
+        terrainChunkDictionary.Clear();
+        visibleTerrainChunk.Clear();
     }
 
     void Update()
@@ -57,7 +72,6 @@ public class EndlessTerrain : MonoBehaviour
 
     void UpdateVisibleChunks()
     {
-        Debug.Log(visibleTerrainChunk.Count);
         HashSet<Vector2> alreadyUpdatedChunkCoord = new HashSet<Vector2>();
 
         // Set visibility of last update chunk
@@ -96,7 +110,7 @@ public class EndlessTerrain : MonoBehaviour
     {
         public Vector2 coord;
 
-        GameObject meshObject;
+        public GameObject meshObject;
         Vector2 sampleCenter;
         Bounds bounds;          // use to figure out the distance to viewer
 

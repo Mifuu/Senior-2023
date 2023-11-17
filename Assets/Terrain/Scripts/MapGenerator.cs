@@ -15,8 +15,6 @@ public class MapGenerator : MonoBehaviour
 
     public Material terrainMaterial;
 
-
-
     [Range(0, MeshSettings.numSupportedLODs - 1)]
     public int editorPreviewLOD;
 
@@ -26,6 +24,8 @@ public class MapGenerator : MonoBehaviour
 
     Queue<MapThreadInfo<HeightMap>> heightMapThreadInfoQueue = new Queue<MapThreadInfo<HeightMap>>();
     Queue<MapThreadInfo<MeshData>> meshDataThreadInfoQueue = new Queue<MapThreadInfo<MeshData>>();
+
+    [HideInInspector] public int gameplaySeed = 0;
 
     void Start()
     {
@@ -81,7 +81,7 @@ public class MapGenerator : MonoBehaviour
     void HeightMapThread(Vector2 center, Action<HeightMap> callback)
     {   // noted that anything called in a thread will be in the thread
         // generate heightMap
-        HeightMap heightMap = HeightMapGenerator.GenerateHeightMap(meshSettings.numVertsPerLine, meshSettings.numVertsPerLine, heightMapSettings, center);
+        HeightMap heightMap = HeightMapGenerator.GenerateHeightMap(meshSettings.numVertsPerLine, meshSettings.numVertsPerLine, heightMapSettings, center, gameplaySeed);
 
         // add heightMap and callback into a queue for Update() to process
         // so callback will be called in the main thread
