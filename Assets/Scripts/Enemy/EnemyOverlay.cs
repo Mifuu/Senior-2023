@@ -8,11 +8,11 @@ using Unity.Netcode;
 [RequireComponent(typeof(NetworkObject))]
 public class EnemyOverlay : NetworkBehaviour
 {
-    private NetworkVariable<NetworkString> str = new NetworkVariable<NetworkString>();
+    private readonly NetworkVariable<NetworkString> _str = new NetworkVariable<NetworkString>();
     [SerializeField] private TextMeshProUGUI overlayText;
 
     // hp value changed during initial, used to prevent text color changing on setup
-    private bool initialHealthSetup = false;
+    private bool _initialHealthSetup = false;
 
     public override void OnNetworkSpawn()
     {
@@ -20,23 +20,23 @@ public class EnemyOverlay : NetworkBehaviour
 
         if (IsServer)
         {
-            GetComponent<EnemyHealth>().HP_stat.OnValueChanged += (_, current) =>
+            GetComponent<EnemyHealth>().hpStat.OnValueChanged += (_, current) =>
             {
-                str.Value = $"Health: {current}";
+                _str.Value = $"Health: {current}";
             };
         }
 
-        str.OnValueChanged += (_, current) =>
+        _str.OnValueChanged += (_, current) =>
         {
-            if (!initialHealthSetup)
+            if (!_initialHealthSetup)
             {
-                initialHealthSetup = true;
+                _initialHealthSetup = true;
             }
             else 
             {
                 StartCoroutine(ChangeTextColor());
             }
-            overlayText.text = str.Value;
+            overlayText.text = _str.Value;
         };
     }
 

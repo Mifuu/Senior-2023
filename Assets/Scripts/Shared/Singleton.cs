@@ -5,9 +5,9 @@ using Unity.Networking.Transport.Error;
 using UnityEngine;
 
 public class Singleton<T> : NetworkBehaviour
-     where T : Component
+     where T : Component 
 {
-    private static T _instance;
+    private static T _instance;  
     public static T Instance
     {
         get
@@ -25,7 +25,6 @@ public class Singleton<T> : NetworkBehaviour
                 }
                 else if (_instance == null)
                 {
-                    Debug.Log("Instance of " + typeof(T).Name + " is null, creating new instance");
                     GameObject obj = new GameObject();
                     obj.name = string.Format("_{0}", typeof(T).Name);
                     _instance = obj.AddComponent<T>();

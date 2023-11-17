@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: StandardEnemy
   description: Standard Enemy
-  HP_stat: 100
-  ATK_stat: 100
-  DEF_stat: 100
-  Movement_SPD_stat: 10
+  hpStat: 100
+  atkStat: 100
+  defStat: 100
+  movementSpdStat: 10
   mat: {fileID: 2100000, guid: bfe3442c39ee60d40a0b492fecdd63fb, type: 2}
