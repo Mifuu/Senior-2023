@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
+using UnityEngine.Serialization;
 
 [RequireComponent(typeof(NetworkObject))]
 public class Enemy : NetworkBehaviour
@@ -10,14 +12,14 @@ public class Enemy : NetworkBehaviour
     [SerializeField] public NetworkVariable<bool> isReady = new NetworkVariable<bool>();
     private readonly NetworkVariable<int> _enemyConfigId = new NetworkVariable<int>(-1); // crucial must be set to non zero
     public EnemyScriptableObject enemyConfig;
-    GameObject _followingPlayer;
+    public GameObject followingPlayer;
 
-    void Update()
+    private void Update()
     {
         if (!isMoving.Value || !isReady.Value) return;
-        Vector3 direction = (_followingPlayer.transform.position - transform.position).normalized;
+        Vector3 direction = (followingPlayer.transform.position - transform.position).normalized;
         direction.y = 0f;
-        transform.Translate(direction * (enemyConfig.movementSpdStat * Time.deltaTime));
+        transform.Translate(transform.TransformDirection(direction) * (enemyConfig.movementSpdStat * Time.deltaTime));
     }
 
     public override void OnNetworkSpawn()
@@ -55,16 +57,16 @@ public class Enemy : NetworkBehaviour
 
     private void Initialize()
     {
-        _followingPlayer = FindClosestPlayer();
+        followingPlayer = FindClosestPlayer();
         enemyConfig = EnemySpawnManager.Instance.GetEnemyConfigById(_enemyConfigId.Value);
         GetComponent<Renderer>().material = enemyConfig.mat;
 
         if (IsServer)
         {
-            isMoving.Value = _followingPlayer != null;
+            isMoving.Value = followingPlayer != null;
         }
 
-        if (enemyConfig != null && _followingPlayer != null)
+        if (enemyConfig != null && followingPlayer != null)
         {
             isReady.Value = true;
         }

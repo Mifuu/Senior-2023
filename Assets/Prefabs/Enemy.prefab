@@ -419,6 +419,7 @@ MonoBehaviour:
   isReady:
     m_InternalValue: 0
   enemyConfig: {fileID: 0}
+  followingPlayer: {fileID: 0}
 --- !u!114 &2323876835455018104
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -443,8 +444,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c419fbcde55e324bbff664622579bc8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HP_stat:
-    m_InternalValue: 10
+  hpStat:
+    m_InternalValue: 0
 --- !u!114 &5178528204045281178
 MonoBehaviour:
   m_ObjectHideFlags: 0

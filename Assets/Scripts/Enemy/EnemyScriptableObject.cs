@@ -12,5 +12,7 @@ public class EnemyScriptableObject : ScriptableObject
     public int atkStat;
     public int defStat;
     public int movementSpdStat;
+    public bool isMelee; 
+    public bool isFlying;
     public Material mat;
 }
