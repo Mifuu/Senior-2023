@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Unity.Netcode;
 using JUtil;
 
 // NOTE: this code is for quick testing only!
@@ -34,38 +35,35 @@ public class JCharacter : MonoBehaviour
 
         if (cam != null)
         {
+            /*
             Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Locked;
+            */
         }
+
+        if (GetComponent<NetworkObject>() != null && GetComponent<NetworkObject>().IsOwner)
+            TerrainManager.Instance.SetViewer(transform);
     }
 
-    void Update()
+    public void Jump()
     {
-        float xInput = Input.GetAxis("Horizontal");
-        float zInput = Input.GetAxis("Vertical");
+        onGround = false;
+        rb.velocity = new Vector3(rb.velocity.x, jumpVelocity, rb.velocity.z);
+    }
+
+    public void ProcessMove(Vector2 input)
+    {
+        float xInput = input.x;
+        float zInput = input.y;
 
         velocity = (transform.right * xInput * speed + transform.forward * zInput * speed) + transform.up * rb.velocity.y;
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            onGround = false;
-            velocity.y = jumpVelocity;
-            // rb.velocity = Vector3.up * GetJumpVelocity();
-        }
+
+        if (!onGround)
+            velocity.y -= gravity * Time.deltaTime;
         else
-        {
-            if (!onGround)
-                velocity.y -= gravity * Time.deltaTime;
-            else
-                velocity.y = 0;
-        }
+            velocity.y = 0;
 
         rb.velocity = velocity;
-    }
-
-    void LateUpdate()
-    {
-        if (cam != null)
-            ProcessLook(new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y")));
     }
 
     void OnCollisionEnter(Collision collision)

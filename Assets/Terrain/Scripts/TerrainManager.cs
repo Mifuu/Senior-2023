@@ -18,11 +18,9 @@ public class TerrainManager : Singleton<TerrainManager>
             Generate();
     }
 
-    public void Update()
+    public void SetViewer(Transform viewer)
     {
-        // should be change to listener method
-        if (Camera.main.transform != endlessTerrain.viewer)
-            endlessTerrain.viewer = Camera.main.transform;
+        endlessTerrain.viewer = viewer;
     }
 
     public void SetSeed(int seed)

@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8513928277494228228}
   - component: {fileID: 7340654948540685140}
+  - component: {fileID: 7529622146397011126}
   m_Layer: 0
   m_Name: Procedural Terrain
   m_TagString: Untagged
@@ -46,9 +47,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   generateOnStart: 0
-  seed: 0
   endlessTerrain: {fileID: 4724070551431545364}
   mapGenerator: {fileID: 270983209814716614}
+--- !u!114 &7529622146397011126
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 620915844942084133}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 951099334
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
 --- !u!1 &3907426226293283109
 GameObject:
   m_ObjectHideFlags: 0
@@ -221,7 +241,7 @@ MonoBehaviour:
     visibleDstThreshold: 200
   - lod: 1
     visibleDstThreshold: 350
-  viewer: {fileID: 0}
+  viewer: {fileID: 8513928277494228228}
   mapMaterial: {fileID: 2100000, guid: ae510762703a549d19186e70fc8f0b7f, type: 2}
 --- !u!1 &7772451269183843295
 GameObject:

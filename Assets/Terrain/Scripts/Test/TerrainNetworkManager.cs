@@ -59,6 +59,11 @@ public class TerrainNetworkManager : Singleton<TerrainNetworkManager>
     {
         base.OnNetworkSpawn();
 
+        if (seed.Value != 0) // if seed is not 0, then it is already generated
+        {
+            TerrainManager.Instance.SetSeed(seed.Value);
+            TerrainManager.Instance.Generate();
+        }
         // terrainInfo.OnValueChanged += OnTerrainInfoChanged;
     }
 
