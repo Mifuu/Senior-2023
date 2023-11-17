@@ -18,7 +18,6 @@ GameObject:
   - component: {fileID: -5516036645974060067}
   - component: {fileID: 4562368534049926287}
   - component: {fileID: -2721213188689535661}
-  - component: {fileID: -1233833510765222930}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -38,7 +37,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 5952900266704918662}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &8251285557184108911
@@ -184,7 +184,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3073b6f5995fccc40ac06a417157eccb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cam: {fileID: -1233833510765222930}
+  cam: {fileID: 5033622202274234613}
   xSensitivity: 30
   ySensitivity: 30
 --- !u!114 &4562368534049926287
@@ -212,13 +212,45 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defaultPositionRange: {x: -4, y: -4}
---- !u!20 &-1233833510765222930
+--- !u!1 &4983654777501466718
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5952900266704918662}
+  - component: {fileID: 5033622202274234613}
+  m_Layer: 0
+  m_Name: Cam
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5952900266704918662
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4983654777501466718}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5337336228896262560}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!20 &5033622202274234613
 Camera:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1287504444611049030}
+  m_GameObject: {fileID: 4983654777501466718}
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
