@@ -11,8 +11,19 @@ public class PlayerLook : NetworkBehaviour
     public float ySensitivity = 30f;
     private float xRotation = 0f;
 
+    public override void OnNetworkSpawn()
+    {
+        if (!IsClient || !IsOwner)
+        {
+            cam.enabled = false;
+        }
+    }
+
     public void ProcessLook(Vector2 input)
     {
+        if (!IsClient || !IsOwner)
+            return;
+
         float mouseX = input.x;
         float mouseY = input.y;
 

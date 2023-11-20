@@ -11,6 +11,9 @@ public class PlayerManager : Singleton<PlayerManager>
     {
         base.OnNetworkSpawn();
         playersInGame.Value = 0;
+
+        if (TerrainManager.Instance != null && IsOwner && IsClient)
+            TerrainManager.Instance.SetViewer(transform);
     }
 
     public int PlayersInGame
