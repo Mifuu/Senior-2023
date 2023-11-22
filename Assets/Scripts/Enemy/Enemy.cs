@@ -1,9 +1,5 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
-using UnityEngine.Serialization;
 
 [RequireComponent(typeof(NetworkObject))]
 public class Enemy : NetworkBehaviour
@@ -17,9 +13,8 @@ public class Enemy : NetworkBehaviour
     private void Update()
     {
         if (!isMoving.Value || !isReady.Value) return;
-        Vector3 direction = (followingPlayer.transform.position - transform.position).normalized;
-        direction.y = 0f;
-        transform.Translate(transform.TransformDirection(direction) * (enemyConfig.movementSpdStat * Time.deltaTime));
+        if ((followingPlayer.transform.position - transform.position).sqrMagnitude > 50.0f || enemyConfig.isMelee)
+            transform.Translate(transform.forward * (enemyConfig.movementSpdStat * Time.deltaTime));
     }
 
     public override void OnNetworkSpawn()

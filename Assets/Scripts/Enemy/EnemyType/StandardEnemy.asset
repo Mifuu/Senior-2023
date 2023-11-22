@@ -18,4 +18,6 @@ MonoBehaviour:
   atkStat: 100
   defStat: 100
   movementSpdStat: 10
+  isMelee: 1
+  isFlying: 0
   mat: {fileID: 2100000, guid: bfe3442c39ee60d40a0b492fecdd63fb, type: 2}
