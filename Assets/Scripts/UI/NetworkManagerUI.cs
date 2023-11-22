@@ -14,12 +14,29 @@ public class NetworkManagerUI : MonoBehaviour
 
     private void Awake()
     {
-        Cursor.visible = true;
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+
     }
 
     private void Update()
     {
         //inGameText.text = $"Players in game: {PlayerManager.Instance.PlayersInGame}";
+
+        // Check if the "Alt" key is held down
+        if (Input.GetKey(KeyCode.LeftAlt) || Input.GetKey(KeyCode.RightAlt))
+        {
+            // Make the cursor visible
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
+        
+        else
+        {
+            // If "Alt" key is not held, lock the cursor again
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
     }
 
     private void Start()
