@@ -19,8 +19,10 @@ public class PlayerMotor : NetworkBehaviour
     void Start()
     {
         controller = GetComponent<CharacterController>();
+
+        // random player spawn point
         transform.position = new Vector3(Random.Range(defaultPositionRange.x, defaultPositionRange.y), 2,
-            Random.Range(defaultPositionRange.x, defaultPositionRange.y));
+        Random.Range(defaultPositionRange.x, defaultPositionRange.y));
     }
 
     void Update()
@@ -30,6 +32,7 @@ public class PlayerMotor : NetworkBehaviour
 
     public void ProcessMove(Vector2 input)
     {
+        if (!IsOwner) return;
         Vector3 moveDirection = Vector3.zero;
         moveDirection.x = input.x;
         moveDirection.z = input.y;

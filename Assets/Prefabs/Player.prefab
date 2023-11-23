@@ -15,10 +15,11 @@ GameObject:
   - component: {fileID: 93378373127528077}
   - component: {fileID: 530651614855061751}
   - component: {fileID: 993304627892263516}
-  - component: {fileID: -5516036645974060067}
   - component: {fileID: 4562368534049926287}
   - component: {fileID: -2721213188689535661}
   - component: {fileID: 1722106915857633836}
+  - component: {fileID: -5516036645974060067}
+  - component: {fileID: 5371998881082442535}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -173,21 +174,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be04c70911bfbac4c8c641ea456820bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &-5516036645974060067
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1287504444611049030}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3073b6f5995fccc40ac06a417157eccb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cam: {fileID: 5033622202274234613}
-  xSensitivity: 30
-  ySensitivity: 30
 --- !u!114 &4562368534049926287
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -243,6 +229,41 @@ MonoBehaviour:
   InLocalSpace: 0
   Interpolate: 1
   SlerpPosition: 0
+--- !u!114 &-5516036645974060067
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1287504444611049030}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3073b6f5995fccc40ac06a417157eccb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cam: {fileID: 5033622202274234613}
+  xSensitivity: 30
+  ySensitivity: 30
+--- !u!114 &5371998881082442535
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1287504444611049030}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3fdbdf7971e4504e8399807b18e0f84, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletPrefab: {fileID: 4345039509704114614, guid: 075f820f055859a4ebde661e803d3fe1, type: 3}
+  raycastHitRange: 999
+  aimColliderLayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  debugTransform: {fileID: 0}
+  bullet: {fileID: 3822981651942819932, guid: 075f820f055859a4ebde661e803d3fe1, type: 3}
+  bulletSpawnPosition: {fileID: 0}
 --- !u!1 &4983654777501466718
 GameObject:
   m_ObjectHideFlags: 0
