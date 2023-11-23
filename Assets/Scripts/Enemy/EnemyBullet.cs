@@ -16,7 +16,6 @@ public class EnemyBullet : NetworkBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         if (!collision.gameObject.CompareTag("Player")) return;
-        Debug.Log("Bullet hit");
         NetworkDestroy();
     }
 
@@ -28,6 +27,8 @@ public class EnemyBullet : NetworkBehaviour
 
     public void NetworkDestroy()
     {
+        // check for server just in case
+        if (!IsServer) return;
         var networkObj = GetComponent<NetworkObject>();
         networkObj.Despawn();
         Destroy(gameObject);

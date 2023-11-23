@@ -61,9 +61,15 @@ public class EnemySpawnManager : Singleton<EnemySpawnManager>
                 yield return new WaitForSeconds(5.0f);
                 continue;
             }
-
-            Vector3 randomPosition = new Vector3(UnityEngine.Random.Range(-5, 5), 0, UnityEngine.Random.Range(-5, 5));
+            Vector3 randomPosition = new Vector3(UnityEngine.Random.Range(-5, 5), 20, UnityEngine.Random.Range(-5, 5));
             GameObject enemyGameObject = Instantiate(enemyPrefab, randomPosition, Quaternion.identity);
+
+            // Check to spawn over the terrain instead of under it
+            // TEMPORARY SOLUTION, I DONT THINK THIS IS VERY EFFICIENT
+            if (Physics.Raycast(enemyGameObject.transform.position, Vector3.down, out RaycastHit hit))
+            {
+                enemyGameObject.transform.position -= new Vector3(0, -1 + hit.distance - enemyGameObject.GetComponent<Collider>().bounds.size.z, 0);
+            }
 
             NetworkObject enemyNetwork = enemyGameObject.GetComponent<NetworkObject>();
             enemyNetwork.Spawn();

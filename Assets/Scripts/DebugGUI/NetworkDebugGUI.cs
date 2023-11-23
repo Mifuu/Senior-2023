@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class NetworkDebugGUI : MonoBehaviour
 {
+    
     void OnGUI()
     {
         if (!DebugGUIManager.active)

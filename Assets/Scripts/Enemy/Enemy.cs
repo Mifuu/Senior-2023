@@ -13,8 +13,8 @@ public class Enemy : NetworkBehaviour
     void Update()
     {
         if (!isMoving.Value || !isReady.Value) return;
-        if ((followingPlayer.transform.position - transform.position).sqrMagnitude > 50.0f || enemyConfig.isMelee)
-            transform.Translate(transform.forward * (enemyConfig.movementSpdStat * Time.deltaTime));
+        if ((transform.position - followingPlayer.transform.position).sqrMagnitude > 50.0f || enemyConfig.isMelee)
+            transform.Translate((transform.position - followingPlayer.transform.position).normalized * (enemyConfig.movementSpdStat * Time.deltaTime));
     }
 
     public override void OnNetworkSpawn()

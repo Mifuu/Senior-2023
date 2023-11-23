@@ -14,9 +14,11 @@ public class EnemyAttack : NetworkBehaviour
         _bulletSpawn = transform.Find("EnemyBulletSpawn").gameObject;
         if (_bulletSpawn == null)
         {
-            Debug.LogError("bullet spawn in null");
+            Debug.LogError("Bullet spawn is null");
             enabled = false;
         }
+
+        enabled = false;
     }
 
     public override void OnNetworkSpawn()
@@ -25,7 +27,6 @@ public class EnemyAttack : NetworkBehaviour
         _enemy = GetComponent<Enemy>();
         if (_enemy == null)
         {
-            Debug.LogError("Enemy is null");
             enabled = false;
             return;
         }
@@ -61,7 +62,7 @@ public class EnemyAttack : NetworkBehaviour
 
     private IEnumerator StartShooting()
     {
-        while (true)
+        while (_isShooting.Value)
         {
             if (IsServer)
             {

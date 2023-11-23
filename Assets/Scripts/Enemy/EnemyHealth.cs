@@ -34,8 +34,6 @@ public class EnemyHealth : NetworkBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        // Player tag is temporary and is for testing only
-        /* if (IsServer && collision.gameObject.CompareTag("Player")) */
         if (IsServer && collision.gameObject.CompareTag("Attack"))
         {
             hpStat.Value -= 100;
