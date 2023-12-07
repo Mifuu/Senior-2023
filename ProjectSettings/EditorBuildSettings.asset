@@ -5,7 +5,22 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
+    path: Assets/Scenes/TerrainNetworkDev.unity
+    guid: 4b05c835244b047f08526084ade58e30
+  - enabled: 0
+    path: Assets/Scenes/TerrainDev.unity
+    guid: cdd437ff80856462eb984fe21421c255
+  - enabled: 0
     path: Assets/Scenes/GameScene.unity
     guid: 5d29fe87d8faa584aba672f6caab4622
+  - enabled: 0
+    path: Assets/Scenes/EnemyDev.unity
+    guid: 9d30ce37904c04241b561e76ed89b0a5
+  - enabled: 0
+    path: Assets/Scenes/SampleScene.unity
+    guid: 9fc0d4010bbf28b4594072e72b8655ab
+  - enabled: 1
+    path: Assets/Scenes/DemoScene.unity
+    guid: c02eb4ba98e49204181d4eca81e7658c
   m_configObjects: {}
