@@ -64,8 +64,8 @@ public class RoomDataPlotter : MonoBehaviour
         b.size = new Vector3(3, 3, 3);
 
         // box collider data and snapping setup
-        newCollider.AddComponent<BoxColliderData>();
-        var s = newCollider.AddComponent<BoxColliderSnapping>();
+        newCollider.AddComponent<RoomBoxData>();
+        var s = newCollider.AddComponent<RoomBoxSnapping>();
         s.boxCollider = b;
 
         UpdateColliderData();
