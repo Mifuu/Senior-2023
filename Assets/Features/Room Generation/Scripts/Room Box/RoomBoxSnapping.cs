@@ -4,11 +4,14 @@ using UnityEngine;
 
 [ExecuteInEditMode]
 [RequireComponent(typeof(BoxCollider))]
-public class BoxColliderSnapping : MonoBehaviour
+public class RoomBoxSnapping : MonoBehaviour
 {
     [SerializeField] public BoxCollider boxCollider;
-    [SerializeField] private float snapValue = 2f;
+    static Vector3 snapValue = new Vector3(2, 5, 2);
 
+
+    [Space]
+    [Header("Debug")]
     public Vector3 _center;
     public Vector3 _size;
 
@@ -24,13 +27,13 @@ public class BoxColliderSnapping : MonoBehaviour
         Vector3 center = boxCollider.center;
         Vector3 size = boxCollider.size;
 
-        center.x = Mathf.Round(center.x / snapValue) * snapValue;
-        center.y = Mathf.Round(center.y / snapValue) * snapValue;
-        center.z = Mathf.Round(center.z / snapValue) * snapValue;
+        center.x = Mathf.Round(center.x / snapValue.x) * snapValue.x;
+        center.y = Mathf.Round(center.y / snapValue.y) * snapValue.y;
+        center.z = Mathf.Round(center.z / snapValue.z) * snapValue.z;
 
-        size.x = Mathf.Round(size.x / snapValue) * snapValue;
-        size.y = Mathf.Round(size.y / snapValue) * snapValue;
-        size.z = Mathf.Round(size.z / snapValue) * snapValue;
+        size.x = Mathf.Round(size.x / snapValue.x) * snapValue.x;
+        size.y = Mathf.Round(size.y / snapValue.y) * snapValue.y;
+        size.z = Mathf.Round(size.z / snapValue.z) * snapValue.z;
 
         boxCollider.center = center;
         boxCollider.size = size;
@@ -49,9 +52,9 @@ public class BoxColliderSnapping : MonoBehaviour
 
         // snap size and center accordingly to the editting side
         Vector3 size = boxCollider.size;
-        if (boxCollider.size.x % snapValue != 0)
+        if (boxCollider.size.x % snapValue.x != 0)
         {
-            size.x = Mathf.Round(size.x / snapValue) * snapValue;
+            size.x = Mathf.Round(size.x / snapValue.x) * snapValue.x;
             boxCollider.size = size;
 
             // get absolute size diff
@@ -69,9 +72,9 @@ public class BoxColliderSnapping : MonoBehaviour
             _size = boxCollider.size;
             _center = boxCollider.center;
         }
-        else if (boxCollider.size.y % snapValue != 0)
+        else if (boxCollider.size.y % snapValue.y != 0)
         {
-            size.y = Mathf.Round(size.y / snapValue) * snapValue;
+            size.y = Mathf.Round(size.y / snapValue.y) * snapValue.y;
             boxCollider.size = size;
 
             // get absolute size diff
@@ -89,9 +92,9 @@ public class BoxColliderSnapping : MonoBehaviour
             _size = boxCollider.size;
             _center = boxCollider.center;
         }
-        else if (boxCollider.size.z % snapValue != 0)
+        else if (boxCollider.size.z % snapValue.z != 0)
         {
-            size.z = Mathf.Round(size.z / snapValue) * snapValue;
+            size.z = Mathf.Round(size.z / snapValue.z) * snapValue.z;
             boxCollider.size = size;
 
             // get absolute size diff
@@ -109,6 +112,8 @@ public class BoxColliderSnapping : MonoBehaviour
             _size = boxCollider.size;
             _center = boxCollider.center;
         }
+
+        RevalidateBoxCenter();
     }
 
     void OnDrawGizmosSelected()
@@ -116,5 +121,27 @@ public class BoxColliderSnapping : MonoBehaviour
         if (boxCollider == null) boxCollider = GetComponent<BoxCollider>();
 
         SnapBoxCollider2();
+
+        if (transform.position != Vector3.zero)
+            transform.position = Vector3.zero;
+    }
+
+    [ContextMenu("Revalidate Box Size")]
+    public void RevalidateBoxCenter()
+    {
+        _center = boxCollider.center;
+        if (_size.x / snapValue.x % 2 == 0)
+            _center.x = (Mathf.Round(_center.x / snapValue.x) * snapValue.x);
+        else
+            _center.x = ((Mathf.Round(_center.x / snapValue.x - 0.5f) + 0.5f) * snapValue.x);
+        if (_size.y / snapValue.y % 2 == 0)
+            _center.y = (Mathf.Round(_center.y / snapValue.y) * snapValue.y);
+        else
+            _center.y = ((Mathf.Round(_center.y / snapValue.y - 0.5f) + 0.5f) * snapValue.y);
+        if (_size.z / snapValue.z % 2 == 0)
+            _center.z = (Mathf.Round(_center.z / snapValue.z) * snapValue.z);
+        else
+            _center.z = ((Mathf.Round(_center.z / snapValue.z - 0.5f) + 0.5f) * snapValue.z);
+        boxCollider.center = _center;
     }
 }
