@@ -7,7 +7,7 @@ using UnityEngine;
 public class RoomBoxSnapping : MonoBehaviour
 {
     [SerializeField] public BoxCollider boxCollider;
-    static Vector3 snapValue = new Vector3(2, 5, 2);
+    public static readonly Vector3 snapValue = new Vector3(2, 5, 2);
 
 
     [Space]
@@ -116,16 +116,6 @@ public class RoomBoxSnapping : MonoBehaviour
         RevalidateBoxCenter();
     }
 
-    void OnDrawGizmosSelected()
-    {
-        if (boxCollider == null) boxCollider = GetComponent<BoxCollider>();
-
-        SnapBoxCollider2();
-
-        if (transform.position != Vector3.zero)
-            transform.position = Vector3.zero;
-    }
-
     [ContextMenu("Revalidate Box Size")]
     public void RevalidateBoxCenter()
     {
@@ -143,5 +133,15 @@ public class RoomBoxSnapping : MonoBehaviour
         else
             _center.z = ((Mathf.Round(_center.z / snapValue.z - 0.5f) + 0.5f) * snapValue.z);
         boxCollider.center = _center;
+    }
+
+    void OnDrawGizmosSelected()
+    {
+        if (boxCollider == null) boxCollider = GetComponent<BoxCollider>();
+
+        SnapBoxCollider2();
+
+        if (transform.position != Vector3.zero)
+            transform.position = Vector3.zero;
     }
 }

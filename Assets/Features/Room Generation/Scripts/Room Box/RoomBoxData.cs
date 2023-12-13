@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class RoomBoxData : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public enum DataType
     {
-
+        Area = 0,
+        DoorXPlus = 1,
+        DoorXMinus = 2,
+        DoorYPlus = 3,
+        DoorYMinus = 4,
+        DoorZPlus = 5,
+        DoorZMinus = 6
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
+    public HashSet<Vector3Int> data = new HashSet<Vector3Int>();
 }

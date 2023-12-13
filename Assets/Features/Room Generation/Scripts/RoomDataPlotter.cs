@@ -12,8 +12,6 @@ public class RoomDataPlotter : MonoBehaviour
     [TextArea(2, 4)]
     public string note1 = "This script is used to plot the room data in the scene view.\n" +
                    "Require gizmos to be turned on in the scene view.";
-    [Range(0f, 1f)]
-    public float colliderDataVisibility = 0.15f;
 
     [Space]
     [Header("roomData Info")]
@@ -24,6 +22,16 @@ public class RoomDataPlotter : MonoBehaviour
     [Space]
     [Header("Requirements")]
     public Transform dataColliderParent;
+
+    [Space]
+    [Header("Debug")]
+    [Range(0f, 1f)]
+    [SerializeField]
+    private float colliderDataLineVisibility = 0.30f;
+    [SerializeField]
+    private float colliderDataFillVisibility = 0.15f;
+    [SerializeField]
+    private bool showGrid = true;
 
     public void UpdateColliderData()
     {
@@ -64,7 +72,7 @@ public class RoomDataPlotter : MonoBehaviour
         b.size = new Vector3(3, 3, 3);
 
         // box collider data and snapping setup
-        newCollider.AddComponent<RoomBoxData>();
+        newCollider.AddComponent<RoomBoxDataFromCollider>();
         var s = newCollider.AddComponent<RoomBoxSnapping>();
         s.boxCollider = b;
 
@@ -73,8 +81,8 @@ public class RoomDataPlotter : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        Color fillColor = new Color(EDITOR_COLOR.r, EDITOR_COLOR.g, EDITOR_COLOR.b, colliderDataVisibility);
-        Color outlineColor = EDITOR_COLOR;
+        Color fillColor = new Color(EDITOR_COLOR.r, EDITOR_COLOR.g, EDITOR_COLOR.b, colliderDataFillVisibility);
+        Color outlineColor = new Color(EDITOR_COLOR.r, EDITOR_COLOR.g, EDITOR_COLOR.b, colliderDataLineVisibility);
 
         foreach (var b in colliders)
         {
@@ -84,9 +92,59 @@ public class RoomDataPlotter : MonoBehaviour
             Gizmos.color = fillColor;
             Gizmos.DrawCube(b.transform.position + b.center, b.size);
 
-            // draw outline
-            Gizmos.color = outlineColor;
-            Gizmos.DrawWireCube(b.transform.position + b.center, b.size);
+
+            if (showGrid)
+            {
+                // draw grid
+                Gizmos.color = outlineColor;
+                DrawGrid(b);
+            }
+            else
+            {
+                // draw outline
+                Gizmos.color = outlineColor;
+                Gizmos.DrawWireCube(b.transform.position + b.center, b.size);
+            }
         }
+    }
+
+    private void DrawGrid(BoxCollider b)
+    {
+        Bounds bounds = b.bounds;
+        Vector3 min = bounds.min;
+        Vector3 snapValue = RoomBoxSnapping.snapValue;
+
+        // directional values
+        Vector3 up = Vector3.up * bounds.size.y;
+        Vector3 forward = Vector3.forward * bounds.size.z;
+        Vector3 right = Vector3.right * bounds.size.x;
+
+        // draw x ring
+        for (Vector3 current = min; current.x <= bounds.max.x; current.x += snapValue.x)
+        {
+            Gizmos.DrawLine(current, current + up);
+            Gizmos.DrawLine(current, current + forward);
+            Gizmos.DrawLine(current + up, current + up + forward);
+            Gizmos.DrawLine(current + forward, current + up + forward);
+        }
+
+        // draw y ring
+        for (Vector3 current = min; current.y <= bounds.max.y; current.y += snapValue.y)
+        {
+            Gizmos.DrawLine(current, current + right);
+            Gizmos.DrawLine(current, current + forward);
+            Gizmos.DrawLine(current + right, current + right + forward);
+            Gizmos.DrawLine(current + forward, current + right + forward);
+        }
+
+        // draw z ring
+        for (Vector3 current = min; current.z <= bounds.max.z; current.z += snapValue.z)
+        {
+            Gizmos.DrawLine(current, current + right);
+            Gizmos.DrawLine(current, current + up);
+            Gizmos.DrawLine(current + right, current + right + up);
+            Gizmos.DrawLine(current + up, current + right + up);
+        }
+
     }
 }
