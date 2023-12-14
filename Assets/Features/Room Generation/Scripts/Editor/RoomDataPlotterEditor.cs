@@ -14,12 +14,14 @@ public class RoomDataPlotterEditor : Editor
         GUILayout.Space(25);
 
         if (GUILayout.Button("Add Collider"))
-        {
             roomDataPlotter.AddCollider();
-        }
+        GUILayout.Space(10);
         if (GUILayout.Button("Update Colliders"))
-        {
             roomDataPlotter.UpdateColliderData();
-        }
+        if (GUILayout.Button("Get Room Box Data"))
+            roomDataPlotter.GetRoomBoxData();
+
+        GUILayout.Space(25);
+        GUILayout.Label(roomDataPlotter.latestRoomBoxData);
     }
 }
