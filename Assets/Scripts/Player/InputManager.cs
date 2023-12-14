@@ -10,6 +10,7 @@ public class InputManager : MonoBehaviour
     private PlayerMotor motor;
     private PlayerLook look;
     private PlayerShoot shoot;
+    private PlayerDash dash; 
      
     void Awake()
     {
@@ -18,8 +19,10 @@ public class InputManager : MonoBehaviour
         motor = GetComponent<PlayerMotor>();
         look = GetComponent<PlayerLook>();
         shoot = GetComponent<PlayerShoot>();
+        dash = GetComponent<PlayerDash>();
         onFoot.Jump.performed += (ctx) => motor.Jump();
         onFoot.Shoot.performed += (ctx) => shoot.ShootBullet();
+        onFoot.Dash.performed += ctx => dash.Dash(onFoot.Movement.ReadValue<Vector2>());
     }
 
     void FixedUpdate()

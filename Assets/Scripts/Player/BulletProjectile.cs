@@ -8,7 +8,7 @@ public class BulletProjectile : NetworkBehaviour
 {
     [SerializeField] private Transform vfxHit;
     private Rigidbody bulletRigidbody;
-    public float speed = 100f;
+    public float speed = 400f;
     public float lifetime = 5.0f; 
     //public Vector3 bulletDirection;
 
