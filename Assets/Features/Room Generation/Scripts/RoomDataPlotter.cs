@@ -7,7 +7,6 @@ public class RoomDataPlotter : MonoBehaviour
     static readonly Color EDITOR_COLOR = new Color(0.5f, 1f, 1f, 1f);
     RoomData roomData;
 
-    [Space]
     [ReadOnly]
     [TextArea(2, 4)]
     public string note1 = "This script is used to plot the room data in the scene view.\n" +
@@ -32,26 +31,10 @@ public class RoomDataPlotter : MonoBehaviour
     private float colliderDataFillVisibility = 0.15f;
     [SerializeField]
     private bool showGrid = true;
+    [HideInInspector]
+    public string latestRoomBoxData = "";
 
-    public void UpdateColliderData()
-    {
-        if (dataColliderParent == null)
-        {
-            Debug.LogError("RoomDataPlotter.GetColliders(): dataColliderParent is null.");
-            return;
-        }
-
-        colliders = new List<BoxCollider>();
-
-        foreach (Transform t in dataColliderParent)
-        {
-            if (t.TryGetComponent(out BoxCollider boxCollider))
-            {
-                colliders.Add(boxCollider);
-            }
-        }
-    }
-
+    [ContextMenu("AddCollider")]
     public void AddCollider()
     {
         if (dataColliderParent == null)
@@ -72,11 +55,51 @@ public class RoomDataPlotter : MonoBehaviour
         b.size = new Vector3(3, 3, 3);
 
         // box collider data and snapping setup
-        newCollider.AddComponent<RoomBoxDataFromCollider>();
         var s = newCollider.AddComponent<RoomBoxSnapping>();
+        newCollider.AddComponent<RoomBoxDataFromCollider>();
         s.boxCollider = b;
 
         UpdateColliderData();
+    }
+
+    [ContextMenu("UpdateColliders")]
+    public void UpdateColliderData()
+    {
+        if (dataColliderParent == null)
+        {
+            Debug.LogError("RoomDataPlotter.GetColliders(): dataColliderParent is null.");
+            return;
+        }
+
+        colliders = new List<BoxCollider>();
+
+        foreach (Transform t in dataColliderParent)
+        {
+            if (t.TryGetComponent(out BoxCollider boxCollider))
+            {
+                colliders.Add(boxCollider);
+            }
+        }
+    }
+
+    [ContextMenu("GetRoomBoxData")]
+    public void GetRoomBoxData()
+    {
+        // get roomBoxDataFromColliders
+        List<RoomBoxDataFromCollider> roomBoxDataFromColliders = new List<RoomBoxDataFromCollider>();
+        foreach (Transform t in dataColliderParent)
+        {
+            if (t.TryGetComponent(out RoomBoxDataFromCollider roomBoxDataFromCollider))
+                roomBoxDataFromColliders.Add(roomBoxDataFromCollider);
+        }
+
+        // get roomBoxData
+        roomData = new RoomData();
+        foreach (RoomBoxDataFromCollider roomBoxDataFromCollider in roomBoxDataFromColliders)
+            roomData.roomBoxData.AddData(roomBoxDataFromCollider.GetRoomBoxData());
+
+        // set debug output
+        latestRoomBoxData = roomData.roomBoxData.ToGridString(16);
     }
 
     private void OnDrawGizmos()
