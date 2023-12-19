@@ -5,22 +5,22 @@ using UnityEngine;
 public class RoomDataPlotter : MonoBehaviour
 {
     static readonly Color EDITOR_COLOR = new Color(0.5f, 1f, 1f, 1f);
-    RoomData roomData;
 
-    [ReadOnly]
-    [TextArea(2, 4)]
-    public string note1 = "This script is used to plot the room data in the scene view.\n" +
-                   "Require gizmos to be turned on in the scene view.";
+    [Space]
+    public RoomData roomData;
 
     [Space]
     [Header("roomData Info")]
     [ReadOnly]
     [SerializeField]
-    private List<BoxCollider> colliders;
+    private List<RoomBoxSnapping> roomBoxSnappings;
+    [SerializeField]
+    private List<RoomDoorSnapping> roomDoorSnappings;
 
     [Space]
     [Header("Requirements")]
-    public Transform dataColliderParent;
+    public Transform roomBoxesParent;
+    public Transform roomDoorsParent;
 
     [Space]
     [Header("Debug")]
@@ -33,19 +33,63 @@ public class RoomDataPlotter : MonoBehaviour
     private bool showGrid = true;
     [HideInInspector]
     public string latestRoomBoxData = "";
+    [HideInInspector]
+    public string latestRoomDoorData = "";
 
-    [ContextMenu("AddCollider")]
-    public void AddCollider()
+    public void AddRoomDoor()
     {
-        if (dataColliderParent == null)
+        if (roomDoorsParent == null)
+        {
+            Debug.LogError("RoomDataPlotter.AddRoomDoor(): roomDoorsParent is null.");
+            return;
+        }
+
+        // game object setup
+        GameObject newDoor = new GameObject("_Room Door");
+        newDoor.transform.parent = roomDoorsParent;
+        newDoor.transform.localPosition = Vector3.zero;
+        newDoor.transform.localRotation = Quaternion.identity;
+        newDoor.transform.localScale = Vector3.one;
+
+        // box collider data and snapping setup
+        newDoor.AddComponent<RoomDoorSnapping>();
+        newDoor.AddComponent<RoomDoorDataGetter>();
+
+        UpdateRoomDoor();
+    }
+
+    [ContextMenu("UpdateRoomDoor")]
+    public void UpdateRoomDoor()
+    {
+        if (roomDoorsParent == null)
+        {
+            Debug.LogError("RoomDataPlotter.GetColliders(): dataColliderParent is null.");
+            return;
+        }
+
+        roomDoorSnappings = new List<RoomDoorSnapping>();
+
+        foreach (Transform t in roomDoorsParent)
+        {
+            if (t.TryGetComponent(out RoomDoorSnapping roomDoorSnapping))
+            {
+                roomDoorSnappings.Add(roomDoorSnapping);
+            }
+        }
+    }
+
+    [ContextMenu("AddRoomBox")]
+    public void AddRoomBox()
+    {
+        if (roomBoxesParent == null)
         {
             Debug.LogError("RoomDataPlotter.AddCollider(): dataColliderParent is null.");
             return;
         }
 
         // game object setup
-        GameObject newCollider = new GameObject("_Data Collider");
-        newCollider.transform.parent = dataColliderParent;
+        GameObject newCollider = new GameObject("_Room Box");
+        newCollider.transform.parent = roomBoxesParent;
         newCollider.transform.localPosition = Vector3.zero;
         newCollider.transform.localRotation = Quaternion.identity;
         newCollider.transform.localScale = Vector3.one;
@@ -56,28 +100,28 @@ public class RoomDataPlotter : MonoBehaviour
 
         // box collider data and snapping setup
         var s = newCollider.AddComponent<RoomBoxSnapping>();
-        newCollider.AddComponent<RoomBoxDataFromCollider>();
+        newCollider.AddComponent<RoomBoxDataGetter>();
         s.boxCollider = b;
 
-        UpdateColliderData();
+        UpdateRoomBox();
     }
 
-    [ContextMenu("UpdateColliders")]
-    public void UpdateColliderData()
+    [ContextMenu("UpdateRoomBox")]
+    public void UpdateRoomBox()
     {
-        if (dataColliderParent == null)
+        if (roomBoxesParent == null)
         {
             Debug.LogError("RoomDataPlotter.GetColliders(): dataColliderParent is null.");
             return;
         }
 
-        colliders = new List<BoxCollider>();
+        roomBoxSnappings = new List<RoomBoxSnapping>();
 
-        foreach (Transform t in dataColliderParent)
+        foreach (Transform t in roomBoxesParent)
         {
-            if (t.TryGetComponent(out BoxCollider boxCollider))
+            if (t.TryGetComponent(out RoomBoxSnapping roomBoxSnapping))
             {
-                colliders.Add(boxCollider);
+                roomBoxSnappings.Add(roomBoxSnapping);
             }
         }
     }
@@ -86,48 +130,91 @@ public class RoomDataPlotter : MonoBehaviour
     public void GetRoomBoxData()
     {
         // get roomBoxDataFromColliders
-        List<RoomBoxDataFromCollider> roomBoxDataFromColliders = new List<RoomBoxDataFromCollider>();
-        foreach (Transform t in dataColliderParent)
+        List<RoomBoxDataGetter> roomBoxDataGetters = new List<RoomBoxDataGetter>();
+        foreach (Transform t in roomBoxesParent)
         {
-            if (t.TryGetComponent(out RoomBoxDataFromCollider roomBoxDataFromCollider))
-                roomBoxDataFromColliders.Add(roomBoxDataFromCollider);
+            if (t.TryGetComponent(out RoomBoxDataGetter g))
+                roomBoxDataGetters.Add(g);
         }
 
         // get roomBoxData
-        roomData = new RoomData();
-        foreach (RoomBoxDataFromCollider roomBoxDataFromCollider in roomBoxDataFromColliders)
-            roomData.roomBoxData.AddData(roomBoxDataFromCollider.GetRoomBoxData());
+        if (roomData == null)
+        {
+            Debug.Log("RoomDataPlotter.GetRoomBoxData(): roomData is null.");
+            return;
+        }
+        roomData.roomBoxData.Clear();
+        foreach (RoomBoxDataGetter roomBoxDataGetter in roomBoxDataGetters)
+            roomData.roomBoxData.AddData(roomBoxDataGetter.GetRoomBoxData());
 
         // set debug output
         latestRoomBoxData = roomData.roomBoxData.ToGridString(16);
     }
 
+    [ContextMenu("GetRoomDoorData")]
+    public void GetRoomDoorData()
+    {
+        // get roomDoorDataFromColliders
+        List<RoomDoorDataGetter> roomDoorDataGetters = new List<RoomDoorDataGetter>();
+        foreach (Transform t in roomDoorsParent)
+        {
+            if (t.TryGetComponent(out RoomDoorDataGetter g))
+                roomDoorDataGetters.Add(g);
+        }
+
+        // get room door data
+        if (roomData == null)
+        {
+            Debug.Log("RoomDataPlotter.GetRoomDoorData(): roomData is null.");
+            return;
+        }
+        roomData.roomDoorData.Clear();
+        foreach (RoomDoorDataGetter g in roomDoorDataGetters)
+            roomData.roomDoorData.AddData(g.GetRoomDoorData());
+
+        // set debug output
+        latestRoomDoorData = roomData.roomDoorData.ToString();
+    }
+
     private void OnDrawGizmos()
     {
+        transform.position = Vector3.zero;
+
         Color fillColor = new Color(EDITOR_COLOR.r, EDITOR_COLOR.g, EDITOR_COLOR.b, colliderDataFillVisibility);
         Color outlineColor = new Color(EDITOR_COLOR.r, EDITOR_COLOR.g, EDITOR_COLOR.b, colliderDataLineVisibility);
 
-        foreach (var b in colliders)
+        foreach (var b in roomBoxSnappings)
         {
             if (b == null) continue;
 
+            BoxCollider c = b.GetComponent<BoxCollider>();
+
             // draw fill
             Gizmos.color = fillColor;
-            Gizmos.DrawCube(b.transform.position + b.center, b.size);
+            Gizmos.DrawCube(b.transform.position + c.center, c.size);
 
 
             if (showGrid)
             {
                 // draw grid
                 Gizmos.color = outlineColor;
-                DrawGrid(b);
+                DrawGrid(c);
             }
             else
             {
                 // draw outline
                 Gizmos.color = outlineColor;
-                Gizmos.DrawWireCube(b.transform.position + b.center, b.size);
+                Gizmos.DrawWireCube(b.transform.position + c.center, c.size);
             }
+        }
+
+        foreach (var d in roomDoorSnappings)
+        {
+            if (d == null) continue;
+
+            // draw fill
+            Gizmos.color = fillColor;
+            Gizmos.DrawIcon(d.transform.position, "Packages/com.unity.collab-proxy/Editor/PlasticSCM/Assets/Images/d_iconbranch@2x.png", true);
         }
     }
 

@@ -4,7 +4,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(BoxCollider))]
 [RequireComponent(typeof(RoomBoxSnapping))]
-public class RoomBoxDataFromCollider : MonoBehaviour
+public class RoomBoxDataGetter : MonoBehaviour
 {
     [Space]
     [ReadOnly]
