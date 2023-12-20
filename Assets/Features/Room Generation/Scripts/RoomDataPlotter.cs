@@ -5,6 +5,7 @@ using UnityEngine;
 public class RoomDataPlotter : MonoBehaviour
 {
     static readonly Color EDITOR_COLOR = new Color(0.5f, 1f, 1f, 1f);
+    public Color editorColor = EDITOR_COLOR;
 
     [SerializeField]
     [ReadOnly]
@@ -186,8 +187,8 @@ public class RoomDataPlotter : MonoBehaviour
         if (isPlotting)
             transform.position = Vector3.zero;
 
-        Color fillColor = new Color(EDITOR_COLOR.r, EDITOR_COLOR.g, EDITOR_COLOR.b, colliderDataFillVisibility);
-        Color outlineColor = new Color(EDITOR_COLOR.r, EDITOR_COLOR.g, EDITOR_COLOR.b, colliderDataLineVisibility);
+        Color fillColor = new Color(editorColor.r, editorColor.g, editorColor.b, colliderDataFillVisibility);
+        Color outlineColor = new Color(editorColor.r, editorColor.g, editorColor.b, colliderDataLineVisibility);
 
         foreach (var b in roomBoxes)
         {
@@ -292,5 +293,15 @@ public class RoomDataPlotter : MonoBehaviour
                 DestroyImmediate(roomDoorDataGetter);
             }
         }
+
+        editorColor = RandHue(editorColor);
+    }
+
+    public Color RandHue(Color col)
+    {
+        float h, s, v;
+        Color.RGBToHSV(col, out h, out s, out v);
+        h = Random.Range(0f, 1f);
+        return Color.HSVToRGB(h, s, v);
     }
 }

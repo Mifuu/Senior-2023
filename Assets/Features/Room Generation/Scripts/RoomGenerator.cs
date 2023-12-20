@@ -11,6 +11,9 @@ public class RoomGenerator : MonoBehaviour
     List<GameObject> roomObjects = new List<GameObject>();
     List<DoorData> roomDoorDatas = new List<DoorData>();
 
+    // Debug
+    public Vector3 latestTargetDoorCoord;
+
     // Generation Settings
     public int randDoorAttempts = 10;
 
@@ -45,13 +48,16 @@ public class RoomGenerator : MonoBehaviour
 
             // random door data
             DoorData targetDoor = GetRandom(roomDoorDatas);
+            latestTargetDoorCoord = V3Multiply(targetDoor.coord, RoomBoxSnapping.snapValue);
 
             // random room
             List<DoorData> possibleConnectingDoors = GetPossibleConnectingDoor(targetDoor);
+            Debug.Log("possibleConnectingDoors.Count: " + possibleConnectingDoors.Count);
 
             // if no possible rooms for the specific door
             if (possibleConnectingDoors.Count == 0)
             {
+                Debug.Log("REMOVE DOOR");
                 roomDoorDatas.Remove(targetDoor);
                 StepAddRoom();
                 continue;
@@ -206,5 +212,29 @@ public class RoomGenerator : MonoBehaviour
         Vector3 _p = targetDoor.coord - connectingDoor.coord;
         Vector3Int placementOffset = new Vector3Int(Mathf.RoundToInt(_p.x), Mathf.RoundToInt(_p.y), Mathf.RoundToInt(_p.z));
         return placementOffset;
+    }
+
+    void OnDrawGizmos()
+    {
+        Gizmos.color = Color.green;
+        foreach (var d in roomDoorDatas)
+        {
+            Vector3 _p = d.coord;
+            _p.x *= RoomBoxSnapping.snapValue.x;
+            _p.y *= RoomBoxSnapping.snapValue.y;
+            _p.z *= RoomBoxSnapping.snapValue.z;
+            Gizmos.DrawSphere(_p, 0.5f);
+        }
+
+        Gizmos.color = Color.red;
+        Gizmos.DrawSphere(latestTargetDoorCoord, 0.7f);
+    }
+
+    Vector3 V3Multiply(Vector3 v, Vector3 i)
+    {
+        v.x *= i.x;
+        v.y *= i.y;
+        v.z *= i.z;
+        return v;
     }
 }

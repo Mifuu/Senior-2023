@@ -25,11 +25,11 @@ public class RoomData : ScriptableObject
 [System.Serializable]
 public class RoomBoxData
 {
-    public HashSet<Vector3Int> roomSpaces;
+    public List<Vector3Int> roomSpaces;
 
     public RoomBoxData()
     {
-        roomSpaces = new HashSet<Vector3Int>();
+        roomSpaces = new List<Vector3Int>();
     }
 
     public void AddData(Vector3Int pos)
