@@ -52,7 +52,6 @@ public class RoomGenerator : MonoBehaviour
 
             // random room
             List<DoorData> possibleConnectingDoors = GetPossibleConnectingDoor(targetDoor);
-            Debug.Log("possibleConnectingDoors.Count: " + possibleConnectingDoors.Count);
 
             // if no possible rooms for the specific door
             if (possibleConnectingDoors.Count == 0)
