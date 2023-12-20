@@ -14,6 +14,9 @@ public class RoomDataPlotterEditor : Editor
         DrawDefaultInspector();
         RoomDataPlotter roomDataPlotter = (RoomDataPlotter)target;
 
+        if (!roomDataPlotter.IsPlotting)
+            return;
+
         GUILayout.Space(25);
 
         if (GUILayout.Button("Add Room Box"))
