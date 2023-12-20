@@ -10,10 +10,15 @@ public class RoomData : ScriptableObject
 
     public GameObject roomPrefab;
 
-    public RoomData()
+    public List<DoorData> GetDoorDatas(DoorData.DoorDir doorDir)
     {
-        roomBoxData = new RoomBoxData();
-        roomDoorData = new RoomDoorData();
+        List<DoorData> doorDatas = new List<DoorData>();
+        foreach (var d in roomDoorData.doorDatas)
+        {
+            if (d.doorDir == doorDir)
+                doorDatas.Add(d);
+        }
+        return doorDatas;
     }
 }
 
@@ -94,37 +99,62 @@ public class RoomBoxData
 [System.Serializable]
 public class RoomDoorData
 {
-    public HashSet<Vector3> doorCoords;
+    public RoomData parentRoom;
+    public List<DoorData> doorDatas;
 
-    public RoomDoorData()
+    public RoomDoorData(RoomData parentRoom)
     {
-        doorCoords = new HashSet<Vector3>();
+        doorDatas = new List<DoorData>();
+        this.parentRoom = parentRoom;
     }
 
-    public void AddData(Vector3 pos)
+    public void AddData(Vector3 pos, DoorData.DoorDir doorDir)
     {
-        doorCoords.Add(pos);
+        doorDatas.Add(new DoorData(pos, doorDir, parentRoom));
     }
 
     public void AddData(RoomDoorData roomDoorData)
     {
-        foreach (Vector3 pos in roomDoorData.doorCoords)
-            doorCoords.Add(pos);
+        foreach (var d in roomDoorData.doorDatas)
+            doorDatas.Add(d);
     }
 
     public void Clear()
     {
-        doorCoords.Clear();
+        doorDatas.Clear();
     }
 
     public override string ToString()
     {
         string output = "";
-        output += "Door Count: " + doorCoords.Count + "\n";
-        foreach (Vector3 pos in doorCoords)
+        output += "Door Count: " + doorDatas.Count + "\n";
+        foreach (var d in doorDatas)
         {
-            output += pos.ToString() + "\n";
+            output += d.coord.ToString() + "\n";
         }
         return output;
+    }
+}
+
+[System.Serializable]
+public class DoorData
+{
+    public RoomData parentRoom;
+    public Vector3 coord;
+    public enum DoorDir { ZPos, XPos, ZNeg, XNeg };
+    public DoorDir doorDir;
+
+    public DoorData(Vector3 coord, DoorDir doorDir, RoomData parentRoom)
+    {
+        this.coord = coord;
+        this.doorDir = doorDir;
+        this.parentRoom = parentRoom;
+    }
+
+    public DoorData(DoorData data)
+    {
+        coord = data.coord;
+        doorDir = data.doorDir;
+        parentRoom = data.parentRoom;
     }
 }

@@ -828,16 +828,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3193e110d4c7644d592e4ae12651c4c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isPlotting: 1
   roomData: {fileID: 11400000, guid: 115f8dc24971b486795de633253f12ac, type: 2}
-  roomBoxSnappings:
-  - {fileID: 2289602704555910942}
-  - {fileID: 7350290385862416118}
-  - {fileID: 2120493379109942608}
-  roomDoorSnappings:
-  - {fileID: 8445392264771500640}
-  - {fileID: 6880600508343371496}
-  - {fileID: 2551765958199673742}
-  - {fileID: 7368368734421196798}
+  roomBoxes:
+  - {fileID: 7795640140757244768}
+  - {fileID: 4771009987993237386}
+  - {fileID: 3811515534804595363}
+  roomDoors:
+  - {fileID: 6306363057503895835}
+  - {fileID: 6448425262710674345}
+  - {fileID: 7743285791155843436}
+  - {fileID: 7090704978238382125}
   roomBoxesParent: {fileID: 3959223687584786704}
   roomDoorsParent: {fileID: 3882709238468659991}
   colliderDataLineVisibility: 0.3
@@ -910,6 +911,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 479ed45f812c64e388a9ebc09d499485, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  doorDir: 0
   _pos: {x: 0, y: 2.5, z: 6}
 --- !u!114 &7831403394481786539
 MonoBehaviour:
@@ -968,6 +970,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 479ed45f812c64e388a9ebc09d499485, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  doorDir: 3
   _pos: {x: -6, y: 2.5, z: 0}
 --- !u!114 &81375151237164134
 MonoBehaviour:
@@ -1026,6 +1029,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 479ed45f812c64e388a9ebc09d499485, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  doorDir: 2
   _pos: {x: 0, y: 2.5, z: -10}
 --- !u!114 &5852418078460706772
 MonoBehaviour:
@@ -1190,6 +1194,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 479ed45f812c64e388a9ebc09d499485, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  doorDir: 1
   _pos: {x: 10, y: 7.5, z: 0}
 --- !u!114 &6937767409825385438
 MonoBehaviour:

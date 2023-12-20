@@ -6,6 +6,11 @@ public class RoomDataPlotter : MonoBehaviour
 {
     static readonly Color EDITOR_COLOR = new Color(0.5f, 1f, 1f, 1f);
 
+    [SerializeField]
+    [ReadOnly]
+    private bool isPlotting = true;
+    public bool IsPlotting { get { return isPlotting; } }
+
     [Space]
     public RoomData roomData;
 
@@ -13,9 +18,9 @@ public class RoomDataPlotter : MonoBehaviour
     [Header("roomData Info")]
     [ReadOnly]
     [SerializeField]
-    private List<RoomBoxSnapping> roomBoxSnappings;
+    private List<GameObject> roomBoxes;
     [SerializeField]
-    private List<RoomDoorSnapping> roomDoorSnappings;
+    private List<GameObject> roomDoors;
 
     [Space]
     [Header("Requirements")]
@@ -67,13 +72,13 @@ public class RoomDataPlotter : MonoBehaviour
             return;
         }
 
-        roomDoorSnappings = new List<RoomDoorSnapping>();
+        roomDoors = new List<GameObject>();
 
         foreach (Transform t in roomDoorsParent)
         {
             if (t.TryGetComponent(out RoomDoorSnapping roomDoorSnapping))
             {
-                roomDoorSnappings.Add(roomDoorSnapping);
+                roomDoors.Add(roomDoorSnapping.gameObject);
             }
         }
     }
@@ -115,13 +120,13 @@ public class RoomDataPlotter : MonoBehaviour
             return;
         }
 
-        roomBoxSnappings = new List<RoomBoxSnapping>();
+        roomBoxes = new List<GameObject>();
 
         foreach (Transform t in roomBoxesParent)
         {
             if (t.TryGetComponent(out RoomBoxSnapping roomBoxSnapping))
             {
-                roomBoxSnappings.Add(roomBoxSnapping);
+                roomBoxes.Add(roomBoxSnapping.gameObject);
             }
         }
     }
@@ -170,7 +175,7 @@ public class RoomDataPlotter : MonoBehaviour
         }
         roomData.roomDoorData.Clear();
         foreach (RoomDoorDataGetter g in roomDoorDataGetters)
-            roomData.roomDoorData.AddData(g.GetRoomDoorData());
+            roomData.roomDoorData.AddData(g.GetRoomDoorData(roomData));
 
         // set debug output
         latestRoomDoorData = roomData.roomDoorData.ToString();
@@ -178,12 +183,13 @@ public class RoomDataPlotter : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        transform.position = Vector3.zero;
+        if (isPlotting)
+            transform.position = Vector3.zero;
 
         Color fillColor = new Color(EDITOR_COLOR.r, EDITOR_COLOR.g, EDITOR_COLOR.b, colliderDataFillVisibility);
         Color outlineColor = new Color(EDITOR_COLOR.r, EDITOR_COLOR.g, EDITOR_COLOR.b, colliderDataLineVisibility);
 
-        foreach (var b in roomBoxSnappings)
+        foreach (var b in roomBoxes)
         {
             if (b == null) continue;
 
@@ -208,13 +214,18 @@ public class RoomDataPlotter : MonoBehaviour
             }
         }
 
-        foreach (var d in roomDoorSnappings)
+        foreach (var d in roomDoors)
         {
             if (d == null) continue;
+            RoomDoorSnapping _d = d.GetComponent<RoomDoorSnapping>();
 
             // draw fill
             Gizmos.color = fillColor;
             Gizmos.DrawIcon(d.transform.position, "Packages/com.unity.collab-proxy/Editor/PlasticSCM/Assets/Images/d_iconbranch@2x.png", true);
+
+            // draw arrow
+            Gizmos.color = outlineColor;
+            _d.DrawArrow();
         }
     }
 
@@ -256,5 +267,30 @@ public class RoomDataPlotter : MonoBehaviour
             Gizmos.DrawLine(current + up, current + right + up);
         }
 
+    }
+
+    public void DisablePlotting()
+    {
+        isPlotting = false;
+
+        foreach (Transform t in roomBoxesParent)
+        {
+            if (t.TryGetComponent(out RoomBoxDataGetter roomBoxDataGetter))
+            {
+                DestroyImmediate(roomBoxDataGetter);
+            }
+            if (t.TryGetComponent(out RoomBoxSnapping roomBoxSnapping))
+            {
+                DestroyImmediate(roomBoxSnapping);
+            }
+        }
+
+        foreach (Transform t in roomDoorsParent)
+        {
+            if (t.TryGetComponent(out RoomDoorDataGetter roomDoorDataGetter))
+            {
+                DestroyImmediate(roomDoorDataGetter);
+            }
+        }
     }
 }
