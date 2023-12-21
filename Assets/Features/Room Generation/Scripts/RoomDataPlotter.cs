@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 
 public class RoomDataPlotter : MonoBehaviour
 {
@@ -155,6 +156,8 @@ public class RoomDataPlotter : MonoBehaviour
 
         // set debug output
         latestRoomBoxData = roomData.roomBoxData.ToGridString(16);
+
+        EditorUtility.SetDirty(roomData);
     }
 
     [ContextMenu("GetRoomDoorData")]
@@ -180,6 +183,8 @@ public class RoomDataPlotter : MonoBehaviour
 
         // set debug output
         latestRoomDoorData = roomData.roomDoorData.ToString();
+
+        EditorUtility.SetDirty(roomData);
     }
 
     private void OnDrawGizmos()
