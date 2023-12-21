@@ -35,10 +35,8 @@ public class JCharacter : MonoBehaviour
 
         if (cam != null)
         {
-            /*
             Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Locked;
-            */
         }
 
         if (GetComponent<NetworkObject>() != null && GetComponent<NetworkObject>().IsOwner)
