@@ -62,6 +62,8 @@ public class RoomGenerator : MonoBehaviour
                 continue;
             }
 
+            Debug.Log(possibleConnectingDoors.Count);
+
             // choosing random possible rooms
             DoorData connectingDoor = GetRandom(possibleConnectingDoors);
 
@@ -74,6 +76,7 @@ public class RoomGenerator : MonoBehaviour
             return true;
         }
 
+        Debug.Log("Out of Attempts");
         return false;
     }
 
