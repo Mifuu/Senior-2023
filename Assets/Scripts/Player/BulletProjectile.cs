@@ -8,8 +8,8 @@ public class BulletProjectile : NetworkBehaviour
 {
     [SerializeField] private Transform vfxHit;
     private Rigidbody bulletRigidbody;
-    public float speed = 100f;
-    public float lifetime = 5.0f; 
+    public float speed = 400f;
+    public float lifetime = 5.0f;
     //public Vector3 bulletDirection;
 
     private void Awake()
@@ -23,7 +23,7 @@ public class BulletProjectile : NetworkBehaviour
         //DestroyAfterDelayServerRpc();
         //transform.rotation = Quaternion.Euler(bulletDirection); 
     }
-    
+
     private void OnTriggerEnter(Collider other)
     {
         //Instantiate(vfxHit, transform.position, Quaternion.identity);
