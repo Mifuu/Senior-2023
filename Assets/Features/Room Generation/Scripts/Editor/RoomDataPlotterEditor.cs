@@ -36,6 +36,15 @@ public class RoomDataPlotterEditor : Editor
         if (GUILayout.Button("Get Room Door Data"))
             roomDataPlotter.GetRoomDoorData();
 
+        GUILayout.Space(10);
+        if (GUILayout.Button("Update and Get All Data"))
+        {
+            roomDataPlotter.UpdateRoomBox();
+            roomDataPlotter.UpdateRoomDoor();
+            roomDataPlotter.GetRoomBoxData();
+            roomDataPlotter.GetRoomDoorData();
+        }
+
         GUILayout.Space(25);
         GUILayout.Label(roomDataPlotter.latestRoomBoxData);
         GUILayout.Label(roomDataPlotter.latestRoomDoorData);
