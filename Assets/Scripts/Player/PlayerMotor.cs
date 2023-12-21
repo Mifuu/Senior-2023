@@ -7,7 +7,6 @@ using Unity.Netcode.Components;
 public class PlayerMotor : NetworkBehaviour
 {
     private CharacterController controller;
-    private Rigidbody playerRigidBody;
     private Vector3 playerVelocity;
     private float speed = 20f;
     private float gravity = -9.8f;
@@ -28,6 +27,20 @@ public class PlayerMotor : NetworkBehaviour
     void Update()
     {
         isGrounded = controller.isGrounded;
+        // Check if the "Alt" key is held down
+        if (Input.GetKey(KeyCode.LeftAlt) || Input.GetKey(KeyCode.RightAlt))
+        {
+            // Make the cursor visible
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
+
+        else
+        {
+            // If "Alt" key is not held, lock the cursor again
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
     }
 
     public void ProcessMove(Vector2 input)
