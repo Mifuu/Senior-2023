@@ -58,7 +58,6 @@ public class RoomGenerator : MonoBehaviour
             {
                 Debug.Log("REMOVE DOOR");
                 roomDoorDatas.Remove(targetDoor);
-                StepAddRoom();
                 continue;
             }
 

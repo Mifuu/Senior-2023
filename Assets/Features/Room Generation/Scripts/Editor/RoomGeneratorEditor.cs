@@ -7,6 +7,8 @@ using UnityEditor;
 [CustomEditor(typeof(RoomGenerator))]
 public class RoomGeneratorEditor : Editor
 {
+    int bulkAmount = 1;
+
     public override void OnInspectorGUI()
     {
         GUILayout.Label("This script is used to generate the room in the scene view.\n" +
@@ -22,5 +24,16 @@ public class RoomGeneratorEditor : Editor
             roomGenerator.Clear();
         if (GUILayout.Button("Step Add Room"))
             roomGenerator.StepAddRoom();
+
+        GUILayout.Space(25);
+        GUILayout.Label("Debug Bulk Generation");
+        bulkAmount = EditorGUILayout.IntField("Amount: ", bulkAmount);
+        if (bulkAmount < 1) bulkAmount = 1;
+        if (bulkAmount > 100) bulkAmount = 100;
+        if (GUILayout.Button("Bulk Add Room"))
+        {
+            for (int i = 0; i < bulkAmount; i++)
+                roomGenerator.StepAddRoom();
+        }
     }
 }
