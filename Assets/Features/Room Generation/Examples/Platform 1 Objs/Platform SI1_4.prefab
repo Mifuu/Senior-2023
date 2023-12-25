@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6005207810749481699}
   - component: {fileID: 3066886051948116561}
   m_Layer: 0
-  m_Name: Plarform SI1_4
+  m_Name: Platform SI1_4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

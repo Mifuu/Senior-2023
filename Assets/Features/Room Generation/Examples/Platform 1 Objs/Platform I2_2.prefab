@@ -329,7 +329,7 @@ GameObject:
   - component: {fileID: 5208164834588303932}
   - component: {fileID: 5268337758438373227}
   m_Layer: 0
-  m_Name: Plarform I2_2
+  m_Name: Platform I2_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
