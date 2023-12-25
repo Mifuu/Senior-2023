@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23519154588164d0b9e3974a6a274df1, type: 3}
   m_Name: RoomSet 1
   m_EditorClassIdentifier: 
-  roomDatas:
-  - {fileID: 11400000, guid: 115f8dc24971b486795de633253f12ac, type: 2}
-  - {fileID: 11400000, guid: 3ade69a07d8a14f8abdb805f7748bc64, type: 2}
+  roomSetItems:
+  - roomData: {fileID: 11400000, guid: 115f8dc24971b486795de633253f12ac, type: 2}
+  - roomData: {fileID: 11400000, guid: 3ade69a07d8a14f8abdb805f7748bc64, type: 2}
+  roomDataPath: Assets/Features/Room Generation/Examples/Room 1 Objs

@@ -33,7 +33,7 @@ public class RoomGenerator : MonoBehaviour
         // if is first room
         if (roomObjects.Count == 0 && roomDoorDatas.Count == 0)
         {
-            RoomData roomData = GetRandom(roomSet.roomDatas);
+            RoomData roomData = roomSet.GetStartingRoomData();
 
             AddFirstRoom(roomData);
             return true;
@@ -154,7 +154,7 @@ public class RoomGenerator : MonoBehaviour
 
         // add all doors with compatible direction
         DoorData.DoorDir connectingDir = GetConnectingDoorDir(targetDoor.doorDir);
-        foreach (RoomData roomData in roomSet.roomDatas)
+        foreach (RoomData roomData in roomSet.GetRoomDatas())
         {
             foreach (DoorData d in roomData.roomDoorData.doorDatas)
             {

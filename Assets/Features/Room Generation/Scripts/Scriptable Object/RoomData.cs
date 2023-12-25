@@ -5,10 +5,20 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "RoomData", menuName = "Room Generation/RoomData")]
 public class RoomData : ScriptableObject
 {
+    public GameObject roomPrefab;
+
+    public enum RotationalVariant
+    {
+        None,
+        Rot90
+    }
+    [Tooltip("Rotational variant of the room\n" +
+        "None: no variant\n" +
+        "Rot90: variants with 90x rotation. 4 variants total.")]
+    public RotationalVariant rotationalVariant = RotationalVariant.None;
+
     public RoomBoxData roomBoxData;
     public RoomDoorData roomDoorData;
-
-    public GameObject roomPrefab;
 
     public List<DoorData> GetDoorDatas(DoorData.DoorDir doorDir)
     {
@@ -99,6 +109,7 @@ public class RoomBoxData
 [System.Serializable]
 public class RoomDoorData
 {
+    [HideInInspector]
     public RoomData parentRoom;
     public List<DoorData> doorDatas;
 
