@@ -20,7 +20,7 @@ public class RoomData : ScriptableObject
     public RoomBoxData roomBoxData;
     public RoomDoorData roomDoorData;
 
-    public List<DoorData> GetDoorDatas(DoorData.DoorDir doorDir)
+    public List<DoorData> GetDoorDatas(DoorDir doorDir)
     {
         List<DoorData> doorDatas = new List<DoorData>();
         foreach (var d in roomDoorData.doorDatas)
@@ -119,7 +119,7 @@ public class RoomDoorData
         this.parentRoom = parentRoom;
     }
 
-    public void AddData(Vector3 pos, DoorData.DoorDir doorDir)
+    public void AddData(Vector3 pos, DoorDir doorDir)
     {
         doorDatas.Add(new DoorData(pos, doorDir, parentRoom));
     }
@@ -147,25 +147,26 @@ public class RoomDoorData
     }
 }
 
+public enum DoorDir { ZPos, XPos, ZNeg, XNeg };
+
 [System.Serializable]
 public class DoorData
 {
-    public RoomData parentRoom;
+    public RoomData roomData;
     public Vector3 coord;
-    public enum DoorDir { ZPos, XPos, ZNeg, XNeg };
     public DoorDir doorDir;
 
     public DoorData(Vector3 coord, DoorDir doorDir, RoomData parentRoom)
     {
         this.coord = coord;
         this.doorDir = doorDir;
-        this.parentRoom = parentRoom;
+        this.roomData = parentRoom;
     }
 
     public DoorData(DoorData data)
     {
         coord = data.coord;
         doorDir = data.doorDir;
-        parentRoom = data.parentRoom;
+        roomData = data.roomData;
     }
 }

@@ -50,7 +50,7 @@ public class RoomGenerator : MonoBehaviour
             DoorData targetDoor = GetRandom(roomDoorDatas);
             latestTargetDoorCoord = V3Multiply(targetDoor.coord, RoomBoxSnapping.snapValue);
 
-            // random room
+            // get possible connection
             List<DoorData> possibleConnectingDoors = GetPossibleConnectingDoor(targetDoor);
 
             // if no possible rooms for the specific door
@@ -60,8 +60,6 @@ public class RoomGenerator : MonoBehaviour
                 roomDoorDatas.Remove(targetDoor);
                 continue;
             }
-
-            Debug.Log(possibleConnectingDoors.Count);
 
             // choosing random possible rooms
             DoorData connectingDoor = GetRandom(possibleConnectingDoors);
@@ -110,15 +108,15 @@ public class RoomGenerator : MonoBehaviour
         realOffset.z *= RoomBoxSnapping.snapValue.z;
 
         // add room
-        GameObject r = Instantiate(connectingDoor.parentRoom.roomPrefab, transform.position + realOffset, Quaternion.identity, transform);
+        GameObject r = Instantiate(connectingDoor.roomData.roomPrefab, transform.position + realOffset, Quaternion.identity, transform);
         roomObjects.Add(r);
         int index = roomObjects.Count - 1;
 
         // add roomBoxData to roomGrid
-        AddRoomToGrid(connectingDoor.parentRoom, placementOffset, index);
+        AddRoomToGrid(connectingDoor.roomData, placementOffset, index);
 
         // add roomDoorData
-        foreach (DoorData d in connectingDoor.parentRoom.roomDoorData.doorDatas)
+        foreach (DoorData d in connectingDoor.roomData.roomDoorData.doorDatas)
         {
             // skip connecting door
             if (d == connectingDoor) continue;
@@ -153,7 +151,7 @@ public class RoomGenerator : MonoBehaviour
         List<DoorData> possibleDoors = new List<DoorData>();
 
         // add all doors with compatible direction
-        DoorData.DoorDir connectingDir = GetConnectingDoorDir(targetDoor.doorDir);
+        DoorDir connectingDir = GetConnectingDoorDir(targetDoor.doorDir);
         foreach (RoomData roomData in roomSet.GetRoomDatas())
         {
             foreach (DoorData d in roomData.roomDoorData.doorDatas)
@@ -174,22 +172,22 @@ public class RoomGenerator : MonoBehaviour
         return possibleDoors;
     }
 
-    public DoorData.DoorDir GetConnectingDoorDir(DoorData.DoorDir targetDoorDir)
+    public DoorDir GetConnectingDoorDir(DoorDir targetDoorDir)
     {
         switch (targetDoorDir)
         {
-            case DoorData.DoorDir.ZPos:
-                return DoorData.DoorDir.ZNeg;
-            case DoorData.DoorDir.XPos:
-                return DoorData.DoorDir.XNeg;
-            case DoorData.DoorDir.ZNeg:
-                return DoorData.DoorDir.ZPos;
-            case DoorData.DoorDir.XNeg:
-                return DoorData.DoorDir.XPos;
+            case DoorDir.ZPos:
+                return DoorDir.ZNeg;
+            case DoorDir.XPos:
+                return DoorDir.XNeg;
+            case DoorDir.ZNeg:
+                return DoorDir.ZPos;
+            case DoorDir.XNeg:
+                return DoorDir.XPos;
         }
 
         Debug.LogError("RoomGenerator.GetConnectingDoorDir(): invalid targetDoorDir.");
-        return DoorData.DoorDir.ZPos;
+        return DoorDir.ZPos;
     }
 
     public bool CheckVacancy(DoorData connectingDoor, DoorData targetDoor)
@@ -198,7 +196,7 @@ public class RoomGenerator : MonoBehaviour
         Vector3Int placementOffset = GetPlacementOffset(connectingDoor, targetDoor);
 
         // check if all roomGrid are vacant
-        foreach (Vector3Int pos in connectingDoor.parentRoom.roomBoxData.roomSpaces)
+        foreach (Vector3Int pos in connectingDoor.roomData.roomBoxData.roomSpaces)
         {
             Vector3Int _pos = pos + placementOffset;
             if (roomGrid.ContainsKey(_pos))
