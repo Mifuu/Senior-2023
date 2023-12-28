@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Platform T1
   m_EditorClassIdentifier: 
   roomPrefab: {fileID: 477724591116080360, guid: ed2d95e97c90a443192da7ed1e8e7569, type: 3}
-  rotationalVariant: 0
+  rotationalVariant: 1
   roomBoxData:
     roomSpaces:
     - {x: -1, y: 0, z: -1}
@@ -23,12 +23,12 @@ MonoBehaviour:
   roomDoorData:
     parentRoom: {fileID: 0}
     doorDatas:
-    - parentRoom: {fileID: 11400000}
+    - roomData: {fileID: 0}
       coord: {x: 0, y: 0.5, z: 1}
       doorDir: 0
-    - parentRoom: {fileID: 11400000}
+    - roomData: {fileID: 0}
       coord: {x: 1, y: 0.5, z: 0}
       doorDir: 1
-    - parentRoom: {fileID: 11400000}
+    - roomData: {fileID: 0}
       coord: {x: 0, y: 0.5, z: -1}
       doorDir: 2

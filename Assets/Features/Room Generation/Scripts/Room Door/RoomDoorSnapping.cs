@@ -8,7 +8,7 @@ public class RoomDoorSnapping : MonoBehaviour
 
     [Space]
     [Header("Direction")]
-    public DoorData.DoorDir doorDir;
+    public DoorDir doorDir;
 
     [Space]
     [Header("Debug")]
@@ -33,16 +33,16 @@ public class RoomDoorSnapping : MonoBehaviour
         Vector3 arrowDir = Vector3.zero;
         switch (doorDir)
         {
-            case DoorData.DoorDir.XPos:
+            case DoorDir.XPos:
                 arrowDir += Vector3.right * 1f;
                 break;
-            case DoorData.DoorDir.XNeg:
+            case DoorDir.XNeg:
                 arrowDir += Vector3.left * 1f;
                 break;
-            case DoorData.DoorDir.ZPos:
+            case DoorDir.ZPos:
                 arrowDir += Vector3.forward * 1f;
                 break;
-            case DoorData.DoorDir.ZNeg:
+            case DoorDir.ZNeg:
                 arrowDir += Vector3.back * 1f;
                 break;
         }
