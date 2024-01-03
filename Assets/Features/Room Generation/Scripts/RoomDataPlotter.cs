@@ -14,6 +14,8 @@ public class RoomDataPlotter : MonoBehaviour
     public bool IsPlotting { get { return isPlotting; } }
 
     [Space]
+    public bool enableRot90Variant = false;
+    [Space]
     public RoomData roomData;
 
     [Space]
@@ -150,9 +152,12 @@ public class RoomDataPlotter : MonoBehaviour
             Debug.Log("RoomDataPlotter.GetRoomBoxData(): roomData is null.");
             return;
         }
+
+        // set data
         roomData.roomBoxData.Clear();
         foreach (RoomBoxDataGetter roomBoxDataGetter in roomBoxDataGetters)
             roomData.roomBoxData.AddData(roomBoxDataGetter.GetRoomBoxData());
+        roomData.enableRot90Variant = enableRot90Variant;
 
         // set debug output
         latestRoomBoxData = roomData.roomBoxData.ToGridString(16);
@@ -177,13 +182,18 @@ public class RoomDataPlotter : MonoBehaviour
             Debug.Log("RoomDataPlotter.GetRoomDoorData(): roomData is null.");
             return;
         }
+
+        // set data
         roomData.roomDoorData.Clear();
         foreach (RoomDoorDataGetter g in roomDoorDataGetters)
             roomData.roomDoorData.AddData(g.GetRoomDoorData(roomData));
+        roomData.enableRot90Variant = enableRot90Variant;
 
         // set debug output
         latestRoomDoorData = roomData.roomDoorData.ToString();
 
+        Debug.Log(roomData.roomDoorData.doorDatas[0].roomData == null);
+        EditorUtility.SetDirty(this);
         EditorUtility.SetDirty(roomData);
     }
 
