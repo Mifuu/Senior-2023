@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d51bddb8257f84b7ea69b5fde765f984, type: 3}
   m_Name: Platform I2_1
   m_EditorClassIdentifier: 
+  roomPrefab: {fileID: 9092645960363067598, guid: 16bae3266849a4d979dceccdc73d9f95, type: 3}
+  enableRot90Variant: 0
   roomBoxData:
     roomSpaces:
     - {x: -1, y: 0, z: -1}
@@ -21,10 +23,9 @@ MonoBehaviour:
   roomDoorData:
     parentRoom: {fileID: 0}
     doorDatas:
-    - parentRoom: {fileID: 11400000}
+    - roomData: {fileID: 11400000}
       coord: {x: 1, y: 0.5, z: 0}
       doorDir: 1
-    - parentRoom: {fileID: 11400000}
+    - roomData: {fileID: 11400000}
       coord: {x: -1, y: 0.5, z: 0}
       doorDir: 3
-  roomPrefab: {fileID: 9092645960363067598, guid: 16bae3266849a4d979dceccdc73d9f95, type: 3}
