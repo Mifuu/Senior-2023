@@ -59,7 +59,6 @@ public class RoomGenerator : MonoBehaviour
             // if no possible rooms for the specific door
             if (candidateDoors.Count == 0)
             {
-                Debug.Log("REMOVE DOOR");
                 vacantDoorDatas.Remove(targetDoor);
                 continue;
             }
@@ -105,7 +104,7 @@ public class RoomGenerator : MonoBehaviour
     void AddRoom(CandidateDoor candidateDoor, GeneratedDoorData targetDoor)
     {
         Vector3 candidateDoorCoord = GetRot90Pos(candidateDoor.doorData.coord, candidateDoor.rot90Factor);
-        Vector3Int placementOffset = GetPlacementOffset(candidateDoorCoord, targetDoor.localCoord);
+        Vector3Int placementOffset = GetPlacementOffset(candidateDoorCoord, targetDoor.worldCoord);
         Vector3 realOffset = placementOffset;
         realOffset.x *= RoomBoxSnapping.snapValue.x;
         realOffset.y *= RoomBoxSnapping.snapValue.y;
@@ -133,7 +132,11 @@ public class RoomGenerator : MonoBehaviour
         }
 
         if (roomObject.TryGetComponent(out RoomDataPlotter plotter))
+        {
             plotter.DisablePlotting();
+        }
+
+        roomObject.AddComponent<GeneratedRoomDataViewer>().generatedRoomData = generatedRoomData;
     }
 
     void AddRoomToGrid(CandidateDoor candidateDoor, Vector3Int placementOffset, int index)
@@ -144,7 +147,7 @@ public class RoomGenerator : MonoBehaviour
     {
         foreach (Vector3Int pos in roomData.roomBoxData.roomSpaces)
         {
-            Vector3Int _pos = GetRot90Pos(pos, 0) + placementOffset;
+            Vector3Int _pos = GetRot90Pos(pos, rot90Factor) + placementOffset;
             roomGrid.Add(_pos, index);
         }
     }
@@ -162,6 +165,11 @@ public class RoomGenerator : MonoBehaviour
 
         Debug.Log("candidateDoors 1: " + candidateDoors.Count);
 
+        foreach (var d in candidateDoors)
+        {
+            Debug.Log(d.doorData.roomData.name + " " + d.rot90Factor);
+        }
+
         // filter out room that can't be place
         for (int i = candidateDoors.Count - 1; i >= 0; i--)
         {
@@ -170,7 +178,7 @@ public class RoomGenerator : MonoBehaviour
                 candidateDoors.Remove(d);
         }
 
-        Debug.Log("candidateDoors 2: " + candidateDoors.Count);
+        Debug.Log("candidateDoors 2: " + candidateDoors.Count + "_________________________________________");
 
         return candidateDoors;
     }
@@ -232,7 +240,9 @@ public class RoomGenerator : MonoBehaviour
     {
         // rotate candidateDoor to match rot90
         Vector3 candidateDoorCoord = GetRot90Pos(candidateDoor.doorData.coord, candidateDoor.rot90Factor);
+        Debug.Log(candidateDoor.doorData.coord + " -> " + candidateDoorCoord);
         Vector3Int placementOffset = GetPlacementOffset(candidateDoorCoord, targetDoor.worldCoord);
+        Debug.Log("placementOffset: " + placementOffset);
 
         // check if all roomGrid are vacant
         foreach (Vector3Int pos in candidateDoor.doorData.roomData.roomBoxData.roomSpaces)
@@ -240,7 +250,7 @@ public class RoomGenerator : MonoBehaviour
             Vector3Int _pos = GetRot90Pos(pos, candidateDoor.rot90Factor) + placementOffset;
             if (roomGrid.ContainsKey(_pos))
             {
-                Debug.Log("already occupied: " + _pos);
+                Debug.Log("Collide at " + _pos);
                 return false;
             }
         }

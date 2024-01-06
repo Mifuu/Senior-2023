@@ -192,7 +192,6 @@ public class RoomDataPlotter : MonoBehaviour
         // set debug output
         latestRoomDoorData = roomData.roomDoorData.ToString();
 
-        Debug.Log(roomData.roomDoorData.doorDatas[0].roomData == null);
         EditorUtility.SetDirty(this);
         EditorUtility.SetDirty(roomData);
     }

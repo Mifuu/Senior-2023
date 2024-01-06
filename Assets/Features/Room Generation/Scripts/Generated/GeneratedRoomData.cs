@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public class GeneratedRoomData
 {
     public RoomData roomData;
@@ -47,7 +48,6 @@ public class GeneratedRoomData
             generatedDoorData.generatedRoomData = this;
             generatedDoorData.localCoord = rotatedPos;
             generatedDoorData.worldCoord = worldCoord;
-            Debug.Log(worldCoord.ToString());
             generatedDoorData.doorDir = (DoorDir)Mod((int)doorData.doorDir + rot90Factor, 4);
             generatedDoorDatas.Add(generatedDoorData);
         }
@@ -93,6 +93,7 @@ public class GeneratedRoomData
     }
 }
 
+[System.Serializable]
 public class GeneratedDoorData
 {
     public GeneratedRoomData generatedRoomData;
@@ -101,6 +102,7 @@ public class GeneratedDoorData
     public DoorDir doorDir;
 }
 
+[System.Serializable]
 public class CandidateDoor
 {
     public DoorData doorData;

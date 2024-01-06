@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23519154588164d0b9e3974a6a274df1, type: 3}
+  m_Name: Platform 1_S
+  m_EditorClassIdentifier: 
+  roomSetItems:
+  - roomData: {fileID: 11400000, guid: bb1798fb58bf24416a3ee9abec0536c8, type: 2}
+  - roomData: {fileID: 11400000, guid: f24a76e98841b45199422f768e676d50, type: 2}
+  - roomData: {fileID: 11400000, guid: b552dab324e854fa284a6823f8c4bfd2, type: 2}
+  - roomData: {fileID: 11400000, guid: d55f771914b7a411ba29a2c5f45ccda4, type: 2}
+  roomDataPath: Assets/Features/Room Generation/Examples/Platform 1 Objs
