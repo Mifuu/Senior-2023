@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Platform I1
   m_EditorClassIdentifier: 
   roomPrefab: {fileID: 8548054671165460775, guid: c4dc7369e23f44356ad37115372891ef, type: 3}
-  enableRot90Variant: 0
+  enableRot90Variant: 1
   roomBoxData:
     roomSpaces:
     - {x: -1, y: 0, z: -1}
