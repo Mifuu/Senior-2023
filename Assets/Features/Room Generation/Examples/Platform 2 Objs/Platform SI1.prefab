@@ -460,6 +460,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   editorColor: {r: 0.5, g: 1, b: 1, a: 1}
   isPlotting: 1
+  enableRot90Variant: 0
   roomData: {fileID: 11400000, guid: bb1798fb58bf24416a3ee9abec0536c8, type: 2}
   roomBoxes:
   - {fileID: 2045076280101057617}

@@ -1,10 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using RoomGenUtil;
 
 [System.Serializable]
 public class GeneratedRoomData
 {
+    public int id;
+
     public RoomData roomData;
     public int rot90Factor = 0;
     public Vector3Int placementOffset;
@@ -13,8 +16,10 @@ public class GeneratedRoomData
     public List<Vector3Int> roomSpaces;
     public List<GeneratedDoorData> generatedDoorDatas;
 
-    public GeneratedRoomData(RoomData roomData, int rot90Factor, GameObject gameObject, Vector3Int placementOffset)
+    public GeneratedRoomData(RoomData roomData, int id, int rot90Factor, GameObject gameObject, Vector3Int placementOffset)
     {
+        this.id = id;
+
         this.roomData = roomData;
         this.rot90Factor = rot90Factor;
         this.placementOffset = placementOffset;
@@ -31,7 +36,7 @@ public class GeneratedRoomData
         roomSpaces.Clear();
         foreach (Vector3Int pos in roomData.roomBoxData.roomSpaces)
         {
-            Vector3Int rotatedPos = GetRot90Pos(pos, rot90Factor);
+            Vector3Int rotatedPos = RoomRotUtil.GetRot90Grid(pos, rot90Factor);
             roomSpaces.Add(rotatedPos + placementOffset);
         }
     }
@@ -41,7 +46,7 @@ public class GeneratedRoomData
         generatedDoorDatas.Clear();
         foreach (DoorData doorData in roomData.roomDoorData.doorDatas)
         {
-            Vector3 rotatedPos = GetRot90Pos(doorData.coord, rot90Factor);
+            Vector3 rotatedPos = RoomRotUtil.GetRot90Pos(doorData.coord, rot90Factor);
             Vector3 worldCoord = rotatedPos + placementOffset;
 
             GeneratedDoorData generatedDoorData = new GeneratedDoorData();
@@ -51,40 +56,6 @@ public class GeneratedRoomData
             generatedDoorData.doorDir = (DoorDir)Mod((int)doorData.doorDir + rot90Factor, 4);
             generatedDoorDatas.Add(generatedDoorData);
         }
-    }
-
-    public Vector3 GetRot90Pos(Vector3 pos, int rot90)
-    {
-        switch (rot90)
-        {
-            case 0:
-                return pos;
-            case 1:
-                return new Vector3(pos.z, pos.y, -pos.x);
-            case 2:
-                return new Vector3(-pos.x, pos.y, -pos.z);
-            case 3:
-                return new Vector3(-pos.z, pos.y, pos.x);
-        }
-
-        return pos;
-    }
-
-    public Vector3Int GetRot90Pos(Vector3Int pos, int rot90)
-    {
-        switch (rot90)
-        {
-            case 0:
-                return pos;
-            case 1:
-                return new Vector3Int(pos.z, pos.y, -pos.x);
-            case 2:
-                return new Vector3Int(-pos.x, pos.y, -pos.z);
-            case 3:
-                return new Vector3Int(-pos.z, pos.y, pos.x);
-        }
-
-        return pos;
     }
 
     int Mod(int x, int m)
