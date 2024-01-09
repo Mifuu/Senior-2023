@@ -37,6 +37,7 @@ public class RoomDataPlotter : MonoBehaviour
     [SerializeField]
     private float colliderDataLineVisibility = 0.30f;
     [SerializeField]
+    [Range(0f, 1f)]
     private float colliderDataFillVisibility = 0.15f;
     [SerializeField]
     private bool showGrid = true;

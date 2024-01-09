@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using RoomGenUtil;
 
 public class RoomGenerator : MonoBehaviour
 {
@@ -14,9 +15,13 @@ public class RoomGenerator : MonoBehaviour
     // List<DoorData> roomDoorDatas = new List<DoorData>();
 
     // Debug
+    [Header("Debug")]
     public Vector3 latestTargetDoorPos;
+    public bool isDebugMode = false;
 
-    // Generation Settings
+
+    [Header("Generation Settings")]
+    public int seed = 0;
     public int randDoorAttempts = 10;
 
     public void Clear()
@@ -36,9 +41,21 @@ public class RoomGenerator : MonoBehaviour
         // if is first room
         if (roomObjects.Count == 0)
         {
+            if (seed == -1)
+                Random.InitState(System.DateTime.Now.Millisecond);
+            else
+                Random.InitState(seed);
+
+            if (isDebugMode) Debug.Log("Seed: " + Random.state);
+
             RoomData roomData = roomSet.GetStartingRoomData();
 
-            AddFirstRoom(roomData);
+            int rot90Factor = 0;
+            if (roomData.enableRot90Variant)
+                rot90Factor = Random.Range(0, 4);
+            CandidateDoor firstDoor = new CandidateDoor(roomData.roomDoorData.doorDatas[0], rot90Factor);
+
+            AddRoom(firstDoor);
             return true;
         }
 
@@ -84,12 +101,13 @@ public class RoomGenerator : MonoBehaviour
         GameObject roomObject = Instantiate(roomData.roomPrefab, transform.position, Quaternion.identity, transform);
         roomObjects.Add(roomObject);
         int index = 0;
+        int rot90Factor = 1;
 
         // add roomBoxData to roomGrid
-        AddRoomToGrid(roomData, 0, Vector3Int.zero, index);
+        AddRoomToGrid(roomData, rot90Factor, Vector3Int.zero, index);
 
         // add GeneratedRoomData
-        GeneratedRoomData generatedRoomData = new GeneratedRoomData(roomData, 0, roomObject, Vector3Int.zero);
+        GeneratedRoomData generatedRoomData = new GeneratedRoomData(roomData, index, rot90Factor, roomObject, Vector3Int.zero);
         generatedRoomDatas.Add(generatedRoomData);
 
         foreach (GeneratedDoorData d in generatedRoomData.generatedDoorDatas)
@@ -101,10 +119,10 @@ public class RoomGenerator : MonoBehaviour
             plotter.DisablePlotting();
     }
 
-    void AddRoom(CandidateDoor candidateDoor, GeneratedDoorData targetDoor)
+    void AddRoom(CandidateDoor candidateDoor, GeneratedDoorData targetDoor = null)
     {
-        Vector3 candidateDoorCoord = GetRot90Pos(candidateDoor.doorData.coord, candidateDoor.rot90Factor);
-        Vector3Int placementOffset = GetPlacementOffset(candidateDoorCoord, targetDoor.worldCoord);
+        Vector3 candidateDoorCoord = RoomRotUtil.GetRot90Pos(candidateDoor.doorData.coord, candidateDoor.rot90Factor);
+        Vector3Int placementOffset = GetPlacementOffset(candidateDoorCoord, (targetDoor != null) ? targetDoor.worldCoord : Vector3Int.zero);
         Vector3 realOffset = placementOffset;
         realOffset.x *= RoomBoxSnapping.snapValue.x;
         realOffset.y *= RoomBoxSnapping.snapValue.y;
@@ -115,17 +133,20 @@ public class RoomGenerator : MonoBehaviour
         roomObjects.Add(roomObject);
         int index = roomObjects.Count - 1;
 
+        if (isDebugMode && targetDoor != null)
+            Debug.Log(targetDoor.generatedRoomData.id + "->" + index);
+
         // add room to roomGrid
         AddRoomToGrid(candidateDoor, placementOffset, index);
 
         // add GeneratedRoomData
-        GeneratedRoomData generatedRoomData = new GeneratedRoomData(candidateDoor.doorData.roomData, candidateDoor.rot90Factor, roomObject, placementOffset);
+        GeneratedRoomData generatedRoomData = new GeneratedRoomData(candidateDoor.doorData.roomData, index, candidateDoor.rot90Factor, roomObject, placementOffset);
         generatedRoomDatas.Add(generatedRoomData);
 
         foreach (GeneratedDoorData d in generatedRoomData.generatedDoorDatas)
         {
-            // the connecting door
-            if (d.worldCoord == targetDoor.worldCoord)
+            // ignore the connecting door if not the first room
+            if (targetDoor != null && d.worldCoord == targetDoor.worldCoord)
                 continue;
 
             vacantDoorDatas.Add(d);
@@ -147,8 +168,10 @@ public class RoomGenerator : MonoBehaviour
     {
         foreach (Vector3Int pos in roomData.roomBoxData.roomSpaces)
         {
-            Vector3Int _pos = GetRot90Pos(pos, rot90Factor) + placementOffset;
+            Vector3Int _pos = RoomRotUtil.GetRot90Grid(pos, rot90Factor) + placementOffset;
             roomGrid.Add(_pos, index);
+
+            if (isDebugMode) Debug.Log("AddRoomToGrid: " + _pos + " " + index);
         }
     }
 
@@ -163,11 +186,12 @@ public class RoomGenerator : MonoBehaviour
         // add all doors with compatible parameters
         List<CandidateDoor> candidateDoors = GetCandidateDoors(targetDoor.doorDir);
 
-        Debug.Log("candidateDoors 1: " + candidateDoors.Count);
+        // Debug.Log("candidateDoors 1: " + candidateDoors.Count);
 
+        string logText = "";
         foreach (var d in candidateDoors)
         {
-            Debug.Log(d.doorData.roomData.name + " " + d.rot90Factor);
+            logText += d.doorData.roomData.name + "\n";
         }
 
         // filter out room that can't be place
@@ -178,7 +202,7 @@ public class RoomGenerator : MonoBehaviour
                 candidateDoors.Remove(d);
         }
 
-        Debug.Log("candidateDoors 2: " + candidateDoors.Count + "_________________________________________");
+        // Debug.Log("candidateDoors 2: " + candidateDoors.Count + "_________________________________________" + "\n" + logText);
 
         return candidateDoors;
     }
@@ -239,58 +263,20 @@ public class RoomGenerator : MonoBehaviour
     public bool CheckVacancy(CandidateDoor candidateDoor, GeneratedDoorData targetDoor)
     {
         // rotate candidateDoor to match rot90
-        Vector3 candidateDoorCoord = GetRot90Pos(candidateDoor.doorData.coord, candidateDoor.rot90Factor);
-        Debug.Log(candidateDoor.doorData.coord + " -> " + candidateDoorCoord);
+        Vector3 candidateDoorCoord = RoomRotUtil.GetRot90Pos(candidateDoor.doorData.coord, candidateDoor.rot90Factor);
         Vector3Int placementOffset = GetPlacementOffset(candidateDoorCoord, targetDoor.worldCoord);
-        Debug.Log("placementOffset: " + placementOffset);
 
         // check if all roomGrid are vacant
         foreach (Vector3Int pos in candidateDoor.doorData.roomData.roomBoxData.roomSpaces)
         {
-            Vector3Int _pos = GetRot90Pos(pos, candidateDoor.rot90Factor) + placementOffset;
+            Vector3Int _pos = RoomRotUtil.GetRot90Grid(pos, candidateDoor.rot90Factor) + placementOffset;
             if (roomGrid.ContainsKey(_pos))
             {
-                Debug.Log("Collide at " + _pos);
                 return false;
             }
         }
 
         return true;
-    }
-
-    //
-    public Vector3 GetRot90Pos(Vector3 pos, int rot90)
-    {
-        switch (rot90)
-        {
-            case 0:
-                return pos;
-            case 1:
-                return new Vector3(pos.z, pos.y, -pos.x);
-            case 2:
-                return new Vector3(-pos.x, pos.y, -pos.z);
-            case 3:
-                return new Vector3(-pos.z, pos.y, pos.x);
-        }
-
-        return pos;
-    }
-
-    public Vector3Int GetRot90Pos(Vector3Int pos, int rot90)
-    {
-        switch (rot90)
-        {
-            case 0:
-                return pos;
-            case 1:
-                return new Vector3Int(pos.z, pos.y, -pos.x);
-            case 2:
-                return new Vector3Int(-pos.x, pos.y, -pos.z);
-            case 3:
-                return new Vector3Int(-pos.z, pos.y, pos.x);
-        }
-
-        return pos;
     }
 
     public Vector3Int GetPlacementOffset(DoorData connectingDoor, DoorData targetDoor)
