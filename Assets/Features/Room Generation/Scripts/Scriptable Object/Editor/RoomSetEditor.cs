@@ -58,7 +58,6 @@ public class RoomSetEditor : Editor
             roomSetItem.roomData.roomPrefab = AssetDatabase.LoadAssetAtPath<GameObject>(roomSet.roomDataPath + "/" + roomSetItem.roomData.name + ".prefab");
 
             Debug.Log(roomSet.roomDataPath + "/" + roomSetItem.roomData.name + ".prefab");
-            Debug.Log(AssetDatabase.LoadAssetAtPath<GameObject>(roomSet.roomDataPath + "/" + roomSetItem.roomData.name + ".prefab") == null);
 
             // EditorUtility.SetDirty(roomSetItem.roomData);
         }

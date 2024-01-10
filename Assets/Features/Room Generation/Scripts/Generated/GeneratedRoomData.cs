@@ -91,12 +91,14 @@ public class GeneratedRoomData
 [System.Serializable]
 public class GeneratedDoorData
 {
+    [System.NonSerialized]
     public GeneratedRoomData generatedRoomData;
     public Vector3 initCoord;
     public Vector3 localCoord;
     public Vector3 worldCoord;
     public DoorDir doorDir;
 
+    [System.NonSerialized]
     public GeneratedDoorData pairedDoorData;
 
     public RoomDoorObject roomDoorObject;
