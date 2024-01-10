@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23519154588164d0b9e3974a6a274df1, type: 3}
+  m_Name: Station 1
+  m_EditorClassIdentifier: 
+  snapValue: {fileID: 11400000, guid: 7b49c2f08312544e193c151772cc951b, type: 2}
+  roomSetItems:
+  - roomData: {fileID: 11400000, guid: a93fb28a7c11b4aa596de5354ac4640e, type: 2}
+  roomDataPath: Assets/Features/Room Generation/Examples/Station 1 Objs

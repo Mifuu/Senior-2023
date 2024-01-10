@@ -114,6 +114,7 @@ public class RoomDataPlotter : MonoBehaviour
         // box collider setup
         var _b = newCollider.AddComponent<BoxCollider>();
         _b.size = new Vector3(3, 3, 3);
+        _b.isTrigger = true;
 
         // box collider data and snapping setup
         var _s = newCollider.AddComponent<RoomBoxSnapping>();
@@ -208,6 +209,26 @@ public class RoomDataPlotter : MonoBehaviour
         EditorUtility.SetDirty(roomData);
     }
 
+    public void UpdateSnapValue()
+    {
+        foreach (var d in roomDoors)
+        {
+            if (d == null) continue;
+            RoomDoorSnapping _d = d.GetComponent<RoomDoorSnapping>();
+            _d.snapValue = snapValue;
+            RoomDoorDataGetter _dg = d.GetComponent<RoomDoorDataGetter>();
+            _dg.snapValue = snapValue;
+        }
+        foreach (var b in roomBoxes)
+        {
+            if (b == null) continue;
+            RoomBoxSnapping _b = b.GetComponent<RoomBoxSnapping>();
+            _b.snapValue = snapValue;
+            RoomBoxDataGetter _bg = b.GetComponent<RoomBoxDataGetter>();
+            _bg.snapValue = snapValue;
+        }
+    }
+
     private void OnDrawGizmos()
     {
         if (isPlotting)
@@ -259,24 +280,6 @@ public class RoomDataPlotter : MonoBehaviour
                 _d.gameObject.AddComponent<RoomDoorObject>();
             }
         }
-
-        // snapValue Update
-        // foreach (var d in roomDoors)
-        // {
-        //     if (d == null) continue;
-        //     RoomDoorSnapping _d = d.GetComponent<RoomDoorSnapping>();
-        //     _d.snapValue = snapValue;
-        //     RoomDoorDataGetter _dg = d.GetComponent<RoomDoorDataGetter>();
-        //     _dg.snapValue = snapValue;
-        // }
-        // foreach (var b in roomBoxes)
-        // {
-        //     if (b == null) continue;
-        //     RoomBoxSnapping _b = b.GetComponent<RoomBoxSnapping>();
-        //     _b.snapValue = snapValue;
-        //     RoomBoxDataGetter _bg = b.GetComponent<RoomBoxDataGetter>();
-        //     _bg.snapValue = snapValue;
-        // }
     }
 
     private void DrawGrid(BoxCollider b)

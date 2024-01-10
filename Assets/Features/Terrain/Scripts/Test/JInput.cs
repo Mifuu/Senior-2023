@@ -23,6 +23,7 @@ public class JInput : MonoBehaviour
 
     void LateUpdate()
     {
+        if (Input.GetKey(KeyCode.Escape)) return;
         character.ProcessLook(onFoot.Look.ReadValue<Vector2>());
     }
 

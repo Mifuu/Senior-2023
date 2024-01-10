@@ -1,0 +1,109 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Strip Ceiling 1
+  m_Shader: {fileID: -6465566751694194690, guid: ef00c5a50adf340e696e9f8782c0eb7d, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 2
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _BaseMap:
+        m_Texture: {fileID: 2800000, guid: f6b21c5dabd90479b8113dc7d1c04c36, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _IColorMap:
+        m_Texture: {fileID: 2800000, guid: 8d479a2eafadb406c979986f5c9c3eba, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _INormalMap:
+        m_Texture: {fileID: 2800000, guid: 44cd65511246b4871b667b681ed1f614, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _IOpacityMap:
+        m_Texture: {fileID: 2800000, guid: 5fba3882f380c48018defb99dea7250e, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MetallicMap:
+        m_Texture: {fileID: 2800000, guid: 2a78d03cfca674e72b3bab71db41c522, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NormalMap:
+        m_Texture: {fileID: 2800000, guid: f92cb1e6ce8194279863fdbcd9b67224, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OcclusionMap:
+        m_Texture: {fileID: 2800000, guid: 826fde2a5987745569821d2cb4921011, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _RoughnessMap:
+        m_Texture: {fileID: 2800000, guid: c40e3bbfed2a84b5f89f1df07eeaf0c8, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _IMapScale: 1
+    - _INormalStrength: 0.62
+    - _IUVNoiseScale: 29.93
+    - _MetallicStrength: 1
+    - _NormalStrength: 1.66
+    - _OcclusionStrength: 1
+    - _QueueControl: 0
+    - _QueueOffset: 0
+    - _RoughnessStrength: 2.55
+    - _StripPow: 1.6
+    - _StripSize: 34.57
+    - _Texture_Scale: 1
+    m_Colors:
+    - _BaseColor: {r: 0.9528302, g: 0.91237986, b: 0.91237986, a: 1}
+    - _EmissionColor: {r: 0.3773585, g: 0.3773585, b: 0.3773585, a: 0}
+    - _IColor: {r: 1, g: 1, b: 1, a: 0.57254905}
+    - _IUVNoiseRemap: {r: -0.1, g: 0.1, b: 0, a: 0}
+    - _StripColA: {r: 0, g: 0, b: 0, a: 0}
+    - _StripColB: {r: 0.7169812, g: 0.7041036, b: 0.6797793, a: 1}
+    - _Texture_Offset: {r: 0, g: 0, b: 0, a: 0}
+  m_BuildTextureStacks: []
+--- !u!114 &3840176603838532152
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 7
