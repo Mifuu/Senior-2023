@@ -7,6 +7,7 @@ using UnityEditor;
 [CreateAssetMenu(fileName = "RoomSet", menuName = "Room Generation/RoomSet")]
 public class RoomSet : ScriptableObject
 {
+    public RoomBoxSnapValue snapValue;
     public RoomSetItem[] roomSetItems;
     [HideInInspector] public string roomDataPath = "";
 

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
-[CustomEditor(typeof(RoomDataPlotter))]
+[CustomEditor(typeof(RoomDataPlotter)), CanEditMultipleObjects]
 public class RoomDataPlotterEditor : Editor
 {
     public override void OnInspectorGUI()
@@ -39,10 +39,24 @@ public class RoomDataPlotterEditor : Editor
         GUILayout.Space(10);
         if (GUILayout.Button("Update and Get All Data"))
         {
-            roomDataPlotter.UpdateRoomBox();
-            roomDataPlotter.UpdateRoomDoor();
-            roomDataPlotter.GetRoomBoxData();
-            roomDataPlotter.GetRoomDoorData();
+            if (targets.Length <= 1)
+            {
+                roomDataPlotter.UpdateRoomBox();
+                roomDataPlotter.UpdateRoomDoor();
+                roomDataPlotter.GetRoomBoxData();
+                roomDataPlotter.GetRoomDoorData();
+            }
+            else
+            {
+                foreach (var t in targets)
+                {
+                    RoomDataPlotter rdp = (RoomDataPlotter)t;
+                    rdp.UpdateRoomBox();
+                    rdp.UpdateRoomDoor();
+                    rdp.GetRoomBoxData();
+                    rdp.GetRoomDoorData();
+                }
+            }
         }
 
         GUILayout.Space(25);

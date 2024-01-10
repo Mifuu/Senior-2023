@@ -1,20 +1,29 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using RoomGenUtil;
 
 [System.Serializable]
 public class GeneratedRoomData
 {
+    [Header("Init Data")]
     public int id;
-
     public RoomData roomData;
     public int rot90Factor = 0;
     public Vector3Int placementOffset;
-
     public GameObject gameObject;
+
+    [Header("Generated Data")]
     public List<Vector3Int> roomSpaces;
     public List<GeneratedDoorData> generatedDoorDatas;
+
+    [Header("Plotter Data")]
+    RoomDataPlotter roomDataPlotter;
+    public Transform roomBoxesParent;
+    public Transform roomDoorsParent;
+    public List<GameObject> roomBoxes;
+    public List<GameObject> roomDoors;
 
     public GeneratedRoomData(RoomData roomData, int id, int rot90Factor, GameObject gameObject, Vector3Int placementOffset)
     {
@@ -29,6 +38,20 @@ public class GeneratedRoomData
         AddRoomSpaces();
         generatedDoorDatas = new List<GeneratedDoorData>();
         AddRoomDoorDatas();
+
+        // set room data plotter
+        if (gameObject.TryGetComponent<RoomDataPlotter>(out RoomDataPlotter roomDataPlotter))
+        {
+            this.roomDataPlotter = roomDataPlotter;
+            roomBoxesParent = roomDataPlotter.roomBoxesParent;
+            roomDoorsParent = roomDataPlotter.roomDoorsParent;
+            roomDoors = new List<GameObject>(roomDataPlotter.roomDoors);
+            roomBoxes = new List<GameObject>(roomDataPlotter.roomBoxes);
+        }
+        else
+        {
+            Debug.Log("RoomDataPlotter not found.");
+        }
     }
 
     public void AddRoomSpaces()
@@ -44,16 +67,17 @@ public class GeneratedRoomData
     public void AddRoomDoorDatas()
     {
         generatedDoorDatas.Clear();
-        foreach (DoorData doorData in roomData.roomDoorData.doorDatas)
+        for (int i = 0; i < roomData.roomDoorData.doorDatas.Count; i++)
         {
+            DoorData doorData = roomData.roomDoorData.doorDatas[i];
+
             Vector3 rotatedPos = RoomRotUtil.GetRot90Pos(doorData.coord, rot90Factor);
             Vector3 worldCoord = rotatedPos + placementOffset;
 
-            GeneratedDoorData generatedDoorData = new GeneratedDoorData();
-            generatedDoorData.generatedRoomData = this;
-            generatedDoorData.localCoord = rotatedPos;
-            generatedDoorData.worldCoord = worldCoord;
-            generatedDoorData.doorDir = (DoorDir)Mod((int)doorData.doorDir + rot90Factor, 4);
+            // set generated door data
+            DoorDir doorDir = (DoorDir)Mod((int)doorData.doorDir + rot90Factor, 4);
+            RoomDoorObject _roomDoorObject = gameObject.transform.GetComponentsInChildren<RoomDoorObject>().ToList()[i];
+            GeneratedDoorData generatedDoorData = new GeneratedDoorData(this, doorData.coord, rotatedPos, worldCoord, doorDir, _roomDoorObject);
             generatedDoorDatas.Add(generatedDoorData);
         }
     }
@@ -68,9 +92,39 @@ public class GeneratedRoomData
 public class GeneratedDoorData
 {
     public GeneratedRoomData generatedRoomData;
+    public Vector3 initCoord;
     public Vector3 localCoord;
     public Vector3 worldCoord;
     public DoorDir doorDir;
+
+    public GeneratedDoorData pairedDoorData;
+
+    public RoomDoorObject roomDoorObject;
+
+    public GeneratedDoorData(GeneratedRoomData generatedRoomData, Vector3 initCoord, Vector3 localCoord, Vector3 worldCoord, DoorDir doorDir, RoomDoorObject roomDoorObject)
+    {
+        this.generatedRoomData = generatedRoomData;
+        this.initCoord = initCoord;
+        this.localCoord = localCoord;
+        this.worldCoord = worldCoord;
+        this.doorDir = doorDir;
+        this.roomDoorObject = roomDoorObject;
+    }
+
+    public void SetPair(GeneratedDoorData pairedDoorData)
+    {
+        this.pairedDoorData = pairedDoorData;
+        pairedDoorData.pairedDoorData = this;
+    }
+
+    public void UpdateDoorObject()
+    {
+        if (pairedDoorData == null)
+            roomDoorObject.Set(true);
+        else
+            roomDoorObject.Set(false);
+
+    }
 }
 
 [System.Serializable]

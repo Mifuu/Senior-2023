@@ -11,6 +11,10 @@ public class RoomBoxDataGetter : MonoBehaviour
     [TextArea(12, 12)]
     public string latestOutput = "";
 
+    [Space]
+    [ReadOnly]
+    public RoomBoxSnapValue snapValue;
+
     [ContextMenu("GetRoomBoxData")]
     public RoomBoxData GetRoomBoxData()
     {
@@ -26,16 +30,16 @@ public class RoomBoxDataGetter : MonoBehaviour
 
         // get min snap pos
         Vector3 _minCoord = bounds.min;
-        _minCoord.x /= RoomBoxSnapping.snapValue.x;
-        _minCoord.y /= RoomBoxSnapping.snapValue.y;
-        _minCoord.z /= RoomBoxSnapping.snapValue.z;
+        _minCoord.x /= snapValue.value.x;
+        _minCoord.y /= snapValue.value.y;
+        _minCoord.z /= snapValue.value.z;
         Vector3Int minCoord = Vector3Int.RoundToInt(_minCoord);
 
         // get coord scale
         Vector3 _coordScale = bounds.size;
-        _coordScale.x /= RoomBoxSnapping.snapValue.x;
-        _coordScale.y /= RoomBoxSnapping.snapValue.y;
-        _coordScale.z /= RoomBoxSnapping.snapValue.z;
+        _coordScale.x /= snapValue.value.x;
+        _coordScale.y /= snapValue.value.y;
+        _coordScale.z /= snapValue.value.z;
         Vector3Int coordScale = Vector3Int.RoundToInt(_coordScale);
 
         // get room spaces

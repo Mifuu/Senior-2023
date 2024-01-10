@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class RoomDoorSnapping : MonoBehaviour
 {
+    [Space]
+    [ReadOnly]
+    public RoomBoxSnapValue snapValue;
+
+    [Space]
     public static Vector3 snapOffset = new Vector3(0f, 0.5f, 0f);
 
     [Space]
@@ -16,9 +21,9 @@ public class RoomDoorSnapping : MonoBehaviour
     void SnapPosition()
     {
         _pos = transform.position;
-        _pos.x = (Mathf.Round(_pos.x / RoomBoxSnapping.snapValue.x - snapOffset.x) + snapOffset.x) * RoomBoxSnapping.snapValue.x;
-        _pos.y = (Mathf.Round(_pos.y / RoomBoxSnapping.snapValue.y - snapOffset.y) + snapOffset.y) * RoomBoxSnapping.snapValue.y;
-        _pos.z = (Mathf.Round(_pos.z / RoomBoxSnapping.snapValue.z - snapOffset.z) + snapOffset.z) * RoomBoxSnapping.snapValue.z;
+        _pos.x = (Mathf.Round(_pos.x / snapValue.value.x - snapOffset.x) + snapOffset.x) * snapValue.value.x;
+        _pos.y = (Mathf.Round(_pos.y / snapValue.value.y - snapOffset.y) + snapOffset.y) * snapValue.value.y;
+        _pos.z = (Mathf.Round(_pos.z / snapValue.value.z - snapOffset.z) + snapOffset.z) * snapValue.value.z;
 
         transform.position = _pos;
     }

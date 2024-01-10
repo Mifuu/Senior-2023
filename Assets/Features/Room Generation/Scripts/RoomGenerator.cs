@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using RoomGenUtil;
 
@@ -10,7 +11,8 @@ public class RoomGenerator : MonoBehaviour
     // Generation Data
     Dictionary<Vector3Int, int> roomGrid = new Dictionary<Vector3Int, int>();           // checking vacancy
     List<GameObject> roomObjects = new List<GameObject>();                              // storing game object references
-    List<GeneratedRoomData> generatedRoomDatas = new List<GeneratedRoomData>();         // storing generated room data
+    List<GeneratedRoomData> generatedRoomDatas = new List<GeneratedRoomData>();         // storing a;; generated room data
+    List<GeneratedDoorData> generatedDoorDatas = new List<GeneratedDoorData>();         // storing all generated door data
     List<GeneratedDoorData> vacantDoorDatas = new List<GeneratedDoorData>();            // storing possible doors to spawn next room
     // List<DoorData> roomDoorDatas = new List<DoorData>();
 
@@ -38,9 +40,20 @@ public class RoomGenerator : MonoBehaviour
 
     public bool StepAddRoom()
     {
+        // check for matching requirements
+        foreach (var r in roomSet.roomSetItems.Select(i => i.roomData))
+        {
+            if (r.snapValue.value != roomSet.snapValue.value)
+            {
+                Debug.LogError("RoomGenerator.StepAddRoom(): roomSet.snapValue.value != roomData.snapValue.value");
+                return false;
+            }
+        }
+
         // if is first room
         if (roomObjects.Count == 0)
         {
+            // set or random seed
             if (seed == -1)
                 Random.InitState(System.DateTime.Now.Millisecond);
             else
@@ -48,14 +61,18 @@ public class RoomGenerator : MonoBehaviour
 
             if (isDebugMode) Debug.Log("Seed: " + Random.state);
 
+            // get starting room
             RoomData roomData = roomSet.GetStartingRoomData();
-
             int rot90Factor = 0;
             if (roomData.enableRot90Variant)
                 rot90Factor = Random.Range(0, 4);
             CandidateDoor firstDoor = new CandidateDoor(roomData.roomDoorData.doorDatas[0], rot90Factor);
 
+            // add room
             AddRoom(firstDoor);
+
+            // add doors
+
             return true;
         }
 
@@ -68,7 +85,7 @@ public class RoomGenerator : MonoBehaviour
 
             // random door data
             GeneratedDoorData targetDoor = GetRandom(vacantDoorDatas);
-            latestTargetDoorPos = V3Multiply(targetDoor.worldCoord, RoomBoxSnapping.snapValue);
+            latestTargetDoorPos = V3Multiply(targetDoor.worldCoord, roomSet.snapValue.value);
 
             // get possible connection
             List<CandidateDoor> candidateDoors = GetCandidateDoors(targetDoor);
@@ -119,16 +136,16 @@ public class RoomGenerator : MonoBehaviour
             plotter.DisablePlotting();
     }
 
-    void AddRoom(CandidateDoor candidateDoor, GeneratedDoorData targetDoor = null)
+    GeneratedRoomData AddRoom(CandidateDoor candidateDoor, GeneratedDoorData targetDoor = null)
     {
         Vector3 candidateDoorCoord = RoomRotUtil.GetRot90Pos(candidateDoor.doorData.coord, candidateDoor.rot90Factor);
         Vector3Int placementOffset = GetPlacementOffset(candidateDoorCoord, (targetDoor != null) ? targetDoor.worldCoord : Vector3Int.zero);
         Vector3 realOffset = placementOffset;
-        realOffset.x *= RoomBoxSnapping.snapValue.x;
-        realOffset.y *= RoomBoxSnapping.snapValue.y;
-        realOffset.z *= RoomBoxSnapping.snapValue.z;
+        realOffset.x *= roomSet.snapValue.value.x;
+        realOffset.y *= roomSet.snapValue.value.y;
+        realOffset.z *= roomSet.snapValue.value.z;
 
-        // add room
+        // add room game object
         GameObject roomObject = Instantiate(candidateDoor.doorData.roomData.roomPrefab, transform.position + realOffset, Quaternion.Euler(0, candidateDoor.rot90Factor * 90, 0), transform);
         roomObjects.Add(roomObject);
         int index = roomObjects.Count - 1;
@@ -143,21 +160,35 @@ public class RoomGenerator : MonoBehaviour
         GeneratedRoomData generatedRoomData = new GeneratedRoomData(candidateDoor.doorData.roomData, index, candidateDoor.rot90Factor, roomObject, placementOffset);
         generatedRoomDatas.Add(generatedRoomData);
 
+        // add GeneratedDoorData to lists
         foreach (GeneratedDoorData d in generatedRoomData.generatedDoorDatas)
         {
-            // ignore the connecting door if not the first room
-            if (targetDoor != null && d.worldCoord == targetDoor.worldCoord)
-                continue;
+            generatedDoorDatas.Add(d);
 
-            vacantDoorDatas.Add(d);
+            // Don't add the new pair door to vacantDoorDatas but set the pair
+            if (targetDoor != null && d.worldCoord == targetDoor.worldCoord)
+            {   // pair doors
+                d.SetPair(targetDoor);
+                d.UpdateDoorObject();
+                targetDoor.SetPair(d);
+                targetDoor.UpdateDoorObject();
+                continue;
+            }
+            else
+            {   // add new non-pair doors to vacantDoorDatas
+                vacantDoorDatas.Add(d);
+            }
         }
 
+        // disable plotting
         if (roomObject.TryGetComponent(out RoomDataPlotter plotter))
         {
             plotter.DisablePlotting();
         }
 
         roomObject.AddComponent<GeneratedRoomDataViewer>().generatedRoomData = generatedRoomData;
+
+        return generatedRoomData;
     }
 
     void AddRoomToGrid(CandidateDoor candidateDoor, Vector3Int placementOffset, int index)
@@ -299,9 +330,9 @@ public class RoomGenerator : MonoBehaviour
         foreach (var d in vacantDoorDatas)
         {
             Vector3 _p = d.worldCoord;
-            _p.x *= RoomBoxSnapping.snapValue.x;
-            _p.y *= RoomBoxSnapping.snapValue.y;
-            _p.z *= RoomBoxSnapping.snapValue.z;
+            _p.x *= roomSet.snapValue.value.x;
+            _p.y *= roomSet.snapValue.value.y;
+            _p.z *= roomSet.snapValue.value.z;
             Gizmos.DrawSphere(_p, 0.5f);
         }
 

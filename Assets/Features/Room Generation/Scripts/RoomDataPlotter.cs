@@ -6,25 +6,29 @@ using UnityEditor;
 public class RoomDataPlotter : MonoBehaviour
 {
     static readonly Color EDITOR_COLOR = new Color(0.5f, 1f, 1f, 1f);
+    [HideInInspector]
     public Color editorColor = EDITOR_COLOR;
 
+    [Header("Editting Settings")]
     [SerializeField]
     [ReadOnly]
     private bool isPlotting = true;
     public bool IsPlotting { get { return isPlotting; } }
 
     [Space]
+    [Header("Requirements")]
     public bool enableRot90Variant = false;
-    [Space]
     public RoomData roomData;
+    public RoomBoxSnapValue snapValue;
 
     [Space]
     [Header("roomData Info")]
     [ReadOnly]
     [SerializeField]
-    private List<GameObject> roomBoxes;
+    public List<GameObject> roomBoxes;
+    [ReadOnly]
     [SerializeField]
-    private List<GameObject> roomDoors;
+    public List<GameObject> roomDoors;
 
     [Space]
     [Header("Requirements")]
@@ -62,8 +66,11 @@ public class RoomDataPlotter : MonoBehaviour
         newDoor.transform.localScale = Vector3.one;
 
         // box collider data and snapping setup
-        newDoor.AddComponent<RoomDoorSnapping>();
-        newDoor.AddComponent<RoomDoorDataGetter>();
+        var _s = newDoor.AddComponent<RoomDoorSnapping>();
+        _s.snapValue = snapValue;
+        var _dg = newDoor.AddComponent<RoomDoorDataGetter>();
+        _dg.snapValue = snapValue;
+        newDoor.AddComponent<RoomDoorObject>();
 
         UpdateRoomDoor();
     }
@@ -105,13 +112,15 @@ public class RoomDataPlotter : MonoBehaviour
         newCollider.transform.localScale = Vector3.one;
 
         // box collider setup
-        var b = newCollider.AddComponent<BoxCollider>();
-        b.size = new Vector3(3, 3, 3);
+        var _b = newCollider.AddComponent<BoxCollider>();
+        _b.size = new Vector3(3, 3, 3);
 
         // box collider data and snapping setup
-        var s = newCollider.AddComponent<RoomBoxSnapping>();
-        newCollider.AddComponent<RoomBoxDataGetter>();
-        s.boxCollider = b;
+        var _s = newCollider.AddComponent<RoomBoxSnapping>();
+        _s.boxCollider = _b;
+        _s.snapValue = snapValue;
+        var _dg = newCollider.AddComponent<RoomBoxDataGetter>();
+        _dg.snapValue = snapValue;
 
         UpdateRoomBox();
     }
@@ -159,6 +168,7 @@ public class RoomDataPlotter : MonoBehaviour
         foreach (RoomBoxDataGetter roomBoxDataGetter in roomBoxDataGetters)
             roomData.roomBoxData.AddData(roomBoxDataGetter.GetRoomBoxData());
         roomData.enableRot90Variant = enableRot90Variant;
+        roomData.snapValue = snapValue;
 
         // set debug output
         latestRoomBoxData = roomData.roomBoxData.ToGridString(16);
@@ -189,6 +199,7 @@ public class RoomDataPlotter : MonoBehaviour
         foreach (RoomDoorDataGetter g in roomDoorDataGetters)
             roomData.roomDoorData.AddData(g.GetRoomDoorData(roomData));
         roomData.enableRot90Variant = enableRot90Variant;
+        roomData.snapValue = snapValue;
 
         // set debug output
         latestRoomDoorData = roomData.roomDoorData.ToString();
@@ -242,14 +253,36 @@ public class RoomDataPlotter : MonoBehaviour
             // draw arrow
             Gizmos.color = outlineColor;
             _d.DrawArrow();
+
+            if (!_d.gameObject.TryGetComponent(out RoomDoorObject roomDoorObject))
+            {
+                _d.gameObject.AddComponent<RoomDoorObject>();
+            }
         }
+
+        // snapValue Update
+        // foreach (var d in roomDoors)
+        // {
+        //     if (d == null) continue;
+        //     RoomDoorSnapping _d = d.GetComponent<RoomDoorSnapping>();
+        //     _d.snapValue = snapValue;
+        //     RoomDoorDataGetter _dg = d.GetComponent<RoomDoorDataGetter>();
+        //     _dg.snapValue = snapValue;
+        // }
+        // foreach (var b in roomBoxes)
+        // {
+        //     if (b == null) continue;
+        //     RoomBoxSnapping _b = b.GetComponent<RoomBoxSnapping>();
+        //     _b.snapValue = snapValue;
+        //     RoomBoxDataGetter _bg = b.GetComponent<RoomBoxDataGetter>();
+        //     _bg.snapValue = snapValue;
+        // }
     }
 
     private void DrawGrid(BoxCollider b)
     {
         Bounds bounds = b.bounds;
         Vector3 min = bounds.min;
-        Vector3 snapValue = RoomBoxSnapping.snapValue;
 
         // directional values
         Vector3 up = Vector3.up * bounds.size.y;
@@ -257,7 +290,7 @@ public class RoomDataPlotter : MonoBehaviour
         Vector3 right = Vector3.right * bounds.size.x;
 
         // draw x ring
-        for (Vector3 current = min; current.x <= bounds.max.x; current.x += snapValue.x)
+        for (Vector3 current = min; current.x <= bounds.max.x; current.x += snapValue.value.x)
         {
             Gizmos.DrawLine(current, current + up);
             Gizmos.DrawLine(current, current + forward);
@@ -266,7 +299,7 @@ public class RoomDataPlotter : MonoBehaviour
         }
 
         // draw y ring
-        for (Vector3 current = min; current.y <= bounds.max.y; current.y += snapValue.y)
+        for (Vector3 current = min; current.y <= bounds.max.y; current.y += snapValue.value.y)
         {
             Gizmos.DrawLine(current, current + right);
             Gizmos.DrawLine(current, current + forward);
@@ -275,7 +308,7 @@ public class RoomDataPlotter : MonoBehaviour
         }
 
         // draw z ring
-        for (Vector3 current = min; current.z <= bounds.max.z; current.z += snapValue.z)
+        for (Vector3 current = min; current.z <= bounds.max.z; current.z += snapValue.value.z)
         {
             Gizmos.DrawLine(current, current + right);
             Gizmos.DrawLine(current, current + up);

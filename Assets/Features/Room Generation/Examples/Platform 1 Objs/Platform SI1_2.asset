@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Platform SI1_2
   m_EditorClassIdentifier: 
   roomPrefab: {fileID: 4351532407650128849, guid: d00b8280c0777403ea871c2b9b4c2aa5, type: 3}
+  snapValue: {fileID: 11400000, guid: f8f15a0025fb74400b479d62ee7d1ce5, type: 2}
   enableRot90Variant: 0
   roomBoxData:
     roomSpaces:
