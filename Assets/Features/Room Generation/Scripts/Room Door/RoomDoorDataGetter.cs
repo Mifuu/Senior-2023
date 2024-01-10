@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class RoomDoorDataGetter : MonoBehaviour
 {
+    [Space]
+    [ReadOnly]
+    public RoomBoxSnapValue snapValue;
+
     [ContextMenu("GetRoomDoorData")]
     public RoomDoorData GetRoomDoorData(RoomData parentRoom)
     {
@@ -16,9 +20,9 @@ public class RoomDoorDataGetter : MonoBehaviour
 
         // get door coord
         Vector3 _coord = transform.position;
-        _coord.x /= RoomBoxSnapping.snapValue.x;
-        _coord.y /= RoomBoxSnapping.snapValue.y;
-        _coord.z /= RoomBoxSnapping.snapValue.z;
+        _coord.x /= snapValue.value.x;
+        _coord.y /= snapValue.value.y;
+        _coord.z /= snapValue.value.z;
         roomDoorData.AddData(_coord, roomDoorSnapping.doorDir);
 
         return roomDoorData;

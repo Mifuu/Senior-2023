@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4207978842607999794}
   - component: {fileID: 102423077418520918}
   - component: {fileID: 2149563255720631079}
+  - component: {fileID: 4663876289154865600}
   m_Layer: 0
   m_Name: _Room Door
   m_TagString: Untagged
@@ -45,6 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 479ed45f812c64e388a9ebc09d499485, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  snapValue: {fileID: 11400000, guid: f8f15a0025fb74400b479d62ee7d1ce5, type: 2}
   doorDir: 3
   _pos: {x: -6, y: 2.5, z: 0}
 --- !u!114 &2149563255720631079
@@ -59,6 +61,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2dd57a13fe4d3496dabadc80143de6e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  snapValue: {fileID: 11400000, guid: f8f15a0025fb74400b479d62ee7d1ce5, type: 2}
+--- !u!114 &4663876289154865600
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 161399213829885377}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a80a16c91d74d42afb8f4cf1baf0e289, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isWall: 1
+  WallObject: {fileID: 0}
+  PassageObject: {fileID: 0}
 --- !u!1 &210982075179700362
 GameObject:
   m_ObjectHideFlags: 0
@@ -175,15 +193,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   editorColor: {r: 0.5, g: 1, b: 1, a: 1}
   isPlotting: 1
+  enableRot90Variant: 0
   roomData: {fileID: 11400000, guid: f24a76e98841b45199422f768e676d50, type: 2}
+  snapValue: {fileID: 11400000, guid: f8f15a0025fb74400b479d62ee7d1ce5, type: 2}
   roomBoxes:
   - {fileID: 4600434977669689366}
-  - {fileID: 0}
-  - {fileID: 0}
   roomDoors:
   - {fileID: 4396721024548079248}
-  - {fileID: 0}
-  - {fileID: 0}
   - {fileID: 161399213829885377}
   roomBoxesParent: {fileID: 1100088758133843921}
   roomDoorsParent: {fileID: 17658978490120766}
@@ -193,23 +209,19 @@ MonoBehaviour:
   latestRoomBoxData: " x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x 
     x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x 
     x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x 
-    x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  O O O O O O x  x  x  x  x \n
-    x  x  x  x  x  O O O O O O x  x  x  x  x \n x  x  x  x  x  O O O O O O O O x 
-    x  x \n x  x  x  x  x  O O O O O O O O x  x  x \n x  x  x  x  x  O O O O O O
-    x  x  x  x  x \n x  x  x  x  x  O O O O O O x  x  x  x  x \n x  x  x  x  x  x 
-    x  O O x  x  x  x  x  x  x \n x  x  x  x  x  x  x  O O x  x  x  x  x  x  x \n
-    x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x  x  x  x 
-    x  x  x  x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n"
-  latestRoomDoorData: 'Door Count: 4
+    x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x 
+    x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  O O
+    O O x  x  x  x  x  x  x \n x  x  x  x  x  O O O O x  x  x  x  x  x  x \n x  x 
+    x  x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x 
+    x  x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x 
+    x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x 
+    x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x 
+    x  x  x  x  x  x  x  x  x  x \n"
+  latestRoomDoorData: 'Door Count: 2
 
-    (0.00, 0.50, 3.00)
+    (1.00, 1.50, 0.00)
 
     (-3.00, 0.50, 0.00)
-
-    (5.00,
-    1.50, 0.00)
-
-    (0.00, 0.50, -5.00)
 
 '
 --- !u!1 &4396721024548079248
@@ -223,6 +235,7 @@ GameObject:
   - component: {fileID: 7566217793008481258}
   - component: {fileID: 6542154360816427509}
   - component: {fileID: 6595181518833528799}
+  - component: {fileID: 2947754412604207469}
   m_Layer: 0
   m_Name: _Room Door
   m_TagString: Untagged
@@ -257,6 +270,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 479ed45f812c64e388a9ebc09d499485, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  snapValue: {fileID: 11400000, guid: f8f15a0025fb74400b479d62ee7d1ce5, type: 2}
   doorDir: 1
   _pos: {x: 2, y: 7.5, z: 0}
 --- !u!114 &6595181518833528799
@@ -271,6 +285,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2dd57a13fe4d3496dabadc80143de6e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  snapValue: {fileID: 11400000, guid: f8f15a0025fb74400b479d62ee7d1ce5, type: 2}
+--- !u!114 &2947754412604207469
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4396721024548079248}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a80a16c91d74d42afb8f4cf1baf0e289, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isWall: 1
+  WallObject: {fileID: 0}
+  PassageObject: {fileID: 0}
 --- !u!1 &4600434977669689366
 GameObject:
   m_ObjectHideFlags: 0
@@ -339,11 +369,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   latestOutput: " x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x  x  x  x 
-    x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  O O O O O O x  x  x
-    \n x  x  x  O O O O O O x  x  x \n x  x  x  O O O O O O x  x  x \n x  x  x  O
-    O O O O O x  x  x \n x  x  x  O O O O O O x  x  x \n x  x  x  O O O O O O x 
-    x  x \n x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x 
-    x \n x  x  x  x  x  x  x  x  x  x  x  x \n"
+    x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x  x  x  x  x 
+    x  x \n x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  O O O O x  x  x  x  x
+    \n x  x  x  O O O O x  x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x \n x 
+    x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x \n x  x 
+    x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x \n"
+  snapValue: {fileID: 11400000, guid: f8f15a0025fb74400b479d62ee7d1ce5, type: 2}
 --- !u!114 &7815490688370627778
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -357,6 +388,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boxCollider: {fileID: 4363788071854048678}
+  snapValue: {fileID: 11400000, guid: f8f15a0025fb74400b479d62ee7d1ce5, type: 2}
   _center: {x: -2, y: 5, z: 0}
   _size: {x: 8, y: 10, z: 4}
 --- !u!1 &6168089903614791598

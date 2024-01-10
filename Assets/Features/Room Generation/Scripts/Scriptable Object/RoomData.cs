@@ -6,6 +6,7 @@ using UnityEngine;
 public class RoomData : ScriptableObject
 {
     public GameObject roomPrefab;
+    public RoomBoxSnapValue snapValue;
 
     [Tooltip("By selecting, this room will generate variants in 90 degree rotation.")]
     public bool enableRot90Variant = false;

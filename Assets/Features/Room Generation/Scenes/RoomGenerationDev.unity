@@ -14,7 +14,7 @@ OcclusionCullingSettings:
 RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 9
-  m_Fog: 1
+  m_Fog: 0
   m_FogColor: {r: 0.10711963, g: 0.09611962, b: 0.1509434, a: 1}
   m_FogMode: 3
   m_FogDensity: 0.06
@@ -141,50 +141,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1827351410}
     m_Modifications:
-    - target: {fileID: 8191975449177135623, guid: c6dbd2196842c4a8685c4091d49ad7fd, type: 3}
-      propertyPath: roomData
-      value: 
-      objectReference: {fileID: 11400000, guid: 3bb3a187d36f2467bb1f43054e265177, type: 2}
-    - target: {fileID: 8191975449177135623, guid: c6dbd2196842c4a8685c4091d49ad7fd, type: 3}
-      propertyPath: latestRoomBoxData
-      value: " x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x 
-        x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x 
-        x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x 
-        x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x 
-        x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x 
-        x  x  x  O O x  x  x  x  x  x  x \n x  x  x  x  x  x  x  O O x  x  x  x 
-        x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x 
-        x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x 
-        x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x 
-        x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x 
-        x  x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n"
-      objectReference: {fileID: 0}
-    - target: {fileID: 8191975449177135623, guid: c6dbd2196842c4a8685c4091d49ad7fd, type: 3}
-      propertyPath: enableRot90Variant
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8191975449177135623, guid: c6dbd2196842c4a8685c4091d49ad7fd, type: 3}
-      propertyPath: latestRoomDoorData
-      value: 'Door Count: 2
-
-        (1.00, 0.50, 0.00)
-
-        (-1.00, 0.50, 0.00)
-
-'
-      objectReference: {fileID: 0}
-    - target: {fileID: 8191975449177135623, guid: c6dbd2196842c4a8685c4091d49ad7fd, type: 3}
-      propertyPath: roomBoxes.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8191975449177135623, guid: c6dbd2196842c4a8685c4091d49ad7fd, type: 3}
-      propertyPath: roomDoors.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8191975449177135623, guid: c6dbd2196842c4a8685c4091d49ad7fd, type: 3}
-      propertyPath: roomDoors.Array.data[1]
-      value: 
-      objectReference: {fileID: 259353070}
     - target: {fileID: 8848377591628303471, guid: c6dbd2196842c4a8685c4091d49ad7fd, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -237,11 +193,6 @@ PrefabInstance:
 --- !u!4 &259353069 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8848377591628303471, guid: c6dbd2196842c4a8685c4091d49ad7fd, type: 3}
-  m_PrefabInstance: {fileID: 259353068}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &259353070 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4109274629558722241, guid: c6dbd2196842c4a8685c4091d49ad7fd, type: 3}
   m_PrefabInstance: {fileID: 259353068}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &261456147 stripped
@@ -300,50 +251,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1827351410}
     m_Modifications:
-    - target: {fileID: 596830828298830078, guid: c4dc7369e23f44356ad37115372891ef, type: 3}
-      propertyPath: roomData
-      value: 
-      objectReference: {fileID: 11400000, guid: 82e7be225d7964d7781c1cc9e5745d85, type: 2}
-    - target: {fileID: 596830828298830078, guid: c4dc7369e23f44356ad37115372891ef, type: 3}
-      propertyPath: latestRoomBoxData
-      value: " x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x 
-        x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x 
-        x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x 
-        x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x 
-        x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x 
-        x  x  x  O O x  x  x  x  x  x  x \n x  x  x  x  x  x  x  O O x  x  x  x 
-        x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x 
-        x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x 
-        x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x 
-        x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x 
-        x  x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n"
-      objectReference: {fileID: 0}
-    - target: {fileID: 596830828298830078, guid: c4dc7369e23f44356ad37115372891ef, type: 3}
-      propertyPath: enableRot90Variant
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 596830828298830078, guid: c4dc7369e23f44356ad37115372891ef, type: 3}
-      propertyPath: latestRoomDoorData
-      value: 'Door Count: 2
-
-        (1.00, 0.50, 0.00)
-
-        (-1.00, 0.50, 0.00)
-
-'
-      objectReference: {fileID: 0}
-    - target: {fileID: 596830828298830078, guid: c4dc7369e23f44356ad37115372891ef, type: 3}
-      propertyPath: roomBoxes.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 596830828298830078, guid: c4dc7369e23f44356ad37115372891ef, type: 3}
-      propertyPath: roomDoors.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 596830828298830078, guid: c4dc7369e23f44356ad37115372891ef, type: 3}
-      propertyPath: roomDoors.Array.data[1]
-      value: 
-      objectReference: {fileID: 536124696}
     - target: {fileID: 4032205081499340973, guid: c4dc7369e23f44356ad37115372891ef, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -398,11 +305,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4032205081499340973, guid: c4dc7369e23f44356ad37115372891ef, type: 3}
   m_PrefabInstance: {fileID: 536124694}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &536124696 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3154466494114874228, guid: c4dc7369e23f44356ad37115372891ef, type: 3}
-  m_PrefabInstance: {fileID: 536124694}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &629558993 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8924516783116961973, guid: 046d5b7f5eae74ec48581be107b98558, type: 3}
@@ -416,55 +318,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1827351410}
     m_Modifications:
-    - target: {fileID: 2604726183772666365, guid: 680dc9e605ef848958cff5c3b23745d0, type: 3}
-      propertyPath: roomData
-      value: 
-      objectReference: {fileID: 11400000, guid: 5eb349551a4ea49cf95404d74099979d, type: 2}
-    - target: {fileID: 2604726183772666365, guid: 680dc9e605ef848958cff5c3b23745d0, type: 3}
-      propertyPath: latestRoomBoxData
-      value: " x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x 
-        x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x 
-        x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x 
-        x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x 
-        x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x 
-        x  x  x  O O x  x  x  x  x  x  x \n x  x  x  x  x  x  x  O O x  x  x  x 
-        x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x 
-        x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x 
-        x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x 
-        x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x 
-        x  x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n"
-      objectReference: {fileID: 0}
-    - target: {fileID: 2604726183772666365, guid: 680dc9e605ef848958cff5c3b23745d0, type: 3}
-      propertyPath: enableRot90Variant
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2604726183772666365, guid: 680dc9e605ef848958cff5c3b23745d0, type: 3}
-      propertyPath: latestRoomDoorData
-      value: 'Door Count: 4
-
-        (0.00, 0.50, 1.00)
-
-        (1.00, 0.50, 0.00)
-
-        (0.00,
-        0.50, -1.00)
-
-        (-1.00, 0.50, 0.00)
-
-'
-      objectReference: {fileID: 0}
-    - target: {fileID: 2604726183772666365, guid: 680dc9e605ef848958cff5c3b23745d0, type: 3}
-      propertyPath: roomBoxes.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2604726183772666365, guid: 680dc9e605ef848958cff5c3b23745d0, type: 3}
-      propertyPath: roomDoors.Array.data[0]
-      value: 
-      objectReference: {fileID: 666301667}
-    - target: {fileID: 2604726183772666365, guid: 680dc9e605ef848958cff5c3b23745d0, type: 3}
-      propertyPath: roomDoors.Array.data[1]
-      value: 
-      objectReference: {fileID: 666301666}
     - target: {fileID: 5029148157377374641, guid: 680dc9e605ef848958cff5c3b23745d0, type: 3}
       propertyPath: m_Name
       value: Platform X1
@@ -519,16 +372,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7280070396329535453, guid: 680dc9e605ef848958cff5c3b23745d0, type: 3}
   m_PrefabInstance: {fileID: 666301664}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &666301666 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3595034907483462848, guid: 680dc9e605ef848958cff5c3b23745d0, type: 3}
-  m_PrefabInstance: {fileID: 666301664}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &666301667 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6128356648073821160, guid: 680dc9e605ef848958cff5c3b23745d0, type: 3}
-  m_PrefabInstance: {fileID: 666301664}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &668789943
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -537,50 +380,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1827351410}
     m_Modifications:
-    - target: {fileID: 555979249948997960, guid: a080f4ac10df349d0ab9df75da73ec58, type: 3}
-      propertyPath: roomData
-      value: 
-      objectReference: {fileID: 11400000, guid: b8b0527bb152848a1bc31f64a7496ea0, type: 2}
-    - target: {fileID: 555979249948997960, guid: a080f4ac10df349d0ab9df75da73ec58, type: 3}
-      propertyPath: latestRoomBoxData
-      value: " x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x 
-        x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x 
-        x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x 
-        x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x 
-        x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x 
-        x  O O O O x  x  x  x  x  x  x \n x  x  x  x  x  O O O O x  x  x  x  x  x 
-        x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x 
-        x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x 
-        x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x 
-        x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x 
-        x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n"
-      objectReference: {fileID: 0}
-    - target: {fileID: 555979249948997960, guid: a080f4ac10df349d0ab9df75da73ec58, type: 3}
-      propertyPath: enableRot90Variant
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 555979249948997960, guid: a080f4ac10df349d0ab9df75da73ec58, type: 3}
-      propertyPath: latestRoomDoorData
-      value: 'Door Count: 2
-
-        (1.00, 0.50, 0.00)
-
-        (-3.00, 1.50, 0.00)
-
-'
-      objectReference: {fileID: 0}
-    - target: {fileID: 555979249948997960, guid: a080f4ac10df349d0ab9df75da73ec58, type: 3}
-      propertyPath: roomBoxes.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 555979249948997960, guid: a080f4ac10df349d0ab9df75da73ec58, type: 3}
-      propertyPath: roomDoors.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 555979249948997960, guid: a080f4ac10df349d0ab9df75da73ec58, type: 3}
-      propertyPath: roomDoors.Array.data[1]
-      value: 
-      objectReference: {fileID: 668789945}
     - target: {fileID: 6973999907570538632, guid: a080f4ac10df349d0ab9df75da73ec58, type: 3}
       propertyPath: m_Name
       value: Platform SI1
@@ -635,11 +434,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8505872040981702794, guid: a080f4ac10df349d0ab9df75da73ec58, type: 3}
   m_PrefabInstance: {fileID: 668789943}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &668789945 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5308910149798060885, guid: a080f4ac10df349d0ab9df75da73ec58, type: 3}
-  m_PrefabInstance: {fileID: 668789943}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &738230304
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -648,55 +442,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1827351410}
     m_Modifications:
-    - target: {fileID: 1288753831550628087, guid: 645a2847357dd4d71a76678a57163f7f, type: 3}
-      propertyPath: roomData
-      value: 
-      objectReference: {fileID: 11400000, guid: 30b27fff2fb8d4e418c7a79a2caafa2a, type: 2}
-    - target: {fileID: 1288753831550628087, guid: 645a2847357dd4d71a76678a57163f7f, type: 3}
-      propertyPath: latestRoomBoxData
-      value: " x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x 
-        x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x 
-        x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x 
-        x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x 
-        x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x 
-        x  x  x  O O x  x  x  x  x  x  x \n x  x  x  x  x  x  x  O O x  x  x  x 
-        x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x 
-        x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x 
-        x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x 
-        x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x 
-        x  x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n"
-      objectReference: {fileID: 0}
-    - target: {fileID: 1288753831550628087, guid: 645a2847357dd4d71a76678a57163f7f, type: 3}
-      propertyPath: enableRot90Variant
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1288753831550628087, guid: 645a2847357dd4d71a76678a57163f7f, type: 3}
-      propertyPath: latestRoomDoorData
-      value: 'Door Count: 4
-
-        (0.00, 0.50, 1.00)
-
-        (1.00, 0.50, 0.00)
-
-        (0.00,
-        0.50, -1.00)
-
-        (-1.00, 0.50, 0.00)
-
-'
-      objectReference: {fileID: 0}
-    - target: {fileID: 1288753831550628087, guid: 645a2847357dd4d71a76678a57163f7f, type: 3}
-      propertyPath: roomBoxes.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1288753831550628087, guid: 645a2847357dd4d71a76678a57163f7f, type: 3}
-      propertyPath: roomDoors.Array.data[0]
-      value: 
-      objectReference: {fileID: 738230307}
-    - target: {fileID: 1288753831550628087, guid: 645a2847357dd4d71a76678a57163f7f, type: 3}
-      propertyPath: roomDoors.Array.data[1]
-      value: 
-      objectReference: {fileID: 738230306}
     - target: {fileID: 3481576990189983750, guid: 645a2847357dd4d71a76678a57163f7f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -749,16 +494,6 @@ PrefabInstance:
 --- !u!4 &738230305 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3481576990189983750, guid: 645a2847357dd4d71a76678a57163f7f, type: 3}
-  m_PrefabInstance: {fileID: 738230304}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &738230306 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 484097277673550909, guid: 645a2847357dd4d71a76678a57163f7f, type: 3}
-  m_PrefabInstance: {fileID: 738230304}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &738230307 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8354039958099330833, guid: 645a2847357dd4d71a76678a57163f7f, type: 3}
   m_PrefabInstance: {fileID: 738230304}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &745665947
@@ -1006,57 +741,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Platform T1
       objectReference: {fileID: 0}
-    - target: {fileID: 652714898938903395, guid: ed2d95e97c90a443192da7ed1e8e7569, type: 3}
-      propertyPath: roomData
-      value: 
-      objectReference: {fileID: 11400000, guid: 4a40886e1549c40318478211938258e4, type: 2}
-    - target: {fileID: 652714898938903395, guid: ed2d95e97c90a443192da7ed1e8e7569, type: 3}
-      propertyPath: latestRoomBoxData
-      value: " x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x 
-        x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x 
-        x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x 
-        x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x 
-        x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x 
-        x  x  x  O O x  x  x  x  x  x  x \n x  x  x  x  x  x  x  O O x  x  x  x 
-        x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x 
-        x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x 
-        x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x 
-        x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x 
-        x  x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n"
-      objectReference: {fileID: 0}
-    - target: {fileID: 652714898938903395, guid: ed2d95e97c90a443192da7ed1e8e7569, type: 3}
-      propertyPath: enableRot90Variant
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 652714898938903395, guid: ed2d95e97c90a443192da7ed1e8e7569, type: 3}
-      propertyPath: latestRoomDoorData
-      value: 'Door Count: 3
-
-        (0.00, 0.50, 1.00)
-
-        (1.00, 0.50, 0.00)
-
-        (0.00,
-        0.50, -1.00)
-
-'
-      objectReference: {fileID: 0}
-    - target: {fileID: 652714898938903395, guid: ed2d95e97c90a443192da7ed1e8e7569, type: 3}
-      propertyPath: roomBoxes.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 652714898938903395, guid: ed2d95e97c90a443192da7ed1e8e7569, type: 3}
-      propertyPath: roomDoors.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 652714898938903395, guid: ed2d95e97c90a443192da7ed1e8e7569, type: 3}
-      propertyPath: roomDoors.Array.data[0]
-      value: 
-      objectReference: {fileID: 1168562499}
-    - target: {fileID: 652714898938903395, guid: ed2d95e97c90a443192da7ed1e8e7569, type: 3}
-      propertyPath: roomDoors.Array.data[1]
-      value: 
-      objectReference: {fileID: 1168562498}
     - target: {fileID: 2528789818152788294, guid: ed2d95e97c90a443192da7ed1e8e7569, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1107,16 +791,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2528789818152788294, guid: ed2d95e97c90a443192da7ed1e8e7569, type: 3}
   m_PrefabInstance: {fileID: 1168562496}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1168562498 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1157325862616097864, guid: ed2d95e97c90a443192da7ed1e8e7569, type: 3}
-  m_PrefabInstance: {fileID: 1168562496}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1168562499 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4237137725155637244, guid: ed2d95e97c90a443192da7ed1e8e7569, type: 3}
-  m_PrefabInstance: {fileID: 1168562496}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1200025752
 GameObject:
   m_ObjectHideFlags: 0
@@ -1147,7 +821,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roomSet: {fileID: 11400000, guid: a5b77437b5d1e45ebaf5ff95bbea35bf, type: 2}
-  latestTargetDoorPos: {x: 4, y: 7.5, z: -36}
+  latestTargetDoorPos: {x: 16, y: 2.5, z: -12}
   isDebugMode: 0
   seed: -1
   randDoorAttempts: 10
@@ -1309,7 +983,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1591299729
 Transform:
   m_ObjectHideFlags: 0
@@ -1981,55 +1655,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8651125922682182874, guid: 8f15db2a71bdf42de8ee81efea865c45, type: 3}
-      propertyPath: roomData
-      value: 
-      objectReference: {fileID: 11400000, guid: cc378afc944954de7b21a9bcb8154ec4, type: 2}
-    - target: {fileID: 8651125922682182874, guid: 8f15db2a71bdf42de8ee81efea865c45, type: 3}
-      propertyPath: latestRoomBoxData
-      value: " x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x 
-        x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x 
-        x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x 
-        x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x 
-        x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x 
-        x  x  x  O O x  x  x  x  x  x  x \n x  x  x  x  x  x  x  O O x  x  x  x 
-        x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x 
-        x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x 
-        x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x 
-        x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x 
-        x  x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n"
-      objectReference: {fileID: 0}
-    - target: {fileID: 8651125922682182874, guid: 8f15db2a71bdf42de8ee81efea865c45, type: 3}
-      propertyPath: enableRot90Variant
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8651125922682182874, guid: 8f15db2a71bdf42de8ee81efea865c45, type: 3}
-      propertyPath: latestRoomDoorData
-      value: 'Door Count: 4
-
-        (0.00, 0.50, 1.00)
-
-        (1.00, 0.50, 0.00)
-
-        (0.00,
-        0.50, -1.00)
-
-        (-1.00, 0.50, 0.00)
-
-'
-      objectReference: {fileID: 0}
-    - target: {fileID: 8651125922682182874, guid: 8f15db2a71bdf42de8ee81efea865c45, type: 3}
-      propertyPath: roomBoxes.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8651125922682182874, guid: 8f15db2a71bdf42de8ee81efea865c45, type: 3}
-      propertyPath: roomDoors.Array.data[0]
-      value: 
-      objectReference: {fileID: 2058556777}
-    - target: {fileID: 8651125922682182874, guid: 8f15db2a71bdf42de8ee81efea865c45, type: 3}
-      propertyPath: roomDoors.Array.data[1]
-      value: 
-      objectReference: {fileID: 2058556776}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2038,16 +1663,6 @@ PrefabInstance:
 --- !u!4 &2058556775 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8265784660672944722, guid: 8f15db2a71bdf42de8ee81efea865c45, type: 3}
-  m_PrefabInstance: {fileID: 2058556774}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &2058556776 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1538561380353506480, guid: 8f15db2a71bdf42de8ee81efea865c45, type: 3}
-  m_PrefabInstance: {fileID: 2058556774}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &2058556777 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1715090032331720194, guid: 8f15db2a71bdf42de8ee81efea865c45, type: 3}
   m_PrefabInstance: {fileID: 2058556774}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &2067461819 stripped
@@ -2063,54 +1678,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 745665948}
     m_Modifications:
-    - target: {fileID: 2604726183772666365, guid: d9d307dac282b45c0a870ec906d7ec4f, type: 3}
-      propertyPath: latestRoomBoxData
-      value: " x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x 
-        x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x 
-        x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x 
-        x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x 
-        x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x 
-        x  x  x  O O x  x  x  x  x  x  x \n x  x  x  x  x  x  x  O O x  x  x  x 
-        x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x 
-        x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x 
-        x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x 
-        x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x 
-        x  x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n"
-      objectReference: {fileID: 0}
-    - target: {fileID: 2604726183772666365, guid: d9d307dac282b45c0a870ec906d7ec4f, type: 3}
-      propertyPath: latestRoomDoorData
-      value: 'Door Count: 4
-
-        (0.00, 0.50, 1.00)
-
-        (1.00, 0.50, 0.00)
-
-        (0.00,
-        0.50, -1.00)
-
-        (-1.00, 0.50, 0.00)
-
-'
-      objectReference: {fileID: 0}
-    - target: {fileID: 2604726183772666365, guid: d9d307dac282b45c0a870ec906d7ec4f, type: 3}
-      propertyPath: roomBoxes.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2604726183772666365, guid: d9d307dac282b45c0a870ec906d7ec4f, type: 3}
-      propertyPath: roomDoors.Array.data[0]
-      value: 
-      objectReference: {fileID: 296190236786207211}
-    - target: {fileID: 2604726183772666365, guid: d9d307dac282b45c0a870ec906d7ec4f, type: 3}
-      propertyPath: roomDoors.Array.data[1]
-      value: 
-      objectReference: {fileID: 296190236786207210}
     - target: {fileID: 5029148157377374641, guid: d9d307dac282b45c0a870ec906d7ec4f, type: 3}
       propertyPath: m_Name
       value: Plarform X1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5029148157377374641, guid: d9d307dac282b45c0a870ec906d7ec4f, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7280070396329535453, guid: d9d307dac282b45c0a870ec906d7ec4f, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2157,16 +1727,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d9d307dac282b45c0a870ec906d7ec4f, type: 3}
---- !u!1 &296190236786207210 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3595034907483462848, guid: d9d307dac282b45c0a870ec906d7ec4f, type: 3}
-  m_PrefabInstance: {fileID: 296190236786207209}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &296190236786207211 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6128356648073821160, guid: d9d307dac282b45c0a870ec906d7ec4f, type: 3}
-  m_PrefabInstance: {fileID: 296190236786207209}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &424250467911398676
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2178,10 +1738,6 @@ PrefabInstance:
     - target: {fileID: 4351532407650128849, guid: d00b8280c0777403ea871c2b9b4c2aa5, type: 3}
       propertyPath: m_Name
       value: Plarform SI1_2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4351532407650128849, guid: d00b8280c0777403ea871c2b9b4c2aa5, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5045511918073086426, guid: d00b8280c0777403ea871c2b9b4c2aa5, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2223,52 +1779,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6016939674430537723, guid: d00b8280c0777403ea871c2b9b4c2aa5, type: 3}
-      propertyPath: latestRoomBoxData
-      value: " x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x 
-        x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x 
-        x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x 
-        x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x 
-        x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x 
-        x  O O O O x  x  x  x  x  x  x \n x  x  x  x  x  O O O O x  x  x  x  x  x 
-        x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x 
-        x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x 
-        x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x 
-        x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x 
-        x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n"
-      objectReference: {fileID: 0}
-    - target: {fileID: 6016939674430537723, guid: d00b8280c0777403ea871c2b9b4c2aa5, type: 3}
-      propertyPath: latestRoomDoorData
-      value: 'Door Count: 2
-
-        (1.00, 1.50, 0.00)
-
-        (-3.00, 0.50, 0.00)
-
-'
-      objectReference: {fileID: 0}
-    - target: {fileID: 6016939674430537723, guid: d00b8280c0777403ea871c2b9b4c2aa5, type: 3}
-      propertyPath: roomBoxes.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6016939674430537723, guid: d00b8280c0777403ea871c2b9b4c2aa5, type: 3}
-      propertyPath: roomDoors.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 6016939674430537723, guid: d00b8280c0777403ea871c2b9b4c2aa5, type: 3}
-      propertyPath: roomDoors.Array.data[1]
-      value: 
-      objectReference: {fileID: 424250467911398677}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d00b8280c0777403ea871c2b9b4c2aa5, type: 3}
---- !u!1 &424250467911398677 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 161399213829885377, guid: d00b8280c0777403ea871c2b9b4c2aa5, type: 3}
-  m_PrefabInstance: {fileID: 424250467911398676}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1364698096310303420
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2317,69 +1832,15 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5268337758438373227, guid: 7addf0cf2298f44708ed50b96ccae3d0, type: 3}
-      propertyPath: latestRoomBoxData
-      value: " x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x 
-        x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x 
-        x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x 
-        x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x 
-        x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x 
-        x  x  x  O O x  x  x  x  x  x  x \n x  x  x  x  x  x  x  O O x  x  x  x 
-        x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x 
-        x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x 
-        x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x 
-        x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x 
-        x  x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n"
-      objectReference: {fileID: 0}
-    - target: {fileID: 5268337758438373227, guid: 7addf0cf2298f44708ed50b96ccae3d0, type: 3}
-      propertyPath: latestRoomDoorData
-      value: 'Door Count: 2
-
-        (0.00, 0.50, 1.00)
-
-        (0.00, 0.50, -1.00)
-
-'
-      objectReference: {fileID: 0}
-    - target: {fileID: 5268337758438373227, guid: 7addf0cf2298f44708ed50b96ccae3d0, type: 3}
-      propertyPath: roomBoxes.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5268337758438373227, guid: 7addf0cf2298f44708ed50b96ccae3d0, type: 3}
-      propertyPath: roomDoors.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5268337758438373227, guid: 7addf0cf2298f44708ed50b96ccae3d0, type: 3}
-      propertyPath: roomDoors.Array.data[0]
-      value: 
-      objectReference: {fileID: 1364698096310303422}
-    - target: {fileID: 5268337758438373227, guid: 7addf0cf2298f44708ed50b96ccae3d0, type: 3}
-      propertyPath: roomDoors.Array.data[1]
-      value: 
-      objectReference: {fileID: 1364698096310303421}
     - target: {fileID: 8813628814680332582, guid: 7addf0cf2298f44708ed50b96ccae3d0, type: 3}
       propertyPath: m_Name
       value: Plarform I2_2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8813628814680332582, guid: 7addf0cf2298f44708ed50b96ccae3d0, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7addf0cf2298f44708ed50b96ccae3d0, type: 3}
---- !u!1 &1364698096310303421 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4399693963112737960, guid: 7addf0cf2298f44708ed50b96ccae3d0, type: 3}
-  m_PrefabInstance: {fileID: 1364698096310303420}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1364698096310303422 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8899989231167899765, guid: 7addf0cf2298f44708ed50b96ccae3d0, type: 3}
-  m_PrefabInstance: {fileID: 1364698096310303420}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1401705978029910310
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2388,42 +1849,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 745665948}
     m_Modifications:
-    - target: {fileID: 8191975449177135623, guid: 16bae3266849a4d979dceccdc73d9f95, type: 3}
-      propertyPath: latestRoomBoxData
-      value: " x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x 
-        x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x 
-        x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x 
-        x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x 
-        x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x 
-        x  x  x  O O x  x  x  x  x  x  x \n x  x  x  x  x  x  x  O O x  x  x  x 
-        x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x 
-        x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x 
-        x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x 
-        x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x 
-        x  x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n"
-      objectReference: {fileID: 0}
-    - target: {fileID: 8191975449177135623, guid: 16bae3266849a4d979dceccdc73d9f95, type: 3}
-      propertyPath: latestRoomDoorData
-      value: 'Door Count: 2
-
-        (1.00, 0.50, 0.00)
-
-        (-1.00, 0.50, 0.00)
-
-'
-      objectReference: {fileID: 0}
-    - target: {fileID: 8191975449177135623, guid: 16bae3266849a4d979dceccdc73d9f95, type: 3}
-      propertyPath: roomBoxes.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8191975449177135623, guid: 16bae3266849a4d979dceccdc73d9f95, type: 3}
-      propertyPath: roomDoors.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8191975449177135623, guid: 16bae3266849a4d979dceccdc73d9f95, type: 3}
-      propertyPath: roomDoors.Array.data[1]
-      value: 
-      objectReference: {fileID: 1401705978029910311}
     - target: {fileID: 8848377591628303471, guid: 16bae3266849a4d979dceccdc73d9f95, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -2468,20 +1893,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Plarform I2_1
       objectReference: {fileID: 0}
-    - target: {fileID: 9092645960363067598, guid: 16bae3266849a4d979dceccdc73d9f95, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 16bae3266849a4d979dceccdc73d9f95, type: 3}
---- !u!1 &1401705978029910311 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4109274629558722241, guid: 16bae3266849a4d979dceccdc73d9f95, type: 3}
-  m_PrefabInstance: {fileID: 1401705978029910310}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2015584860199273447
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2530,69 +1946,15 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7180550319121943951, guid: 6225983a1c46748d5b1f210d99870434, type: 3}
-      propertyPath: latestRoomBoxData
-      value: " x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x 
-        x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x 
-        x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x 
-        x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x 
-        x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x 
-        x  x  x  O O x  x  x  x  x  x  x \n x  x  x  x  x  x  x  O O x  x  x  x 
-        x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x 
-        x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x 
-        x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x 
-        x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x 
-        x  x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n"
-      objectReference: {fileID: 0}
-    - target: {fileID: 7180550319121943951, guid: 6225983a1c46748d5b1f210d99870434, type: 3}
-      propertyPath: latestRoomDoorData
-      value: 'Door Count: 2
-
-        (0.00, 0.50, 1.00)
-
-        (0.00, 0.50, -1.00)
-
-'
-      objectReference: {fileID: 0}
-    - target: {fileID: 7180550319121943951, guid: 6225983a1c46748d5b1f210d99870434, type: 3}
-      propertyPath: roomBoxes.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7180550319121943951, guid: 6225983a1c46748d5b1f210d99870434, type: 3}
-      propertyPath: roomDoors.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 7180550319121943951, guid: 6225983a1c46748d5b1f210d99870434, type: 3}
-      propertyPath: roomDoors.Array.data[0]
-      value: 
-      objectReference: {fileID: 2015584860199273449}
-    - target: {fileID: 7180550319121943951, guid: 6225983a1c46748d5b1f210d99870434, type: 3}
-      propertyPath: roomDoors.Array.data[1]
-      value: 
-      objectReference: {fileID: 2015584860199273448}
     - target: {fileID: 9205487242187458532, guid: 6225983a1c46748d5b1f210d99870434, type: 3}
       propertyPath: m_Name
       value: Plarform I1_2
-      objectReference: {fileID: 0}
-    - target: {fileID: 9205487242187458532, guid: 6225983a1c46748d5b1f210d99870434, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6225983a1c46748d5b1f210d99870434, type: 3}
---- !u!1 &2015584860199273448 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 40280908043129826, guid: 6225983a1c46748d5b1f210d99870434, type: 3}
-  m_PrefabInstance: {fileID: 2015584860199273447}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &2015584860199273449 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 195646732552373336, guid: 6225983a1c46748d5b1f210d99870434, type: 3}
-  m_PrefabInstance: {fileID: 2015584860199273447}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2024152541482442870
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2605,46 +1967,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Plarform SI1_4
       objectReference: {fileID: 0}
-    - target: {fileID: 508622813150840152, guid: 53f3017dfdeb64a3c9f0f96641cf755c, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3066886051948116561, guid: 53f3017dfdeb64a3c9f0f96641cf755c, type: 3}
-      propertyPath: latestRoomBoxData
-      value: " x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x 
-        x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x 
-        x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x 
-        x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x  x  O O x  x  x  x  x 
-        x  x \n x  x  x  x  x  x  x  O O x  x  x  x  x  x  x \n x  x  x  x  x  x 
-        x  O O x  x  x  x  x  x  x \n x  x  x  x  x  x  x  O O x  x  x  x  x  x 
-        x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x 
-        x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x 
-        x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x 
-        x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x 
-        x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n"
-      objectReference: {fileID: 0}
-    - target: {fileID: 3066886051948116561, guid: 53f3017dfdeb64a3c9f0f96641cf755c, type: 3}
-      propertyPath: latestRoomDoorData
-      value: 'Door Count: 2
-
-        (0.00, 1.50, -1.00)
-
-        (0.00, 0.50, 3.00)
-
-'
-      objectReference: {fileID: 0}
-    - target: {fileID: 3066886051948116561, guid: 53f3017dfdeb64a3c9f0f96641cf755c, type: 3}
-      propertyPath: roomBoxes.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3066886051948116561, guid: 53f3017dfdeb64a3c9f0f96641cf755c, type: 3}
-      propertyPath: roomDoors.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3066886051948116561, guid: 53f3017dfdeb64a3c9f0f96641cf755c, type: 3}
-      propertyPath: roomDoors.Array.data[1]
-      value: 
-      objectReference: {fileID: 2024152541482442871}
     - target: {fileID: 6005207810749481699, guid: 53f3017dfdeb64a3c9f0f96641cf755c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -2690,11 +2012,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 53f3017dfdeb64a3c9f0f96641cf755c, type: 3}
---- !u!1 &2024152541482442871 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 961396209290360464, guid: 53f3017dfdeb64a3c9f0f96641cf755c, type: 3}
-  m_PrefabInstance: {fileID: 2024152541482442870}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2213113092829122371
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2707,53 +2024,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Plarform T1_1
       objectReference: {fileID: 0}
-    - target: {fileID: 477724591116080360, guid: 367717e91830f40c193211519fc0a51b, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 652714898938903395, guid: 367717e91830f40c193211519fc0a51b, type: 3}
-      propertyPath: latestRoomBoxData
-      value: " x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x 
-        x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x 
-        x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x 
-        x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x 
-        x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x 
-        x  x  x  O O x  x  x  x  x  x  x \n x  x  x  x  x  x  x  O O x  x  x  x 
-        x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x 
-        x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x 
-        x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x 
-        x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x 
-        x  x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n"
-      objectReference: {fileID: 0}
-    - target: {fileID: 652714898938903395, guid: 367717e91830f40c193211519fc0a51b, type: 3}
-      propertyPath: latestRoomDoorData
-      value: 'Door Count: 3
-
-        (0.00, 0.50, 1.00)
-
-        (1.00, 0.50, 0.00)
-
-        (0.00,
-        0.50, -1.00)
-
-'
-      objectReference: {fileID: 0}
-    - target: {fileID: 652714898938903395, guid: 367717e91830f40c193211519fc0a51b, type: 3}
-      propertyPath: roomBoxes.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 652714898938903395, guid: 367717e91830f40c193211519fc0a51b, type: 3}
-      propertyPath: roomDoors.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 652714898938903395, guid: 367717e91830f40c193211519fc0a51b, type: 3}
-      propertyPath: roomDoors.Array.data[0]
-      value: 
-      objectReference: {fileID: 2213113092829122373}
-    - target: {fileID: 652714898938903395, guid: 367717e91830f40c193211519fc0a51b, type: 3}
-      propertyPath: roomDoors.Array.data[1]
-      value: 
-      objectReference: {fileID: 2213113092829122372}
     - target: {fileID: 2528789818152788294, guid: 367717e91830f40c193211519fc0a51b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -2799,16 +2069,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 367717e91830f40c193211519fc0a51b, type: 3}
---- !u!1 &2213113092829122372 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1157325862616097864, guid: 367717e91830f40c193211519fc0a51b, type: 3}
-  m_PrefabInstance: {fileID: 2213113092829122371}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &2213113092829122373 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4237137725155637244, guid: 367717e91830f40c193211519fc0a51b, type: 3}
-  m_PrefabInstance: {fileID: 2213113092829122371}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2303415309303318629
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2817,49 +2077,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 745665948}
     m_Modifications:
-    - target: {fileID: 555979249948997960, guid: 62cefed6c35fa4410aab5f59368b1c8d, type: 3}
-      propertyPath: latestRoomBoxData
-      value: " x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x 
-        x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x 
-        x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x 
-        x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x 
-        x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x 
-        x  O O O O x  x  x  x  x  x  x \n x  x  x  x  x  O O O O x  x  x  x  x  x 
-        x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x 
-        x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x 
-        x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x 
-        x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x 
-        x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n"
-      objectReference: {fileID: 0}
-    - target: {fileID: 555979249948997960, guid: 62cefed6c35fa4410aab5f59368b1c8d, type: 3}
-      propertyPath: latestRoomDoorData
-      value: 'Door Count: 2
-
-        (1.00, 0.50, 0.00)
-
-        (-3.00, 1.50, 0.00)
-
-'
-      objectReference: {fileID: 0}
-    - target: {fileID: 555979249948997960, guid: 62cefed6c35fa4410aab5f59368b1c8d, type: 3}
-      propertyPath: roomBoxes.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 555979249948997960, guid: 62cefed6c35fa4410aab5f59368b1c8d, type: 3}
-      propertyPath: roomDoors.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 555979249948997960, guid: 62cefed6c35fa4410aab5f59368b1c8d, type: 3}
-      propertyPath: roomDoors.Array.data[1]
-      value: 
-      objectReference: {fileID: 2303415309303318630}
     - target: {fileID: 6973999907570538632, guid: 62cefed6c35fa4410aab5f59368b1c8d, type: 3}
       propertyPath: m_Name
       value: Plarform SI1_1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6973999907570538632, guid: 62cefed6c35fa4410aab5f59368b1c8d, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8505872040981702794, guid: 62cefed6c35fa4410aab5f59368b1c8d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2906,11 +2126,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 62cefed6c35fa4410aab5f59368b1c8d, type: 3}
---- !u!1 &2303415309303318630 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5308910149798060885, guid: 62cefed6c35fa4410aab5f59368b1c8d, type: 3}
-  m_PrefabInstance: {fileID: 2303415309303318629}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2604352530650641673
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2923,53 +2138,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Plarform T1_2
       objectReference: {fileID: 0}
-    - target: {fileID: 3122158089140726065, guid: 046d5b7f5eae74ec48581be107b98558, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7205014434666002139, guid: 046d5b7f5eae74ec48581be107b98558, type: 3}
-      propertyPath: latestRoomBoxData
-      value: " x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x 
-        x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x 
-        x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x 
-        x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x 
-        x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x 
-        x  x  x  O O x  x  x  x  x  x  x \n x  x  x  x  x  x  x  O O x  x  x  x 
-        x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x 
-        x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x 
-        x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x 
-        x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x 
-        x  x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n"
-      objectReference: {fileID: 0}
-    - target: {fileID: 7205014434666002139, guid: 046d5b7f5eae74ec48581be107b98558, type: 3}
-      propertyPath: latestRoomDoorData
-      value: 'Door Count: 3
-
-        (1.00, 0.50, 0.00)
-
-        (0.00, 0.50, -1.00)
-
-        (-1.00,
-        0.50, 0.00)
-
-'
-      objectReference: {fileID: 0}
-    - target: {fileID: 7205014434666002139, guid: 046d5b7f5eae74ec48581be107b98558, type: 3}
-      propertyPath: roomBoxes.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7205014434666002139, guid: 046d5b7f5eae74ec48581be107b98558, type: 3}
-      propertyPath: roomDoors.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 7205014434666002139, guid: 046d5b7f5eae74ec48581be107b98558, type: 3}
-      propertyPath: roomDoors.Array.data[1]
-      value: 
-      objectReference: {fileID: 2604352530650641675}
-    - target: {fileID: 7205014434666002139, guid: 046d5b7f5eae74ec48581be107b98558, type: 3}
-      propertyPath: roomDoors.Array.data[2]
-      value: 
-      objectReference: {fileID: 2604352530650641674}
     - target: {fileID: 8924516783116961973, guid: 046d5b7f5eae74ec48581be107b98558, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -3015,16 +2183,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 046d5b7f5eae74ec48581be107b98558, type: 3}
---- !u!1 &2604352530650641674 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8883440983363635996, guid: 046d5b7f5eae74ec48581be107b98558, type: 3}
-  m_PrefabInstance: {fileID: 2604352530650641673}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &2604352530650641675 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1546975444589848357, guid: 046d5b7f5eae74ec48581be107b98558, type: 3}
-  m_PrefabInstance: {fileID: 2604352530650641673}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2822257120298761723
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3036,10 +2194,6 @@ PrefabInstance:
     - target: {fileID: 7501096834131165498, guid: a05c5ed2a42864f71b49b8ac63b5f355, type: 3}
       propertyPath: m_Name
       value: Plarform X3
-      objectReference: {fileID: 0}
-    - target: {fileID: 7501096834131165498, guid: a05c5ed2a42864f71b49b8ac63b5f355, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8265784660672944722, guid: a05c5ed2a42864f71b49b8ac63b5f355, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3081,62 +2235,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8651125922682182874, guid: a05c5ed2a42864f71b49b8ac63b5f355, type: 3}
-      propertyPath: latestRoomBoxData
-      value: " x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x 
-        x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x 
-        x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x 
-        x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x 
-        x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x 
-        x  x  x  O O x  x  x  x  x  x  x \n x  x  x  x  x  x  x  O O x  x  x  x 
-        x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x 
-        x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x 
-        x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x 
-        x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x 
-        x  x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n"
-      objectReference: {fileID: 0}
-    - target: {fileID: 8651125922682182874, guid: a05c5ed2a42864f71b49b8ac63b5f355, type: 3}
-      propertyPath: latestRoomDoorData
-      value: 'Door Count: 4
-
-        (0.00, 0.50, 1.00)
-
-        (1.00, 0.50, 0.00)
-
-        (0.00,
-        0.50, -1.00)
-
-        (-1.00, 0.50, 0.00)
-
-'
-      objectReference: {fileID: 0}
-    - target: {fileID: 8651125922682182874, guid: a05c5ed2a42864f71b49b8ac63b5f355, type: 3}
-      propertyPath: roomBoxes.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8651125922682182874, guid: a05c5ed2a42864f71b49b8ac63b5f355, type: 3}
-      propertyPath: roomDoors.Array.data[0]
-      value: 
-      objectReference: {fileID: 2822257120298761725}
-    - target: {fileID: 8651125922682182874, guid: a05c5ed2a42864f71b49b8ac63b5f355, type: 3}
-      propertyPath: roomDoors.Array.data[1]
-      value: 
-      objectReference: {fileID: 2822257120298761724}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a05c5ed2a42864f71b49b8ac63b5f355, type: 3}
---- !u!1 &2822257120298761724 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1538561380353506480, guid: a05c5ed2a42864f71b49b8ac63b5f355, type: 3}
-  m_PrefabInstance: {fileID: 2822257120298761723}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &2822257120298761725 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1715090032331720194, guid: a05c5ed2a42864f71b49b8ac63b5f355, type: 3}
-  m_PrefabInstance: {fileID: 2822257120298761723}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2857384098478627181 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3481576990189983750, guid: 32132785da28f4e69adaddf32030fe10, type: 3}
@@ -3154,14 +2257,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Room 2
       objectReference: {fileID: 0}
-    - target: {fileID: 333289035879366884, guid: 9bc85374ead274c329dd82230f56d0f3, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3793921551892162343, guid: 9bc85374ead274c329dd82230f56d0f3, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -6
-      objectReference: {fileID: 0}
     - target: {fileID: 3986778070663701784, guid: 9bc85374ead274c329dd82230f56d0f3, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -3202,20 +2297,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5240744072194800996, guid: 9bc85374ead274c329dd82230f56d0f3, type: 3}
-      propertyPath: latestRoomBoxData
-      value: " x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x 
-        x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x 
-        x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x 
-        x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  O O O O O O O O x  x  x
-        \n x  x  x  x  x  O O O O O O O O x  x  x \n x  x  x  x  x  O O O O O O O
-        O x  x  x \n x  x  x  x  x  O O O O O O O O x  x  x \n x  x  x  x  x  O O
-        O O O O O O x  x  x \n x  x  x  x  x  O O O O O O O O x  x  x \n x  x  x 
-        x  x  O O O O O O O O x  x  x \n x  x  x  x  x  O O O O O O O O x  x  x \n
-        x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x  x  x 
-        x  x  x  x  x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x
-        \n"
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3229,53 +2310,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 745665948}
     m_Modifications:
-    - target: {fileID: 4970794437205239043, guid: 16074c71c014d4e45be83ab200e78f78, type: 3}
-      propertyPath: latestRoomBoxData
-      value: " x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x 
-        x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x 
-        x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x 
-        x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x 
-        x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x 
-        x  x  x  O O x  x  x  x  x  x  x \n x  x  x  x  x  x  x  O O x  x  x  x 
-        x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x 
-        x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x 
-        x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x 
-        x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x 
-        x  x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n"
-      objectReference: {fileID: 0}
-    - target: {fileID: 4970794437205239043, guid: 16074c71c014d4e45be83ab200e78f78, type: 3}
-      propertyPath: latestRoomDoorData
-      value: 'Door Count: 3
-
-        (0.00, 0.50, 1.00)
-
-        (1.00, 0.50, 0.00)
-
-        (-1.00,
-        0.50, 0.00)
-
-'
-      objectReference: {fileID: 0}
-    - target: {fileID: 4970794437205239043, guid: 16074c71c014d4e45be83ab200e78f78, type: 3}
-      propertyPath: roomBoxes.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4970794437205239043, guid: 16074c71c014d4e45be83ab200e78f78, type: 3}
-      propertyPath: roomDoors.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 4970794437205239043, guid: 16074c71c014d4e45be83ab200e78f78, type: 3}
-      propertyPath: roomDoors.Array.data[0]
-      value: 
-      objectReference: {fileID: 3812708999194511848}
-    - target: {fileID: 4970794437205239043, guid: 16074c71c014d4e45be83ab200e78f78, type: 3}
-      propertyPath: roomDoors.Array.data[1]
-      value: 
-      objectReference: {fileID: 3812708999194511847}
-    - target: {fileID: 4970794437205239043, guid: 16074c71c014d4e45be83ab200e78f78, type: 3}
-      propertyPath: roomDoors.Array.data[2]
-      value: 
-      objectReference: {fileID: 3812708999194511846}
     - target: {fileID: 6014302737224175699, guid: 16074c71c014d4e45be83ab200e78f78, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -3320,30 +2354,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Plarform T1_4
       objectReference: {fileID: 0}
-    - target: {fileID: 6120368735876556599, guid: 16074c71c014d4e45be83ab200e78f78, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 16074c71c014d4e45be83ab200e78f78, type: 3}
---- !u!1 &3812708999194511846 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3056154204110701713, guid: 16074c71c014d4e45be83ab200e78f78, type: 3}
-  m_PrefabInstance: {fileID: 3812708999194511845}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &3812708999194511847 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 931304028904338040, guid: 16074c71c014d4e45be83ab200e78f78, type: 3}
-  m_PrefabInstance: {fileID: 3812708999194511845}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &3812708999194511848 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4018865235046612127, guid: 16074c71c014d4e45be83ab200e78f78, type: 3}
-  m_PrefabInstance: {fileID: 3812708999194511845}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4023780646613620940 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8848377591628303471, guid: 16bae3266849a4d979dceccdc73d9f95, type: 3}
@@ -3362,47 +2377,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 745665948}
     m_Modifications:
-    - target: {fileID: 1288753831550628087, guid: 32132785da28f4e69adaddf32030fe10, type: 3}
-      propertyPath: latestRoomBoxData
-      value: " x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x 
-        x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x 
-        x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x 
-        x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x 
-        x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x 
-        x  x  x  O O x  x  x  x  x  x  x \n x  x  x  x  x  x  x  O O x  x  x  x 
-        x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x 
-        x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x 
-        x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x 
-        x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x 
-        x  x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n"
-      objectReference: {fileID: 0}
-    - target: {fileID: 1288753831550628087, guid: 32132785da28f4e69adaddf32030fe10, type: 3}
-      propertyPath: latestRoomDoorData
-      value: 'Door Count: 4
-
-        (0.00, 0.50, 1.00)
-
-        (1.00, 0.50, 0.00)
-
-        (0.00,
-        0.50, -1.00)
-
-        (-1.00, 0.50, 0.00)
-
-'
-      objectReference: {fileID: 0}
-    - target: {fileID: 1288753831550628087, guid: 32132785da28f4e69adaddf32030fe10, type: 3}
-      propertyPath: roomBoxes.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1288753831550628087, guid: 32132785da28f4e69adaddf32030fe10, type: 3}
-      propertyPath: roomDoors.Array.data[0]
-      value: 
-      objectReference: {fileID: 5109983991329431625}
-    - target: {fileID: 1288753831550628087, guid: 32132785da28f4e69adaddf32030fe10, type: 3}
-      propertyPath: roomDoors.Array.data[1]
-      value: 
-      objectReference: {fileID: 5109983991329431624}
     - target: {fileID: 3481576990189983750, guid: 32132785da28f4e69adaddf32030fe10, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -3447,25 +2421,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Plarform X2
       objectReference: {fileID: 0}
-    - target: {fileID: 7111100337399081139, guid: 32132785da28f4e69adaddf32030fe10, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 32132785da28f4e69adaddf32030fe10, type: 3}
---- !u!1 &5109983991329431624 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 484097277673550909, guid: 32132785da28f4e69adaddf32030fe10, type: 3}
-  m_PrefabInstance: {fileID: 5109983991329431623}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &5109983991329431625 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8354039958099330833, guid: 32132785da28f4e69adaddf32030fe10, type: 3}
-  m_PrefabInstance: {fileID: 5109983991329431623}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5937503065803017078
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3514,81 +2474,15 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2908505848644811619, guid: 9ce96149187754dbea3167b4c1fc81f5, type: 3}
-      propertyPath: latestRoomBoxData
-      value: " x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x 
-        x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x 
-        x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x 
-        x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x 
-        x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x 
-        x  x  x  O O x  x  x  x  x  x  x \n x  x  x  x  x  x  x  O O x  x  x  x 
-        x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x 
-        x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x 
-        x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x 
-        x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x 
-        x  x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n"
-      objectReference: {fileID: 0}
-    - target: {fileID: 2908505848644811619, guid: 9ce96149187754dbea3167b4c1fc81f5, type: 3}
-      propertyPath: latestRoomDoorData
-      value: 'Door Count: 3
-
-        (0.00, 0.50, 1.00)
-
-        (0.00, 0.50, -1.00)
-
-        (-1.00,
-        0.50, 0.00)
-
-'
-      objectReference: {fileID: 0}
-    - target: {fileID: 2908505848644811619, guid: 9ce96149187754dbea3167b4c1fc81f5, type: 3}
-      propertyPath: roomBoxes.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2908505848644811619, guid: 9ce96149187754dbea3167b4c1fc81f5, type: 3}
-      propertyPath: roomDoors.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 2908505848644811619, guid: 9ce96149187754dbea3167b4c1fc81f5, type: 3}
-      propertyPath: roomDoors.Array.data[0]
-      value: 
-      objectReference: {fileID: 5937503065803017081}
-    - target: {fileID: 2908505848644811619, guid: 9ce96149187754dbea3167b4c1fc81f5, type: 3}
-      propertyPath: roomDoors.Array.data[1]
-      value: 
-      objectReference: {fileID: 5937503065803017080}
-    - target: {fileID: 2908505848644811619, guid: 9ce96149187754dbea3167b4c1fc81f5, type: 3}
-      propertyPath: roomDoors.Array.data[2]
-      value: 
-      objectReference: {fileID: 5937503065803017079}
     - target: {fileID: 4096873549241973980, guid: 9ce96149187754dbea3167b4c1fc81f5, type: 3}
       propertyPath: m_Name
       value: Plarform T1_3
-      objectReference: {fileID: 0}
-    - target: {fileID: 4096873549241973980, guid: 9ce96149187754dbea3167b4c1fc81f5, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9ce96149187754dbea3167b4c1fc81f5, type: 3}
---- !u!1 &5937503065803017079 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1805306412039612380, guid: 9ce96149187754dbea3167b4c1fc81f5, type: 3}
-  m_PrefabInstance: {fileID: 5937503065803017078}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &5937503065803017080 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7699528538967487639, guid: 9ce96149187754dbea3167b4c1fc81f5, type: 3}
-  m_PrefabInstance: {fileID: 5937503065803017078}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &5937503065803017081 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2636113453441702214, guid: 9ce96149187754dbea3167b4c1fc81f5, type: 3}
-  m_PrefabInstance: {fileID: 5937503065803017078}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5959280935446656124
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3597,31 +2491,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 405628932}
     m_Modifications:
-    - target: {fileID: 3876361271874532844, guid: d20fc7258162c49deb968a1b6a3f089e, type: 3}
-      propertyPath: latestRoomBoxData
-      value: " x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x 
-        x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x 
-        x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x 
-        x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  O O O O O O x  x  x  x 
-        x \n x  x  x  x  x  O O O O O O x  x  x  x  x \n x  x  x  x  x  O O O O O
-        O O O x  x  x \n x  x  x  x  x  O O O O O O O O x  x  x \n x  x  x  x  x 
-        O O O O O O x  x  x  x  x \n x  x  x  x  x  O O O O O O x  x  x  x  x \n
-        x  x  x  x  x  x  x  O O x  x  x  x  x  x  x \n x  x  x  x  x  x  x  O O
-        x  x  x  x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n
-        x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x  x  x 
-        x  x  x  x  x  x  x  x \n"
-      objectReference: {fileID: 0}
     - target: {fileID: 5013143024896487877, guid: d20fc7258162c49deb968a1b6a3f089e, type: 3}
       propertyPath: m_Name
       value: Room 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5013143024896487877, guid: d20fc7258162c49deb968a1b6a3f089e, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7056787464240197903, guid: d20fc7258162c49deb968a1b6a3f089e, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -6
       objectReference: {fileID: 0}
     - target: {fileID: 8764024294064158517, guid: d20fc7258162c49deb968a1b6a3f089e, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3676,42 +2548,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 745665948}
     m_Modifications:
-    - target: {fileID: 596830828298830078, guid: 4759f905f4c1b44618f9fc13ed8455c7, type: 3}
-      propertyPath: latestRoomBoxData
-      value: " x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x 
-        x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x 
-        x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x 
-        x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x 
-        x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x 
-        x  x  x  O O x  x  x  x  x  x  x \n x  x  x  x  x  x  x  O O x  x  x  x 
-        x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x 
-        x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x 
-        x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x 
-        x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x 
-        x  x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n"
-      objectReference: {fileID: 0}
-    - target: {fileID: 596830828298830078, guid: 4759f905f4c1b44618f9fc13ed8455c7, type: 3}
-      propertyPath: latestRoomDoorData
-      value: 'Door Count: 2
-
-        (1.00, 0.50, 0.00)
-
-        (-1.00, 0.50, 0.00)
-
-'
-      objectReference: {fileID: 0}
-    - target: {fileID: 596830828298830078, guid: 4759f905f4c1b44618f9fc13ed8455c7, type: 3}
-      propertyPath: roomBoxes.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 596830828298830078, guid: 4759f905f4c1b44618f9fc13ed8455c7, type: 3}
-      propertyPath: roomDoors.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 596830828298830078, guid: 4759f905f4c1b44618f9fc13ed8455c7, type: 3}
-      propertyPath: roomDoors.Array.data[1]
-      value: 
-      objectReference: {fileID: 6160422957847374554}
     - target: {fileID: 4032205081499340973, guid: 4759f905f4c1b44618f9fc13ed8455c7, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -3756,20 +2592,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Plarform I1_1
       objectReference: {fileID: 0}
-    - target: {fileID: 8548054671165460775, guid: 4759f905f4c1b44618f9fc13ed8455c7, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4759f905f4c1b44618f9fc13ed8455c7, type: 3}
---- !u!1 &6160422957847374554 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3154466494114874228, guid: 4759f905f4c1b44618f9fc13ed8455c7, type: 3}
-  m_PrefabInstance: {fileID: 6160422957847374553}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8181758912280634044
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3778,49 +2605,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 745665948}
     m_Modifications:
-    - target: {fileID: 1603943192672765087, guid: ffb0af6b2e2b1485baf66a6e8ab3aca4, type: 3}
-      propertyPath: latestRoomBoxData
-      value: " x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x 
-        x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x 
-        x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x 
-        x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x  x  O O x  x  x  x  x 
-        x  x \n x  x  x  x  x  x  x  O O x  x  x  x  x  x  x \n x  x  x  x  x  x 
-        x  O O x  x  x  x  x  x  x \n x  x  x  x  x  x  x  O O x  x  x  x  x  x 
-        x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x 
-        x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x 
-        x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x 
-        x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x 
-        x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n"
-      objectReference: {fileID: 0}
-    - target: {fileID: 1603943192672765087, guid: ffb0af6b2e2b1485baf66a6e8ab3aca4, type: 3}
-      propertyPath: latestRoomDoorData
-      value: 'Door Count: 2
-
-        (0.00, 0.50, -1.00)
-
-        (0.00, 1.50, 3.00)
-
-'
-      objectReference: {fileID: 0}
-    - target: {fileID: 1603943192672765087, guid: ffb0af6b2e2b1485baf66a6e8ab3aca4, type: 3}
-      propertyPath: roomBoxes.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1603943192672765087, guid: ffb0af6b2e2b1485baf66a6e8ab3aca4, type: 3}
-      propertyPath: roomDoors.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1603943192672765087, guid: ffb0af6b2e2b1485baf66a6e8ab3aca4, type: 3}
-      propertyPath: roomDoors.Array.data[1]
-      value: 
-      objectReference: {fileID: 8181758912280634045}
     - target: {fileID: 1900496354063629916, guid: ffb0af6b2e2b1485baf66a6e8ab3aca4, type: 3}
       propertyPath: m_Name
       value: Plarform SI1_3
-      objectReference: {fileID: 0}
-    - target: {fileID: 1900496354063629916, guid: ffb0af6b2e2b1485baf66a6e8ab3aca4, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5391178582651458047, guid: ffb0af6b2e2b1485baf66a6e8ab3aca4, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3867,11 +2654,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ffb0af6b2e2b1485baf66a6e8ab3aca4, type: 3}
---- !u!1 &8181758912280634045 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3581420755980564040, guid: ffb0af6b2e2b1485baf66a6e8ab3aca4, type: 3}
-  m_PrefabInstance: {fileID: 8181758912280634044}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8764024293178052705 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7280070396329535453, guid: d9d307dac282b45c0a870ec906d7ec4f, type: 3}

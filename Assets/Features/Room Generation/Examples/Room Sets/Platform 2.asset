@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23519154588164d0b9e3974a6a274df1, type: 3}
   m_Name: Platform 2
   m_EditorClassIdentifier: 
+  snapValue: {fileID: 11400000, guid: f8f15a0025fb74400b479d62ee7d1ce5, type: 2}
   roomSetItems:
   - roomData: {fileID: 11400000, guid: 82e7be225d7964d7781c1cc9e5745d85, type: 2}
   - roomData: {fileID: 11400000, guid: 3bb3a187d36f2467bb1f43054e265177, type: 2}

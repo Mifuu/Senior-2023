@@ -13,13 +13,10 @@ MonoBehaviour:
   m_Name: Platform I1
   m_EditorClassIdentifier: 
   roomPrefab: {fileID: 8548054671165460775, guid: c4dc7369e23f44356ad37115372891ef, type: 3}
+  snapValue: {fileID: 11400000, guid: f8f15a0025fb74400b479d62ee7d1ce5, type: 2}
   enableRot90Variant: 1
   roomBoxData:
-    roomSpaces:
-    - {x: -1, y: 0, z: -1}
-    - {x: -1, y: 0, z: 0}
-    - {x: 0, y: 0, z: -1}
-    - {x: 0, y: 0, z: 0}
+    roomSpaces: []
   roomDoorData:
     parentRoom: {fileID: 11400000}
     doorDatas:
