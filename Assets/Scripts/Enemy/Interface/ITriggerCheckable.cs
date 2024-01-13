@@ -1,14 +1,17 @@
 using UnityEngine;
 using System;
+using System.Collections.Generic;
 
+// <summary>
+// Allow the Hitbox or any gameobject with trigger to expose
+// its trigger to be check by other component 
+// </summary>
+
+#nullable enable
 public interface ITriggerCheckable
 {
-    bool isWithinStrikingDistance { get; set; }
-    void SetStrikingDistanceBool(bool isWithinStrikingDistance);
-
-    // provides the interface for config to use collisions
-    public event Action<Collision> OnEnemyCollide;
-    public event Action<Collider> OnEnemyTrigger;
-    public void OnTriggerEnter(Collider collider);
-    public void OnCollisionEnter(Collision collision);
+    HashSet<GameObject> ObjectsInTrigger { get; set; }
+    HashSet<GameObject> PlayerWithinTrigger { get; set; }
+    public event Action<Collider> OnHitboxTriggerEnter;
+    public event Action<Collider> OnHitboxTriggerExit;
 }

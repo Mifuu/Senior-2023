@@ -1,3 +1,5 @@
+using UnityEngine;
+
 namespace Enemy
 {
     public class EnemyKnockbackState : EnemyState
@@ -15,12 +17,14 @@ namespace Enemy
         public override void EnterState()
         {
             base.EnterState();
+            Debug.Log("Entering Knockback State");
             enemy.EnemyKnockbackBaseInstance.DoEnterLogic();
         }
 
         public override void ExitState()
         {
             base.ExitState();
+            Debug.Log("Exiting Knockback State");
             enemy.EnemyKnockbackBaseInstance.DoExitLogic();
         }
 

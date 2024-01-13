@@ -6,13 +6,15 @@ using System;
 namespace Enemy
 {
     [RequireComponent(typeof(Rigidbody))]
-    public class EnemyBase : NetworkBehaviour, IDamageable, ITriggerCheckable
+    public class EnemyBase : NetworkBehaviour, IDamageable
     {
         // TODO: Find a way to make everything works in NETCODE
-        // TODO: Remove unnecessary stuff
+        // TODO: Implement IPlayerTargettable which must have Targetplayer and Ontargetplayerchange function
+        // CONTINUE HERE,
         public float maxHealth { get; set; }
-        public NetworkVariable<float> currentHealth { get; set; } = new NetworkVariable<float>(0); // NetworkVariable must be initialized
+        public NetworkVariable<float> currentHealth { get; set; } = new NetworkVariable<float>(0.0f); // NetworkVariable must be initialized
         public Rigidbody rigidBody { get; set; }
+        public event Action<GameObject> OnTargetPlayerDie; // Pass the new player game object or null to the subscriber
 
         #region State ScriptableObject Variable
 
@@ -38,15 +40,7 @@ namespace Enemy
 
         #endregion
 
-        #region Trigger Variable
-
-        public bool isWithinStrikingDistance { get; set; }
-        public event Action<Collision> OnEnemyCollide;
-        public event Action<Collider> OnEnemyTrigger;
-
-        #endregion
-
-        #region Player Interaction Variable
+        #region Player Variable
 
         public GameObject targetPlayer;
         public event Action<GameObject> OnTargetPlayerChange;
@@ -92,13 +86,13 @@ namespace Enemy
 
         public override void OnNetworkSpawn()
         {
-            // TODO: Maybe move this so that it also works when to when the player dies as well
+            // TODO: Maybe move this so that it also works when to when the player dies and has to find new player as well
             // TODO: Make a subscription to player dying event maybe
             targetPlayer = FindTargetPlayer();
             currentHealth.Value = maxHealth;
         }
 
-        #region Enemy Damage and Die Logic
+        #region Enemy Damageable Logic
 
         public void Damage(float damageAmount)
         {
@@ -112,25 +106,18 @@ namespace Enemy
 
         public void Die()
         {
-            StateMachine.ChangeState(IdleState);
-            currentHealth.Value = maxHealth;
-
             var enemyNetworkObject = GetComponent<NetworkObject>();
             enemyNetworkObject.Despawn();
             // BUG (FATAL): GameObject can not be used in the ReturnNetworkObject function, must reference actual prefab
-            NetworkObjectPool.Singleton.ReturnNetworkObject(enemyNetworkObject, gameObject);
+            // Comment this out as a temporary fix
+            // NetworkObjectPool.Singleton.ReturnNetworkObject(enemyNetworkObject, gameObject);
         }
 
-        public void OnCollisionEnter(Collision collision)
+        private void CleanUp()
         {
-            Debug.Log(OnEnemyCollide);
-            OnEnemyCollide?.Invoke(collision);
-        }
-
-        public void OnTriggerEnter(Collider collider)
-        {
-            Debug.Log(OnEnemyTrigger);
-            OnEnemyTrigger?.Invoke(collider);
+            StateMachine.ChangeState(IdleState);
+            currentHealth.Value = maxHealth;
+            // Place for more clean up logic, animation etc.
         }
 
         #endregion
@@ -144,21 +131,7 @@ namespace Enemy
 
         #endregion
 
-        #region Trigger Check 
-
-        public void SetStrikingDistanceBool(bool isWithinStrikingDistance)
-        {
-            this.isWithinStrikingDistance = isWithinStrikingDistance;
-        }
-
-        #endregion
-
-        #region Attack
-
-        public void PerformAttack(EnemyAttack attack)
-        {
-            attack.PerformAttack();
-        }
+        #region Coroutine Utility
 
         public Coroutine PerformCoroutine(IEnumerator ienumerator)
         {
@@ -179,8 +152,8 @@ namespace Enemy
             PlayFootstepSounds
         }
 
-        // TODO: Create logic for when the player died, or the target would change
-        #region Player Interaction Logic
+        // TODO: Create logic for when the player died, and the target player change
+        #region Player Logic
 
 #nullable enable
         private GameObject? FindTargetPlayer()
@@ -203,5 +176,4 @@ namespace Enemy
 
         #endregion
     }
-
 }

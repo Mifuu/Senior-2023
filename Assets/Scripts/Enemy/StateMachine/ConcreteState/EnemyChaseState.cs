@@ -1,3 +1,5 @@
+using UnityEngine;
+
 namespace Enemy
 {
     public class EnemyChaseState : EnemyState
@@ -15,12 +17,14 @@ namespace Enemy
         public override void EnterState()
         {
             base.EnterState();
+            Debug.Log("Entering Chase State");
             enemy.EnemyChaseBaseInstance.DoEnterLogic();
         }
 
         public override void ExitState()
         {
             base.ExitState();
+            Debug.Log("Exiting Chase State");
             enemy.EnemyChaseBaseInstance.DoExitLogic();
         }
 

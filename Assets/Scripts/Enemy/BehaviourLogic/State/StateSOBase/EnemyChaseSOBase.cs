@@ -7,10 +7,9 @@ namespace Enemy
         protected EnemyBase enemy;
         protected Transform transform;
         protected GameObject gameObject;
-
         protected Transform playerTransform;
 
-        public void Initialize(GameObject gameObject, EnemyBase enemy)
+        public virtual void Initialize(GameObject gameObject, EnemyBase enemy)
         {
             this.enemy = enemy;
             this.gameObject = gameObject;

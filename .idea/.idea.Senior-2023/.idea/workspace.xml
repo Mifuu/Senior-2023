@@ -5,12 +5,32 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="65bc8107-be3d-4f4c-907b-d430cb2f1289" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Enemy.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Enemy.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/PlayerPrefabList.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/PlayerPrefabList.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemy/Enemy.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemy/Enemy.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemy/EnemyAttack.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemy/EnemyAttack.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemy/EnemyType/StandardEnemy.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemy/EnemyType/StandardEnemy.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/GraphicsSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/GraphicsSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Senior-2023/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Senior-2023/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/EnemyAndBossDev.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/EnemyAndBossDev.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/DebugGUI/TerrainNetworkDebugGUI.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/DebugGUI/TerrainNetworkDebugGUI.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemy/Base/EnemyBase.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemy/Base/EnemyBase.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemy/BehaviourLogic/Attack/LaunchAttack.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemy/BehaviourLogic/Attack/LaunchAttack.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemy/BehaviourLogic/Attack/ShootAttack.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemy/BehaviourLogic/Attack/ShootAttack.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemy/BehaviourLogic/State/Attack.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemy/BehaviourLogic/State/Chase.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemy/BehaviourLogic/State/Idle.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemy/BehaviourLogic/State/Knockback.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemy/BehaviourLogic/State/StateSOBase/EnemyAttackSOBase.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemy/BehaviourLogic/State/StateSOBase/EnemyAttackSOBase.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemy/BehaviourLogic/State/StateSOBase/EnemyChaseSOBase.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemy/BehaviourLogic/State/StateSOBase/EnemyChaseSOBase.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemy/BehaviourLogic/State/StateSOBase/EnemyIdleSOBase.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemy/BehaviourLogic/State/StateSOBase/EnemyIdleSOBase.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemy/BehaviourLogic/State/StateSOBase/EnemyKnockbackSOBase.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemy/BehaviourLogic/State/StateSOBase/EnemyKnockbackSOBase.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemy/Interface/ITriggerCheckable.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemy/Interface/ITriggerCheckable.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemy/Legacy/EnemyScriptableObject.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemy/Legacy/EnemyScriptableObject.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemy/Manager/EnemySpawnManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemy/Manager/EnemySpawnManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemy/StateMachine/ConcreteState/EnemyAttackState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemy/StateMachine/ConcreteState/EnemyAttackState.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemy/StateMachine/ConcreteState/EnemyChaseState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemy/StateMachine/ConcreteState/EnemyChaseState.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemy/StateMachine/ConcreteState/EnemyIdleState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemy/StateMachine/ConcreteState/EnemyIdleState.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemy/StateMachine/ConcreteState/EnemyKnockbackState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemy/StateMachine/ConcreteState/EnemyKnockbackState.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemy/TriggerCheck/EnemyStrikingDistanceCheck.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemy/TriggerCheck/EnemyStrikingDistanceCheck.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemy/Type/Chaser/Prefab/Chaser.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemy/Type/Chaser/Prefab/Chaser.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,7 +62,7 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
     &quot;XThreadsFramesViewSplitterKey&quot;: &quot;0.38535413&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;network-dev&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;enemy-dev&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -127,6 +147,9 @@
       <workItem from="1700328588724" duration="180000" />
       <workItem from="1700328820153" duration="792000" />
       <workItem from="1700652279755" duration="81000" />
+      <workItem from="1704261186870" duration="1138000" />
+      <workItem from="1704850575689" duration="3000" />
+      <workItem from="1705130173187" duration="665000" />
     </task>
     <task id="LOCAL-00001" summary="Refactor Bad Code">
       <option name="closed" value="true" />
