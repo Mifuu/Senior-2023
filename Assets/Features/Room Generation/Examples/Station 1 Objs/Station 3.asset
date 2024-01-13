@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d51bddb8257f84b7ea69b5fde765f984, type: 3}
-  m_Name: Station 1
+  m_Name: Station 3
   m_EditorClassIdentifier: 
-  roomPrefab: {fileID: 3137883697102565999, guid: ae0614b56252d486a8282364127b2db4, type: 3}
+  roomPrefab: {fileID: 5717506421380713458, guid: d515f4efbc423446f982e02e039d120a, type: 3}
   snapValue: {fileID: 11400000, guid: 7b49c2f08312544e193c151772cc951b, type: 2}
   enableRot90Variant: 1
   roomBoxData:
@@ -21,10 +21,6 @@ MonoBehaviour:
     - {x: 0, y: 0, z: 0}
     - {x: 1, y: 0, z: -1}
     - {x: 1, y: 0, z: 0}
-    - {x: 2, y: 0, z: -1}
-    - {x: 2, y: 0, z: 0}
-    - {x: 3, y: 0, z: -1}
-    - {x: 3, y: 0, z: 0}
   roomDoorData:
     parentRoom: {fileID: 0}
     doorDatas:
@@ -32,7 +28,10 @@ MonoBehaviour:
       coord: {x: 1, y: 0.5, z: -1}
       doorDir: 2
     - roomData: {fileID: 11400000}
-      coord: {x: 4, y: 0.5, z: 0}
+      coord: {x: 1, y: 0.5, z: 1}
+      doorDir: 0
+    - roomData: {fileID: 11400000}
+      coord: {x: 2, y: 0.5, z: 0}
       doorDir: 1
     - roomData: {fileID: 11400000}
       coord: {x: 0, y: 0.5, z: 0}

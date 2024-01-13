@@ -15,6 +15,6 @@ public class RoomDoorObject : MonoBehaviour
     {
         this.isWall = isWall;
         if (wallObject != null) wallObject.SetActive(isWall);
-        if (passageObject != null) passageObject?.SetActive(!isWall);
+        if (passageObject != null) passageObject.SetActive(!isWall);
     }
 }

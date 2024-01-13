@@ -70,7 +70,13 @@ public class RoomDataPlotter : MonoBehaviour
         _s.snapValue = snapValue;
         var _dg = newDoor.AddComponent<RoomDoorDataGetter>();
         _dg.snapValue = snapValue;
-        newDoor.AddComponent<RoomDoorObject>();
+        var _o = newDoor.AddComponent<RoomDoorObject>();
+        GameObject _wall = new GameObject("_Wall");
+        _wall.transform.parent = _o.transform;
+        GameObject _passage = new GameObject("_Passage");
+        _passage.transform.parent = _o.transform;
+        _o.wallObject = _wall;
+        _o.passageObject = _passage;
 
         UpdateRoomDoor();
     }
