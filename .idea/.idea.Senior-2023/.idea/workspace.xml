@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="65bc8107-be3d-4f4c-907b-d430cb2f1289" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Senior-2023/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Senior-2023/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/EnemyAndBossDev.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/EnemyAndBossDev.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/DebugGUI/TerrainNetworkDebugGUI.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/DebugGUI/TerrainNetworkDebugGUI.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemy/Base/EnemyBase.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemy/Base/EnemyBase.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemy/BehaviourLogic/Attack/LaunchAttack.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemy/BehaviourLogic/Attack/LaunchAttack.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemy/BehaviourLogic/Attack/ShootAttack.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemy/BehaviourLogic/Attack/ShootAttack.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemy/BehaviourLogic/State/Attack.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemy/BehaviourLogic/State/Chase.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemy/BehaviourLogic/State/Idle.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemy/BehaviourLogic/State/Knockback.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemy/BehaviourLogic/State/StateSOBase/EnemyAttackSOBase.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemy/BehaviourLogic/State/StateSOBase/EnemyAttackSOBase.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemy/BehaviourLogic/State/StateSOBase/EnemyChaseSOBase.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemy/BehaviourLogic/State/StateSOBase/EnemyChaseSOBase.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemy/BehaviourLogic/State/StateSOBase/EnemyIdleSOBase.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemy/BehaviourLogic/State/StateSOBase/EnemyIdleSOBase.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemy/BehaviourLogic/State/StateSOBase/EnemyKnockbackSOBase.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemy/BehaviourLogic/State/StateSOBase/EnemyKnockbackSOBase.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemy/Interface/ITriggerCheckable.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemy/Interface/ITriggerCheckable.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemy/Legacy/EnemyScriptableObject.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemy/Legacy/EnemyScriptableObject.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemy/Manager/EnemySpawnManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemy/Manager/EnemySpawnManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemy/StateMachine/ConcreteState/EnemyAttackState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemy/StateMachine/ConcreteState/EnemyAttackState.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemy/StateMachine/ConcreteState/EnemyChaseState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemy/StateMachine/ConcreteState/EnemyChaseState.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemy/StateMachine/ConcreteState/EnemyIdleState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemy/StateMachine/ConcreteState/EnemyIdleState.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemy/StateMachine/ConcreteState/EnemyKnockbackState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemy/StateMachine/ConcreteState/EnemyKnockbackState.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemy/TriggerCheck/EnemyStrikingDistanceCheck.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemy/TriggerCheck/EnemyStrikingDistanceCheck.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemy/Type/Chaser/Prefab/Chaser.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemy/Type/Chaser/Prefab/Chaser.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="mock://C:/Users/user/OneDrive/Documents/CodeRepo/Senior-2023/Assets/Scripts/Enemy/EnemyHealth.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.netcode.gameobjects@1.6.0/Runtime/NetworkVariable/NetworkVariable.cs" root0="SKIP_HIGHLIGHTING" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 1
+}</component>
+  <component name="ProjectId" id="2XYa75m6uo76hqgDXwH3FZ4DM7n" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;XThreadsFramesViewSplitterKey&quot;: &quot;0.38535413&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;enemy-dev&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.ide.settings.notifications&quot;,
+    &quot;settings.editor.splitter.proportion&quot;: &quot;0.3058104&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  },
+  &quot;keyToStringList&quot;: {
+    &quot;rider.external.source.directories&quot;: [
+      &quot;C:\\Users\\user\\AppData\\Roaming\\JetBrains\\Rider2023.2\\resharper-host\\DecompilerCache&quot;,
+      &quot;C:\\Users\\user\\AppData\\Roaming\\JetBrains\\Rider2023.2\\resharper-host\\SourcesCache&quot;,
+      &quot;C:\\Users\\user\\AppData\\Local\\Symbols\\src&quot;
+    ]
+  }
+}</component>
+  <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
+    <configuration name="Standalone Player" type="RunUnityExe" factoryName="Unity Executable">
+      <option name="EXE_PATH" value="$PROJECT_DIR$/../../../Desktop/Unity/Build-Test/Senior 2023.exe" />
+      <option name="PROGRAM_PARAMETERS" value="" />
+      <option name="WORKING_DIRECTORY" value="C:\Users\user\OneDrive\Desktop\Unity\Build-Test" />
+      <option name="PASS_PARENT_ENVS" value="1" />
+      <option name="USE_EXTERNAL_CONSOLE" value="0" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Start Unity" type="RunUnityExe" factoryName="Unity Executable">
+      <option name="EXE_PATH" value="C:\Program Files\Unity\Hub\Editor\2022.3.9f1\Editor\Unity.exe" />
+      <option name="PROGRAM_PARAMETERS" value="-projectPath C:\Users\user\OneDrive\Documents\CodeRepo\Senior-2023 -debugCodeOptimization" />
+      <option name="WORKING_DIRECTORY" value="C:\Users\user\OneDrive\Documents\CodeRepo\Senior-2023" />
+      <option name="PASS_PARENT_ENVS" value="1" />
+      <option name="USE_EXTERNAL_CONSOLE" value="0" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Unit Tests (batch mode)" type="RunUnityExe" factoryName="Unity Executable">
+      <option name="EXE_PATH" value="C:\Program Files\Unity\Hub\Editor\2022.3.9f1\Editor\Unity.exe" />
+      <option name="PROGRAM_PARAMETERS" value="-runTests -batchmode -projectPath C:\Users\user\OneDrive\Documents\CodeRepo\Senior-2023 -testResults Logs/results.xml -testPlatform EditMode -debugCodeOptimization" />
+      <option name="WORKING_DIRECTORY" value="C:\Users\user\OneDrive\Documents\CodeRepo\Senior-2023" />
+      <option name="PASS_PARENT_ENVS" value="1" />
+      <option name="USE_EXTERNAL_CONSOLE" value="0" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Attach to Unity Editor &amp; Play" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="UNITY_ATTACH_AND_PLAY" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
+      <option name="allowRunningInParallel" value="false" />
+      <option name="listenPortForConnections" value="false" />
+      <option name="pid" />
+      <option name="projectPathOnTarget" />
+      <option name="selectedOptions">
+        <list />
+      </option>
+      <method v="2" />
+    </configuration>
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
+      <option name="allowRunningInParallel" value="false" />
+      <option name="listenPortForConnections" value="false" />
+      <option name="pid" />
+      <option name="projectPathOnTarget" />
+      <option name="selectedOptions">
+        <list />
+      </option>
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="65bc8107-be3d-4f4c-907b-d430cb2f1289" name="Changes" comment="" />
+      <created>1698808298476</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1698808298476</updated>
+      <workItem from="1698808304294" duration="2168000" />
+      <workItem from="1698810568216" duration="4837000" />
+      <workItem from="1698827650244" duration="349000" />
+      <workItem from="1698828042957" duration="1622000" />
+      <workItem from="1698848622442" duration="135000" />
+      <workItem from="1698850867005" duration="2982000" />
+      <workItem from="1698918987858" duration="1596000" />
+      <workItem from="1699177964454" duration="1617000" />
+      <workItem from="1700234608418" duration="714000" />
+      <workItem from="1700237423827" duration="3000" />
+      <workItem from="1700325793756" duration="2734000" />
+      <workItem from="1700328588724" duration="180000" />
+      <workItem from="1700328820153" duration="792000" />
+      <workItem from="1700652279755" duration="81000" />
+      <workItem from="1704261186870" duration="1138000" />
+      <workItem from="1704850575689" duration="3000" />
+      <workItem from="1705130173187" duration="665000" />
+    </task>
+    <task id="LOCAL-00001" summary="Refactor Bad Code">
+      <option name="closed" value="true" />
+      <created>1698810233830</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1698810233830</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Refactored enemy config file">
+      <option name="closed" value="true" />
+      <created>1698810608848</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1698810608848</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="UnityCheckinConfiguration" checkUnsavedScenes="true" />
+  <component name="UnityProjectConfiguration" hasMinimizedUI="true" />
+  <component name="UnityUnitTestConfiguration" currentTestLauncher="Both" />
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+    <MESSAGE value="Refactor Bad Code" />
+    <MESSAGE value="Refactored enemy config file" />
+    <option name="LAST_COMMIT_MESSAGE" value="Refactored enemy config file" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+</project>
