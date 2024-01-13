@@ -1,3 +1,5 @@
+using UnityEngine;
+
 namespace Enemy
 {
     public class EnemyAttackState : EnemyState
@@ -15,12 +17,14 @@ namespace Enemy
         public override void EnterState()
         {
             base.EnterState();
+            Debug.Log("Entering Attack State");
             enemy.EnemyAttackBaseInstance.DoEnterLogic();
         }
 
         public override void ExitState()
         {
             base.ExitState();
+            Debug.Log("Exiting Attack State");
             enemy.EnemyAttackBaseInstance.DoExitLogic();
         }
 

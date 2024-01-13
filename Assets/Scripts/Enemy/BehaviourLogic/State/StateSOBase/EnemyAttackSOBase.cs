@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Enemy
 {
@@ -8,18 +9,23 @@ namespace Enemy
         protected EnemyBase enemy;
         protected Transform transform;
         protected GameObject gameObject;
-
         protected Transform playerTransform;
         [SerializeField] protected List<EnemyAttack> allAttack = new List<EnemyAttack>();
 
-        public void Initialize(GameObject gameObject, EnemyBase enemy)
+        public virtual void Initialize(GameObject gameObject, EnemyBase enemy)
         {
             this.enemy = enemy;
             this.gameObject = gameObject;
             this.transform = gameObject.transform;
             var player = GameObject.FindGameObjectWithTag("Player");
             this.playerTransform = player.transform;
-            this.allAttack.ForEach((attack) => attack.Initialize(player, gameObject));
+            // TODO: Recheck =>  array mutation
+            this.allAttack = this.allAttack.Select((attack) =>
+            {
+                attack = Instantiate(attack);
+                attack.Initialize(player, gameObject);
+                return attack;
+            }).ToList();
         }
 
         public virtual void DoEnterLogic() { }
