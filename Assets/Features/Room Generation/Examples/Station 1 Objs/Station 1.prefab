@@ -1528,6 +1528,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ceiling 1
       objectReference: {fileID: 0}
+    - target: {fileID: 954988366651239473, guid: ad73a5619a8ff4b94a09a8afedd39a12, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5897560072258475953, guid: ad73a5619a8ff4b94a09a8afedd39a12, type: 3}
       propertyPath: m_LocalScale.y
       value: 15.999795
