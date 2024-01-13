@@ -25,8 +25,10 @@ public class TerrainNetworkDebugGUI : MonoBehaviour
             {
                 if (GUILayout.Button("Generate Terrain"))
                     TerrainNetworkManager.Instance.TryGenerate();
-                if (GUILayout.Button("Spawn Enemy"))
-                    EnemySpawnManager.Instance.SetIsSpawn(prev => !prev);
+                if (GUILayout.Button("Enemy Test Group Spawn"))
+                    Enemy.EnemySpawnManager.Singleton.TestGroupSpawn(3);
+                if (GUILayout.Button("Enemy Spawn Selected"))
+                    Enemy.EnemySpawnManager.Singleton.SpawnSelectedEnemy();
             }
         }
         GUILayout.EndArea();
