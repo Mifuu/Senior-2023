@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23519154588164d0b9e3974a6a274df1, type: 3}
+  m_Name: Platform 2
+  m_EditorClassIdentifier: 
+  snapValue: {fileID: 11400000, guid: f8f15a0025fb74400b479d62ee7d1ce5, type: 2}
+  roomSetItems:
+  - roomData: {fileID: 11400000, guid: 82e7be225d7964d7781c1cc9e5745d85, type: 2}
+  - roomData: {fileID: 11400000, guid: 3bb3a187d36f2467bb1f43054e265177, type: 2}
+  - roomData: {fileID: 11400000, guid: b8b0527bb152848a1bc31f64a7496ea0, type: 2}
+  - roomData: {fileID: 11400000, guid: 4a40886e1549c40318478211938258e4, type: 2}
+  - roomData: {fileID: 11400000, guid: 5eb349551a4ea49cf95404d74099979d, type: 2}
+  - roomData: {fileID: 11400000, guid: 30b27fff2fb8d4e418c7a79a2caafa2a, type: 2}
+  - roomData: {fileID: 11400000, guid: cc378afc944954de7b21a9bcb8154ec4, type: 2}
+  roomDataPath: Assets/Features/Room Generation/Examples/Platform 2 Objs
