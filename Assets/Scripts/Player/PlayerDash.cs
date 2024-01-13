@@ -12,11 +12,9 @@ public class PlayerDash : NetworkBehaviour
     [SerializeField] private float dashTime = 0.2f;
     [SerializeField] private float dashCooldown = 1.0f;
 
-
     private bool isDashing = false;
     private bool isOnCooldown = false;
 
-    // Start is called before the first frame update
     void Start()
     {
         controller = GetComponent<CharacterController>();
@@ -31,7 +29,7 @@ public class PlayerDash : NetworkBehaviour
         StartCoroutine(DashCooldown());
     }
 
-    // use player input from PlayerMotor to calculate dash direction
+    // Use player input from PlayerMotor to calculate dash direction
     private Vector3 CalculateDashDirection(Vector2 input)
     {
         Vector3 moveDirection = Vector3.zero;
