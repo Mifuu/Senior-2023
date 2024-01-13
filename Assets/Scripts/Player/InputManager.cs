@@ -11,6 +11,7 @@ public class InputManager : MonoBehaviour
     private PlayerLook look;
     private PlayerShoot shoot;
     private PlayerDash dash;
+    public PlayerSwitchWeapon switchWeapon;
 
     void Awake()
     {
@@ -20,9 +21,23 @@ public class InputManager : MonoBehaviour
         look = GetComponent<PlayerLook>();
         shoot = GetComponent<PlayerShoot>();
         dash = GetComponent<PlayerDash>();
+       
         onFoot.Jump.performed += (ctx) => motor.Jump();
         onFoot.Shoot.performed += (ctx) => shoot.ShootBullet();
         onFoot.Dash.performed += ctx => dash.Dash(onFoot.Movement.ReadValue<Vector2>());
+        onFoot.SwitchWeapon.performed += ctx => {
+            Debug.Log(ctx.ReadValue<float>());
+            float value = ctx.action.ReadValue<float>();
+            if (switchWeapon != null)
+            {
+                Debug.Log(value);
+                switchWeapon.SwitchWeapon(value);
+            }
+            else
+            {
+                Debug.LogWarning("switchWeapon is null");
+            }
+        };
     }
 
     void FixedUpdate()
