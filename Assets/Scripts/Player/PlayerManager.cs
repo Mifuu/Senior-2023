@@ -25,23 +25,29 @@ public class PlayerManager : Singleton<PlayerManager>
     }
     private void Start()
     {
-
-        NetworkManager.Singleton.OnClientConnectedCallback += (id) =>
+        if (NetworkManager.Singleton != null)
         {
-            if (NetworkManager.Singleton.IsServer)
+            NetworkManager.Singleton.OnClientConnectedCallback += (id) =>
             {
-                Debug.Log($"{id} just connected...");
-                playersInGame.Value++;
-            }
-        };
+                if (NetworkManager.Singleton.IsServer)
+                {
+                    Debug.Log($"{id} just connected...");
+                    playersInGame.Value++;
+                }
+            };
 
-        NetworkManager.Singleton.OnClientDisconnectCallback += (id) =>
-        {
-            if (NetworkManager.Singleton.IsServer)
+            NetworkManager.Singleton.OnClientDisconnectCallback += (id) =>
             {
-                Debug.Log($"{id} just disconnected...");
-                playersInGame.Value--;
-            }
-        };
+                if (NetworkManager.Singleton.IsServer)
+                {
+                    Debug.Log($"{id} just disconnected...");
+                    playersInGame.Value--;
+                }
+            };
+        }
+        else
+        {
+            Debug.Log("PlayerManager: NetworkManager is null, Starting in offline mode.");
+        }
     }
 }
