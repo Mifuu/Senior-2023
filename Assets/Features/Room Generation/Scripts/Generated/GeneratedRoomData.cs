@@ -80,6 +80,12 @@ public class GeneratedRoomData
             GeneratedDoorData generatedDoorData = new GeneratedDoorData(this, doorData.coord, rotatedPos, worldCoord, doorDir, _roomDoorObject);
             generatedDoorDatas.Add(generatedDoorData);
         }
+
+        // update RoomDoorObjects
+        foreach (GeneratedDoorData d in generatedDoorDatas)
+        {
+            d.UpdateDoorObject();
+        }
     }
 
     int Mod(int x, int m)

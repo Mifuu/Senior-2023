@@ -15,4 +15,6 @@ MonoBehaviour:
   snapValue: {fileID: 11400000, guid: 7b49c2f08312544e193c151772cc951b, type: 2}
   roomSetItems:
   - roomData: {fileID: 11400000, guid: a93fb28a7c11b4aa596de5354ac4640e, type: 2}
+  - roomData: {fileID: 11400000, guid: dc876a19bbb1249a4954867b1f324c0a, type: 2}
+  - roomData: {fileID: 11400000, guid: b4617e99a88704472b7c341c2dfe3720, type: 2}
   roomDataPath: Assets/Features/Room Generation/Examples/Station 1 Objs
