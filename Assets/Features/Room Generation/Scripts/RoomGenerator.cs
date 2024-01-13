@@ -168,15 +168,25 @@ public class RoomGenerator : MonoBehaviour
             // Don't add the new pair door to vacantDoorDatas but set the pair
             if (targetDoor != null && d.worldCoord == targetDoor.worldCoord)
             {   // pair doors
-                d.SetPair(targetDoor);
-                d.UpdateDoorObject();
-                targetDoor.SetPair(d);
-                targetDoor.UpdateDoorObject();
+                PairDoor(d, targetDoor);
                 continue;
             }
             else
-            {   // add new non-pair doors to vacantDoorDatas
-                vacantDoorDatas.Add(d);
+            {   // find existing pair or add new non-pair doors to vacantDoorDatas
+                bool isPairFound = false;
+
+                foreach (var possiblePair in vacantDoorDatas)
+                {   // check if world coordinate match
+                    if (d.worldCoord == possiblePair.worldCoord)
+                    {   // pair doors
+                        PairDoor(d, possiblePair);
+                        isPairFound = true;
+                        break;
+                    }
+                }
+
+                if (!isPairFound)
+                    vacantDoorDatas.Add(d);
             }
         }
 
@@ -189,6 +199,14 @@ public class RoomGenerator : MonoBehaviour
         roomObject.AddComponent<GeneratedRoomDataViewer>().generatedRoomData = generatedRoomData;
 
         return generatedRoomData;
+    }
+
+    void PairDoor(GeneratedDoorData d1, GeneratedDoorData d2)
+    {
+        d1.SetPair(d2);
+        d1.UpdateDoorObject();
+        d2.SetPair(d1);
+        d2.UpdateDoorObject();
     }
 
     void AddRoomToGrid(CandidateDoor candidateDoor, Vector3Int placementOffset, int index)
