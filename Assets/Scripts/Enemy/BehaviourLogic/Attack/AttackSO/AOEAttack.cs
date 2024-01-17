@@ -7,6 +7,7 @@ namespace Enemy
     [CreateAssetMenu(fileName = "AOEAttack", menuName = "Enemy/Enemy Logic/Attack Pattern/AOE")]
     public class AOEAttack : EnemyAttack
     {
+        [Header("AOE Attack Attribute")]
         [SerializeField] private GameObject AOEGameObject;
         [SerializeField] private bool waitForAOEToEnd = false;
 
@@ -20,7 +21,7 @@ namespace Enemy
                 Debug.LogError("No AOE Base object, exiting");
                 return;
             }
-            aoeBase.ActivateAOE(targetPlayer, enemy);
+            aoeBase.InitializeAOE(targetPlayer, enemy);
             aoe.Spawn();
         }
     }

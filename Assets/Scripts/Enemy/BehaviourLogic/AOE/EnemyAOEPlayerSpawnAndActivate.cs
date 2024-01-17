@@ -25,6 +25,7 @@ namespace Enemy
             ActivateEffect();
             yield return new WaitForSeconds(timeTillDestroy);
             DespawnAOE();
+            EmitAOEEndsEvent();
         }
 
         public void DespawnAOE()
