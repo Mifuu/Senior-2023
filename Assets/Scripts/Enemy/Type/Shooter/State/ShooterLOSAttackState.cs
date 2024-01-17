@@ -46,13 +46,14 @@ namespace Enemy
             bool isContinueAttacking = true;
             while (isContinueAttacking)
             {
-                allAttack[0].PerformAttack();
+                selectedNextAttack.PerformAttack();
                 yield return new WaitForSeconds(afterAttackCoolDownTime);
                 if (!lineOfSightCheck.IsPlayerInLineOfSight())
                 {
                     Debug.Log("Shooter checking LOS, State: Attack");
                     isContinueAttacking = false;
                     enemy.StateMachine.ChangeState(enemy.ChaseState);
+                    yield break;
                 }
             }
         }

@@ -7,6 +7,7 @@ namespace Enemy
     [CreateAssetMenu(fileName = "Shoot Attack", menuName = "Enemy/Enemy Logic/Attack Pattern/Shoot")]
     public class ShootAttack : EnemyAttack
     {
+        [Header("Shoot Attack Attribute")]
         [SerializeField] private GameObject bulletPrefab;
         [SerializeField] private int bulletAmount = 1;
         // bulletSpeed and other bullet behavior, let the bullet decides
@@ -41,6 +42,8 @@ namespace Enemy
                 // newBullet.gameObject.GetComponent<Rigidbody>()?.AddForce(bulletSpeed * enemy.transform.forward, ForceMode.VelocityChange);
                 yield return new WaitForSeconds(bulletDelay);
             }
+
+            EmitAttackEndsEvent();
         }
     }
 }

@@ -1,21 +1,37 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Unity.Netcode;
 
 namespace Enemy
 {
-    // TODO: Implement the IDamageCalculatable 
-    // Note: IDamagaCalculatable interface can stil be used by the player 
-    public class EnemyHitboxDamageable : EnemyHitbox, IDamageCalculatable
+    public class EnemyHitboxDamageable : NetworkBehaviour, IDamageCalculatable
     {
-        // TODO: Add API for external to do damage
-        // Should have param as DamageInfo
-        public void PerformDamage()
+        private EnemyBase enemy;
+        [SerializeField] private float simpleDamageFactor = 1.0f;
+
+        public void Start()
         {
-            // TODO: Enemy should have base stat
-            // Calculate damage function and dealt the damage the enemy
-            // (enemyLevel, baseDef[baseStat], DamageInfo[Info from the player]) => int
-            throw new System.NotImplementedException();
+            enemy = GetComponentInParent<EnemyBase>();
+            if (enemy == null) Debug.LogError("EnemyBase component not found");
+        }
+
+        // TODO: Temporary Damage Calculator
+        public virtual float CalculateDamage(DamageInfo damageInfo)
+        {
+            return simpleDamageFactor * damageInfo.amount;
+        }
+
+        public void Damage(DamageInfo damageInfo)
+        {
+            var trueDamageAmount = CalculateDamage(damageInfo);
+            Debug.Log("Damaging enemy: " + trueDamageAmount);
+            enemy.Damage(trueDamageAmount);
+        }
+
+        public float getCurrentHealth()
+        {
+            return enemy.currentHealth.Value;
         }
 
         // Weakpoint rules 
@@ -29,17 +45,6 @@ namespace Enemy
         // - Collision is used for API only, damage must be given by the player doing the damage via dodamage function
         // - Has method to call for DMG, param: DamageInfo
         // - Can calculate the damage then dealth it to the enemy base class
-        //
-        // Class/Struct EnemyDamageInfo
-        // - Contains:
-        //      Gun type?: Maybe an enum or something (Nullable: Normal ability may not have a gun type)
-        //      Elemental type?: Also Maybe an enum or class or something else (Nullable: Attack may not have a gun type)
-        //      BuffEffect?: Change the "buff factor (float, default = 1)" of certain stat (Maybe an enum) for "a period of time (float, unit = seconds)"
-        //      Position: Vector3 for maybe knockback
-        //      Either: 
-        //          Damage Amount: float (Does not have to worry about damage calculation on the player side)
-        //          or 
-        //          Player Info, such as (Enemy have more control on how the damage is calculated on the enemy side)
         //
         // Damage IDEA:
         //  - Enemy only have the level
@@ -61,10 +66,5 @@ namespace Enemy
         //  BASE HP, Base ATK, Base Movement Speed, Base DEF
         //  Emphasize the word "BASE"
         //  - Contains:
-        //
-        // Interface Buffable
-        // - Contains the extra multiplier for HP, ATK, MOVEMENT SPEED, DEF which defaults to 1 but changed on getting buffed by other character
-        // - Must be able to apply buff for some known period of time
-        // - IDEA: Contains some IEnumerator function that create a routine
     }
 }

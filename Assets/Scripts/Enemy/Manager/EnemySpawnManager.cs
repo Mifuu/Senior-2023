@@ -11,6 +11,7 @@ namespace Enemy
         public NetworkVariable<bool> isSpawning = new NetworkVariable<bool>(false);
         private List<GameObject> enemyPrefabList;
         [SerializeField] private GameObject chooseEnemyToSpawn;
+        [SerializeField] private int spawnNumber = 1;
 
         public void Awake()
         {
@@ -68,8 +69,14 @@ namespace Enemy
                 Debug.LogError("No Enemy Prefab is selected, Cannot spawn");
                 return;
             }
-            Debug.Log("Spawning " + chooseEnemyToSpawn);
-            SpawnEnemy(chooseEnemyToSpawn);
+
+            int spawnCount = 0;
+            while (spawnCount < spawnNumber)
+            {
+                Debug.Log("Spawning " + chooseEnemyToSpawn);
+                SpawnEnemy(chooseEnemyToSpawn);
+                spawnCount++;
+            }
         }
 
         private Vector3 GetRandomPosition()
