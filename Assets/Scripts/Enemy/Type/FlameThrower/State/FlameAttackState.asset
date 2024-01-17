@@ -9,10 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b1877b96345ba6843b67bb25791ff7d3, type: 3}
-  m_Name: MageAttackState
+  m_Script: {fileID: 11500000, guid: 667b4b6641c36f24992b5c3be638b365, type: 3}
+  m_Name: FlameAttackState
   m_EditorClassIdentifier: 
   allAttack:
-  - {fileID: 11400000, guid: 28b6463b155ae5741b984012657fb3e6, type: 2}
-  timeBeforeExitState: 3
-  timeBeforeAttackBegin: 2
+  - {fileID: 11400000, guid: a1072ba6978b068468308d1b7535ed9b, type: 2}
+  cooldownTime: 10
+  chaseSpeed: 10

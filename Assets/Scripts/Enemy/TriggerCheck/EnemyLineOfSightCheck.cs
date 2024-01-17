@@ -5,7 +5,7 @@ using Unity.Netcode;
 
 namespace Enemy
 {
-    public class EnemyLineOfSightCheck : NetworkBehaviour
+    public class EnemyLineOfSightCheck : NetworkBehaviour 
     {
         private GameObject PlayerTarget { get; set; }
         private Enemy.EnemyBase _enemy;

@@ -9,9 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc66488dcc1ddf14da1c94b12aca6815, type: 3}
-  m_Name: FlameNormalAttack
+  m_Script: {fileID: 11500000, guid: f3bdb2f896dc65f44a82b4390596f9bc, type: 3}
+  m_Name: FlameStandStill
   m_EditorClassIdentifier: 
-  allAttack:
-  - {fileID: 11400000, guid: a1072ba6978b068468308d1b7535ed9b, type: 2}
   cooldownTime: 3
