@@ -11,7 +11,7 @@ namespace Enemy
         // TODO: Find a way to make everything works in NETCODE
         // TODO: Implement IPlayerTargettable which must have Targetplayer and Ontargetplayerchange function
         // CONTINUE HERE,
-        public float maxHealth { get; set; }
+        [field: SerializeField] public float maxHealth { get; set; }
         public NetworkVariable<float> currentHealth { get; set; } = new NetworkVariable<float>(0.0f); // NetworkVariable must be initialized
         public Rigidbody rigidBody { get; set; }
         public event Action<GameObject> OnTargetPlayerDie; // Pass the new player game object or null to the subscriber

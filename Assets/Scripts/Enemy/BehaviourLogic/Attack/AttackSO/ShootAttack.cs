@@ -37,6 +37,7 @@ namespace Enemy
                 var newBullet = NetworkObjectPool.Singleton.GetNetworkObject(bulletPrefab, bulletSpawn.transform.position, enemy.transform.rotation);
                 enemy.transform.LookAt(targetPlayer.transform);
                 newBullet.Spawn();
+                newBullet.gameObject.GetComponent<EnemyBullet>().InitializeAndShoot(enemy.gameObject, targetPlayer);
                 // TODO: Set the direction on y axis to face the player
                 // Let the bullet handle its own speed
                 // newBullet.gameObject.GetComponent<Rigidbody>()?.AddForce(bulletSpeed * enemy.transform.forward, ForceMode.VelocityChange);
