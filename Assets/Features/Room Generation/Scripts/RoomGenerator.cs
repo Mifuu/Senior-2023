@@ -26,6 +26,14 @@ public class RoomGenerator : MonoBehaviour
     public int seed = 0;
     public int randDoorAttempts = 10;
 
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            StepAddRoom(200);
+        }
+    }
+
     public void Clear()
     {
         roomGrid = new Dictionary<Vector3Int, int>();
@@ -36,6 +44,14 @@ public class RoomGenerator : MonoBehaviour
         // remove all children game objects
         for (int i = transform.childCount - 1; i >= 0; i--)
             DestroyImmediate(transform.GetChild(i).gameObject);
+    }
+
+    public void StepAddRoom(int amount, int seed = -1)
+    {
+        this.seed = seed;
+
+        for (int i = 0; i < amount; i++)
+            StepAddRoom();
     }
 
     public bool StepAddRoom()

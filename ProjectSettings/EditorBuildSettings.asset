@@ -5,6 +5,9 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
+  - enabled: 1
+    path: Assets/Features/Room Generation/Scenes/RoomGenMultiplayer.unity
+    guid: 89d6eb69141cc4fb9b06b3be2e3a9813
   - enabled: 0
     path: Assets/Scenes/TerrainNetworkDev.unity
     guid: 4b05c835244b047f08526084ade58e30

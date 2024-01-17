@@ -180,7 +180,9 @@ public class RoomDataPlotter : MonoBehaviour
         // set debug output
         latestRoomBoxData = roomData.roomBoxData.ToGridString(16);
 
+#if UNITY_EDITOR
         EditorUtility.SetDirty(roomData);
+#endif
     }
 
     [ContextMenu("GetRoomDoorData")]
@@ -211,8 +213,10 @@ public class RoomDataPlotter : MonoBehaviour
         // set debug output
         latestRoomDoorData = roomData.roomDoorData.ToString();
 
+#if UNITY_EDITOR
         EditorUtility.SetDirty(this);
         EditorUtility.SetDirty(roomData);
+#endif
     }
 
     public void UpdateSnapValue()
