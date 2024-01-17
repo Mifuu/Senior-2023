@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 namespace Enemy
 {
     [CreateAssetMenu(fileName = "Launch Attack", menuName = "Enemy/Enemy Logic/Attack Pattern/Launch")]
     public class LaunchAttack : EnemyAttack
     {
+        [Header("Launch Attack Attribute")]
         [SerializeField] private float waitTime = 3.0f;
         [SerializeField] private float launchSpeed = 1000f;
         [SerializeField] private float preAttackWaitTime = 0.5f;
@@ -17,7 +19,7 @@ namespace Enemy
         {
             base.Initialize(targetPlayer, enemyGameObject);
             // TODO: Recheck the name, maybe hitbox needs to be inherited somewhere
-            var hitbox = enemy.transform.Find("HitBox")?.gameObject.GetComponentInChildren<EnemyHitbox>();
+            var hitbox = enemy.transform.Find("HitBox")?.gameObject.GetComponentInChildren<EnemyTriggerCheck>();
             if (hitbox == null)
             {
                 Debug.LogError("Enemy has no hitbox");
@@ -35,25 +37,24 @@ namespace Enemy
         private IEnumerator Launch()
         {
             yield return new WaitForSeconds(preAttackWaitTime);
+
             canDamage = true;
             enemy.rigidBody.AddForce(enemy.transform.forward * launchSpeed);
             yield return new WaitForSeconds(waitTime);
             canDamage = false;
+            EmitAttackEndsEvent();
+
             enemy.StateMachine.ChangeState(enemy.IdleState);
         }
 
-        // TODO: Has trigger enter subscription to perform damage to the player
         public void DamagePlayer(Collider collider)
         {
-            if (canDamage)
+            if (!canDamage)
             {
-                Debug.Log("Player should be damaged here");
+                return;
             }
-            else
-            {
-                Debug.Log("Collision to enemy hitbox");
-            }
-            throw new System.NotImplementedException("Please implement the DamagePlayer function in LaunchAttack.cs");
+
+            var info = Damage(collider.GetComponent<IDamageCalculatable>());
         }
     }
 }
