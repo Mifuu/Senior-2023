@@ -20,6 +20,7 @@ public class RoomGenerator : MonoBehaviour
     [Header("Debug")]
     public Vector3 latestTargetDoorPos;
     public bool isDebugMode = false;
+    public static bool isDrawDebugMode = false;
 
 
     [Header("Generation Settings")]
@@ -30,7 +31,7 @@ public class RoomGenerator : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.M))
         {
-            StepAddRoom(200);
+            StepAddRoom(50);
         }
     }
 
@@ -360,6 +361,8 @@ public class RoomGenerator : MonoBehaviour
 
     void OnDrawGizmos()
     {
+        if (RoomGenerator.isDrawDebugMode == false) return;
+
         Gizmos.color = Color.green;
         foreach (var d in vacantDoorDatas)
         {
