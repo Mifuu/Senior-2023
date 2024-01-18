@@ -10,6 +10,7 @@ public class BulletProjectile : NetworkBehaviour
     private Rigidbody bulletRigidbody;
     public float speed = 400f;
     public float lifetime = 5.0f;
+    public float damageAmount = 1.0f; 
 
     private void Awake()
     {
@@ -23,22 +24,15 @@ public class BulletProjectile : NetworkBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        //Instantiate(vfxHit, transform.position, Quaternion.identity);
+        IDamageCalculatable damageable = other.GetComponent<IDamageCalculatable>();
+
+        if (damageable != null)
+        {
+            DamageInfo damageInfo = new DamageInfo(gameObject, damageAmount);
+            damageable.Damage(damageInfo);
+            //Instantiate(vfxHit, transform.position, Quaternion.identity);
+        }
+
         Destroy(gameObject);
     }
-
-    /*
-    [ServerRpc]
-    // Coroutine to destroy the bullet after a delay
-    private void OnTriggerEnterServerRpc()
-    {
-        NetworkObject.Destroy(gameObject);
-    }
-    [ServerRpc]
-    private IEnumerator DestroyAfterDelayServerRpc()
-    {
-        yield return new WaitForSeconds(lifetime);
-        NetworkObject.Destroy(gameObject);
-    }
-    */
 }
