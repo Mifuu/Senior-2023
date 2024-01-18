@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
+#if UNITY_EDITOR
 [CustomPropertyDrawer(typeof(ReadOnlyAttribute))]
 public class ReadOnlyPropertyDrawer : PropertyDrawer
 {
@@ -18,3 +19,4 @@ public class ReadOnlyPropertyDrawer : PropertyDrawer
         GUI.enabled = true;
     }
 }
+#endif

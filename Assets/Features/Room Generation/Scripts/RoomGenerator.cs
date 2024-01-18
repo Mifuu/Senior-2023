@@ -20,11 +20,20 @@ public class RoomGenerator : MonoBehaviour
     [Header("Debug")]
     public Vector3 latestTargetDoorPos;
     public bool isDebugMode = false;
+    public static bool isDrawDebugMode = false;
 
 
     [Header("Generation Settings")]
     public int seed = 0;
     public int randDoorAttempts = 10;
+
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            StepAddRoom(50);
+        }
+    }
 
     public void Clear()
     {
@@ -36,6 +45,14 @@ public class RoomGenerator : MonoBehaviour
         // remove all children game objects
         for (int i = transform.childCount - 1; i >= 0; i--)
             DestroyImmediate(transform.GetChild(i).gameObject);
+    }
+
+    public void StepAddRoom(int amount, int seed = -1)
+    {
+        this.seed = seed;
+
+        for (int i = 0; i < amount; i++)
+            StepAddRoom();
     }
 
     public bool StepAddRoom()
@@ -168,15 +185,25 @@ public class RoomGenerator : MonoBehaviour
             // Don't add the new pair door to vacantDoorDatas but set the pair
             if (targetDoor != null && d.worldCoord == targetDoor.worldCoord)
             {   // pair doors
-                d.SetPair(targetDoor);
-                d.UpdateDoorObject();
-                targetDoor.SetPair(d);
-                targetDoor.UpdateDoorObject();
+                PairDoor(d, targetDoor);
                 continue;
             }
             else
-            {   // add new non-pair doors to vacantDoorDatas
-                vacantDoorDatas.Add(d);
+            {   // find existing pair or add new non-pair doors to vacantDoorDatas
+                bool isPairFound = false;
+
+                foreach (var possiblePair in vacantDoorDatas)
+                {   // check if world coordinate match
+                    if (d.worldCoord == possiblePair.worldCoord)
+                    {   // pair doors
+                        PairDoor(d, possiblePair);
+                        isPairFound = true;
+                        break;
+                    }
+                }
+
+                if (!isPairFound)
+                    vacantDoorDatas.Add(d);
             }
         }
 
@@ -189,6 +216,14 @@ public class RoomGenerator : MonoBehaviour
         roomObject.AddComponent<GeneratedRoomDataViewer>().generatedRoomData = generatedRoomData;
 
         return generatedRoomData;
+    }
+
+    void PairDoor(GeneratedDoorData d1, GeneratedDoorData d2)
+    {
+        d1.SetPair(d2);
+        d1.UpdateDoorObject();
+        d2.SetPair(d1);
+        d2.UpdateDoorObject();
     }
 
     void AddRoomToGrid(CandidateDoor candidateDoor, Vector3Int placementOffset, int index)
@@ -326,6 +361,8 @@ public class RoomGenerator : MonoBehaviour
 
     void OnDrawGizmos()
     {
+        if (RoomGenerator.isDrawDebugMode == false) return;
+
         Gizmos.color = Color.green;
         foreach (var d in vacantDoorDatas)
         {

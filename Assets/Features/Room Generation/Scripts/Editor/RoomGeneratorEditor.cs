@@ -29,11 +29,10 @@ public class RoomGeneratorEditor : Editor
         GUILayout.Label("Debug Bulk Generation");
         bulkAmount = EditorGUILayout.IntField("Amount: ", bulkAmount);
         if (bulkAmount < 1) bulkAmount = 1;
-        if (bulkAmount > 100) bulkAmount = 100;
+        if (bulkAmount > 1000) bulkAmount = 1000;
         if (GUILayout.Button("Bulk Add Room"))
         {
-            for (int i = 0; i < bulkAmount; i++)
-                roomGenerator.StepAddRoom();
+            roomGenerator.StepAddRoom(bulkAmount);
         }
     }
 }

@@ -28,7 +28,9 @@ public class RoomSet : ScriptableObject
 
     void OnValidate()
     {
+#if UNITY_EDITOR
         EditorUtility.SetDirty(this);
+#endif
     }
 }
 
