@@ -618,6 +618,7 @@ MonoBehaviour:
   debugTransform: {fileID: 0}
   bullet: {fileID: 3822981651942819932, guid: 075f820f055859a4ebde661e803d3fe1, type: 3}
   bulletSpawnPosition: {fileID: 2198584225626737601}
+  shootingDelay: 0.1
 --- !u!1001 &2694824568494877663
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -686,6 +687,14 @@ PrefabInstance:
       propertyPath: bullet
       value: 
       objectReference: {fileID: 3822981651942819932, guid: 075f820f055859a4ebde661e803d3fe1, type: 3}
+    - target: {fileID: 4122741058421460406, guid: d91f72630ba59bf4d93b9772eef74503, type: 3}
+      propertyPath: bulletPrefab
+      value: 
+      objectReference: {fileID: 4345039509704114614, guid: 075f820f055859a4ebde661e803d3fe1, type: 3}
+    - target: {fileID: 4122741058421460406, guid: d91f72630ba59bf4d93b9772eef74503, type: 3}
+      propertyPath: shootingDelay
+      value: 0.6
+      objectReference: {fileID: 0}
     - target: {fileID: 4122741058421460406, guid: d91f72630ba59bf4d93b9772eef74503, type: 3}
       propertyPath: bulletSpawnPosition
       value: 
