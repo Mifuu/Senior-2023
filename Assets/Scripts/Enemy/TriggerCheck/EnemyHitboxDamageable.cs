@@ -25,7 +25,6 @@ namespace Enemy
         public void Damage(DamageInfo damageInfo)
         {
             var trueDamageAmount = CalculateDamage(damageInfo);
-            Debug.Log("Damaging Enemy: " + trueDamageAmount);
             damageable.Damage(trueDamageAmount);
         }
 

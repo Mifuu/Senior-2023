@@ -13,8 +13,13 @@ namespace Enemy
         public GameObject PlayerTarget { get; set; }
         public EnemyBase enemy { get; set; }
 
+        // Temporary Field
+        [Header("Temporary Material Field")]
+        [SerializeField] private Material activateMaterial;
+        [SerializeField] private Material preActivateMaterial;
+
         protected EnemyWithinTriggerCheck areaOfEffectTrigger;
-        public event Action OnAOEPeriodEnd; 
+        public event Action OnAOEPeriodEnd;
 
         public void Awake()
         {
@@ -43,12 +48,13 @@ namespace Enemy
 
         public virtual void PreEffect() { }
         public virtual void CancelPreEffect() { }
-        public abstract void ActivateEffect();
-        public abstract void CancelEffect();
+        public virtual void ActivateEffect() { GetComponent<Renderer>().material = activateMaterial; }
+        public virtual void CancelEffect() { }
         public virtual void ResetValue()
         {
             this.PlayerTarget = null;
             this.enemy = null;
+            GetComponent<Renderer>().material = preActivateMaterial;
         }
     }
 }
