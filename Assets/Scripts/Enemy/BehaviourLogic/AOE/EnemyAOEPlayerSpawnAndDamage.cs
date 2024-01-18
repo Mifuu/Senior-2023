@@ -11,6 +11,7 @@ namespace Enemy
 
         public override void ActivateEffect()
         {
+            base.ActivateEffect();
             foreach (var players in areaOfEffectTrigger.PlayerWithinTrigger)
             {
                 DamageInfo info = new DamageInfo(enemy.gameObject, baseDamageAmount);
@@ -21,15 +22,15 @@ namespace Enemy
                 }
 
                 damager.Damage(info);
-                Debug.Log("Damaging: " + info.amount + ", @" + DateTime.Now.ToString());
             }
         }
 
         public override void CancelEffect()
         {
-            Debug.Log("Cancelling Effect");
+            base.CancelEffect();
+            Debug.Log("Canceling Effect");
             EmitAOEEndsEvent();
-            // throw new System.NotImplementedException("Implement EnemyAOEPlayerSpawnAndDamage");
+            throw new System.NotImplementedException("Implement EnemyAOEPlayerSpawnAndDamage CancelEffect Function");
         }
     }
 }

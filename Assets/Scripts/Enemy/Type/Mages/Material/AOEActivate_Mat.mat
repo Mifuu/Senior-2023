@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: AOE_Mat
+  m_Name: AOEActivate_Mat
   m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -136,8 +136,8 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 0
     m_Colors:
-    - _BaseColor: {r: 1, g: 0.83895653, b: 0, a: 0.25490198}
-    - _Color: {r: 1, g: 0.83895653, b: 0, a: 0.25490198}
+    - _BaseColor: {r: 1, g: 0, b: 0, a: 0.25490198}
+    - _Color: {r: 1, g: 0, b: 0, a: 0.25490198}
     - _EmissionColor: {r: 2.1112125, g: 0.6454322, b: 0, a: 1}
     - _SpecColor: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
   m_BuildTextureStacks: []

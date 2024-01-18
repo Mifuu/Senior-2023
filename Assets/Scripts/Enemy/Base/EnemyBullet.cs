@@ -55,18 +55,16 @@ namespace Enemy
                 return info;
             }
 
-            info.dealer = gameObject;
+            info.dealer = bulletOwner;
             info.amount = baseDamageAmount;
             damagable.Damage(info);
 
-            Debug.Log("DAMAGE: dealing " + info.amount + "DMG");
+            Debug.Log("DAMAGE: dealing " + info.amount + " DMG");
             return info;
         }
 
         public void OnTriggerEnter(Collider collider)
         {
-            // TODO: This is a temporary solution to check for self attack, change later 
-            if (collider.gameObject.GetComponent<EnemyBase>() != null) return;
             var damager = collider.GetComponent<IDamageCalculatable>();
             DamageDamageable(damager);
             

@@ -225,8 +225,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AOEGameObjectPrefab: {fileID: 5498458629423864041}
+  activateMaterial: {fileID: 2100000, guid: d079cf254cb892c45a2328d588bc8385, type: 2}
+  preActivateMaterial: {fileID: 2100000, guid: e7c734e8a39aef446a50dc7147035c98, type: 2}
   timeTillActivate: 1
   timeTillDestroy: 3
+  baseDamageAmount: 5
 --- !u!114 &8207371979607444858
 MonoBehaviour:
   m_ObjectHideFlags: 0
