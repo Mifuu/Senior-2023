@@ -13,11 +13,13 @@ public class Gun : NetworkBehaviour
     [SerializeField] private Transform debugTransform;
     [SerializeField] private Transform bullet;
     [SerializeField] private Transform bulletSpawnPosition;
+    [SerializeField] private float shootingDelay = 0.1f;
+
+    private bool canShoot = true;
 
     public void ShootBullet(Camera playerCam, LayerMask aimColliderLayerMask, Transform debugTransform)
     {
-        Debug.Log("shoot Bullet");
-        if (IsClient && IsOwner)
+        if (canShoot && IsClient && IsOwner)
         {
             Vector3 aimDir;
             Ray ray = new(playerCam.transform.position, playerCam.transform.forward);
@@ -25,7 +27,6 @@ public class Gun : NetworkBehaviour
             {
                 Vector3 mouseWorldPosition = raycastHit.point;
                 aimDir = (mouseWorldPosition - bulletSpawnPosition.position).normalized;
-                Debug.Log("raycast shoot");
             }
             else
             {
@@ -33,7 +34,15 @@ public class Gun : NetworkBehaviour
             }
             Quaternion bulletRotation = Quaternion.LookRotation(aimDir, Vector3.up);
             SpawnBulletServerRpc(NetworkManager.Singleton.LocalClientId, bulletSpawnPosition.position, bulletRotation);
+            StartCoroutine(ShootingDelay());
         }
+    }
+
+    private IEnumerator ShootingDelay()
+    {
+        canShoot = false;
+        yield return new WaitForSeconds(shootingDelay);
+        canShoot = true;
     }
 
     [ServerRpc]
