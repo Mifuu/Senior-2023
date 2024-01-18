@@ -1973,7 +1973,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2131082903
 Transform:
   m_ObjectHideFlags: 0
@@ -2589,10 +2589,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Station 2
       objectReference: {fileID: 0}
-    - target: {fileID: 2851937829549359138, guid: c0c682e7819784bbda0d4316f49ec617, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 3217885322734895444, guid: c0c682e7819784bbda0d4316f49ec617, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -2706,10 +2702,6 @@ PrefabInstance:
     - target: {fileID: 3137883697102565999, guid: ae0614b56252d486a8282364127b2db4, type: 3}
       propertyPath: m_Name
       value: Station 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3137883697102565999, guid: ae0614b56252d486a8282364127b2db4, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3812464369688336541, guid: ae0614b56252d486a8282364127b2db4, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2869,10 +2861,6 @@ PrefabInstance:
     - target: {fileID: 5717506421380713458, guid: d515f4efbc423446f982e02e039d120a, type: 3}
       propertyPath: m_Name
       value: Station 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 5717506421380713458, guid: d515f4efbc423446f982e02e039d120a, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -244,6 +244,9 @@ public class RoomDataPlotter : MonoBehaviour
         if (isPlotting)
             transform.position = Vector3.zero;
 
+        if (!isPlotting)
+            return;
+
         Color fillColor = new Color(editorColor.r, editorColor.g, editorColor.b, colliderDataFillVisibility);
         Color outlineColor = new Color(editorColor.r, editorColor.g, editorColor.b, colliderDataLineVisibility);
 
