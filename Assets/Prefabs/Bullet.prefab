@@ -269,6 +269,7 @@ MonoBehaviour:
   vfxHit: {fileID: 0}
   speed: 600
   lifetime: 5
+  damageAmount: 1
 --- !u!1 &6127754639014077554
 GameObject:
   m_ObjectHideFlags: 0
