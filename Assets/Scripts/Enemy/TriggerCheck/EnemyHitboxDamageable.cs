@@ -12,12 +12,12 @@ namespace Enemy
 
         public void Awake()
         {
-            damageable = GetComponentInParent<IDamageable>(true); 
+            damageable = GetComponentInParent<IDamageable>(true);
             if (damageable == null) Debug.LogError("IDamageable Not Found");
         }
 
         // TODO: Temporary Damage Calculator
-        public virtual float CalculateDamage(DamageInfo damageInfo)
+        protected virtual float CalculateDamage(DamageInfo damageInfo)
         {
             return simpleDamageFactor * damageInfo.amount;
         }
