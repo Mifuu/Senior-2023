@@ -686,11 +686,11 @@ PrefabInstance:
     - target: {fileID: 4122741058421460406, guid: d91f72630ba59bf4d93b9772eef74503, type: 3}
       propertyPath: bullet
       value: 
-      objectReference: {fileID: 3822981651942819932, guid: 075f820f055859a4ebde661e803d3fe1, type: 3}
+      objectReference: {fileID: 202760547795212702, guid: 5d6b30aa866addb47a0bf9e0298c2b8a, type: 3}
     - target: {fileID: 4122741058421460406, guid: d91f72630ba59bf4d93b9772eef74503, type: 3}
       propertyPath: bulletPrefab
       value: 
-      objectReference: {fileID: 4345039509704114614, guid: 075f820f055859a4ebde661e803d3fe1, type: 3}
+      objectReference: {fileID: 7036973247572887038, guid: 5d6b30aa866addb47a0bf9e0298c2b8a, type: 3}
     - target: {fileID: 4122741058421460406, guid: d91f72630ba59bf4d93b9772eef74503, type: 3}
       propertyPath: shootingDelay
       value: 0.6
