@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Unity.Netcode;
@@ -38,6 +37,16 @@ public class Gun : NetworkBehaviour
         }
     }
 
+    public void UpdateCanShoot(bool b)
+    {
+        canShoot = b;
+    }
+
+    public bool CanShoot()
+    {
+        return canShoot;
+    }
+
     private IEnumerator ShootingDelay()
     {
         canShoot = false;
@@ -51,6 +60,5 @@ public class Gun : NetworkBehaviour
         var bulletObj = Instantiate(bullet, bulletSpawnPosition, bulletRotation);
         var networkBulletObj = bulletObj.GetComponent<NetworkObject>();
         networkBulletObj.SpawnWithOwnership(localId);
-        //StartCoroutine(DespawnBullet(networkBulletObj));
     }
 }
