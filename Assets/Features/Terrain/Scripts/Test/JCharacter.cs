@@ -38,9 +38,6 @@ public class JCharacter : MonoBehaviour
             Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Locked;
         }
-
-        if (GetComponent<NetworkObject>() != null && GetComponent<NetworkObject>().IsOwner)
-            TerrainManager.Instance.SetViewer(transform);
     }
 
     public void Jump()

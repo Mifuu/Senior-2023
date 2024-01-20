@@ -25,7 +25,7 @@ public class Singleton<T> : NetworkBehaviour
                 }
                 else if (_instance == null)
                 {
-                    Debug.LogError("Could not find " + typeof(T).Name);
+                    // Debug.LogError("Could not find " + typeof(T).Name);
                 }
 
                 /*
