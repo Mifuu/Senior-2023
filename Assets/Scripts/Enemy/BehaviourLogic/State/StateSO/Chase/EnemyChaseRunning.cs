@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 namespace Enemy
 {
@@ -6,7 +7,9 @@ namespace Enemy
     public class EnemyChaseRunning : EnemyChaseSOBase
     {
         [SerializeField] private float chaseSpeed = 5.0f;
+        [SerializeField] private float targetCheckInterval = 1f;
         private EnemyWithinTriggerCheck strikingDistanceCheck;
+        private bool isMoving = false;
 
         public override void Initialize(GameObject gameObject, EnemyBase enemy)
         {
@@ -15,16 +18,37 @@ namespace Enemy
             if (strikingDistanceCheck == null) Debug.LogError("Enemy has no Striking Distance Check");
         }
 
+        public override void DoEnterLogic()
+        {
+            base.DoEnterLogic();
+            isMoving = true;
+            enemy.StartCoroutine(Move());
+        }
+
         public override void DoFrameUpdateLogic()
         {
             base.DoFrameUpdateLogic();
             transform.LookAt(playerTransform);
             transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
-            transform.Translate(Vector3.forward * (chaseSpeed * Time.deltaTime));
 
             if (strikingDistanceCheck.PlayerWithinTrigger.Count != 0)
             {
                 enemy.StateMachine.ChangeState(enemy.AttackState);
+            }
+        }
+
+        public override void DoExitLogic()
+        {
+            base.DoExitLogic();
+            enemy.StopCoroutine(Move());
+        }
+
+        public IEnumerator Move()
+        {
+            while (isMoving)
+            {
+                enemy.navMeshAgent.SetDestination(playerTransform.position);
+                yield return new WaitForSeconds(targetCheckInterval);
             }
         }
     }
