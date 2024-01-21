@@ -10,6 +10,7 @@ namespace Enemy
         [Header("Shoot Attack Attribute")]
         [SerializeField] private GameObject bulletPrefab;
         [SerializeField] private int bulletAmount = 1;
+        [SerializeField] private float preShootDelay = 1.0f;
         // bulletSpeed and other bullet behavior, let the bullet decides
         // [SerializeField] private float bulletSpeed = 1000.0f;
         [SerializeField] private float bulletDelay = 0.1f;
@@ -32,17 +33,15 @@ namespace Enemy
 
         private IEnumerator ShootAttackCoroutine()
         {
+            yield return new WaitForSeconds(preShootDelay);
             for (int i = 0; i < bulletAmount; i++)
             {
                 var newBullet = NetworkObjectPool.Singleton.GetNetworkObject(bulletPrefab, bulletSpawn.transform.position, enemy.transform.rotation);
                 enemy.transform.LookAt(targetPlayer.transform);
                 newBullet.Spawn();
-                // TODO: Set the direction on y axis to face the player
-                // Let the bullet handle its own speed
-                // newBullet.gameObject.GetComponent<Rigidbody>()?.AddForce(bulletSpeed * enemy.transform.forward, ForceMode.VelocityChange);
+                newBullet.gameObject.GetComponent<EnemyBullet>().InitializeAndShoot(enemy.gameObject, targetPlayer);
                 yield return new WaitForSeconds(bulletDelay);
             }
-
             EmitAttackEndsEvent();
         }
     }
