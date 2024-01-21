@@ -7,17 +7,17 @@ namespace Enemy
 {
     public class EnemyHitboxDamageable : NetworkBehaviour, IDamageCalculatable
     {
-        private EnemyBase enemy;
+        private IDamageable damageable;
         [SerializeField] private float simpleDamageFactor = 1.0f;
 
-        public void Start()
+        public void Awake()
         {
-            enemy = GetComponentInParent<EnemyBase>();
-            if (enemy == null) Debug.LogError("EnemyBase component not found");
+            damageable = GetComponentInParent<IDamageable>(true);
+            if (damageable == null) Debug.LogError("IDamageable Not Found");
         }
 
         // TODO: Temporary Damage Calculator
-        public virtual float CalculateDamage(DamageInfo damageInfo)
+        protected virtual float CalculateDamage(DamageInfo damageInfo)
         {
             return simpleDamageFactor * damageInfo.amount;
         }
@@ -25,14 +25,10 @@ namespace Enemy
         public void Damage(DamageInfo damageInfo)
         {
             var trueDamageAmount = CalculateDamage(damageInfo);
-            Debug.Log("Damaging enemy: " + trueDamageAmount);
-            enemy.Damage(trueDamageAmount);
+            damageable.Damage(trueDamageAmount);
         }
 
-        public float getCurrentHealth()
-        {
-            return enemy.currentHealth.Value;
-        }
+        public float getCurrentHealth() => damageable.currentHealth.Value;
 
         // Weakpoint rules 
         // 1. No Weakpoint, No Elemental hit = 1x multiplier

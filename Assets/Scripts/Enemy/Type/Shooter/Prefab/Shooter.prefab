@@ -257,6 +257,7 @@ GameObject:
   - component: {fileID: -5889125859153271817}
   - component: {fileID: 3656194902398928470}
   - component: {fileID: 1774996526678373421}
+  - component: {fileID: -3457978960570796255}
   m_Layer: 0
   m_Name: Shooter
   m_TagString: Untagged
@@ -399,11 +400,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddead72d729e01543b7bc746f68d462d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <maxHealth>k__BackingField: 0
   EnemyAttackBase: {fileID: 11400000, guid: 70a4aec63fbf5074685a4882f0403396, type: 2}
   EnemyIdleBase: {fileID: 11400000, guid: c96b24f0a9afb2045a100da53e41650c, type: 2}
   EnemyChaseBase: {fileID: 11400000, guid: ab0c98647e011e64eb420d27c8d461ef, type: 2}
   EnemyKnockbackBase: {fileID: 11400000, guid: 3999b70de71ed82438f2f9af437f2c2d, type: 2}
   targetPlayer: {fileID: 0}
+  navMeshAgent: {fileID: 0}
 --- !u!114 &1774996526678373421
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -424,6 +427,28 @@ MonoBehaviour:
   SpawnWithObservers: 1
   DontDestroyWithOwner: 0
   AutoObjectParentSync: 1
+--- !u!195 &-3457978960570796255
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5446555976368360068}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5000001
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 1
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!1 &7085348734243973380
 GameObject:
   m_ObjectHideFlags: 0

@@ -5,20 +5,27 @@ using Unity.Netcode;
 
 namespace Enemy
 {
-    public class EnemyBullet : NetworkBehaviour, IDamageable, IDamageCalculatable
+    public class EnemyBullet : NetworkBehaviour, IDamageable
     {
-        [SerializeField] private float bulletSpeed = 100f;
-        [SerializeField] private GameObject bulletOwner;
+        [SerializeField] private float bulletSpeed = 10f;
         [SerializeField] private bool isHomingCapable;
         [SerializeField] private float baseDamageAmount = 5.0f;
         private GameObject target;
+        private GameObject bulletOwner;
+        private Rigidbody rb;
 
         #region Damageable
 
-        public float maxHealth { get; set; }
-        public NetworkVariable<float> currentHealth { get; set; }
+        [field: SerializeField] public float maxHealth { get; set; }
+        public NetworkVariable<float> currentHealth { get; set; } = new NetworkVariable<float>(-1.0f);
 
         #endregion
+
+        public override void OnNetworkSpawn()
+        {
+            base.OnNetworkSpawn();
+            currentHealth.Value = maxHealth;
+        }
 
         public override void OnNetworkDespawn()
         {
@@ -26,7 +33,7 @@ namespace Enemy
             ResetValue();
         }
 
-        public void Shoot(GameObject bulletOwner, GameObject target)
+        public void InitializeAndShoot(GameObject bulletOwner, GameObject target)
         {
             this.target = target;
             this.bulletOwner = bulletOwner;
@@ -34,27 +41,35 @@ namespace Enemy
 
         public void Update()
         {
+            transform.Translate(Vector3.forward * (bulletSpeed * Time.fixedDeltaTime));
             if (!isHomingCapable) return;
             gameObject.transform.LookAt(target.transform);
-            transform.Translate(Vector3.forward * (bulletSpeed * Time.deltaTime));
         }
 
-        private DamageInfo Damage(IDamageCalculatable damagable)
+        private DamageInfo DamageDamageable(IDamageCalculatable damagable)
         {
             DamageInfo info = new DamageInfo();
-            if (damagable == null) return info;
+            if (damagable == null)
+            {
+                Debug.Log("No Damagable Class Found");
+                return info;
+            }
 
-            info.dealer = gameObject;
+            info.dealer = bulletOwner;
             info.amount = baseDamageAmount;
             damagable.Damage(info);
 
+            Debug.Log("DAMAGE: dealing " + info.amount + " DMG");
             return info;
         }
 
         public void OnTriggerEnter(Collider collider)
         {
             var damager = collider.GetComponent<IDamageCalculatable>();
-            Damage(damager);
+            DamageDamageable(damager);
+            
+            // TODO: Bullet maynot die immediately after hit, as it may just pass through
+            Die();
         }
 
         public void Damage(float damageAmount)
@@ -68,17 +83,9 @@ namespace Enemy
 
         public void Die()
         {
-            throw new System.NotImplementedException();
-        }
-
-        public void Damage(DamageInfo damageInfo)
-        {
-            Damage(damageInfo.amount);
-        }
-
-        public float getCurrentHealth()
-        {
-            return currentHealth.Value;
+            if (!IsServer) return;
+            var networkObj = GetComponent<NetworkObject>();
+            networkObj.Despawn();
         }
 
         private void ResetValue()

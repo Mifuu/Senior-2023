@@ -5,32 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="65bc8107-be3d-4f4c-907b-d430cb2f1289" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/Assets/Features/Room Generation/Examples/Room Gen Test.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Features/Room Generation/Examples/Room Gen Test.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/EnemyAndBossDev.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/EnemyAndBossDev.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemy/Base/EnemyAOEBase.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemy/Base/EnemyAOEBase.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemy/Base/EnemyAttack.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemy/Base/EnemyAttack.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemy/Base/EnemyBullet.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemy/Base/EnemyBullet.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemy/BehaviourLogic/AOE/EnemyAOEPlayerSpawnAndDamage.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemy/BehaviourLogic/AOE/EnemyAOEPlayerSpawnAndDamage.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemy/BehaviourLogic/Attack/AttackSO/AOEAttack.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemy/BehaviourLogic/Attack/AttackSO/AOEAttack.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemy/BehaviourLogic/Attack/AttackSO/LaunchAttack.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemy/BehaviourLogic/Attack/AttackSO/LaunchAttack.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemy/BehaviourLogic/Attack/AttackSO/MeleeAttack.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemy/BehaviourLogic/Attack/AttackSO/MeleeAttack.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemy/BehaviourLogic/Attack/AttackSO/ShootAttack.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemy/BehaviourLogic/Attack/AttackSO/ShootAttack.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemy/BehaviourLogic/State/StateSO/Chase/EnemyChaseRunning.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemy/BehaviourLogic/State/StateSO/Chase/EnemyChaseRunning.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemy/Interface/IBuffable.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemy/Interface/IBuffable.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemy/Interface/IDamageCalculatable.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemy/Interface/IDamageCalculatable.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemy/Interface/ITriggerCheckable.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemy/Interface/ITriggerCheckable.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemy/TriggerCheck/EnemyHitbox.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemy/TriggerCheck/EnemyHitbox.cs.meta" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemy/TriggerCheck/EnemyHitboxDamageable.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemy/TriggerCheck/EnemyHitboxDamageable.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemy/TriggerCheck/EnemyLineOfSightCheck.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemy/TriggerCheck/EnemyLineOfSightCheck.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemy/Type/Chaser/Material/Chaser_Mat.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemy/Type/Chaser/Material/Chaser_Mat.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemy/Type/FlameThrower/Material/FlameThrower_Mat.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemy/Type/FlameThrower/Material/FlameThrower_Mat.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemy/Type/FlameThrower/Prefab/FlameThrower.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemy/Type/FlameThrower/Prefab/FlameThrower.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemy/Type/Mages/Material/AOE_Mat.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemy/Type/Mages/Material/AOE_Mat.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemy/Type/Shooter/Material/ShooterBulletSpawn_Mat.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemy/Type/Shooter/Material/ShooterBulletSpawn_Mat.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemy/Type/Shooter/Material/ShooterBullet_Mat.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemy/Type/Shooter/Material/ShooterBullet_Mat.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemy/Type/Shooter/Material/Shooter_Mat.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemy/Type/Shooter/Material/Shooter_Mat.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/ShaderGraphSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/ShaderGraphSettings.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/URPProjectSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/URPProjectSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemy/Type/Shooter/Prefab/Shooter.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemy/Type/Shooter/Prefab/Shooter.prefab" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -151,6 +130,7 @@
       <workItem from="1704850575689" duration="3000" />
       <workItem from="1705130173187" duration="665000" />
       <workItem from="1705397511029" duration="187000" />
+      <workItem from="1705578184226" duration="6000" />
     </task>
     <task id="LOCAL-00001" summary="Refactor Bad Code">
       <option name="closed" value="true" />
