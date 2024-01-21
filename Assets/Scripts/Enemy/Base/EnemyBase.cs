@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 using Unity.Netcode;
 using System;
+using UnityEngine.AI;
 
 namespace Enemy
 {
@@ -10,7 +11,6 @@ namespace Enemy
     {
         // TODO: Find a way to make everything works in NETCODE
         // TODO: Implement IPlayerTargettable which must have Targetplayer and Ontargetplayerchange function
-        // CONTINUE HERE,
         [field: SerializeField] public float maxHealth { get; set; }
         public NetworkVariable<float> currentHealth { get; set; } = new NetworkVariable<float>(0.0f); // NetworkVariable must be initialized
         public Rigidbody rigidBody { get; set; }
@@ -47,9 +47,16 @@ namespace Enemy
 
         #endregion
 
+        #region AI Navigation
+
+        public NavMeshAgent navMeshAgent;
+
+        #endregion
+
         public void Start()
         {
             rigidBody = GetComponent<Rigidbody>();
+            navMeshAgent = GetComponent<NavMeshAgent>();
 
             EnemyIdleBaseInstance.Initialize(gameObject, this);
             EnemyAttackBaseInstance.Initialize(gameObject, this);

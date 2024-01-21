@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
+using UnityEngine.AI;
 
 namespace Enemy
 {
@@ -53,6 +54,14 @@ namespace Enemy
         public void SpawnEnemy(GameObject enemyPrefab)
         {
             var enemy = NetworkObjectPool.Singleton.GetNetworkObject(enemyPrefab, GetRandomPosition(), Quaternion.identity);
+            NavMeshHit hit;
+            if (NavMesh.SamplePosition(enemy.transform.position, out hit, 1000f, NavMesh.AllAreas))
+            {
+                enemy.transform.position = new Vector3(hit.position.x, hit.position.y, hit.position.z);
+                var navmeshagent = enemy.GetComponent<NavMeshAgent>();
+                navmeshagent.enabled = false;
+                navmeshagent.enabled = true;
+            }
             enemy.Spawn();
         }
 
