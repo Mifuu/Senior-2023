@@ -53,7 +53,12 @@ namespace Enemy
 
         public void SpawnEnemy(GameObject enemyPrefab)
         {
-            var enemy = NetworkObjectPool.Singleton.GetNetworkObject(enemyPrefab, GetRandomPosition(), Quaternion.identity);
+            SpawnEnemy(enemyPrefab, GetRandomPosition());
+        }
+
+        public void SpawnEnemy(GameObject enemyPrefab, Vector3 position)
+        {
+            var enemy = NetworkObjectPool.Singleton.GetNetworkObject(enemyPrefab, position, Quaternion.identity);
             NavMeshHit hit;
             if (NavMesh.SamplePosition(enemy.transform.position, out hit, 1000f, NavMesh.AllAreas))
             {

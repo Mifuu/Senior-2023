@@ -22,6 +22,14 @@ public class RoomGenNetworkManager : Singleton<RoomGenNetworkManager>
     [SerializeField]
     private NavigationBaker navigationBaker;
 
+    private void Update()
+    {
+        if (Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.M))
+        {
+            TryGenerate();
+        }
+    }
+
     [ContextMenu("Try Generate")]
     public void TryGenerate()
     {

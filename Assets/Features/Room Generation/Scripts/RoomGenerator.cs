@@ -27,6 +27,11 @@ public class RoomGenerator : MonoBehaviour
     public int seed = 0;
     public int randDoorAttempts = 10;
 
+    public bool HasGenerated
+    {
+        get { return roomObjects.Count != 0; }
+    }
+
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.M))
@@ -388,5 +393,37 @@ public class RoomGenerator : MonoBehaviour
     int Mod(int x, int m)
     {
         return (x % m + m) % m;
+    }
+
+    // ----------------------------- Get Information -----------------------------
+    public Vector3Int GetRoomCoordFromPosition(Vector3 position)
+    {
+        Vector3Int roomCoord = new Vector3Int(Mathf.RoundToInt(position.x / roomSet.snapValue.value.x), Mathf.RoundToInt(position.y / roomSet.snapValue.value.y), Mathf.RoundToInt(position.z / roomSet.snapValue.value.z));
+        return roomCoord;
+    }
+
+    public Vector3 GetPositionFromRoomCoord(Vector3Int roomCoord)
+    {
+        Vector3 position = new Vector3(roomCoord.x * roomSet.snapValue.value.x, roomCoord.y * roomSet.snapValue.value.y, roomCoord.z * roomSet.snapValue.value.z);
+        return position;
+    }
+
+    public Vector3Int GetRandomRoomWithinRadius(Vector3Int roomCoord, Vector2 radiusRange)
+    {
+        List<Vector3Int> pools = new List<Vector3Int>();
+
+        foreach (var r in roomGrid)
+        {
+            float dist = Vector3.Distance(V3Multiply(roomCoord, roomSet.snapValue.value), V3Multiply(r.Key, roomSet.snapValue.value));
+            if (dist >= radiusRange.x && dist <= radiusRange.y)
+            {
+                pools.Add(r.Key);
+            }
+        }
+
+        if (pools.Count == 0)
+            return roomCoord;
+
+        return GetRandom(pools);
     }
 }
