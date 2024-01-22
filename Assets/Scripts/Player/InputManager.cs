@@ -12,6 +12,7 @@ public class InputManager : MonoBehaviour
     private PlayerShoot shoot;
     private PlayerDash dash;
     public PlayerSwitchWeapon switchWeapon;
+    private Coroutine shootingCoroutine;
 
     void Awake()
     {
@@ -21,16 +22,15 @@ public class InputManager : MonoBehaviour
         look = GetComponent<PlayerLook>();
         shoot = GetComponent<PlayerShoot>();
         dash = GetComponent<PlayerDash>();
-       
+
         onFoot.Jump.performed += (ctx) => motor.Jump();
-        onFoot.Shoot.performed += (ctx) => shoot.ShootBullet();
+        onFoot.Shoot.started += (ctx) => StartShooting();
+        onFoot.Shoot.canceled += (ctx) => StopShooting();
         onFoot.Dash.performed += ctx => dash.Dash(onFoot.Movement.ReadValue<Vector2>());
         onFoot.SwitchWeapon.performed += ctx => {
-            Debug.Log(ctx.ReadValue<float>());
             float value = ctx.action.ReadValue<float>();
             if (switchWeapon != null)
             {
-                Debug.Log(value);
                 switchWeapon.SwitchWeapon(value);
             }
             else
@@ -60,4 +60,29 @@ public class InputManager : MonoBehaviour
         onFoot.Disable();
     }
 
+    public void StartShooting()
+    {
+        if (shootingCoroutine == null)
+        {
+            shootingCoroutine = StartCoroutine(ContinuousShooting());
+        }
+    }
+
+    public void StopShooting()
+    {
+        if (shootingCoroutine != null)
+        {
+            StopCoroutine(shootingCoroutine);
+            shootingCoroutine = null;
+        }
+    }
+
+    private IEnumerator ContinuousShooting()
+    {
+        while (true)  // This loop will keep executing until the StopShooting method is called
+        {
+            shoot.ShootBullet();  // Call the ShootBullet method
+            yield return null;  // Wait for the next frame
+        }
+    }
 }
