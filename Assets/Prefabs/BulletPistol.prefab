@@ -132,7 +132,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -0.09508572}
-  m_LocalScale: {x: 0.0414168, y: 0.038201164, z: 0.33648217}
+  m_LocalScale: {x: 0.2166746, y: 0.02, z: 0.41976148}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 202760547795212702}
@@ -179,7 +179,7 @@ TrailRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Time: 0.2
+  m_Time: 0.075
   m_PreviewTimeScale: 1
   m_Parameters:
     serializedVersion: 3
@@ -198,27 +198,27 @@ TrailRenderer:
         outWeight: 0.33333334
       - serializedVersion: 3
         time: 1
-        value: 0
-        inSlope: -0.020295098
-        outSlope: -0.020295098
+        value: 0.020408163
+        inSlope: -0.031613804
+        outSlope: -0.031613804
         tangentMode: 0
         weightedMode: 0
-        inWeight: 0.5406001
+        inWeight: 0.34532684
         outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 1, g: 0.57387066, b: 0.1745283, a: 1}
+      key0: {r: 0.17647058, g: 0.58592075, b: 1, a: 1}
       key1: {r: 1, g: 1, b: 1, a: 1}
       key2: {r: 0, g: 0, b: 0, a: 1}
-      key3: {r: 0, g: 0, b: 0, a: 0}
+      key3: {r: 0, g: 0, b: 0, a: 1}
       key4: {r: 0, g: 0, b: 0, a: 0}
       key5: {r: 0, g: 0, b: 0, a: 0}
       key6: {r: 0, g: 0, b: 0, a: 0}
       key7: {r: 0, g: 0, b: 0, a: 0}
-      ctime0: 38357
+      ctime0: 52235
       ctime1: 65535
       ctime2: 0
       ctime3: 0
@@ -227,9 +227,9 @@ TrailRenderer:
       ctime6: 0
       ctime7: 0
       atime0: 0
-      atime1: 39899
+      atime1: 38743
       atime2: 65535
-      atime3: 0
+      atime3: 65535
       atime4: 0
       atime5: 0
       atime6: 0
@@ -238,8 +238,8 @@ TrailRenderer:
       m_ColorSpace: 0
       m_NumColorKeys: 2
       m_NumAlphaKeys: 3
-    numCornerVertices: 0
-    numCapVertices: 0
+    numCornerVertices: 2
+    numCapVertices: 4
     alignment: 0
     textureMode: 0
     textureScale: {x: 1, y: 1}
