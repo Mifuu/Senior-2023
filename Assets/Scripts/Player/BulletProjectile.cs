@@ -8,9 +8,9 @@ public class BulletProjectile : NetworkBehaviour
 {
     [SerializeField] private Transform vfxHit;
     private Rigidbody bulletRigidbody;
-    public float speed = 100f;
-    public float lifetime = 5.0f; 
-    //public Vector3 bulletDirection;
+    public float speed = 600f;
+    public float lifetime = 5.0f;
+    public float damageAmount = 1.0f; 
 
     private void Awake()
     {
@@ -20,28 +20,19 @@ public class BulletProjectile : NetworkBehaviour
     public void Start()
     {
         bulletRigidbody.velocity = transform.forward * speed;
-        //DestroyAfterDelayServerRpc();
-        //transform.rotation = Quaternion.Euler(bulletDirection); 
-    }
-    
-    private void OnTriggerEnter(Collider other)
-    {
-        //Instantiate(vfxHit, transform.position, Quaternion.identity);
-        Destroy(gameObject);
     }
 
-    /*
-    [ServerRpc]
-    // Coroutine to destroy the bullet after a delay
-    private void OnTriggerEnterServerRpc()
+    private void OnTriggerEnter(Collider other)
     {
-        NetworkObject.Destroy(gameObject);
+        IDamageCalculatable damageable = other.GetComponent<IDamageCalculatable>();
+
+        if (damageable != null)
+        {
+            DamageInfo damageInfo = new DamageInfo(gameObject, damageAmount);
+            damageable.Damage(damageInfo);
+            //Instantiate(vfxHit, transform.position, Quaternion.identity);
+        }
+
+        Destroy(gameObject);
     }
-    [ServerRpc]
-    private IEnumerator DestroyAfterDelayServerRpc()
-    {
-        yield return new WaitForSeconds(lifetime);
-        NetworkObject.Destroy(gameObject);
-    }
-    */
 }

@@ -15,7 +15,9 @@ public class UpdatableDataEditor : Editor
         if (GUILayout.Button("Update"))
         {
             data.NotifyOfUpdatedValues();
+#if UNITY_EDITOR
             EditorUtility.SetDirty(target);
+#endif
         }
     }
 }
