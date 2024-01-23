@@ -19,7 +19,7 @@ namespace Enemy
         public override void DoEnterLogic()
         {
             base.DoEnterLogic();
-            enemy.PerformCoroutine(ShootAndCheckLineOfSightCoroutine());
+            enemy.StartCoroutine(ShootAndCheckLineOfSightCoroutine());
             if (allAttack.Count == 0)
             {
                 Debug.LogError("No Attack, Moving to Idle State");
@@ -30,13 +30,13 @@ namespace Enemy
         public override void DoExitLogic()
         {
             base.DoExitLogic();
-            enemy.PerformStopCoroutine(ShootAndCheckLineOfSightCoroutine());
+            enemy.StopCoroutine(ShootAndCheckLineOfSightCoroutine());
         }
 
         public override void DoFrameUpdateLogic()
         {
             base.DoFrameUpdateLogic();
-            enemy.transform.LookAt(playerTransform);
+            enemy.transform.LookAt(enemy.targetPlayer.transform);
             enemy.transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
         }
 

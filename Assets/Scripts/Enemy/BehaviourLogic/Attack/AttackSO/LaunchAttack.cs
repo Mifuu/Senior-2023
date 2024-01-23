@@ -31,7 +31,7 @@ namespace Enemy
 
         public override void PerformAttack()
         {
-            enemy.PerformCoroutine(Launch());
+            enemy.StartCoroutine(Launch());
         }
 
         private IEnumerator Launch()

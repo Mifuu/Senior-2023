@@ -20,19 +20,19 @@ namespace Enemy
         public override void DoEnterLogic()
         {
             base.DoEnterLogic();
-            enemy.PerformCoroutine(CheckLineOfSight());
+            enemy.StartCoroutine(CheckLineOfSight());
         }
 
         public override void DoExitLogic()
         {
             base.DoExitLogic();
-            enemy.PerformStopCoroutine(CheckLineOfSight());
+            enemy.StopCoroutine(CheckLineOfSight());
         }
 
         public override void DoFrameUpdateLogic()
         {
             base.DoFrameUpdateLogic();
-            enemy.transform.LookAt(playerTransform);
+            enemy.transform.LookAt(enemy.targetPlayer.transform);
             enemy.transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
         }
 
