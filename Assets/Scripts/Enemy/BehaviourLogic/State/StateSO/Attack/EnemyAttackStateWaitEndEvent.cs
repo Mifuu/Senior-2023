@@ -28,7 +28,7 @@ namespace Enemy
         public override void DoFrameUpdateLogic()
         {
             base.DoFrameUpdateLogic();
-            transform.LookAt(playerTransform);
+            transform.LookAt(enemy.targetPlayer.transform);
             transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
         }
     }
