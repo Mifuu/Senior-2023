@@ -20,13 +20,13 @@ namespace Enemy
         public override void DoEnterLogic()
         {
             base.DoEnterLogic();
-            enemy.PerformCoroutine(PerformFlyChase());
+            enemy.StartCoroutine(PerformFlyChase());
         }
 
         public override void DoExitLogic()
         {
             base.DoExitLogic();
-            enemy.PerformStopCoroutine(PerformFlyChase());
+            enemy.StopCoroutine(PerformFlyChase());
         }
 
         private IEnumerator PerformFlyChase()

@@ -28,7 +28,7 @@ namespace Enemy
 
         public override void PerformAttack()
         {
-            enemy.PerformCoroutine(ShootAttackCoroutine());
+            enemy.StartCoroutine(ShootAttackCoroutine());
         }
 
         private IEnumerator ShootAttackCoroutine()
@@ -37,9 +37,9 @@ namespace Enemy
             for (int i = 0; i < bulletAmount; i++)
             {
                 var newBullet = NetworkObjectPool.Singleton.GetNetworkObject(bulletPrefab, bulletSpawn.transform.position, enemy.transform.rotation);
-                enemy.transform.LookAt(targetPlayer.transform);
+                enemy.transform.LookAt(enemy.targetPlayer.transform);
                 newBullet.Spawn();
-                newBullet.gameObject.GetComponent<EnemyBullet>().InitializeAndShoot(enemy.gameObject, targetPlayer);
+                newBullet.gameObject.GetComponent<EnemyBullet>().InitializeAndShoot(enemy.gameObject, enemy.targetPlayer);
                 yield return new WaitForSeconds(bulletDelay);
             }
             EmitAttackEndsEvent();

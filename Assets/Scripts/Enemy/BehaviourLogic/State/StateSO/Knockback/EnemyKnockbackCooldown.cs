@@ -12,13 +12,13 @@ namespace Enemy
         public override void DoEnterLogic()
         {
             base.DoEnterLogic();
-            enemy.PerformCoroutine(Cooldown());
+            enemy.StartCoroutine(Cooldown());
         }
 
         public override void DoExitLogic()
         {
             base.DoExitLogic();
-            enemy.PerformStopCoroutine(Cooldown());
+            enemy.StopCoroutine(Cooldown());
         }
 
         public IEnumerator Cooldown()

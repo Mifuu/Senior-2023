@@ -28,7 +28,7 @@ namespace Enemy
         public override void DoFrameUpdateLogic()
         {
             base.DoFrameUpdateLogic();
-            transform.LookAt(playerTransform);
+            transform.LookAt(enemy.targetPlayer.transform);
             transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
 
             if (strikingDistanceCheck.PlayerWithinTrigger.Count != 0)
@@ -47,7 +47,7 @@ namespace Enemy
         {
             while (isMoving)
             {
-                enemy.navMeshAgent.SetDestination(playerTransform.position);
+                enemy.navMeshAgent.SetDestination(enemy.targetPlayer.transform.position);
                 yield return new WaitForSeconds(targetCheckInterval);
             }
         }
