@@ -6,6 +6,7 @@ namespace Enemy
     {
         public EnemyIdleState(EnemyBase enemy, EnemyStateMachine enemyStateMachine) : base(enemy, enemyStateMachine)
         {
+            stateId = "Idle";
         }
 
         public override void AnimationTrigger(EnemyBase.AnimationTriggerType triggerType)
@@ -17,14 +18,12 @@ namespace Enemy
         public override void EnterState()
         {
             base.EnterState();
-            Debug.Log("Entering Idle State");
             enemy.EnemyIdleBaseInstance.DoEnterLogic();
         }
 
         public override void ExitState()
         {
             base.ExitState();
-            Debug.Log("Exiting Idle State");
             enemy.EnemyIdleBaseInstance.DoExitLogic();
         }
 

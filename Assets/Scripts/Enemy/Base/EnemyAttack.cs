@@ -12,7 +12,6 @@ namespace Enemy
     // </summary>
     public abstract class EnemyAttack : ScriptableObject
     {
-        protected GameObject targetPlayer;
         protected EnemyBase enemy;
         protected GameObject enemyGameObject;
 
@@ -23,7 +22,6 @@ namespace Enemy
 
         public virtual void Initialize(GameObject targetPlayer, GameObject enemyGameObject)
         {
-            this.targetPlayer = targetPlayer;
             this.enemy = enemyGameObject.GetComponent<EnemyBase>();
             this.enemyGameObject = enemyGameObject;
         }
@@ -33,7 +31,6 @@ namespace Enemy
             DamageInfo info = new DamageInfo();
             if (damageable == null)
             {
-                Debug.Log("Cannot deal damageable to Nondamagable");
                 return info;
             }
 

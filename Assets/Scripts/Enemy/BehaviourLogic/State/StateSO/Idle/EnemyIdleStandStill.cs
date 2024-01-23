@@ -13,7 +13,7 @@ namespace Enemy
         public override void DoEnterLogic()
         {
             base.DoEnterLogic();
-            enemy.PerformCoroutine(StandStill());
+            enemy.StartCoroutine(StandStill());
         }
 
         public IEnumerator StandStill()
