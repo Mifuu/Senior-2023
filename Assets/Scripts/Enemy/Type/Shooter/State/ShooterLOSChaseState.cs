@@ -7,7 +7,7 @@ namespace Enemy
     [CreateAssetMenu(fileName = "LineOfSightCheckChase", menuName = "Enemy/Enemy State/Chase State/Line Of Sight Check")]
     public class ShooterLOSChaseState : EnemyChaseSOBase
     {
-        [SerializeField] float checkCooldownTime = 5.0f;
+        [SerializeField] float checkCooldownTime = 1.0f;
         EnemyLineOfSightCheck lineOfSightCheck;
 
         public override void Initialize(GameObject gameObject, EnemyBase enemy)
