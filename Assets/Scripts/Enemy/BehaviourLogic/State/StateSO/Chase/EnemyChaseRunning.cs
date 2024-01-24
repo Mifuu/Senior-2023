@@ -21,6 +21,7 @@ namespace Enemy
         public override void DoEnterLogic()
         {
             base.DoEnterLogic();
+            if (!enemy.IsServer) return;
             isMoving = true;
             enemy.StartCoroutine(Move());
         }
@@ -28,6 +29,8 @@ namespace Enemy
         public override void DoFrameUpdateLogic()
         {
             base.DoFrameUpdateLogic();
+            if (!enemy.IsServer) return;
+
             transform.LookAt(enemy.targetPlayer.transform);
             transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
 
@@ -47,7 +50,7 @@ namespace Enemy
         {
             while (isMoving)
             {
-                enemy.navMeshAgent.SetDestination(enemy.targetPlayer.transform.position);
+                enemy.navMeshAgent?.SetDestination(enemy.targetPlayer.transform.position);
                 yield return new WaitForSeconds(targetCheckInterval);
             }
         }

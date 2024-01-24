@@ -11,8 +11,6 @@ namespace Enemy
         [SerializeField] private GameObject bulletPrefab;
         [SerializeField] private int bulletAmount = 1;
         [SerializeField] private float preShootDelay = 1.0f;
-        // bulletSpeed and other bullet behavior, let the bullet decides
-        // [SerializeField] private float bulletSpeed = 1000.0f;
         [SerializeField] private float bulletDelay = 0.1f;
         private Rigidbody bulletRB;
         private GameObject bulletSpawn;
@@ -28,6 +26,7 @@ namespace Enemy
 
         public override void PerformAttack()
         {
+            if (!enemy.IsServer) return;
             enemy.StartCoroutine(ShootAttackCoroutine());
         }
 
