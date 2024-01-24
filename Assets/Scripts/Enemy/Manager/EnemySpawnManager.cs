@@ -58,16 +58,15 @@ namespace Enemy
 
         public void SpawnEnemy(GameObject enemyPrefab, Vector3 position)
         {
-            var enemy = NetworkObjectPool.Singleton.GetNetworkObject(enemyPrefab, position, Quaternion.identity);
             NavMeshHit hit;
-            if (NavMesh.SamplePosition(enemy.transform.position, out hit, 1000f, NavMesh.AllAreas))
+            if (NavMesh.SamplePosition(enemyPrefab.transform.position, out hit, 1000f, NavMesh.AllAreas))
             {
-                enemy.transform.position = new Vector3(hit.position.x, hit.position.y, hit.position.z);
+                var enemy = NetworkObjectPool.Singleton.GetNetworkObject(enemyPrefab, hit.position, Quaternion.identity);
                 var navmeshagent = enemy.GetComponent<NavMeshAgent>();
                 navmeshagent.enabled = false;
                 navmeshagent.enabled = true;
+                enemy.Spawn();
             }
-            enemy.Spawn();
         }
 
         public void SpawnRandomEnemy()
@@ -95,7 +94,7 @@ namespace Enemy
 
         private Vector3 GetRandomPosition()
         {
-            return new Vector3(Random.Range(-20f, 20f), 5, Random.Range(-20f, 20f));
+            return new Vector3(Random.Range(-20f, 20f), 0, Random.Range(-20f, 20f));
         }
 
         public IEnumerator SequentialSpawnCoroutine()

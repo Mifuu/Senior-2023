@@ -35,11 +35,6 @@ namespace Enemy
             this.enemy = enemy;
         }
 
-        public override void OnNetworkSpawn()
-        {
-            base.OnNetworkSpawn();
-        }
-
         protected void EmitAOEEndsEvent()
         {
             OnAOEPeriodEnd?.Invoke();

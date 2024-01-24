@@ -14,6 +14,7 @@ namespace Enemy
         {
             base.DoFrameUpdateLogic();
             if (!enemy.IsServer) return;
+
             transform.Translate(Vector3.forward * (chaseSpeed * Time.deltaTime));
         }
     }
