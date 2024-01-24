@@ -1,10 +1,10 @@
 using UnityEngine;
 using Unity.Netcode;
 using UnityEngine.AI;
+using Unity.Netcode.Components;
 
 namespace Enemy
 {
-    [RequireComponent(typeof(Rigidbody))]
     public class EnemyBase : NetworkBehaviour, IDamageable
     {
         [field: SerializeField] public float maxHealth { get; set; }
@@ -82,7 +82,16 @@ namespace Enemy
             if (!IsServer)
             {
                 Destroy(navMeshAgent);
+                Destroy(GetComponent<NetworkRigidbody>());
+                Destroy(GetComponent<Rigidbody>());
+                Destroy(GetComponent<Collider>());
             }
+        }
+
+        public override void OnNetworkDespawn()
+        {
+            var playerHealth = targetPlayer.GetComponent<PlayerHealth>();
+            playerHealth.OnPlayerDie -= OnTargetPlayerRefindRequired;
         }
 
         private void OnEnemySpawn()
@@ -116,7 +125,7 @@ namespace Enemy
         private void CleanUp()
         {
             // Place for more clean up logic, animation etc.
-            // TODO: Put Unsubscription Logic when enemy die here
+            DesetupTargetPlayer();
         }
 
         private void AnimationTrigger(AnimationTriggerType triggerType)
@@ -152,22 +161,48 @@ namespace Enemy
         private void OnTargetPlayerChangeRequired(GameObject newTargetPlayer)
         {
             if (!IsServer) return;
+            if (targetPlayer != null)
+            {
+                DesetupTargetPlayer();
+            }
+
             targetPlayer = newTargetPlayer;
-            // setup target player, such as subscribe to player die event
+            SetupNewTargetPlayer(targetPlayer);
         }
 
         private void OnTargetPlayerRefindRequired()
         {
             if (!IsServer) return;
+            if (targetPlayer != null)
+            {
+                DesetupTargetPlayer();
+            }
+
             var newPlayer = FindTargetPlayer();
             if (newPlayer == null && IsServer)
             {
                 Die();
                 return;
             }
-            targetPlayer = newPlayer;
-            ChangeTargetPlayerClientRpc(newPlayer.GetComponent<NetworkObject>());
+
+            SetupNewTargetPlayer(newPlayer);
+        }
+
+        private void DesetupTargetPlayer()
+        {
+            var playerHealth = targetPlayer.GetComponent<PlayerHealth>();
+            playerHealth.OnPlayerDie -= OnTargetPlayerRefindRequired;
+        }
+
+        private void SetupNewTargetPlayer(GameObject newTargetPlayer)
+        {
+            targetPlayer = newTargetPlayer;
+            ChangeTargetPlayerClientRpc(newTargetPlayer.GetComponent<NetworkObject>());
+
             // Setup target player, such as subscribe to player die event
+            var playerHealth = targetPlayer.GetComponent<PlayerHealth>();
+            playerHealth.OnPlayerDie += OnTargetPlayerRefindRequired;
+
         }
 
         [ClientRpc]

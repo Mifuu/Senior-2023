@@ -5,10 +5,10 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Sprint2Showcase.unity
     guid: 8d6ff6d2dacf9410f95262d394f891dc
-  - enabled: 1
+  - enabled: 0
     path: Assets/Features/Room Generation/Scenes/RoomGenMultiplayer.unity
     guid: 89d6eb69141cc4fb9b06b3be2e3a9813
   - enabled: 0
@@ -26,7 +26,7 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/SampleScene.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/DemoScene.unity
     guid: c02eb4ba98e49204181d4eca81e7658c
   - enabled: 1
