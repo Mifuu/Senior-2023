@@ -10,7 +10,7 @@ public class BulletProjectile : NetworkBehaviour
     private Rigidbody bulletRigidbody;
     public float speed = 600f;
     public float lifetime = 5.0f;
-    public float damageAmount = 1.0f; 
+    public float damageAmount = 1.0f;
 
     private void Awake()
     {
@@ -22,8 +22,21 @@ public class BulletProjectile : NetworkBehaviour
         bulletRigidbody.velocity = transform.forward * speed;
     }
 
+    public void Update()
+    {
+        if (!IsOwner) return;
+        lifetime -= Time.deltaTime;
+        if (lifetime <= 0)
+        {
+            // Destroy(gameObject);
+            NetworkObject.Despawn(true);
+        }
+    }
+
     private void OnTriggerEnter(Collider other)
     {
+        if (!IsOwner) return;
+
         IDamageCalculatable damageable = other.GetComponent<IDamageCalculatable>();
 
         if (damageable != null)
@@ -36,6 +49,10 @@ public class BulletProjectile : NetworkBehaviour
             Debug.Log("Player Script: No Damagable Class Found");
         }
 
-        Destroy(gameObject);
+        // Destroy(gameObject);
+
+        // despawn network object
+        NetworkObject.Despawn(true);
+
     }
 }

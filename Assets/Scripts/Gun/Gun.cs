@@ -25,6 +25,7 @@ public class Gun : NetworkBehaviour
             {
                 Vector3 mouseWorldPosition = raycastHit.point;
                 aimDir = (mouseWorldPosition - bulletSpawnPosition.position).normalized;
+                // Debug.Log(raycastHit.collider.name, raycastHit.collider.gameObject);
             }
             else
             {
