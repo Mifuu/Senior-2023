@@ -51,7 +51,6 @@ namespace Enemy
             DamageInfo info = new DamageInfo();
             if (damagable == null)
             {
-                Debug.Log("No Damagable Class Found");
                 return info;
             }
 

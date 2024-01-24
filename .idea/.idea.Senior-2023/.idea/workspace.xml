@@ -5,11 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="65bc8107-be3d-4f4c-907b-d430cb2f1289" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemy/Base/EnemyAOEBase.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemy/Base/EnemyAOEBase.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemy/Base/EnemyBullet.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemy/Base/EnemyBullet.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemy/BehaviourLogic/AOE/EnemyAOEPlayerSpawnAndDamage.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemy/BehaviourLogic/AOE/EnemyAOEPlayerSpawnAndDamage.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemy/TriggerCheck/EnemyHitboxDamageable.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemy/TriggerCheck/EnemyHitboxDamageable.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemy/Type/Shooter/Prefab/Shooter.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemy/Type/Shooter/Prefab/Shooter.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemy/Type/Shooter/State/ShooterIdleState.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemy/Type/Shooter/State/ShooterIdleState.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemy/Type/Shooter/State/ShooterLOSAttackState.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemy/Type/Shooter/State/ShooterLOSAttackState.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemy/Type/Shooter/State/ShooterLOSChaseState.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemy/Type/Shooter/State/ShooterLOSChaseState.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -131,6 +129,7 @@
       <workItem from="1705130173187" duration="665000" />
       <workItem from="1705397511029" duration="187000" />
       <workItem from="1705578184226" duration="6000" />
+      <workItem from="1706016860393" duration="96000" />
     </task>
     <task id="LOCAL-00001" summary="Refactor Bad Code">
       <option name="closed" value="true" />

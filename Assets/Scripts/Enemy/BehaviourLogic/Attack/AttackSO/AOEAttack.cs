@@ -21,7 +21,7 @@ namespace Enemy
                 Debug.LogError("No AOE Base object, exiting");
                 return;
             }
-            aoeBase.InitializeAOE(targetPlayer, enemy);
+            aoeBase.InitializeAOE(enemy.targetPlayer, enemy);
             aoe.Spawn();
         }
     }

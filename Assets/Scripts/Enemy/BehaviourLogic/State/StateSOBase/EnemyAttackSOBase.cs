@@ -9,7 +9,6 @@ namespace Enemy
         protected EnemyBase enemy;
         protected Transform transform;
         protected GameObject gameObject;
-        protected Transform playerTransform;
         [SerializeField] protected List<EnemyAttack> allAttack = new List<EnemyAttack>();
         protected EnemyAttack selectedNextAttack;
 
@@ -19,7 +18,6 @@ namespace Enemy
             this.gameObject = gameObject;
             this.transform = gameObject.transform;
             var player = GameObject.FindGameObjectWithTag("Player");
-            this.playerTransform = player.transform;
 
             this.allAttack = this.allAttack.Select((attack) =>
             {

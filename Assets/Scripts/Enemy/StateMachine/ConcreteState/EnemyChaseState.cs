@@ -6,6 +6,7 @@ namespace Enemy
     {
         public EnemyChaseState(EnemyBase enemy, EnemyStateMachine enemyStateMachine) : base(enemy, enemyStateMachine)
         {
+            stateId = "Chase";
         }
 
         public override void AnimationTrigger(EnemyBase.AnimationTriggerType triggerType)
@@ -17,14 +18,12 @@ namespace Enemy
         public override void EnterState()
         {
             base.EnterState();
-            Debug.Log("Entering Chase State");
             enemy.EnemyChaseBaseInstance.DoEnterLogic();
         }
 
         public override void ExitState()
         {
             base.ExitState();
-            Debug.Log("Exiting Chase State");
             enemy.EnemyChaseBaseInstance.DoExitLogic();
         }
 

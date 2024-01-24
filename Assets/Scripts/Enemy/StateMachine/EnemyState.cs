@@ -8,6 +8,7 @@ namespace Enemy
     {
         protected EnemyBase enemy;
         protected EnemyStateMachine enemyStateMachine;
+        public string stateId;
 
         public EnemyState(EnemyBase enemy, EnemyStateMachine enemyStateMachine)
         {
@@ -15,7 +16,7 @@ namespace Enemy
             this.enemyStateMachine = enemyStateMachine;
         }
 
-        public virtual void EnterState() { }
+        public virtual void EnterState() { Debug.Log("State Changed: " + stateId); }
         public virtual void ExitState() { }
         public virtual void FrameUpdate() { }
         public virtual void PhysicsUpdate() { }

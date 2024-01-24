@@ -189,7 +189,7 @@ GameObject:
   - component: {fileID: 3696304347780437977}
   - component: {fileID: 7701360765430716909}
   - component: {fileID: 7660326274107892007}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: _Room Box
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1028,7 +1028,7 @@ GameObject:
   - component: {fileID: 7077168404965148384}
   - component: {fileID: 8013346446537067913}
   - component: {fileID: 3219627520080354968}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: _Room Box
   m_TagString: Untagged
   m_Icon: {fileID: 0}

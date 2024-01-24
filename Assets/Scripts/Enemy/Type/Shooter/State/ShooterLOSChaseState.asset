@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e41585fefac8c445935c71d50b76239, type: 3}
   m_Name: ShooterLOSChaseState
   m_EditorClassIdentifier: 
-  checkCooldownTime: 5
+  checkCooldownTime: 1

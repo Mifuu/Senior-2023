@@ -6,6 +6,7 @@ namespace Enemy
     {
         public EnemyKnockbackState(EnemyBase enemy, EnemyStateMachine enemyStateMachine) : base(enemy, enemyStateMachine)
         {
+            stateId = "Knockback";
         }
 
         public override void AnimationTrigger(EnemyBase.AnimationTriggerType triggerType)
@@ -17,14 +18,12 @@ namespace Enemy
         public override void EnterState()
         {
             base.EnterState();
-            Debug.Log("Entering Knockback State");
             enemy.EnemyKnockbackBaseInstance.DoEnterLogic();
         }
 
         public override void ExitState()
         {
             base.ExitState();
-            Debug.Log("Exiting Knockback State");
             enemy.EnemyKnockbackBaseInstance.DoExitLogic();
         }
 
