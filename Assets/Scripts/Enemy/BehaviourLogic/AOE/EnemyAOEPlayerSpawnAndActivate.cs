@@ -13,6 +13,7 @@ namespace Enemy
         public override void OnNetworkSpawn()
         {
             base.OnNetworkSpawn();
+            if (!IsServer) return;
             transform.position = PlayerTarget.transform.position;
             StartCoroutine(AttackCoroutine());
         }

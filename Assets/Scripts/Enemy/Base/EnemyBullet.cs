@@ -24,6 +24,11 @@ namespace Enemy
         public override void OnNetworkSpawn()
         {
             base.OnNetworkSpawn();
+            if (!IsServer)
+            {
+                enabled = false;
+                return;
+            }
             currentHealth.Value = maxHealth;
         }
 
@@ -39,8 +44,13 @@ namespace Enemy
             this.bulletOwner = bulletOwner;
         }
 
-        public void Update()
+        public void FixedUpdate()
         {
+            if (target == null)
+            {
+                Debug.LogError("Target is null");
+                return;
+            }
             transform.Translate(Vector3.forward * (bulletSpeed * Time.fixedDeltaTime));
             if (!isHomingCapable) return;
             gameObject.transform.LookAt(target.transform);
@@ -64,15 +74,17 @@ namespace Enemy
 
         public void OnTriggerEnter(Collider collider)
         {
+            if (!IsServer) return;
             var damager = collider.GetComponent<IDamageCalculatable>();
             DamageDamageable(damager);
-            
+
             // TODO: Bullet maynot die immediately after hit, as it may just pass through
             Die();
         }
 
         public void Damage(float damageAmount)
         {
+            if (!IsServer) return;
             currentHealth.Value -= damageAmount;
             if (currentHealth.Value <= 0)
             {

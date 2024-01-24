@@ -6,14 +6,12 @@ using System;
 
 namespace Enemy
 {
-    // TODO: Add IPlayerTrackable
     public abstract class EnemyAOEBase : NetworkBehaviour
     {
         [SerializeField] protected GameObject AOEGameObjectPrefab;
         public GameObject PlayerTarget { get; set; }
         public EnemyBase enemy { get; set; }
 
-        // Temporary Field
         [Header("Temporary Material Field")]
         [SerializeField] private Material activateMaterial;
         [SerializeField] private Material preActivateMaterial;
@@ -32,8 +30,14 @@ namespace Enemy
 
         public virtual void InitializeAOE(GameObject PlayerTarget, EnemyBase enemy)
         {
+            Debug.Log("AOE Base Player Target: " + PlayerTarget);
             this.PlayerTarget = PlayerTarget;
             this.enemy = enemy;
+        }
+
+        public override void OnNetworkSpawn()
+        {
+            base.OnNetworkSpawn();
         }
 
         protected void EmitAOEEndsEvent()
@@ -43,6 +47,7 @@ namespace Enemy
 
         public override void OnNetworkDespawn()
         {
+            base.OnNetworkDespawn();
             ResetValue();
         }
 

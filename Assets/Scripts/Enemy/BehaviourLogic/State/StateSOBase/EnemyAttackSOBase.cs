@@ -17,12 +17,11 @@ namespace Enemy
             this.enemy = enemy;
             this.gameObject = gameObject;
             this.transform = gameObject.transform;
-            var player = GameObject.FindGameObjectWithTag("Player");
 
             this.allAttack = this.allAttack.Select((attack) =>
             {
                 attack = Instantiate(attack);
-                attack.Initialize(player, gameObject);
+                attack.Initialize(enemy.targetPlayer, gameObject);
                 return attack;
             }).ToList();
 
