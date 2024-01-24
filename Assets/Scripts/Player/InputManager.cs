@@ -29,7 +29,7 @@ public class InputManager : MonoBehaviour
         onFoot.Dash.performed += ctx => dash.Dash(onFoot.Movement.ReadValue<Vector2>());
         onFoot.SwitchWeapon.performed += ctx => {
             float value = ctx.action.ReadValue<float>();
-            if (switchWeapon != null)
+            if (switchWeapon != null && switchWeapon.guns[(int)value].CanShoot())
             {
                 switchWeapon.SwitchWeapon(value);
             }
@@ -79,10 +79,10 @@ public class InputManager : MonoBehaviour
 
     private IEnumerator ContinuousShooting()
     {
-        while (true)  // This loop will keep executing until the StopShooting method is called
+        while (true)  
         {
-            shoot.ShootBullet();  // Call the ShootBullet method
-            yield return null;  // Wait for the next frame
+            shoot.ShootBullet();  
+            yield return null;  
         }
     }
 }

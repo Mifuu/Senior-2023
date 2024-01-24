@@ -7,7 +7,6 @@ using UnityEngine.Serialization;
 
 public class Gun : NetworkBehaviour
 {
-    [FormerlySerializedAs("_bulletPrefab")][SerializeField] GameObject bulletPrefab;
     [SerializeField] private float raycastHitRange = 999f;
     [SerializeField] private Transform debugTransform;
     [SerializeField] private Transform bullet;
