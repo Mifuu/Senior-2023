@@ -323,6 +323,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponSwitching: {fileID: 5098095806766026762}
+  aimColliderLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
 --- !u!114 &-8119463347450401
 MonoBehaviour:
   m_ObjectHideFlags: 0
