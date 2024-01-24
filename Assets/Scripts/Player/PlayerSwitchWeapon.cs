@@ -6,7 +6,7 @@ using Unity.Netcode;
 public class PlayerSwitchWeapon : NetworkBehaviour
 {
     public int selectedWeapon = 0;
-    private Gun[] guns; 
+    public Gun[] guns; 
 
     void Start()
     {
@@ -20,14 +20,7 @@ public class PlayerSwitchWeapon : NetworkBehaviour
         {
             for (int i = 0; i < guns.Length; i++)
             {
-                if (i == selectedWeapon)
-                {
-                    guns[i].gameObject.SetActive(true);
-                }
-                else
-                {
-                    guns[i].gameObject.SetActive(false);
-                }
+                guns[i].gameObject.SetActive(i == selectedWeapon);
             }
         }
     }
@@ -36,30 +29,17 @@ public class PlayerSwitchWeapon : NetworkBehaviour
     {
         if (IsClient && IsOwner)
         {
-            if (index == 1)
+            Debug.Log("Player Script: Switch activate");
+    
+            int weaponIndex = Mathf.FloorToInt(index - 1);
+            Debug.Log($"Player Script: Weapon index {weaponIndex}");
+            Debug.Log($"Player Script: CanShoot {guns[weaponIndex].CanShoot()}");
+            if (weaponIndex >= 0 && weaponIndex < guns.Length && guns[weaponIndex].CanShoot())
             {
-                if (guns[selectedWeapon].CanShoot())
-                {
-                    Debug.Log("switch to 0");
-                    selectedWeapon = 0;
-                    SelectWeapon();
-
-                    // Update canShoot for the current gun
-                    guns[selectedWeapon].UpdateCanShoot(true);
-                }
-            }
-
-            if (index == 2)
-            {
-                if (guns[selectedWeapon].CanShoot())
-                {
-                    Debug.Log("switch to 1");
-                    selectedWeapon = 1;
-                    SelectWeapon();
-
-                    // Update canShoot for the current gun
-                    guns[selectedWeapon].UpdateCanShoot(true);
-                }
+                Debug.Log($"Player Script: Switch to weapon {index}");
+                selectedWeapon = weaponIndex;
+                SelectWeapon();
+                guns[selectedWeapon].UpdateCanShoot(true);
             }
         }
     }
