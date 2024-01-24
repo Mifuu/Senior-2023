@@ -150,6 +150,11 @@ public class RoomDataPlotter : MonoBehaviour
                 roomBoxes.Add(roomBoxSnapping.gameObject);
             }
         }
+
+        foreach (var b in roomBoxes)
+        {
+            b.layer = LayerMask.NameToLayer("RoomBox");
+        }
     }
 
     [ContextMenu("GetRoomBoxData")]

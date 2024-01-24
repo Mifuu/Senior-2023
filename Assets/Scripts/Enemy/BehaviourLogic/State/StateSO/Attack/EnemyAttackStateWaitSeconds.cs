@@ -13,7 +13,7 @@ namespace Enemy
         public override void DoEnterLogic()
         {
             base.DoEnterLogic();
-            enemy.PerformCoroutine(PerformAttackCoroutine());
+            enemy.StartCoroutine(PerformAttackCoroutine());
         }
 
         public virtual IEnumerator PerformAttackCoroutine()
@@ -27,7 +27,7 @@ namespace Enemy
         public override void DoFrameUpdateLogic()
         {
             base.DoFrameUpdateLogic();
-            transform.LookAt(playerTransform);
+            transform.LookAt(enemy.targetPlayer.transform);
             transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
         }
     }

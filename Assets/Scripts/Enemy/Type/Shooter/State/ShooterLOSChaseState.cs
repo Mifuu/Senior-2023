@@ -7,7 +7,7 @@ namespace Enemy
     [CreateAssetMenu(fileName = "LineOfSightCheckChase", menuName = "Enemy/Enemy State/Chase State/Line Of Sight Check")]
     public class ShooterLOSChaseState : EnemyChaseSOBase
     {
-        [SerializeField] float checkCooldownTime = 5.0f;
+        [SerializeField] float checkCooldownTime = 1.0f;
         EnemyLineOfSightCheck lineOfSightCheck;
 
         public override void Initialize(GameObject gameObject, EnemyBase enemy)
@@ -20,19 +20,19 @@ namespace Enemy
         public override void DoEnterLogic()
         {
             base.DoEnterLogic();
-            enemy.PerformCoroutine(CheckLineOfSight());
+            enemy.StartCoroutine(CheckLineOfSight());
         }
 
         public override void DoExitLogic()
         {
             base.DoExitLogic();
-            enemy.PerformStopCoroutine(CheckLineOfSight());
+            enemy.StopCoroutine(CheckLineOfSight());
         }
 
         public override void DoFrameUpdateLogic()
         {
             base.DoFrameUpdateLogic();
-            enemy.transform.LookAt(playerTransform);
+            enemy.transform.LookAt(enemy.targetPlayer.transform);
             enemy.transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
         }
 

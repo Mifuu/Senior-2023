@@ -288,7 +288,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 983dd90a3a750f4429f9e2ccce9bbf8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletSpeed: 3
+  bulletSpeed: 8
   isHomingCapable: 1
   baseDamageAmount: 5
   <maxHealth>k__BackingField: 3
