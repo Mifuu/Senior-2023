@@ -44,9 +44,10 @@ public class BulletProjectile : NetworkBehaviour
             DamageInfo damageInfo = new DamageInfo(gameObject, damageAmount);
             damageable.Damage(damageInfo);
             //Instantiate(vfxHit, transform.position, Quaternion.identity);
-        } else
+        }
+        else
         {
-            Debug.Log("Player Script: No Damagable Class Found");
+            // Debug.Log("Player Script: No Damagable Class Found");
         }
 
         // Destroy(gameObject);
