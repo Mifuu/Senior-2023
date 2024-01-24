@@ -107,8 +107,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isWall: 1
-  WallObject: {fileID: 0}
-  PassageObject: {fileID: 0}
+  wallObject: {fileID: 0}
+  passageObject: {fileID: 0}
 --- !u!1 &1874233666782975530
 GameObject:
   m_ObjectHideFlags: 0
@@ -290,8 +290,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isWall: 1
-  WallObject: {fileID: 0}
-  PassageObject: {fileID: 0}
+  wallObject: {fileID: 0}
+  passageObject: {fileID: 0}
 --- !u!1 &5009088557808447095
 GameObject:
   m_ObjectHideFlags: 0
@@ -304,7 +304,7 @@ GameObject:
   - component: {fileID: 5987365492634054642}
   - component: {fileID: 8695633981689472668}
   - component: {fileID: 557435547807779415}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: _Room Box
   m_TagString: Untagged
   m_Icon: {fileID: 0}

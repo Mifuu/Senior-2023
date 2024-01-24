@@ -185,10 +185,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Platform I2
       objectReference: {fileID: 0}
-    - target: {fileID: 9092645960363067598, guid: c6dbd2196842c4a8685c4091d49ad7fd, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -255,28 +251,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1827351410}
     m_Modifications:
-    - target: {fileID: 596830828298830078, guid: c4dc7369e23f44356ad37115372891ef, type: 3}
-      propertyPath: latestRoomBoxData
-      value: " x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x 
-        x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x 
-        x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x 
-        x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x 
-        x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x 
-        x  x  x  O O x  x  x  x  x  x  x \n x  x  x  x  x  x  x  O O x  x  x  x 
-        x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x 
-        x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x 
-        x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x 
-        x  x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x 
-        x  x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x \n"
-      objectReference: {fileID: 0}
-    - target: {fileID: 1530836414396064265, guid: c4dc7369e23f44356ad37115372891ef, type: 3}
-      propertyPath: m_Size.z
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 1530836414396064265, guid: c4dc7369e23f44356ad37115372891ef, type: 3}
-      propertyPath: m_Center.z
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4032205081499340973, guid: c4dc7369e23f44356ad37115372891ef, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -317,23 +291,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5790992963800614816, guid: c4dc7369e23f44356ad37115372891ef, type: 3}
-      propertyPath: latestOutput
-      value: " x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x  x  x  x  x 
-        x  x \n x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x  x  x  x 
-        x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  O O x  x 
-        x  x  x \n x  x  x  x  x  O O x  x  x  x  x \n x  x  x  x  x  x  x  x  x 
-        x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x  x  x 
-        x  x  x  x \n x  x  x  x  x  x  x  x  x  x  x  x \n x  x  x  x  x  x  x 
-        x  x  x  x  x \n"
-      objectReference: {fileID: 0}
     - target: {fileID: 8548054671165460775, guid: c4dc7369e23f44356ad37115372891ef, type: 3}
       propertyPath: m_Name
       value: Platform I1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8548054671165460775, guid: c4dc7369e23f44356ad37115372891ef, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -397,10 +357,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Platform X1
       objectReference: {fileID: 0}
-    - target: {fileID: 5029148157377374641, guid: 680dc9e605ef848958cff5c3b23745d0, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 7280070396329535453, guid: 680dc9e605ef848958cff5c3b23745d0, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -462,10 +418,6 @@ PrefabInstance:
     - target: {fileID: 6973999907570538632, guid: a080f4ac10df349d0ab9df75da73ec58, type: 3}
       propertyPath: m_Name
       value: Platform SI1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6973999907570538632, guid: a080f4ac10df349d0ab9df75da73ec58, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8505872040981702794, guid: a080f4ac10df349d0ab9df75da73ec58, type: 3}
       propertyPath: m_LocalPosition.x
@@ -716,10 +668,6 @@ PrefabInstance:
     - target: {fileID: 7111100337399081139, guid: 645a2847357dd4d71a76678a57163f7f, type: 3}
       propertyPath: m_Name
       value: Platform X2
-      objectReference: {fileID: 0}
-    - target: {fileID: 7111100337399081139, guid: 645a2847357dd4d71a76678a57163f7f, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1008,10 +956,6 @@ PrefabInstance:
     - target: {fileID: 477724591116080360, guid: ed2d95e97c90a443192da7ed1e8e7569, type: 3}
       propertyPath: m_Name
       value: Platform T1
-      objectReference: {fileID: 0}
-    - target: {fileID: 477724591116080360, guid: ed2d95e97c90a443192da7ed1e8e7569, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2528789818152788294, guid: ed2d95e97c90a443192da7ed1e8e7569, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1624,7 +1568,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1827351410
 Transform:
   m_ObjectHideFlags: 0
@@ -1899,10 +1843,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Platform X3
       objectReference: {fileID: 0}
-    - target: {fileID: 7501096834131165498, guid: 8f15db2a71bdf42de8ee81efea865c45, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8265784660672944722, guid: 8f15db2a71bdf42de8ee81efea865c45, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1973,7 +1913,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2131082903
 Transform:
   m_ObjectHideFlags: 0
