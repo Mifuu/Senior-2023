@@ -22,6 +22,7 @@ namespace Enemy
         {
             base.DoEnterLogic();
             if (!enemy.IsServer) return;
+
             isMoving = true;
             enemy.StartCoroutine(Move());
         }

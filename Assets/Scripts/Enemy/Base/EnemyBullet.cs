@@ -42,15 +42,13 @@ namespace Enemy
         {
             this.target = target;
             this.bulletOwner = bulletOwner;
+
+            var targetPlayer = target.GetComponent<PlayerHealth>();
+            targetPlayer.OnPlayerDie += Die;
         }
 
         public void FixedUpdate()
         {
-            if (target == null)
-            {
-                Debug.LogError("Target is null");
-                return;
-            }
             transform.Translate(Vector3.forward * (bulletSpeed * Time.fixedDeltaTime));
             if (!isHomingCapable) return;
             gameObject.transform.LookAt(target.transform);
@@ -61,6 +59,7 @@ namespace Enemy
             DamageInfo info = new DamageInfo();
             if (damagable == null)
             {
+                Die();
                 return info;
             }
 
@@ -95,6 +94,10 @@ namespace Enemy
         public void Die()
         {
             if (!IsServer) return;
+
+            var targetPlayer = this.target.GetComponent<PlayerHealth>();
+            targetPlayer.OnPlayerDie -= Die;
+
             var networkObj = GetComponent<NetworkObject>();
             networkObj.Despawn();
         }
