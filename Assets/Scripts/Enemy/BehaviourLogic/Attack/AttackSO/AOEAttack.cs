@@ -13,7 +13,7 @@ namespace Enemy
 
         public override void PerformAttack()
         {
-            // CONTINUE: Make the AOE Spawn on the ground
+            if (!enemy.IsServer) return;
             var aoe = NetworkObjectPool.Singleton.GetNetworkObject(AOEGameObject, enemy.transform.position, AOEGameObject.transform.rotation);
             var aoeBase = aoe.gameObject.GetComponent<EnemyAOEBase>();
             if (aoeBase == null)

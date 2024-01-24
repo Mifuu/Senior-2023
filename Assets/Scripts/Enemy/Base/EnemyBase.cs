@@ -1,7 +1,5 @@
-using System.Collections;
 using UnityEngine;
 using Unity.Netcode;
-using System;
 using UnityEngine.AI;
 
 namespace Enemy
@@ -42,9 +40,6 @@ namespace Enemy
 
         public void Start()
         {
-            rigidBody = GetComponent<Rigidbody>();
-            navMeshAgent = GetComponent<NavMeshAgent>();
-
             EnemyIdleBaseInstance.Initialize(gameObject, this);
             EnemyAttackBaseInstance.Initialize(gameObject, this);
             EnemyChaseBaseInstance.Initialize(gameObject, this);
@@ -66,6 +61,9 @@ namespace Enemy
             ChaseState = new Enemy.EnemyChaseState(this, StateMachine);
             AttackState = new Enemy.EnemyAttackState(this, StateMachine);
             KnockbackState = new Enemy.EnemyKnockbackState(this, StateMachine);
+
+            rigidBody = GetComponent<Rigidbody>();
+            navMeshAgent = GetComponent<NavMeshAgent>();
         }
 
         public void Update()
@@ -81,11 +79,15 @@ namespace Enemy
         public override void OnNetworkSpawn()
         {
             OnEnemySpawn();
+            if (!IsServer)
+            {
+                Destroy(navMeshAgent);
+            }
         }
 
         private void OnEnemySpawn()
         {
-            if (!IsServer) return;
+            if (!IsServer) return; // temporary fix
             OnTargetPlayerRefindRequired();
             currentHealth.Value = maxHealth;
             StateMachine.ChangeState(IdleState);
@@ -149,20 +151,37 @@ namespace Enemy
 
         private void OnTargetPlayerChangeRequired(GameObject newTargetPlayer)
         {
+            if (!IsServer) return;
             targetPlayer = newTargetPlayer;
             // setup target player, such as subscribe to player die event
         }
 
         private void OnTargetPlayerRefindRequired()
         {
+            if (!IsServer) return;
             var newPlayer = FindTargetPlayer();
-            if (newPlayer == null)
+            if (newPlayer == null && IsServer)
             {
                 Die();
                 return;
             }
-            targetPlayer = FindTargetPlayer();
+            targetPlayer = newPlayer;
+            ChangeTargetPlayerClientRpc(newPlayer.GetComponent<NetworkObject>());
             // Setup target player, such as subscribe to player die event
+        }
+
+        [ClientRpc]
+        private void ChangeTargetPlayerClientRpc(NetworkObjectReference targetPlayerRef)
+        {
+            if (targetPlayerRef.TryGet(out NetworkObject targetPlayerNetworkObj, NetworkManager.Singleton))
+            {
+                Debug.Log("New Target Player: " + targetPlayerNetworkObj);
+                targetPlayer = targetPlayerNetworkObj.gameObject;
+            }
+            else
+            {
+                Debug.LogError("Target Player Not found");
+            }
         }
     }
 }
