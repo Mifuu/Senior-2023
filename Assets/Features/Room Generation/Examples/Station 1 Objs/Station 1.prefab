@@ -644,7 +644,7 @@ GameObject:
   - component: {fileID: 9026861136969618134}
   - component: {fileID: 8187378055660560928}
   - component: {fileID: 6502282747083692742}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: _Room Box
   m_TagString: Untagged
   m_Icon: {fileID: 0}

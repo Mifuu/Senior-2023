@@ -75,8 +75,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isWall: 1
-  WallObject: {fileID: 0}
-  PassageObject: {fileID: 0}
+  wallObject: {fileID: 0}
+  passageObject: {fileID: 0}
 --- !u!1 &1715090032331720194
 GameObject:
   m_ObjectHideFlags: 0
@@ -152,8 +152,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isWall: 1
-  WallObject: {fileID: 0}
-  PassageObject: {fileID: 0}
+  wallObject: {fileID: 0}
+  passageObject: {fileID: 0}
 --- !u!1 &1934228370813429218
 GameObject:
   m_ObjectHideFlags: 0
@@ -229,8 +229,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isWall: 1
-  WallObject: {fileID: 0}
-  PassageObject: {fileID: 0}
+  wallObject: {fileID: 0}
+  passageObject: {fileID: 0}
 --- !u!1 &2573994056800928532
 GameObject:
   m_ObjectHideFlags: 0
@@ -373,8 +373,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isWall: 1
-  WallObject: {fileID: 0}
-  PassageObject: {fileID: 0}
+  wallObject: {fileID: 0}
+  passageObject: {fileID: 0}
 --- !u!1 &7501096834131165498
 GameObject:
   m_ObjectHideFlags: 0
@@ -475,7 +475,7 @@ GameObject:
   - component: {fileID: 2152788598516966890}
   - component: {fileID: 442032552821981748}
   - component: {fileID: 6201368731174415647}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: _Room Box
   m_TagString: Untagged
   m_Icon: {fileID: 0}

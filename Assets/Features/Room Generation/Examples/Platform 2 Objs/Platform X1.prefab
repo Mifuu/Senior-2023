@@ -118,7 +118,7 @@ GameObject:
   - component: {fileID: 2667795374928818423}
   - component: {fileID: 4073017632362183576}
   - component: {fileID: 9086037778741319748}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: _Room Box
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -271,8 +271,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isWall: 1
-  WallObject: {fileID: 0}
-  PassageObject: {fileID: 0}
+  wallObject: {fileID: 0}
+  passageObject: {fileID: 0}
 --- !u!1 &3595034907483462848
 GameObject:
   m_ObjectHideFlags: 0
@@ -348,8 +348,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isWall: 1
-  WallObject: {fileID: 0}
-  PassageObject: {fileID: 0}
+  wallObject: {fileID: 0}
+  passageObject: {fileID: 0}
 --- !u!1 &3874610517247257695
 GameObject:
   m_ObjectHideFlags: 0
@@ -425,8 +425,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isWall: 1
-  WallObject: {fileID: 0}
-  PassageObject: {fileID: 0}
+  wallObject: {fileID: 0}
+  passageObject: {fileID: 0}
 --- !u!1 &4878712759422340594
 GameObject:
   m_ObjectHideFlags: 0
@@ -657,8 +657,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isWall: 1
-  WallObject: {fileID: 0}
-  PassageObject: {fileID: 0}
+  wallObject: {fileID: 0}
+  passageObject: {fileID: 0}
 --- !u!1001 &5156408973036260623
 PrefabInstance:
   m_ObjectHideFlags: 0
