@@ -7,7 +7,7 @@ public class PlayerShoot : NetworkBehaviour
     [SerializeField] private PlayerSwitchWeapon weaponSwitching;
 
     private Camera playerCam;
-    private LayerMask aimColliderLayerMask;
+    public LayerMask aimColliderLayerMask;
     private Transform debugTransform;
 
     void Start()
