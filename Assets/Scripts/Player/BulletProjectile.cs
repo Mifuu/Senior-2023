@@ -17,14 +17,15 @@ public class BulletProjectile : NetworkBehaviour
         bulletRigidbody = GetComponent<Rigidbody>();
     }
 
-    public void Start()
+    public override void OnNetworkSpawn()
     {
+        base.OnNetworkSpawn();
         bulletRigidbody.velocity = transform.forward * speed;
     }
 
     public void Update()
     {
-        if (!IsOwner) return;
+        if (!IsServer) return;
         lifetime -= Time.deltaTime;
         if (lifetime <= 0)
         {
@@ -35,7 +36,7 @@ public class BulletProjectile : NetworkBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!IsOwner) return;
+        if (!IsServer) return;
 
         IDamageCalculatable damageable = other.GetComponent<IDamageCalculatable>();
 
