@@ -32,7 +32,11 @@ public class Gun : NetworkBehaviour
                 aimDir = (playerCam.transform.forward).normalized;
             }
             Quaternion bulletRotation = Quaternion.LookRotation(aimDir, Vector3.up);
+
+            // spawning
             SpawnBulletServerRpc(NetworkManager.Singleton.LocalClientId, bulletSpawnPosition.position, bulletRotation);
+            // ProjectileSpawnManager.Singleton.SpawnProjectile(bullet.gameObject, bulletSpawnPosition.position, bulletRotation);
+
             StartCoroutine(ShootingDelay());
         }
     }
@@ -59,6 +63,7 @@ public class Gun : NetworkBehaviour
     {
         var bulletObj = Instantiate(bullet, bulletSpawnPosition, bulletRotation);
         var networkBulletObj = bulletObj.GetComponent<NetworkObject>();
-        networkBulletObj.SpawnWithOwnership(localId);
+        // networkBulletObj.SpawnWithOwnership(localId);
+        networkBulletObj.Spawn();
     }
 }
