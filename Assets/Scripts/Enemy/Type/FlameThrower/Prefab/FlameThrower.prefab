@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8505291151084312671}
   - component: {fileID: 1351401478244656091}
   - component: {fileID: 4147657378863911738}
-  m_Layer: 12
+  m_Layer: 13
   m_Name: StrikingDistance
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -240,7 +240,7 @@ GameObject:
   - component: {fileID: 6496975730713661296}
   - component: {fileID: 7703365942965096185}
   - component: {fileID: 6560561606211546901}
-  m_Layer: 12
+  m_Layer: 13
   m_Name: DamageBox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
