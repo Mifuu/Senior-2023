@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1762430244967570056}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: ------Trigger------
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40,7 +40,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5579673722753266869}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: ------SpawnPoint------
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -74,7 +74,7 @@ GameObject:
   - component: {fileID: 9067831216651594824}
   - component: {fileID: 5857967814837967944}
   - component: {fileID: 1388492283705102700}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: BulletSpawn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -176,7 +176,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4538777581496902701}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: ------Damageable------
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -208,7 +208,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6049681307763964135}
   - component: {fileID: 5280733269934413114}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: LineOfSightCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -260,7 +260,7 @@ GameObject:
   - component: {fileID: -3457978960570796255}
   - component: {fileID: -1184083049262301138}
   - component: {fileID: -8925991869078331464}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Shooter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -502,7 +502,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9181285097648541230}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: ------Utilities------
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -536,7 +536,7 @@ GameObject:
   - component: {fileID: 8329342467757863716}
   - component: {fileID: 6580394323718424792}
   - component: {fileID: 2862186780695070841}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Weakpoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -612,7 +612,7 @@ GameObject:
   - component: {fileID: 4122102197098371223}
   - component: {fileID: 6925955296594600017}
   - component: {fileID: 1730809123913509489}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Limb
   m_TagString: Untagged
   m_Icon: {fileID: 0}
