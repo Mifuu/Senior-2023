@@ -197,7 +197,7 @@ GameObject:
   - component: {fileID: 3006832391877259951}
   - component: {fileID: 2293299694721888237}
   m_Layer: 0
-  m_Name: In World Damageable UI
+  m_Name: World Space Damageable UI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -315,11 +315,11 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 3563642992235840517}
   m_FillRect: {fileID: 9145222390233457149}
   m_HandleRect: {fileID: 1871497161588684984}
-  m_Direction: 0
+  m_Direction: 1
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 1
+  m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -357,7 +357,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 5, y: 0}
+  m_AnchoredPosition: {x: -5, y: 0}
   m_SizeDelta: {x: 19.99, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6134156065523102623
@@ -431,7 +431,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.25}
   m_AnchorMax: {x: 1, y: 0.75}
-  m_AnchoredPosition: {x: -5, y: 0}
+  m_AnchoredPosition: {x: 5, y: 0}
   m_SizeDelta: {x: -20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &8789169137816702297
