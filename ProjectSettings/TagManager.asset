@@ -14,15 +14,15 @@ TagManager:
   - UI
   - PlayerProjectile
   - NoCollision
-  - 
+  - World
   - 
   - RoomBox
   - 
+  - Enemy
+  - EnemyUtility
+  - Player
   - 
-  - 
-  - 
-  - 
-  - 
+  - Damager
   - 
   - 
   - 
