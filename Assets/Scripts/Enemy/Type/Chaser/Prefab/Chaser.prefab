@@ -87,7 +87,7 @@ GameObject:
   - component: {fileID: 3332851396519691993}
   - component: {fileID: 1598877288864222237}
   - component: {fileID: 4152279539823919615}
-  m_Layer: 12
+  m_Layer: 13
   m_Name: StrikingDistance
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -431,7 +431,7 @@ GameObject:
   - component: {fileID: 3969407298884208032}
   - component: {fileID: 6099980113369805581}
   - component: {fileID: 177261841631514384}
-  m_Layer: 12
+  m_Layer: 13
   m_Name: HitBox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
