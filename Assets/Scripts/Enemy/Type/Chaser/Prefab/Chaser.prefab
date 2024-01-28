@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8230807663373428148}
   - component: {fileID: 6187432704467591241}
   - component: {fileID: 3129514220446579569}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Limb
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -87,7 +87,7 @@ GameObject:
   - component: {fileID: 3332851396519691993}
   - component: {fileID: 1598877288864222237}
   - component: {fileID: 4152279539823919615}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: StrikingDistance
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -151,7 +151,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7355175032891112511}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: '------Trigger------ '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -191,7 +191,7 @@ GameObject:
   - component: {fileID: 1403371354826126111}
   - component: {fileID: 1101601016422510208}
   - component: {fileID: 3442634205841368557}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Chaser
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -431,7 +431,7 @@ GameObject:
   - component: {fileID: 3969407298884208032}
   - component: {fileID: 6099980113369805581}
   - component: {fileID: 177261841631514384}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: HitBox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -495,7 +495,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3893338839003543484}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: ------Damageable------
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -528,7 +528,7 @@ GameObject:
   - component: {fileID: 8726876725333427950}
   - component: {fileID: 6868474361251053574}
   - component: {fileID: 8165908788054279981}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Weakpoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}

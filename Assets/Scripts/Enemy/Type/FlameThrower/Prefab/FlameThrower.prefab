@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8505291151084312671}
   - component: {fileID: 1351401478244656091}
   - component: {fileID: 4147657378863911738}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: StrikingDistance
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -87,7 +87,7 @@ GameObject:
   - component: {fileID: 821340283732602864}
   - component: {fileID: 7624336500344209728}
   - component: {fileID: 7608965109815677567}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Weakpoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -163,7 +163,7 @@ GameObject:
   - component: {fileID: 3749129449324179366}
   - component: {fileID: 5007936632223831427}
   - component: {fileID: 5861286797853105180}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Limb
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -240,7 +240,7 @@ GameObject:
   - component: {fileID: 6496975730713661296}
   - component: {fileID: 7703365942965096185}
   - component: {fileID: 6560561606211546901}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: DamageBox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -363,7 +363,7 @@ GameObject:
   - component: {fileID: 3883310846579953944}
   - component: {fileID: 5645603515667937679}
   - component: {fileID: 6875021862684231183}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: FlameThrower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -603,7 +603,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6837854986493958827}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: ------Trigger------
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -634,7 +634,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5048688935081891419}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: ------Damagable------
   m_TagString: Untagged
   m_Icon: {fileID: 0}
