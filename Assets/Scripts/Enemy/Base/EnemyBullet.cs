@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
+using UnityEngine.Events;
 
 namespace Enemy
 {
@@ -18,6 +19,7 @@ namespace Enemy
 
         [field: SerializeField] public float maxHealth { get; set; }
         public NetworkVariable<float> currentHealth { get; set; } = new NetworkVariable<float>(-1.0f);
+        public UnityEvent OnHealthChanged { get; set; }
 
         #endregion
 
@@ -94,6 +96,8 @@ namespace Enemy
         public void Die()
         {
             if (!IsServer) return;
+
+            if (!isActiveAndEnabled) return;
 
             var targetPlayer = this.target.GetComponent<PlayerHealth>();
             targetPlayer.OnPlayerDie -= Die;

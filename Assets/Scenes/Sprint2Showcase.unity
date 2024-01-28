@@ -1080,6 +1080,8 @@ MonoBehaviour:
     PrewarmCount: 5
   - Prefab: {fileID: 5498458629423864041, guid: d28aed5a908ce4e49b84e335d144e92f, type: 3}
     PrewarmCount: 5
+  - Prefab: {fileID: 4345039509704114614, guid: 075f820f055859a4ebde661e803d3fe1, type: 3}
+    PrewarmCount: 5
 --- !u!114 &4231713027017235063
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1092,7 +1094,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 1172741360
+  GlobalObjectIdHash: 3153305655
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0

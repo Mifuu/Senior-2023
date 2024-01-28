@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using Unity.Netcode;
+using UnityEngine.Events;
 using System;
 
 public class PlayerHealth : NetworkBehaviour, IDamageable
 {
     [field: SerializeField] public float maxHealth { get; set; }
     public NetworkVariable<float> currentHealth { get; set; } = new NetworkVariable<float>(0.0f);
+    public UnityEvent OnHealthChanged { get; set; } = new UnityEvent();
     public event Action OnPlayerDie;
 
     private void Start()
