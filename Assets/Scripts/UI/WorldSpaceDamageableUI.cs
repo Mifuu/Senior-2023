@@ -16,7 +16,7 @@ public class WorldSpaceDamageableUI : MonoBehaviour
 
     void Update()
     {
-        if (isFacingCamera)
+        if (isFacingCamera && Camera.main != null)
         {
             transform.LookAt(Camera.main.transform);
         }
