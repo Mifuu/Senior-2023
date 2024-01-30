@@ -8,7 +8,5 @@ public interface IDamageable
 
     float maxHealth { get; set; }
     NetworkVariable<float> currentHealth { get; set; }
-
-    UnityEvent OnHealthChanged { get; set; }
 }
 
