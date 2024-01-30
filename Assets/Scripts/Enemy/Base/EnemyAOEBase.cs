@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
 using System;
@@ -15,6 +13,7 @@ namespace Enemy
         [Header("Temporary Material Field")]
         [SerializeField] private Material activateMaterial;
         [SerializeField] private Material preActivateMaterial;
+        private NetworkVariable<bool> isOnActivateMaterial = new NetworkVariable<bool>(false);
 
         protected EnemyWithinTriggerCheck areaOfEffectTrigger;
         public event Action OnAOEPeriodEnd;
@@ -40,21 +39,45 @@ namespace Enemy
             OnAOEPeriodEnd?.Invoke();
         }
 
+        public override void OnNetworkSpawn()
+        {
+            base.OnNetworkSpawn();
+            isOnActivateMaterial.OnValueChanged += ChangeMaterial;
+        }
+
         public override void OnNetworkDespawn()
         {
             base.OnNetworkDespawn();
             ResetValue();
+            isOnActivateMaterial.OnValueChanged -= ChangeMaterial;
+        }
+
+        private void ChangeMaterial(bool _, bool current)
+        {
+            if (current)
+            {
+                GetComponent<Renderer>().material = activateMaterial;
+            }
+            else
+            {
+                GetComponent<Renderer>().material = preActivateMaterial;
+            }
         }
 
         public virtual void PreEffect() { }
         public virtual void CancelPreEffect() { }
-        public virtual void ActivateEffect() { GetComponent<Renderer>().material = activateMaterial; }
+        public virtual void ActivateEffect()
+        {
+            if (!IsServer) return;
+            isOnActivateMaterial.Value = true;
+        }
         public virtual void CancelEffect() { }
         public virtual void ResetValue()
         {
             this.PlayerTarget = null;
             this.enemy = null;
-            GetComponent<Renderer>().material = preActivateMaterial;
+            if (!IsServer) return;
+            isOnActivateMaterial.Value = false;
         }
     }
 }

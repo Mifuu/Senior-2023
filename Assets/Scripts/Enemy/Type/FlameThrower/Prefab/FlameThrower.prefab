@@ -359,6 +359,7 @@ GameObject:
   - component: {fileID: 2523926182948505402}
   - component: {fileID: 6142032886382706473}
   - component: {fileID: 861690504497924274}
+  - component: {fileID: 2201536260828273566}
   - component: {fileID: 8714796933686339427}
   - component: {fileID: 3883310846579953944}
   - component: {fileID: 5645603515667937679}
@@ -512,6 +513,18 @@ MonoBehaviour:
   EnemyKnockbackBase: {fileID: 11400000, guid: 3999b70de71ed82438f2f9af437f2c2d, type: 2}
   targetPlayer: {fileID: 0}
   navMeshAgent: {fileID: 0}
+--- !u!114 &2201536260828273566
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5467584396805372388}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8142ced76a0cb0c45941806d300eb47a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &8714796933686339427
 MonoBehaviour:
   m_ObjectHideFlags: 0
