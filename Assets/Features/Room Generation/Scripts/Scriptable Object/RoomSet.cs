@@ -4,38 +4,41 @@ using System.Linq;
 using UnityEngine;
 using UnityEditor;
 
-[CreateAssetMenu(fileName = "RoomSet", menuName = "Room Generation/RoomSet")]
-public class RoomSet : ScriptableObject
+namespace RoomGeneration
 {
-    public RoomBoxSnapValue snapValue;
-    public RoomSetItem[] roomSetItems;
-    [HideInInspector] public string roomDataPath = "";
-
-    public RoomData[] GetRoomDatas()
+    [CreateAssetMenu(fileName = "RoomSet", menuName = "Room Generation/RoomSet")]
+    public class RoomSet : ScriptableObject
     {
-        return roomSetItems.Select(i => i.roomData).ToArray();
-    }
+        public RoomBoxSnapValue snapValue;
+        public RoomSetItem[] roomSetItems;
+        [HideInInspector] public string roomDataPath = "";
 
-    public RoomData GetStartingRoomData()
-    {
-        var i = GetRandom(roomSetItems);
-        return i.roomData;
-    }
+        public RoomData[] GetRoomDatas()
+        {
+            return roomSetItems.Select(i => i.roomData).ToArray();
+        }
 
-    T GetRandom<T>(List<T> list) => list[Random.Range(0, list.Count)];
+        public RoomData GetStartingRoomData()
+        {
+            var i = GetRandom(roomSetItems);
+            return i.roomData;
+        }
 
-    T GetRandom<T>(T[] array) => array[Random.Range(0, array.Length)];
+        T GetRandom<T>(List<T> list) => list[Random.Range(0, list.Count)];
 
-    void OnValidate()
-    {
+        T GetRandom<T>(T[] array) => array[Random.Range(0, array.Length)];
+
+        void OnValidate()
+        {
 #if UNITY_EDITOR
-        EditorUtility.SetDirty(this);
+            EditorUtility.SetDirty(this);
 #endif
+        }
     }
-}
 
-[System.Serializable]
-public class RoomSetItem
-{
-    public RoomData roomData;
+    [System.Serializable]
+    public class RoomSetItem
+    {
+        public RoomData roomData;
+    }
 }

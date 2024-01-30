@@ -3,63 +3,66 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
-[CustomEditor(typeof(RoomSet))]
-public class RoomSetEditor : Editor
+namespace RoomGeneration
 {
-    RoomSet roomSet;
-
-    public override void OnInspectorGUI()
+    [CustomEditor(typeof(RoomSet))]
+    public class RoomSetEditor : Editor
     {
-        RoomSet roomSet = (RoomSet)target;
+        RoomSet roomSet;
 
-        GUILayout.Label("Editor Tools");
-        roomSet.roomDataPath = EditorGUILayout.TextField("Path: ", roomSet.roomDataPath);
-        GUILayout.Space(10);
-        GUILayout.Label("Auto Loading Assets from folder");
-        if (GUILayout.Button("Load Assets"))
-            LoadAssets();
-
-        GUILayout.Space(10);
-        GUILayout.Label("Auto Same Name Prefabs");
-        if (GUILayout.Button("Get Room Prefabs"))
-            GetRoomPrefabs();
-
-        GUILayout.Space(25);
-        DrawDefaultInspector();
-    }
-
-    void LoadAssets()
-    {
-        RoomSet roomSet = (RoomSet)target;
-        roomSet.roomSetItems = new RoomSetItem[0];
-
-        string[] guids = AssetDatabase.FindAssets("t:RoomData", new[] { roomSet.roomDataPath });
-
-        Debug.Log("Found " + guids.Length + " asset in " + roomSet.roomDataPath + " folder");
-
-        foreach (string guid in guids)
+        public override void OnInspectorGUI()
         {
-            string path = AssetDatabase.GUIDToAssetPath(guid);
-            RoomData roomData = AssetDatabase.LoadAssetAtPath<RoomData>(path);
+            RoomSet roomSet = (RoomSet)target;
 
-            RoomSetItem roomSetItem = new RoomSetItem();
-            roomSetItem.roomData = roomData;
+            GUILayout.Label("Editor Tools");
+            roomSet.roomDataPath = EditorGUILayout.TextField("Path: ", roomSet.roomDataPath);
+            GUILayout.Space(10);
+            GUILayout.Label("Auto Loading Assets from folder");
+            if (GUILayout.Button("Load Assets"))
+                LoadAssets();
 
-            ArrayUtility.Add(ref roomSet.roomSetItems, roomSetItem);
+            GUILayout.Space(10);
+            GUILayout.Label("Auto Same Name Prefabs");
+            if (GUILayout.Button("Get Room Prefabs"))
+                GetRoomPrefabs();
+
+            GUILayout.Space(25);
+            DrawDefaultInspector();
         }
-    }
 
-    void GetRoomPrefabs()
-    {
-        RoomSet roomSet = (RoomSet)target;
-        foreach (RoomSetItem roomSetItem in roomSet.roomSetItems)
+        void LoadAssets()
         {
-            // load prefab to room data with the same name
-            roomSetItem.roomData.roomPrefab = AssetDatabase.LoadAssetAtPath<GameObject>(roomSet.roomDataPath + "/" + roomSetItem.roomData.name + ".prefab");
+            RoomSet roomSet = (RoomSet)target;
+            roomSet.roomSetItems = new RoomSetItem[0];
 
-            Debug.Log(roomSet.roomDataPath + "/" + roomSetItem.roomData.name + ".prefab");
+            string[] guids = AssetDatabase.FindAssets("t:RoomData", new[] { roomSet.roomDataPath });
 
-            // EditorUtility.SetDirty(roomSetItem.roomData);
+            Debug.Log("Found " + guids.Length + " asset in " + roomSet.roomDataPath + " folder");
+
+            foreach (string guid in guids)
+            {
+                string path = AssetDatabase.GUIDToAssetPath(guid);
+                RoomData roomData = AssetDatabase.LoadAssetAtPath<RoomData>(path);
+
+                RoomSetItem roomSetItem = new RoomSetItem();
+                roomSetItem.roomData = roomData;
+
+                ArrayUtility.Add(ref roomSet.roomSetItems, roomSetItem);
+            }
+        }
+
+        void GetRoomPrefabs()
+        {
+            RoomSet roomSet = (RoomSet)target;
+            foreach (RoomSetItem roomSetItem in roomSet.roomSetItems)
+            {
+                // load prefab to room data with the same name
+                roomSetItem.roomData.roomPrefab = AssetDatabase.LoadAssetAtPath<GameObject>(roomSet.roomDataPath + "/" + roomSetItem.roomData.name + ".prefab");
+
+                Debug.Log(roomSet.roomDataPath + "/" + roomSetItem.roomData.name + ".prefab");
+
+                // EditorUtility.SetDirty(roomSetItem.roomData);
+            }
         }
     }
 }
