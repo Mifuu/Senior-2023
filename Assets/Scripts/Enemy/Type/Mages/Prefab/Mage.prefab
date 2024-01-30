@@ -372,7 +372,7 @@ MonoBehaviour:
   <maxHealth>k__BackingField: 40
   aggroDistanceTriggerCheck: {fileID: 7161197138267151029}
   EnemyAttackBase: {fileID: 11400000, guid: 630b896d110854841be2dffd8f01818b, type: 2}
-  EnemyIdleBase: {fileID: 11400000, guid: c96b24f0a9afb2045a100da53e41650c, type: 2}
+  EnemyIdleBase: {fileID: 11400000, guid: 14134fe2c295e9544a5547525c22c16b, type: 2}
   EnemyChaseBase: {fileID: 11400000, guid: f0de20db2f3463e48b7db5c836ced6d3, type: 2}
   EnemyKnockbackBase: {fileID: 11400000, guid: 3999b70de71ed82438f2f9af437f2c2d, type: 2}
   targetPlayer: {fileID: 0}

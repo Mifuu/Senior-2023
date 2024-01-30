@@ -24,6 +24,11 @@ namespace Enemy
             CancelPreEffect();
             ActivateEffect();
             yield return new WaitForSeconds(timeTillDestroy);
+            animator.SetTrigger(endAOEAnimationTrigger);
+        }
+
+        public void OnAOEDespawnAnimationEnds()
+        {
             DespawnAOE();
             EmitAOEEndsEvent();
         }
