@@ -18,9 +18,20 @@ namespace Enemy
         protected EnemyWithinTriggerCheck areaOfEffectTrigger;
         public event Action OnAOEPeriodEnd;
 
+        #region Animation
+
+        protected Animator animator;
+        protected readonly int attackAnimationTrigger = Animator.StringToHash("BeginAttack");
+        protected readonly int endAOEAnimationTrigger = Animator.StringToHash("BeginEnd");
+
+        #endregion
+
         public void Awake()
         {
             areaOfEffectTrigger = transform.Find("AOE")?.GetComponent<EnemyWithinTriggerCheck>();
+            animator = GetComponent<Animator>();
+            animator.keepAnimatorStateOnDisable = false;
+
             if (areaOfEffectTrigger == null)
             {
                 Debug.LogError("AOE have no trigger check (Hitbox)");
@@ -42,26 +53,12 @@ namespace Enemy
         public override void OnNetworkSpawn()
         {
             base.OnNetworkSpawn();
-            isOnActivateMaterial.OnValueChanged += ChangeMaterial;
         }
 
         public override void OnNetworkDespawn()
         {
             base.OnNetworkDespawn();
             ResetValue();
-            isOnActivateMaterial.OnValueChanged -= ChangeMaterial;
-        }
-
-        private void ChangeMaterial(bool _, bool current)
-        {
-            if (current)
-            {
-                GetComponent<Renderer>().material = activateMaterial;
-            }
-            else
-            {
-                GetComponent<Renderer>().material = preActivateMaterial;
-            }
         }
 
         public virtual void PreEffect() { }
@@ -69,7 +66,7 @@ namespace Enemy
         public virtual void ActivateEffect()
         {
             if (!IsServer) return;
-            isOnActivateMaterial.Value = true;
+            animator.SetTrigger(attackAnimationTrigger);
         }
         public virtual void CancelEffect() { }
         public virtual void ResetValue()
@@ -77,7 +74,6 @@ namespace Enemy
             this.PlayerTarget = null;
             this.enemy = null;
             if (!IsServer) return;
-            isOnActivateMaterial.Value = false;
         }
     }
 }

@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using System;
 
 namespace Enemy
 {
@@ -15,12 +12,13 @@ namespace Enemy
             foreach (var players in areaOfEffectTrigger.PlayerWithinTrigger)
             {
                 DamageInfo info = new DamageInfo(enemy.gameObject, baseDamageAmount);
+                // CONTINUE HERE: Bug, cant damage the player since can't get damagecalculatable from here
                 var damager = players.GetComponent<IDamageCalculatable>();
                 if (damager == null)
                 {
                     return;
                 }
-
+                
                 damager.Damage(info);
             }
         }
