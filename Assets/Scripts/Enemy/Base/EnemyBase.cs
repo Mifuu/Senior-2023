@@ -12,6 +12,7 @@ namespace Enemy
         public NetworkVariable<float> currentHealth { get; set; } = new NetworkVariable<float>(0.0f); // NetworkVariable must be initialized
         public UnityEvent OnHealthChanged { get; set; }
         public Rigidbody rigidBody { get; set; }
+        [SerializeField] private EnemyTriggerCheck aggroDistanceTriggerCheck;
 
         #region State ScriptableObject Variable
 
@@ -48,6 +49,7 @@ namespace Enemy
             EnemyKnockbackBaseInstance.Initialize(gameObject, this);
 
             StateMachine.Initialize(IdleState);
+            aggroDistanceTriggerCheck.OnHitboxTriggerEnter += (Collider other) => OnTargetPlayerChangeRequired(other.gameObject);
         }
 
         public void Awake()
@@ -98,7 +100,7 @@ namespace Enemy
 
         private void OnEnemySpawn()
         {
-            if (!IsServer) return; // temporary fix
+            if (!IsServer) return;
             OnTargetPlayerRefindRequired();
             currentHealth.Value = maxHealth;
             StateMachine.ChangeState(IdleState);
@@ -107,6 +109,7 @@ namespace Enemy
         public void Damage(float damageAmount)
         {
             if (!IsServer) return;
+            if (!isActiveAndEnabled) return;
             currentHealth.Value -= damageAmount;
             OnHealthChanged?.Invoke();
             if (currentHealth.Value <= 0f)
@@ -117,11 +120,11 @@ namespace Enemy
 
         public void Die()
         {
+            if (!IsServer) return;
+            if (!isActiveAndEnabled) return;
             CleanUp();
             var enemyNetworkObject = GetComponent<NetworkObject>();
             enemyNetworkObject.Despawn();
-            // BUG (FATAL): GameObject can not be used in the ReturnNetworkObject function, must reference actual prefab
-            // Comment this out as a temporary fix
             // NetworkObjectPool.Singleton.ReturnNetworkObject(enemyNetworkObject, gameObject);
         }
 
@@ -143,6 +146,8 @@ namespace Enemy
             PlayFootstepSounds
         }
 
+        private bool CheckIsNewPlayer(GameObject objectToCheck) => objectToCheck.GetComponent<PlayerHealth>() != null && objectToCheck != targetPlayer;
+
         private GameObject FindTargetPlayer()
         {
             var allPlayers = GameObject.FindGameObjectsWithTag("Player");
@@ -151,6 +156,8 @@ namespace Enemy
 
             foreach (var player in allPlayers)
             {
+                if (!CheckIsNewPlayer(player)) continue;
+
                 float distanceSqr = (player.transform.position - transform.position).sqrMagnitude;
                 if (distanceSqr <= closestDistanceSqr)
                 {
@@ -161,13 +168,14 @@ namespace Enemy
             return closestPlayer;
         }
 
-        private void OnTargetPlayerChangeRequired(GameObject newTargetPlayer)
+        public void OnTargetPlayerChangeRequired(GameObject newTargetPlayer)
         {
             if (!IsServer) return;
             if (targetPlayer != null)
             {
                 DesetupTargetPlayer();
             }
+            if (!CheckIsNewPlayer(newTargetPlayer)) return;
 
             targetPlayer = newTargetPlayer;
             SetupNewTargetPlayer(targetPlayer);
@@ -205,7 +213,6 @@ namespace Enemy
             // Setup target player, such as subscribe to player die event
             var playerHealth = targetPlayer.GetComponent<PlayerHealth>();
             playerHealth.OnPlayerDie += OnTargetPlayerRefindRequired;
-
         }
 
         [ClientRpc]
@@ -213,7 +220,7 @@ namespace Enemy
         {
             if (targetPlayerRef.TryGet(out NetworkObject targetPlayerNetworkObj, NetworkManager.Singleton))
             {
-                Debug.Log("New Target Player: " + targetPlayerNetworkObj);
+                Debug.Log(gameObject + " has new Target Player: " + targetPlayerNetworkObj);
                 targetPlayer = targetPlayerNetworkObj.gameObject;
             }
             else

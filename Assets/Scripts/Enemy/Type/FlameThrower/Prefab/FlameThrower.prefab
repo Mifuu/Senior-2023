@@ -504,7 +504,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddead72d729e01543b7bc746f68d462d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <maxHealth>k__BackingField: 5
+  <maxHealth>k__BackingField: 20
+  aggroDistanceTriggerCheck: {fileID: 4147657378863911738}
   EnemyAttackBase: {fileID: 11400000, guid: a5d8a3cd929280343b6992c43ab5a2dd, type: 2}
   EnemyIdleBase: {fileID: 11400000, guid: 45fdba1c455202841a8e08f58b5bb5e3, type: 2}
   EnemyChaseBase: {fileID: 11400000, guid: 2087c5688259fc24985fddad8932c9ef, type: 2}
