@@ -3,49 +3,40 @@ using UnityEngine;
 
 namespace Enemy
 {
+    [RequireComponent(typeof(EnemyStateMachine))]
     public class EnemyStateMachine : NetworkBehaviour
     {
         public EnemyState CurrentEnemyState { get; set; }
-        private NetworkVariable<NetworkString> stateSynchronizer = new NetworkVariable<NetworkString>("Idle");
+        public NetworkVariable<NetworkString> networkEnemyState = new NetworkVariable<NetworkString>("Idle");
         private EnemyBase enemy;
-        private EnemyState InitialState { get; set; }
 
         public void Start()
         {
             enemy = GetComponent<EnemyBase>();
         }
 
-        public override void OnNetworkSpawn()
-        {
-            base.OnNetworkSpawn();
-            stateSynchronizer.Value = "Idle";
-            stateSynchronizer.OnValueChanged += SynchronizeState;
-        }
-
-        public override void OnNetworkDespawn()
-        {
-            base.OnNetworkDespawn();
-            CurrentEnemyState = InitialState; 
-            stateSynchronizer.OnValueChanged -= SynchronizeState;
-        }
-
         public void Initialize(EnemyState startingState)
         {
             CurrentEnemyState = startingState;
-            InitialState = startingState;
             CurrentEnemyState.EnterState();
+            networkEnemyState.OnValueChanged += SynchronizeState;
         }
 
         public void ChangeState(EnemyState newState)
         {
             if (!IsServer) return;
-            stateSynchronizer.Value = newState.stateId;
+            networkEnemyState.Value = newState.stateId;
+        }
+
+        public override void OnDestroy()
+        {
+            base.OnDestroy();
+            networkEnemyState.OnValueChanged -= SynchronizeState;
         }
 
         private void SynchronizeState(NetworkString _, NetworkString current)
         {
             EnemyState newState;
-
             switch (current)
             {
                 case "Idle":

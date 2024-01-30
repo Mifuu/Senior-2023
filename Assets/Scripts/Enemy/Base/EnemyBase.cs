@@ -13,6 +13,7 @@ namespace Enemy
         public UnityEvent OnHealthChanged { get; set; }
         public Rigidbody rigidBody { get; set; }
         [SerializeField] private EnemyTriggerCheck aggroDistanceTriggerCheck;
+        private bool initialSetupComplete = false;
 
         #region State ScriptableObject Variable
 
@@ -41,33 +42,11 @@ namespace Enemy
         public GameObject targetPlayer;
         public NavMeshAgent navMeshAgent;
 
-        public void Start()
-        {
-            EnemyIdleBaseInstance.Initialize(gameObject, this);
-            EnemyAttackBaseInstance.Initialize(gameObject, this);
-            EnemyChaseBaseInstance.Initialize(gameObject, this);
-            EnemyKnockbackBaseInstance.Initialize(gameObject, this);
-
-            StateMachine.Initialize(IdleState);
-            aggroDistanceTriggerCheck.OnHitboxTriggerEnter += (Collider other) => OnTargetPlayerChangeRequired(other.gameObject);
-        }
-
         public void Awake()
         {
-            EnemyChaseBaseInstance = Instantiate(EnemyChaseBase);
-            EnemyAttackBaseInstance = Instantiate(EnemyAttackBase);
-            EnemyIdleBaseInstance = Instantiate(EnemyIdleBase);
-            EnemyKnockbackBaseInstance = Instantiate(EnemyKnockbackBase);
-
-            StateMachine = gameObject.AddComponent<EnemyStateMachine>();
-
-            IdleState = new Enemy.EnemyIdleState(this, StateMachine);
-            ChaseState = new Enemy.EnemyChaseState(this, StateMachine);
-            AttackState = new Enemy.EnemyAttackState(this, StateMachine);
-            KnockbackState = new Enemy.EnemyKnockbackState(this, StateMachine);
-
             rigidBody = GetComponent<Rigidbody>();
             navMeshAgent = GetComponent<NavMeshAgent>();
+            StateMachine = GetComponent<EnemyStateMachine>();
         }
 
         public void Update()
@@ -82,20 +61,56 @@ namespace Enemy
 
         public override void OnNetworkSpawn()
         {
-            OnEnemySpawn();
+            if (initialSetupComplete) return;
+            initialSetupComplete = true;
+
             if (!IsServer)
             {
-                Destroy(navMeshAgent);
-                Destroy(GetComponent<NetworkRigidbody>());
-                Destroy(GetComponent<Rigidbody>());
-                Destroy(GetComponent<Collider>());
+                ClientSetup();
             }
+            else
+            {
+                ServerSetup();
+            }
+
+            OnEnemySpawn();
         }
 
-        public override void OnNetworkDespawn()
+        private void ClientSetup()
         {
-            var playerHealth = targetPlayer.GetComponent<PlayerHealth>();
-            playerHealth.OnPlayerDie -= OnTargetPlayerRefindRequired;
+            Debug.Log("Running Non Server Setup");
+            Destroy(navMeshAgent);
+            Destroy(GetComponent<NetworkRigidbody>());
+            Destroy(GetComponent<Rigidbody>());
+            Destroy(GetComponent<Collider>());
+            enabled = false;
+            StateMachine.enabled = false;
+        }
+
+        private void ServerSetup()
+        {
+            Debug.Log("Running Server Setup");
+            EnemyChaseBaseInstance = Instantiate(EnemyChaseBase);
+            EnemyAttackBaseInstance = Instantiate(EnemyAttackBase);
+            EnemyIdleBaseInstance = Instantiate(EnemyIdleBase);
+            EnemyKnockbackBaseInstance = Instantiate(EnemyKnockbackBase);
+
+            IdleState = new Enemy.EnemyIdleState(this, StateMachine);
+            ChaseState = new Enemy.EnemyChaseState(this, StateMachine);
+            AttackState = new Enemy.EnemyAttackState(this, StateMachine);
+            KnockbackState = new Enemy.EnemyKnockbackState(this, StateMachine);
+
+            EnemyIdleBaseInstance.Initialize(gameObject, this);
+            EnemyAttackBaseInstance.Initialize(gameObject, this);
+            EnemyChaseBaseInstance.Initialize(gameObject, this);
+            EnemyKnockbackBaseInstance.Initialize(gameObject, this);
+
+            StateMachine.Initialize(IdleState);
+
+            rigidBody.isKinematic = false;
+            rigidBody.useGravity = false;
+
+            aggroDistanceTriggerCheck.OnHitboxTriggerEnter += (Collider other) => OnTargetPlayerChangeRequired(other.gameObject);
         }
 
         private void OnEnemySpawn()
@@ -108,8 +123,7 @@ namespace Enemy
 
         public void Damage(float damageAmount)
         {
-            if (!IsServer) return;
-            if (!isActiveAndEnabled) return;
+            if (!IsServer || !isActiveAndEnabled) return;
             currentHealth.Value -= damageAmount;
             OnHealthChanged?.Invoke();
             if (currentHealth.Value <= 0f)
@@ -120,8 +134,7 @@ namespace Enemy
 
         public void Die()
         {
-            if (!IsServer) return;
-            if (!isActiveAndEnabled) return;
+            if (!IsServer || !isActiveAndEnabled) return;
             CleanUp();
             var enemyNetworkObject = GetComponent<NetworkObject>();
             enemyNetworkObject.Despawn();
@@ -190,7 +203,7 @@ namespace Enemy
             }
 
             var newPlayer = FindTargetPlayer();
-            if (newPlayer == null && IsServer)
+            if (newPlayer == null)
             {
                 Die();
                 return;

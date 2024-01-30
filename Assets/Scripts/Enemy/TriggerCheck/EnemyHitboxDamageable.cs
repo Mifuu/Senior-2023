@@ -13,7 +13,10 @@ namespace Enemy
         public void Start()
         {
             enemy = GetComponentInParent<EnemyBase>(true);
-            if (enemy == null) Debug.LogError("Enemy Base Class Not Found");
+            if (enemy == null)
+            {
+                Debug.LogError(gameObject + ": Enemy Base Class Not Found");
+            }
         }
 
         // TODO: Temporary Damage Calculator
