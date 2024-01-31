@@ -35,7 +35,7 @@ public class Gun : NetworkBehaviour
 
             // spawning
             SpawnBulletServerRpc(NetworkManager.Singleton.LocalClientId, bulletSpawnPosition.position, bulletRotation);
-            // ProjectileSpawnManager.Singleton.SpawnProjectile(bullet.gameObject, bulletSpawnPosition.position, bulletRotation);
+            // SpawnBulletPoolServerRpc(bulletSpawnPosition.position, bulletRotation);
 
             StartCoroutine(ShootingDelay());
         }
@@ -65,5 +65,12 @@ public class Gun : NetworkBehaviour
         var networkBulletObj = bulletObj.GetComponent<NetworkObject>();
         // networkBulletObj.SpawnWithOwnership(localId);
         networkBulletObj.Spawn();
+    }
+
+    [ServerRpc]
+    private void SpawnBulletPoolServerRpc(Vector3 bulletSpawnPosition, Quaternion bulletRotation)
+    {
+        var bulletObj = NetworkObjectPool.Singleton.GetNetworkObject(bullet.gameObject, bulletSpawnPosition, bulletRotation);
+        bulletObj.Spawn();
     }
 }

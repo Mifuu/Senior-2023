@@ -55,6 +55,6 @@ public class BulletProjectile : NetworkBehaviour
 
         // despawn network object
         NetworkObject.Despawn(true);
-
+        // NetworkObject.Despawn();
     }
 }

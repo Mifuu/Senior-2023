@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
+using UnityEngine.Events;
 
 namespace Enemy
 {
@@ -94,6 +95,8 @@ namespace Enemy
         public void Die()
         {
             if (!IsServer) return;
+
+            if (!isActiveAndEnabled) return;
 
             var targetPlayer = this.target.GetComponent<PlayerHealth>();
             targetPlayer.OnPlayerDie -= Die;
