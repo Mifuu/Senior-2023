@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3bdb2f896dc65f44a82b4390596f9bc, type: 3}
   m_Name: MageCooldownIdleState
   m_EditorClassIdentifier: 
-  cooldownTime: 3
+  cooldownTime: 5
