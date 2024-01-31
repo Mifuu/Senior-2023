@@ -2,6 +2,7 @@ using UnityEngine;
 using Unity.Netcode;
 using UnityEngine.AI;
 using Unity.Netcode.Components;
+using UnityEngine.Events;
 
 namespace Enemy
 {

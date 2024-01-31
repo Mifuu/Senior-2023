@@ -84,7 +84,7 @@ GameObject:
   - component: {fileID: 5371998881082442535}
   - component: {fileID: -8119463347450401}
   - component: {fileID: 267396813232174775}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -327,7 +327,7 @@ MonoBehaviour:
   weaponSwitching: {fileID: 5098095806766026762}
   aimColliderLayerMask:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 20736
 --- !u!114 &-8119463347450401
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -629,6 +629,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   selectedWeapon: 0
+  guns: []
 --- !u!1001 &1920414058011853639
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -743,7 +744,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a31cf5acf27a0d47b1c17cd05f5d909, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletPrefab: {fileID: 4345039509704114614, guid: 075f820f055859a4ebde661e803d3fe1, type: 3}
   raycastHitRange: 999
   debugTransform: {fileID: 0}
   bullet: {fileID: 3822981651942819932, guid: 075f820f055859a4ebde661e803d3fe1, type: 3}

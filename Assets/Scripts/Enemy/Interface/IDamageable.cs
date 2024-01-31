@@ -1,4 +1,5 @@
 using Unity.Netcode;
+using UnityEngine.Events;
 
 public interface IDamageable
 {
