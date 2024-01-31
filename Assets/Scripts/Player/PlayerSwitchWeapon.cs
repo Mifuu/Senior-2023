@@ -32,8 +32,6 @@ public class PlayerSwitchWeapon : NetworkBehaviour
             Debug.Log("Player Script: Switch activate");
     
             int weaponIndex = Mathf.FloorToInt(index - 1);
-            Debug.Log($"Player Script: Weapon index {weaponIndex}");
-            Debug.Log($"Player Script: CanShoot {guns[weaponIndex].CanShoot()}");
             if (weaponIndex >= 0 && weaponIndex < guns.Length && guns[weaponIndex].CanShoot())
             {
                 Debug.Log($"Player Script: Switch to weapon {index}");

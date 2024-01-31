@@ -41,9 +41,9 @@ public class Gun : NetworkBehaviour
         }
     }
 
-    public void UpdateCanShoot(bool b)
+    public void UpdateCanShoot(bool boolean)
     {
-        canShoot = b;
+        canShoot = boolean;
     }
 
     public bool CanShoot()
@@ -53,9 +53,9 @@ public class Gun : NetworkBehaviour
 
     private IEnumerator ShootingDelay()
     {
-        canShoot = false;
+        UpdateCanShoot(false);
         yield return new WaitForSeconds(shootingDelay);
-        canShoot = true;
+        UpdateCanShoot(true);
     }
 
     [ServerRpc]
