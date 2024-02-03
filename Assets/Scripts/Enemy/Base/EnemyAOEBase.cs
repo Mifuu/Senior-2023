@@ -40,7 +40,7 @@ namespace Enemy
 
         public virtual void InitializeAOE(GameObject PlayerTarget, EnemyBase enemy)
         {
-            Debug.Log("AOE Base Player Target: " + PlayerTarget);
+            // Debug.Log("AOE Base Player Target: " + PlayerTarget);
             this.PlayerTarget = PlayerTarget;
             this.enemy = enemy;
         }
