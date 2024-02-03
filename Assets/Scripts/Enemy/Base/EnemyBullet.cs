@@ -69,7 +69,7 @@ namespace Enemy
             info.amount = baseDamageAmount;
             damagable.Damage(info);
 
-            Debug.Log("DAMAGE: dealing " + info.amount + " DMG");
+            // Debug.Log("DAMAGE: dealing " + info.amount + " DMG");
             return info;
         }
 
