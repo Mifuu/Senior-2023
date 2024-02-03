@@ -13,12 +13,12 @@ public class DamageReceiverCalculationPipeline : NetworkBehaviour, IDamageCalcul
     {
         foreach(var module in StaticModules) 
         {
-            module.Initialize(this);
+            module.Initialize(this, true);
         }
 
         foreach(var module in NonStaticModules)
         {
-            module.Initialize(this);
+            module.Initialize(this, false);
         }
     }
 

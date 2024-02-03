@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System;
+using UnityEngine;
 
 public abstract class DamageCalculationUnit<T> : IDamageCalculationUnitBase
 {
@@ -20,9 +21,12 @@ public abstract class DamageCalculationUnit<T> : IDamageCalculationUnitBase
 
     private void TriggerRecalculate_Internal(T prev, T current) => PipelineBase.CalculateAndCache();
 
-    public void Initialize(IDamageCalculationPipelineBase pipelineBase)
+    public void Initialize(IDamageCalculationPipelineBase pipelineBase, bool updateOnChange)
     {
+        if (pipelineBase != null) Debug.LogWarning("Initialize() is being called on already initiated DamageCalculationUnit");
         PipelineBase = pipelineBase;
+
+        if (!updateOnChange) return;
         foreach (KeyValuePair<string, ObserverPattern.IObservable<T>> valuePair in ListOfSubject)
         {
             valuePair.Value.OnValueChanged += TriggerRecalculate_Internal;
