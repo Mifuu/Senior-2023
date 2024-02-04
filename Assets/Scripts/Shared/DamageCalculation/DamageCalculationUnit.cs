@@ -7,7 +7,9 @@ public abstract class DamageCalculationUnit<T> : IDamageCalculationUnitBase
     private IDamageCalculationPipelineBase PipelineBase;
     private Dictionary<string, ObserverPattern.IObservable<T>> ListOfSubject { get; set; }
 
-    public abstract float Calculate(float initialValue);
+    // Note: Override these method to use the calculate function
+    public virtual DamageInfo Calculate(DamageInfo info) => info;
+    public virtual float PreCalculate(float initialValue) => initialValue;
 
     public bool isEnabled
     {
