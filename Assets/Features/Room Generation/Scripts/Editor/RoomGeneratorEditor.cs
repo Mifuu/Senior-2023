@@ -25,7 +25,7 @@ namespace RoomGeneration
             if (GUILayout.Button("Clear"))
                 roomGenerator.Clear();
             if (GUILayout.Button("Step Add Room"))
-                roomGenerator.StepAddRoom();
+                roomGenerator.StepAddRoom(1);
 
             GUILayout.Space(25);
             GUILayout.Label("Debug Bulk Generation");
