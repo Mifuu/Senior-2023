@@ -3,11 +3,11 @@ using UnityEngine;
 
 namespace ObserverPattern
 {
-    public class NetworkSubject<T> : IObservable<T>
+    public class NetworkObservable<T> : IObservable<T>
     {
         private NetworkVariable<T> variable_internal;
         public NetworkVariable<T> GetNetworkVariable() => variable_internal;
-        public static NetworkSubject<T> ConvertToNetworkSubject(NetworkVariable<T> value) => new NetworkSubject<T>(value);
+        public static NetworkObservable<T> ConvertToNetworkSubject(NetworkVariable<T> value) => new NetworkObservable<T>(value);
 
         private void NetworkOnValueChangeHandler(T prev, T current)
         {
@@ -15,13 +15,13 @@ namespace ObserverPattern
             OnValueChanged?.Invoke(prev, current);
         }
 
-        public NetworkSubject(NetworkVariable<T> value)
+        public NetworkObservable(NetworkVariable<T> value)
         {
             variable_internal = value;
             variable_internal.OnValueChanged += NetworkOnValueChangeHandler;
         }
 
-        ~NetworkSubject()
+        ~NetworkObservable()
         {
             variable_internal.OnValueChanged -= NetworkOnValueChangeHandler;
         }

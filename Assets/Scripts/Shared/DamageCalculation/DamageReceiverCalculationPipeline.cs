@@ -5,21 +5,35 @@ using Unity.Netcode;
 public class DamageReceiverCalculationPipeline : NetworkBehaviour, IDamageCalculationPipelineBase
 {
     public float CachedFactor { get; protected set; }
-    public float DefaultValue { get; set; }
+    public float DefaultValue { get; set; } = 1;
     public List<IDamageCalculationUnitBase> StaticModules { get; set; } = new List<IDamageCalculationUnitBase>();
     public List<IDamageCalculationUnitBase> NonStaticModules { get; set; } = new List<IDamageCalculationUnitBase>();
 
     public void Start()
     {
-        foreach(var module in StaticModules) 
+        foreach (var module in StaticModules)
         {
             module.Initialize(this, true);
         }
 
-        foreach(var module in NonStaticModules)
+        foreach (var module in NonStaticModules)
         {
             module.Initialize(this, false);
         }
+    }
+
+    public IDamageCalculationUnitBase AddUnit(IDamageCalculationUnitBase unit, bool isStatic)
+    {
+        if (isStatic) 
+        {
+            unit.Initialize(this, true);
+            StaticModules.Add(unit);
+            return unit;
+        }
+
+        unit.Initialize(this, false);
+        NonStaticModules.Add(unit);
+        return unit;
     }
 
     public void CalculateAndCache()
@@ -27,21 +41,19 @@ public class DamageReceiverCalculationPipeline : NetworkBehaviour, IDamageCalcul
         CachedFactor = StaticModules.Aggregate(DefaultValue, (aggregatedFactor, next) =>
         {
             if (!next.isEnabled) return aggregatedFactor;
-            return next.Calculate(aggregatedFactor);
+            return next.PreCalculate(aggregatedFactor);
         });
     }
 
-    public float DamageFactor
+    public DamageInfo GetFinalReceivedDamageInfo(DamageInfo info)
     {
-        get
+        info.amount = info.amount * CachedFactor;
+        return NonStaticModules.Aggregate(info, (aggregatedDamage, next) =>
         {
-            return NonStaticModules.Aggregate(CachedFactor, (aggreatedFactor, next) =>
-            {
-                if (!next.isEnabled) return aggreatedFactor;
-                return next.Calculate(aggreatedFactor);
-            });
-        }
+            if (!next.isEnabled) return aggregatedDamage;
+            return next.Calculate(aggregatedDamage);
+        });
     }
 
-    public virtual float GetDamageAmount(float initialDamage) => initialDamage * DamageFactor;
+    public float GetFinalReceivedDamageAmount(DamageInfo info) => GetFinalReceivedDamageInfo(info).amount;
 }
