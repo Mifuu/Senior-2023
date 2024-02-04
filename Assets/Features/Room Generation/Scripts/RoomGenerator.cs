@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Events;
 using RoomGenUtil;
 
 namespace RoomGeneration
@@ -11,7 +12,7 @@ namespace RoomGeneration
         public RoomSet roomSet;
 
         // Generation Data
-        Dictionary<Vector3Int, int> roomGrid = new Dictionary<Vector3Int, int>();           // checking vacancy
+        public Dictionary<Vector3Int, int> roomGrid = new Dictionary<Vector3Int, int>();           // checking vacancy
         List<GameObject> roomObjects = new List<GameObject>();                              // storing game object references
         List<GeneratedRoomData> generatedRoomDatas = new List<GeneratedRoomData>();         // storing a;; generated room data
         List<GeneratedDoorData> generatedDoorDatas = new List<GeneratedDoorData>();         // storing all generated door data
@@ -28,6 +29,7 @@ namespace RoomGeneration
         [Header("Generation Settings")]
         public int seed = 0;
         public int randDoorAttempts = 10;
+        public UnityEvent onGenerated;
 
         public bool HasGenerated
         {
@@ -47,6 +49,7 @@ namespace RoomGeneration
             roomGrid = new Dictionary<Vector3Int, int>();
             roomObjects = new List<GameObject>();
             generatedRoomDatas = new List<GeneratedRoomData>();
+            generatedDoorDatas = new List<GeneratedDoorData>();
             vacantDoorDatas = new List<GeneratedDoorData>();
 
             // remove all children game objects
@@ -60,6 +63,8 @@ namespace RoomGeneration
 
             for (int i = 0; i < amount; i++)
                 StepAddRoom();
+
+            onGenerated?.Invoke();
         }
 
         public bool StepAddRoom()
@@ -427,6 +432,17 @@ namespace RoomGeneration
                 return roomCoord;
 
             return GetRandom(pools);
+        }
+
+        public bool IsConnectedDoor(Vector3 roomDoorCoord)
+        {
+            foreach (var d in generatedDoorDatas)
+            {
+                if (d.worldCoord == roomDoorCoord && d.pairedDoorData != null)
+                    return true;
+            }
+
+            return false;
         }
     }
 }
