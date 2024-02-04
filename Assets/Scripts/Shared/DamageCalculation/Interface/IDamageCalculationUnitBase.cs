@@ -1,7 +1,9 @@
-public interface IDamageCalculationUnitBase 
+using UnityEngine;
+
+public abstract class IDamageCalculationUnitBase : ScriptableObject
 {
-    bool isEnabled { get; set; } 
-    float PreCalculate(float initialValue); 
-    DamageInfo Calculate(DamageInfo info);
-    void Initialize(IDamageCalculationPipelineBase pipelineBase, bool updateOnChange);
+    public abstract bool IsEnabled { get; set; } 
+    public abstract void Initialize(IDamageCalculationPipelineBase pipelineBase, bool updateOnChange, GameObject owner);
+    public virtual float PreCalculate(float initialValue) => initialValue; 
+    public virtual DamageInfo Calculate(DamageInfo info) => info; 
 }

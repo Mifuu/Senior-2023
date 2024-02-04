@@ -261,6 +261,7 @@ GameObject:
   - component: {fileID: -3457978960570796255}
   - component: {fileID: -1184083049262301138}
   - component: {fileID: -8925991869078331464}
+  - component: {fileID: -1543024161540903748}
   m_Layer: 12
   m_Name: Shooter
   m_TagString: Untagged
@@ -413,6 +414,7 @@ MonoBehaviour:
   EnemyKnockbackBase: {fileID: 11400000, guid: 3999b70de71ed82438f2f9af437f2c2d, type: 2}
   targetPlayer: {fileID: 0}
   navMeshAgent: {fileID: 0}
+  dealerPipeline: {fileID: 0}
 --- !u!114 &4962021350214988636
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -509,6 +511,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6c0be61502bb534f922ebb746851216, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-1543024161540903748
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5446555976368360068}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 203c41fb2ba5eed4082bd90de9720711, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  StaticModules:
+  - {fileID: 11400000, guid: 3fb24a2c248a98e41b5b6bc36b92c4b9, type: 2}
+  NonStaticModules: []
 --- !u!1 &7085348734243973380
 GameObject:
   m_ObjectHideFlags: 0

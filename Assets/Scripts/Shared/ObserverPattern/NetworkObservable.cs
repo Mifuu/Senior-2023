@@ -7,7 +7,7 @@ namespace ObserverPattern
     {
         private NetworkVariable<T> variable_internal;
         public NetworkVariable<T> GetNetworkVariable() => variable_internal;
-        public static NetworkObservable<T> ConvertToNetworkSubject(NetworkVariable<T> value) => new NetworkObservable<T>(value);
+        public static NetworkObservable<T> ConvertToNetworkObservable(NetworkVariable<T> value) => new NetworkObservable<T>(value);
 
         private void NetworkOnValueChangeHandler(T prev, T current)
         {

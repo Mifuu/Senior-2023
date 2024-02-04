@@ -3,6 +3,7 @@ using Unity.Netcode;
 using UnityEngine.AI;
 using Unity.Netcode.Components;
 using UnityEngine.Events;
+using ObserverPattern;
 
 namespace Enemy
 {
@@ -42,11 +43,23 @@ namespace Enemy
         public GameObject targetPlayer;
         public NavMeshAgent navMeshAgent;
 
+        #region Stat and Damage Calculation
+
+        public Subject<float> BaseAtk = new Subject<float>(100f);
+        public Subject<float> HydroDamageBonus = new Subject<float>(2f);
+        public Subject<float> PyroDamageBonus = new Subject<float>(2f);
+        public Subject<float> ElectroDamageBonus = new Subject<float>(2f);
+
+        public DamageDealerCalculationPipeline dealerPipeline;
+
+        #endregion
+
         public void Awake()
         {
             rigidBody = GetComponent<Rigidbody>();
             navMeshAgent = GetComponent<NavMeshAgent>();
             StateMachine = GetComponent<EnemyStateMachine>();
+            dealerPipeline = GetComponent<DamageDealerCalculationPipeline>();
         }
 
         public void Update()

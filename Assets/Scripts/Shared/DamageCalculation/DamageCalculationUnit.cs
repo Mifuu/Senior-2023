@@ -5,33 +5,35 @@ using UnityEngine;
 public abstract class DamageCalculationUnit<T> : IDamageCalculationUnitBase
 {
     private IDamageCalculationPipelineBase PipelineBase;
-    private Dictionary<string, ObserverPattern.IObservable<T>> ListOfSubject { get; set; }
+    private Dictionary<string, ObserverPattern.IObservable<T>> ListOfSubject { get; set; } = new Dictionary<string, ObserverPattern.IObservable<T>>();
+    private bool _isEnabled = true;
+    protected GameObject gameObject;
 
-    // Note: Override these method to use the calculate function
-    public virtual DamageInfo Calculate(DamageInfo info) => info;
-    public virtual float PreCalculate(float initialValue) => initialValue;
-
-    public bool isEnabled
+    public override bool IsEnabled
     {
-        get => isEnabled;
-        set 
+        get => _isEnabled;
+        set
         {
-            isEnabled = value;
+            _isEnabled = value;
             PipelineBase.CalculateAndCache();
         }
     }
 
     private void TriggerRecalculate_Internal(T prev, T current) => PipelineBase.CalculateAndCache();
 
-    public void Initialize(IDamageCalculationPipelineBase pipelineBase, bool updateOnChange)
+    public override void Initialize(IDamageCalculationPipelineBase pipelineBase, bool updateOnChange, GameObject owner)
     {
         if (pipelineBase != null) Debug.LogWarning("Initialize() is being called on already initiated DamageCalculationUnit");
-        PipelineBase = pipelineBase;
 
-        if (!updateOnChange) return;
-        foreach (KeyValuePair<string, ObserverPattern.IObservable<T>> valuePair in ListOfSubject)
+        PipelineBase = pipelineBase;
+        gameObject = owner;
+
+        if (updateOnChange)
         {
-            valuePair.Value.OnValueChanged += TriggerRecalculate_Internal;
+            foreach (KeyValuePair<string, ObserverPattern.IObservable<T>> valuePair in ListOfSubject)
+            {
+                valuePair.Value.OnValueChanged += TriggerRecalculate_Internal;
+            }
         }
     }
 
@@ -45,6 +47,7 @@ public abstract class DamageCalculationUnit<T> : IDamageCalculationUnitBase
 
     public void AddParameter(string name, ObserverPattern.Subject<T> subject)
     {
+        subject.OnValueChanged += TriggerRecalculate_Internal;
         ListOfSubject.Add(name, subject);
     }
 
@@ -57,7 +60,6 @@ public abstract class DamageCalculationUnit<T> : IDamageCalculationUnitBase
             return subject;
         }
 
-        return null;
         throw new Exception("Subject of key: " + key + " can not be found");
     }
 

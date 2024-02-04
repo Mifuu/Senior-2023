@@ -1,37 +1,44 @@
 using System.Collections.Generic;
 using System.Linq;
 using Unity.Netcode;
+using UnityEngine;
 
 public class DamageDealerCalculationPipeline : NetworkBehaviour, IDamageCalculationPipelineBase
 {
     public float CachedDamage { get; protected set; }
     public float DefaultValue { get; set; } = 1;
-    public List<IDamageCalculationUnitBase> StaticModules { get; set; } = new List<IDamageCalculationUnitBase>();
-    public List<IDamageCalculationUnitBase> NonStaticModules { get; set; } = new List<IDamageCalculationUnitBase>();
+    [SerializeField] public List<IDamageCalculationUnitBase> StaticModules = new List<IDamageCalculationUnitBase>();
+    [SerializeField] public List<IDamageCalculationUnitBase> NonStaticModules = new List<IDamageCalculationUnitBase>();
 
     public void Start()
     {
-        foreach (var module in StaticModules)
+        for (int i = 0; i < StaticModules.Count; i++)
         {
-            module.Initialize(this, true);
+            var instantiatedModule = Instantiate(StaticModules[i]); // Caution: Instantiating a ScriptableObject, might impact performance
+            instantiatedModule.Initialize(this, true, gameObject);
+            StaticModules[i] = instantiatedModule;
         }
 
-        foreach (var module in NonStaticModules)
+        for (int i = 0; i < NonStaticModules.Count; i++)
         {
-            module.Initialize(this, false);
+            var instantiatedModule = Instantiate(StaticModules[i]); // Caution: Instantiating a ScriptableObject, might impact performance
+            instantiatedModule.Initialize(this, false, gameObject);
+            NonStaticModules[i] = instantiatedModule;
         }
+
+        CalculateAndCache();
     }
 
     public IDamageCalculationUnitBase AddUnit(IDamageCalculationUnitBase unit, bool isStatic)
     {
         if (isStatic) 
         {
-            unit.Initialize(this, true);
+            unit.Initialize(this, true, gameObject);
             StaticModules.Add(unit);
             return unit;
         }
 
-        unit.Initialize(this, false);
+        unit.Initialize(this, false, gameObject);
         NonStaticModules.Add(unit);
         return unit;
     }
@@ -40,7 +47,7 @@ public class DamageDealerCalculationPipeline : NetworkBehaviour, IDamageCalculat
     {
         CachedDamage = StaticModules.Aggregate(DefaultValue, (aggregatedDamage, next) =>
         {
-            if (!next.isEnabled) return aggregatedDamage;
+            if (!next.IsEnabled) return aggregatedDamage;
             return next.PreCalculate(aggregatedDamage);
         });
     }
@@ -50,7 +57,7 @@ public class DamageDealerCalculationPipeline : NetworkBehaviour, IDamageCalculat
         info.amount = CachedDamage;
         return NonStaticModules.Aggregate(info, (aggregatedDamage, next) =>
         {
-            if (!next.isEnabled) return aggregatedDamage;
+            if (!next.IsEnabled) return aggregatedDamage;
             return next.Calculate(aggregatedDamage);
         });
     }
