@@ -34,11 +34,13 @@ namespace Enemy
                 return info;
             }
 
+            info.amount = enemy.GetComponent<DamageDealerCalculationPipeline>().GetFinalDealthDamageAmount();
             info.dealer = enemy.gameObject;
-            info.amount = baseDamageAmount;
-            damageable.Damage(info);
 
-            Debug.Log("DAMAGING: Dealing " + info.amount + " DMG");
+            Debug.Log("Damaging Amount: " + info.amount);
+            enemy.BaseAtk.Value += 20;
+
+            damageable.Damage(info);
             return info;
         }
 

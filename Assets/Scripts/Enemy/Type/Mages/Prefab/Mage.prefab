@@ -232,6 +232,7 @@ GameObject:
   - component: {fileID: 2658494702250976882}
   - component: {fileID: -7445528833963190562}
   - component: {fileID: 5298137167184838573}
+  - component: {fileID: -1602356023900199517}
   m_Layer: 12
   m_Name: Mage
   m_TagString: Untagged
@@ -377,6 +378,7 @@ MonoBehaviour:
   EnemyKnockbackBase: {fileID: 11400000, guid: 3999b70de71ed82438f2f9af437f2c2d, type: 2}
   targetPlayer: {fileID: 0}
   navMeshAgent: {fileID: 0}
+  dealerPipeline: {fileID: 0}
 --- !u!114 &-387585368819642466
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -473,6 +475,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6c0be61502bb534f922ebb746851216, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-1602356023900199517
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5759202222480714440}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 203c41fb2ba5eed4082bd90de9720711, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  StaticModules:
+  - {fileID: 11400000, guid: 3fb24a2c248a98e41b5b6bc36b92c4b9, type: 2}
+  NonStaticModules: []
 --- !u!1001 &4956878632974531975
 PrefabInstance:
   m_ObjectHideFlags: 0

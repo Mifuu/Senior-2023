@@ -4,6 +4,8 @@ namespace ObserverPattern
 {
     public class Subject<T>: IObservable<T>
     {
+        private T _value;
+
         public Subject(T value)
         {
             Value = value;
@@ -11,11 +13,11 @@ namespace ObserverPattern
 
         public T Value
         {
-            get => Value;
+            get => _value;
             set
             {
-                var oldValue = Value;
-                Value = value;
+                var oldValue = _value;
+                _value = value;
                 OnValueChanged?.Invoke(oldValue, value);
             }
         }
