@@ -2,12 +2,19 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 
-public abstract class DamageCalculationUnit<T> : IDamageCalculationUnitBase
+public abstract class DamageCalculationUnit<T> : DamageCalculationUnitBase
 {
     private IDamageCalculationPipelineBase PipelineBase;
     private Dictionary<string, ObserverPattern.IObservable<T>> ListOfSubject { get; set; } = new Dictionary<string, ObserverPattern.IObservable<T>>();
     private bool _isEnabled = true;
     protected GameObject gameObject;
+    private bool updateOnChange;
+
+    // <summary>
+    // Setup() is run after the Initialize function, Intended to be used for setting up parameter.
+    // since I don't want override to the Initialize function if possible
+    // </summary>
+    public virtual void Setup() { }
 
     public override bool IsEnabled
     {
@@ -23,21 +30,19 @@ public abstract class DamageCalculationUnit<T> : IDamageCalculationUnitBase
 
     public override void Initialize(IDamageCalculationPipelineBase pipelineBase, bool updateOnChange, GameObject owner)
     {
-        if (pipelineBase != null) Debug.LogWarning("Initialize() is being called on already initiated DamageCalculationUnit");
+        if (pipelineBase != null)
+        {
+            Debug.LogWarning("Initialize() is being called on already initiated DamageCalculationUnit");
+            Debug.Log("PipielineBase: " + pipelineBase);
+        }
 
         PipelineBase = pipelineBase;
         gameObject = owner;
-
-        if (updateOnChange)
-        {
-            foreach (KeyValuePair<string, ObserverPattern.IObservable<T>> valuePair in ListOfSubject)
-            {
-                valuePair.Value.OnValueChanged += TriggerRecalculate_Internal;
-            }
-        }
+        this.updateOnChange = updateOnChange;
+        Setup();
     }
 
-    public void Dispose()
+    public override void Dispose()
     {
         foreach (KeyValuePair<string, ObserverPattern.IObservable<T>> valuePair in ListOfSubject)
         {
@@ -45,10 +50,15 @@ public abstract class DamageCalculationUnit<T> : IDamageCalculationUnitBase
         }
     }
 
-    public void AddParameter(string name, ObserverPattern.Subject<T> subject)
+    public ObserverPattern.Subject<T> AddParameterToTrackList(string name, ObserverPattern.Subject<T> subject)
     {
-        subject.OnValueChanged += TriggerRecalculate_Internal;
+        if (updateOnChange)
+        {
+            subject.OnValueChanged += TriggerRecalculate_Internal;
+        }
+
         ListOfSubject.Add(name, subject);
+        return subject;
     }
 
     public ObserverPattern.IObservable<T> TryGetParameterSubject(string key)
