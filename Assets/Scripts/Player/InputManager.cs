@@ -29,8 +29,8 @@ public class InputManager : MonoBehaviour
         onFoot.Dash.performed += ctx => dash.Dash(onFoot.Movement.ReadValue<Vector2>());
         onFoot.SwitchWeapon.performed += ctx => {
             float value = ctx.action.ReadValue<float>();
-            Debug.Log($"Player Script: weapon value {value}");
-            if (switchWeapon != null && switchWeapon.guns[(int)value-1].CanShoot())
+            //Debug.Log($"Player Script: weapon value {value}");
+            if (switchWeapon.guns[(int)value-1].CanShoot())
             {
                 if (switchWeapon.guns[(int)value - 1].CanShoot())
                 {
@@ -39,7 +39,7 @@ public class InputManager : MonoBehaviour
                     Debug.LogWarning("switchWeapon CanShoot is False");
                 }
             } else {
-                Debug.LogWarning("switchWeapon is null");
+                Debug.LogWarning("switchWeapon is on cooldown");
             }
         };
     }

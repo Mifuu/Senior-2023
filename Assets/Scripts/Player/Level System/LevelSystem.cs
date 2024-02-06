@@ -16,32 +16,31 @@ public class LevelSystem
 
     public LevelSystem() 
     {
-        level = 0;
+        level = 1;
         exp = 0;
         expToNextLevel = 100;
     }
 
     public void AddExp(int amount) 
-    { 
+    {
         exp += amount; 
-        if (exp >= expToNextLevel)
+        while (exp >= expToNextLevel)
         {
             level++;
             exp -= expToNextLevel;
-            if (OnLevelChange != null)
-            {
-                OnLevelChange(this, EventArgs.Empty);
-            }
+            OnLevelChange?.Invoke(this, EventArgs.Empty);
         }
-        if (OnExpChange != null)
-        {
-            OnExpChange(this, EventArgs.Empty);
-        }
+        OnExpChange?.Invoke(this, EventArgs.Empty);
     }
 
     public int GetLevel()
     {
         return level;
+    }
+
+    public float GetExpNormalized()
+    {
+        return (float)exp / expToNextLevel;
     }
 
 }
