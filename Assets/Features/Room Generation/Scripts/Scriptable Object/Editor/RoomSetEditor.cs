@@ -14,6 +14,8 @@ namespace RoomGeneration
         {
             RoomSet roomSet = (RoomSet)target;
 
+            YEditorUtility.BestGirlBanner();
+
             GUILayout.Label("Editor Tools");
             roomSet.roomDataPath = EditorGUILayout.TextField("Path: ", roomSet.roomDataPath);
             GUILayout.Space(10);

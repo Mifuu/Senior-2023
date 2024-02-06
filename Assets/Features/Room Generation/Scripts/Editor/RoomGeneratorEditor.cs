@@ -13,6 +13,8 @@ namespace RoomGeneration
 
         public override void OnInspectorGUI()
         {
+            YEditorUtility.BestGirlBanner();
+
             GUILayout.Label("This script is used to generate the room in the scene view.\n" +
                        "Require gizmos to be turned on in the scene view.");
 

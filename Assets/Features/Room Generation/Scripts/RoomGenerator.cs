@@ -38,7 +38,7 @@ namespace RoomGeneration
 
         void Update()
         {
-            if (Input.GetKeyDown(KeyCode.M))
+            if (Input.GetKeyDown(KeyCode.B))
             {
                 StepAddRoom(50);
             }
