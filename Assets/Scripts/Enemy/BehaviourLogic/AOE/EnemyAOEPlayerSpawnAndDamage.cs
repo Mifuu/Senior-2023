@@ -4,18 +4,19 @@ namespace Enemy
 {
     public class EnemyAOEPlayerSpawnAndDamage : EnemyAOEPlayerSpawnAndActivate
     {
-        [SerializeField] private float baseDamageAmount = 5.0f;
-
         public override void ActivateEffect()
         {
             base.ActivateEffect();
             foreach (var players in areaOfEffectTrigger.PlayerWithinTrigger)
             {
-                DamageInfo info = new DamageInfo(enemy.gameObject, baseDamageAmount);
-                // CONTINUE HERE: Bug, cant damage the player since can't get damagecalculatable from here
+                var info = enemy.dealerPipeline.GetFinalDealthDamageInfo();
+                info.dealer = enemy.gameObject;
+
+                // CONTINUE HERE: Bug, AOE cant damage the player since can't get IDamageCalculatable from here
                 var damager = players.GetComponent<IDamageCalculatable>();
                 if (damager == null)
                 {
+                    Debug.LogError("IDamageCalculatable Not found On Object " + players);
                     return;
                 }
                 

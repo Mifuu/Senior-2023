@@ -452,7 +452,8 @@ MonoBehaviour:
   StaticModules:
   - {fileID: 11400000, guid: 980fb623fa0981846ac9cb655a994d79, type: 2}
   - {fileID: 11400000, guid: 3fb24a2c248a98e41b5b6bc36b92c4b9, type: 2}
-  NonStaticModules: []
+  NonStaticModules:
+  - {fileID: 11400000, guid: fafcd24a184102a47af01abe0d517877, type: 2}
 --- !u!1 &6571919558389732338
 GameObject:
   m_ObjectHideFlags: 0

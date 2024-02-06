@@ -7,31 +7,57 @@ public class DamageDealerCalculationPipeline : NetworkBehaviour, IDamageCalculat
 {
     public float CachedDamage { get; protected set; }
     public float DefaultValue { get; set; } = 1;
-    [SerializeField] public List<IDamageCalculationUnitBase> StaticModules = new List<IDamageCalculationUnitBase>();
-    [SerializeField] public List<IDamageCalculationUnitBase> NonStaticModules = new List<IDamageCalculationUnitBase>();
+    [SerializeField] public List<DamageCalculationUnitBase> StaticModules = new List<DamageCalculationUnitBase>();
+    [SerializeField] public List<DamageCalculationUnitBase> NonStaticModules = new List<DamageCalculationUnitBase>();
 
     public void Start()
     {
         for (int i = 0; i < StaticModules.Count; i++)
         {
-            var instantiatedModule = Instantiate(StaticModules[i]); // Caution: Instantiating a ScriptableObject, might impact performance
-            instantiatedModule.Initialize(this, true, gameObject);
-            StaticModules[i] = instantiatedModule;
+            if (StaticModules[i].requireInstantiation)
+            {
+                var instantiatedModule = Instantiate(StaticModules[i]); // Caution: Instantiating a ScriptableObject, might impact performance
+                instantiatedModule.Initialize(this, true, gameObject);
+                StaticModules[i] = instantiatedModule;
+                continue;
+            }
+
+            StaticModules[i].Initialize(this, true, gameObject);
         }
 
         for (int i = 0; i < NonStaticModules.Count; i++)
         {
-            var instantiatedModule = Instantiate(StaticModules[i]); // Caution: Instantiating a ScriptableObject, might impact performance
-            instantiatedModule.Initialize(this, false, gameObject);
-            NonStaticModules[i] = instantiatedModule;
+            if (NonStaticModules[i].requireInstantiation)
+            {
+                var instantiatedModule = Instantiate(NonStaticModules[i]); // Caution: Instantiating a ScriptableObject, might impact performance
+                instantiatedModule.Initialize(this, false, gameObject);
+                NonStaticModules[i] = instantiatedModule;
+                continue;
+            }
+
+            NonStaticModules[i].Initialize(this, false, gameObject);
         }
 
         CalculateAndCache();
     }
 
-    public IDamageCalculationUnitBase AddUnit(IDamageCalculationUnitBase unit, bool isStatic)
+    public override void OnDestroy()
     {
-        if (isStatic) 
+        base.OnDestroy();
+        foreach (var modules in StaticModules)
+        {
+            modules.Dispose();
+        }
+
+        foreach (var modules in NonStaticModules)
+        {
+            modules.Dispose();
+        }
+    }
+
+    public DamageCalculationUnitBase AddUnit(DamageCalculationUnitBase unit, bool isStatic)
+    {
+        if (isStatic)
         {
             unit.Initialize(this, true, gameObject);
             StaticModules.Add(unit);

@@ -1,19 +1,27 @@
 using UnityEngine;
+using ObserverPattern;
 
 namespace Enemy
 {
-    [CreateAssetMenu(menuName = "Enemy/Enemy Damage Unit/Base Attack")]
+    [CreateAssetMenu(menuName = "Enemy/Enemy Damage Unit/Base Attack", fileName = "Base Attack")]
     public class DCUBaseAtk : DamageCalculationUnit<float>
     {
-        public override void Initialize(IDamageCalculationPipelineBase pipelineBase, bool updateOnChange, GameObject owner)
+        // Static Unit 
+        Subject<float> BaseAtk;
+
+        public override void Setup()
         {
-            base.Initialize(pipelineBase, updateOnChange, owner);
-            AddParameter("BaseAtk", gameObject.GetComponent<EnemyBase>().BaseAtk);
+            BaseAtk = AddParameterToTrackList("BaseAtk", gameObject.GetComponent<EnemyBase>().BaseAtk);
+            if (BaseAtk == null)
+            {
+                Debug.LogError(gameObject + " Base Damage Calculation Setup Fault");
+                IsEnabled = false;
+            }
         }
 
         public override float PreCalculate(float initialValue)
         {
-            return TryGetParameter("BaseAtk");
+            return BaseAtk.Value;
         }
     }
 }

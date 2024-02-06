@@ -49,6 +49,8 @@ namespace Enemy
         public Subject<float> HydroDamageBonus = new Subject<float>(2f);
         public Subject<float> PyroDamageBonus = new Subject<float>(2f);
         public Subject<float> ElectroDamageBonus = new Subject<float>(2f);
+        public Subject<float> CritRate = new Subject<float>(0.5f);
+        public Subject<float> CritDmgFactor = new Subject<float>(1.2f);
 
         public DamageDealerCalculationPipeline dealerPipeline;
 

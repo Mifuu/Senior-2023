@@ -1,27 +1,35 @@
 using UnityEngine;
+using ObserverPattern;
 
 namespace Enemy
 {
-    [CreateAssetMenu(menuName = "Enemy/Enemy Damage Unit/Elemental Damage")]
+    [CreateAssetMenu(menuName = "Enemy/Enemy Damage Unit/Elemental Damage", fileName = "Elemental Damage Calculator")]
     public class DCUElementalDamage : DamageCalculationUnit<float>
     {
+        // Static Unit
         EnemyBase enemy;
+        Subject<float> hydro;
+        Subject<float> pyro;
+        Subject<float> electro;
 
-        public override void Initialize(IDamageCalculationPipelineBase pipelineBase, bool updateOnChange, GameObject gameObject)
+        public override void Setup()
         {
-            base.Initialize(pipelineBase, updateOnChange, gameObject);
             enemy = gameObject.GetComponent<EnemyBase>();
-            AddParameter("HydroDamageBonus", enemy.HydroDamageBonus);
-            AddParameter("PyroDamageBonus", enemy.PyroDamageBonus);
-            AddParameter("ElectroDamageBonus", enemy.ElectroDamageBonus);
+            hydro = AddParameterToTrackList("hydro", enemy.HydroDamageBonus);
+            pyro = AddParameterToTrackList("pyro", enemy.PyroDamageBonus);
+            electro = AddParameterToTrackList("electro", enemy.ElectroDamageBonus);
+
+            if (hydro == null || pyro == null || electro == null)
+            {
+                Debug.LogError("Elemental Damage Calculation Setup Fault");
+                IsEnabled = false;
+            }
         }
 
         public override float PreCalculate(float initialValue)
         {
-            var hydro = TryGetParameter("HydroDamageBonus");
-            var pyro = TryGetParameter("PyroDamageBonus");
-            var electro = TryGetParameter("ElectroDamageBonus");
-            return initialValue * hydro * pyro * electro;
+            // Not the real function, just testing
+            return initialValue * hydro.Value * pyro.Value * electro.Value;
         }
     }
 }
