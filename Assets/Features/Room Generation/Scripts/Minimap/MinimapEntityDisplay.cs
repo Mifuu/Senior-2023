@@ -12,6 +12,7 @@ namespace RoomGeneration.Minimap
 
         [Header("Requirements")]
         public MinimapDisplay minimapDisplay;
+        public MinimapAnchorEntity minimapAnchorEntity;
         private RoomGenerator roomGenerator;
         public Image image;
         public Transform entityParent;
@@ -47,9 +48,6 @@ namespace RoomGeneration.Minimap
 
             worldBottomLeft = new Vector3(-snapValue.value.x * gridSize / 2, 0, -snapValue.value.z * gridSize / 2);
             worldTopRight = new Vector3(snapValue.value.x * gridSize / 2, 0, snapValue.value.z * gridSize / 2);
-
-            imageBottomLeft = new Vector3(image.rectTransform.position.x - image.rectTransform.rect.width * image.rectTransform.localScale.x / 2, image.rectTransform.position.y - image.rectTransform.rect.height * image.rectTransform.localScale.y / 2, image.rectTransform.position.z);
-            imageTopRight = new Vector3(image.rectTransform.position.x + image.rectTransform.rect.width * image.rectTransform.localScale.x / 2, image.rectTransform.position.y + image.rectTransform.rect.height * image.rectTransform.localScale.y / 2, image.rectTransform.position.z);
         }
 
         public void AddEntity(MinimapEntity minimapEntity)
@@ -63,13 +61,22 @@ namespace RoomGeneration.Minimap
 
             // add to dictionary
             entityIcons.Add(minimapEntity, icon);
+
+            // anchor if needed
+            if (minimapEntity.isAnchor)
+            {
+                minimapAnchorEntity.icon = icon;
+            }
         }
 
-        public void RemoveEntity(Transform transform)
+        public void RemoveEntity(MinimapEntity minimapEntity)
         {
-            // remove entity icon
-
             // remove from dictionary
+            MinimapEntityIcon icon = entityIcons[minimapEntity];
+            entityIcons.Remove(minimapEntity);
+
+            // remove entity icon
+            Destroy(icon.gameObject);
         }
 
         public void UpdateEntity(MinimapEntity minimapEntity)
@@ -80,6 +87,9 @@ namespace RoomGeneration.Minimap
             // remap world position to image position
             float x = ((position.x - worldBottomLeft.x) / (worldTopRight.x - worldBottomLeft.x));
             float z = ((position.z - worldBottomLeft.z) / (worldTopRight.z - worldBottomLeft.z));
+
+            imageBottomLeft = new Vector3(image.rectTransform.position.x - image.rectTransform.rect.width * image.rectTransform.lossyScale.x / 2, image.rectTransform.position.y - image.rectTransform.rect.height * image.rectTransform.lossyScale.y / 2, image.rectTransform.position.z);
+            imageTopRight = new Vector3(image.rectTransform.position.x + image.rectTransform.rect.width * image.rectTransform.lossyScale.x / 2, image.rectTransform.position.y + image.rectTransform.rect.height * image.rectTransform.lossyScale.y / 2, image.rectTransform.position.z);
 
             Vector3 iconPos = new Vector3(Mathf.LerpUnclamped(imageBottomLeft.x, imageTopRight.x, x), Mathf.LerpUnclamped(imageBottomLeft.y, imageTopRight.y, z), imageBottomLeft.z);
 

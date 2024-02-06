@@ -9,6 +9,7 @@ namespace RoomGeneration.Minimap
         [Header("Settings")]
         public MinimapEntityIcon iconPrefab;
         public MinimapEntityTrackType trackType;
+        public bool isAnchor = false;
 
         void OnEnable()
         {
@@ -31,7 +32,7 @@ namespace RoomGeneration.Minimap
                 return;
             }
 
-            MinimapEntityDisplay.instance.RemoveEntity(transform);
+            MinimapEntityDisplay.instance.RemoveEntity(this);
         }
 
         void Update()

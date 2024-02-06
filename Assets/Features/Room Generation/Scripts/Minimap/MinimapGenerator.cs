@@ -6,6 +6,13 @@ namespace RoomGeneration.Minimap
 {
     public class MinimapGenerator
     {
+        public static Texture2D GenerateTexture(RoomGenerator roomGenerator, MinimapSettings settings)
+        {
+            int[,] indexGrid = GetIndexGrid(roomGenerator, settings.defaultGridSize);
+            Texture2D texture = CreateTextureFromIndexGrid(indexGrid, settings, roomGenerator);
+            return texture;
+        }
+
         public static int[,] GetIndexGrid(RoomGenerator roomGenerator, int gridSize)
         {
             // get array. key is coord, value is room index
@@ -87,7 +94,12 @@ namespace RoomGeneration.Minimap
             return output;
         }
 
-        public static Texture2D CreateRoomOutlineFromIndexGrid(int[,] indexGrid, int unitSize = 7, int outlineSize = 1, int doorRadius = 2, RoomGenerator roomGenerator = null)
+        public static Texture2D CreateTextureFromIndexGrid(int[,] indexGrid, MinimapSettings settings, RoomGenerator roomGenerator)
+        {
+            return CreateTextureFromIndexGrid(indexGrid, settings.unitSize, settings.outlineSize, settings.doorRadius, settings.roomColor, settings.wallColor, settings.voidColor, roomGenerator);
+        }
+
+        public static Texture2D CreateTextureFromIndexGrid(int[,] indexGrid, int unitSize, int outlineSize, int doorRadius, Color roomColor, Color wallColor, Color voidColor, RoomGenerator roomGenerator)
         {
             Texture2D output = new Texture2D(indexGrid.GetLength(0) * unitSize, indexGrid.GetLength(1) * unitSize);
             for (int y = 0; y < indexGrid.GetLength(0); y++)
@@ -101,37 +113,43 @@ namespace RoomGeneration.Minimap
                     Vector2Int bottomRight = new Vector2Int((x + 1) * unitSize - 1, y * unitSize);
 
                     // fill
-                    FillInPixel(ref output, bottomLeft, topRight, Color.clear);
+                    FillInPixel(ref output, bottomLeft, topRight, voidColor);
 
+                    /*
                     // draw grid
                     FillInPixel(ref output, bottomLeft, topLeft, Color.gray);
                     FillInPixel(ref output, bottomLeft, bottomRight, Color.gray);
                     // fill
                     FillInPixel(ref output, bottomLeft, bottomLeft, Color.black);
+                    */
 
                     // continue if empty
                     int index = indexGrid[y, x];
                     if (index < 0) continue;
 
                     // fill
-                    FillInPixel(ref output, bottomLeft, topRight, Color.gray);
+                    FillInPixel(ref output, bottomLeft, topRight, roomColor);
 
                     // fill in walls if the connected area is of different index
+                    int lastY = indexGrid.GetLength(0) - 1;
+                    int lastX = indexGrid.GetLength(1) - 1;
                     // left
-                    if (indexGrid[y, x - 1] != index)
-                        FillInPixel(ref output, bottomLeft, topLeft + new Vector2Int(outlineSize - 1, 0), Color.white);
+                    if (x == 0 || indexGrid[y, x - 1] != index)
+                        FillInPixel(ref output, bottomLeft, topLeft + new Vector2Int(outlineSize - 1, 0), wallColor);
                     // top
-                    if (indexGrid[y + 1, x] != index)
-                        FillInPixel(ref output, topLeft, topRight - new Vector2Int(0, outlineSize - 1), Color.white);
+                    if (y == lastY || indexGrid[y + 1, x] != index)
+                        FillInPixel(ref output, topLeft, topRight - new Vector2Int(0, outlineSize - 1), wallColor);
                     // right
-                    if (indexGrid[y, x + 1] != index)
-                        FillInPixel(ref output, topRight, bottomRight - new Vector2Int(outlineSize - 1, 0), Color.white);
+                    if (x == lastX || indexGrid[y, x + 1] != index)
+                        FillInPixel(ref output, topRight, bottomRight - new Vector2Int(outlineSize - 1, 0), wallColor);
                     // bottom
-                    if (indexGrid[y - 1, x] != index)
-                        FillInPixel(ref output, bottomRight, bottomLeft + new Vector2Int(0, outlineSize - 1), Color.white);
+                    if (y == 0 || indexGrid[y - 1, x] != index)
+                        FillInPixel(ref output, bottomRight, bottomLeft + new Vector2Int(0, outlineSize - 1), wallColor);
 
-                    // fill
+                    /*
+                    // fill bottomLeft corners
                     FillInPixel(ref output, bottomLeft, bottomLeft, Color.black);
+                    */
                 }
             }
 
@@ -146,7 +164,7 @@ namespace RoomGeneration.Minimap
                     if (!roomGenerator.IsConnectedDoor(coord + offset)) continue;
                     Vector2Int a = new Vector2Int(x * unitSize, y * unitSize) + Vector2Int.one * (doorRadius - 1);
                     Vector2Int b = new Vector2Int(x * unitSize, y * unitSize) - Vector2Int.one * doorRadius;
-                    FillInPixel(ref output, a, b, Color.gray);
+                    FillInPixel(ref output, a, b, roomColor);
                 }
             }
             output.filterMode = FilterMode.Point;
@@ -184,5 +202,22 @@ namespace RoomGeneration.Minimap
                 }
             }
         }
+    }
+
+    [System.Serializable]
+    public class MinimapSettings
+    {
+        [Header("Map Size")]
+        public int defaultGridSize = 40;
+
+        [Header("Scales")]
+        public int unitSize = 17;
+        public int outlineSize = 1;
+        public int doorRadius = 7;
+
+        [Header("Colors")]
+        public Color roomColor = Color.white;
+        public Color wallColor = Color.gray;
+        public Color voidColor = Color.clear;
     }
 }
