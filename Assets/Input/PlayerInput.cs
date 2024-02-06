@@ -205,6 +205,54 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""OnUI"",
+            ""id"": ""0ab2d8e2-c4ff-410c-b763-d0912ead8603"",
+            ""actions"": [
+                {
+                    ""name"": ""Back"",
+                    ""type"": ""Button"",
+                    ""id"": ""c8cd26c0-c6bc-430c-a86e-992319523ec1"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Map"",
+                    ""type"": ""Button"",
+                    ""id"": ""71c045ce-327e-4202-9fb8-b76b3c56e426"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""adf01f7e-9d9b-4b0c-889c-8fcdb127320d"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Back"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""dd90ed18-477c-4a20-8195-03aaaf65abde"",
+                    ""path"": ""<Keyboard>/m"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Map"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -217,6 +265,10 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_OnFoot_Shoot = m_OnFoot.FindAction("Shoot", throwIfNotFound: true);
         m_OnFoot_Dash = m_OnFoot.FindAction("Dash", throwIfNotFound: true);
         m_OnFoot_SwitchWeapon = m_OnFoot.FindAction("SwitchWeapon", throwIfNotFound: true);
+        // OnUI
+        m_OnUI = asset.FindActionMap("OnUI", throwIfNotFound: true);
+        m_OnUI_Back = m_OnUI.FindAction("Back", throwIfNotFound: true);
+        m_OnUI_Map = m_OnUI.FindAction("Map", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -360,6 +412,60 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         }
     }
     public OnFootActions @OnFoot => new OnFootActions(this);
+
+    // OnUI
+    private readonly InputActionMap m_OnUI;
+    private List<IOnUIActions> m_OnUIActionsCallbackInterfaces = new List<IOnUIActions>();
+    private readonly InputAction m_OnUI_Back;
+    private readonly InputAction m_OnUI_Map;
+    public struct OnUIActions
+    {
+        private @PlayerInput m_Wrapper;
+        public OnUIActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Back => m_Wrapper.m_OnUI_Back;
+        public InputAction @Map => m_Wrapper.m_OnUI_Map;
+        public InputActionMap Get() { return m_Wrapper.m_OnUI; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(OnUIActions set) { return set.Get(); }
+        public void AddCallbacks(IOnUIActions instance)
+        {
+            if (instance == null || m_Wrapper.m_OnUIActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_OnUIActionsCallbackInterfaces.Add(instance);
+            @Back.started += instance.OnBack;
+            @Back.performed += instance.OnBack;
+            @Back.canceled += instance.OnBack;
+            @Map.started += instance.OnMap;
+            @Map.performed += instance.OnMap;
+            @Map.canceled += instance.OnMap;
+        }
+
+        private void UnregisterCallbacks(IOnUIActions instance)
+        {
+            @Back.started -= instance.OnBack;
+            @Back.performed -= instance.OnBack;
+            @Back.canceled -= instance.OnBack;
+            @Map.started -= instance.OnMap;
+            @Map.performed -= instance.OnMap;
+            @Map.canceled -= instance.OnMap;
+        }
+
+        public void RemoveCallbacks(IOnUIActions instance)
+        {
+            if (m_Wrapper.m_OnUIActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(IOnUIActions instance)
+        {
+            foreach (var item in m_Wrapper.m_OnUIActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_OnUIActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public OnUIActions @OnUI => new OnUIActions(this);
     public interface IOnFootActions
     {
         void OnMovement(InputAction.CallbackContext context);
@@ -368,5 +474,10 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         void OnShoot(InputAction.CallbackContext context);
         void OnDash(InputAction.CallbackContext context);
         void OnSwitchWeapon(InputAction.CallbackContext context);
+    }
+    public interface IOnUIActions
+    {
+        void OnBack(InputAction.CallbackContext context);
+        void OnMap(InputAction.CallbackContext context);
     }
 }
