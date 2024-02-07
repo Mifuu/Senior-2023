@@ -46,7 +46,7 @@ public class BulletProjectile : NetworkBehaviour
             GameObject playerObject = NetworkManager.Singleton.SpawnManager.GetPlayerNetworkObject(PlayerId).gameObject;
             DamageInfo damageInfo = new DamageInfo(playerObject, damageAmount);
             damageable.Damage(damageInfo); // Pass the player GameObject to the Damage method
-            Debug.Log("Bullet Script: " + damageInfo.ToString());
+            Debug.Log("Bullet Script: " + playerObject.name);
             //Instantiate(vfxHit, transform.position, Quaternion.identity);
         }
         else
