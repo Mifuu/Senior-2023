@@ -1,18 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using GameplayUI;
 
 public class PlayerUIUpdater : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public PlayerHealth playerHealth;
+
     void Start()
     {
-        
+        if (playerHealth.IsOwner && GameplayUIReceiver.Instance)
+            playerHealth.currentHealth.OnValueChanged += (prev, current) => UpdateHP();
     }
 
-    // Update is called once per frame
-    void Update()
+    void UpdateHP()
     {
-        
+        if (playerHealth.IsOwner && GameplayUIReceiver.Instance)
+            GameplayUIReceiver.Instance.UpdateHPUI(playerHealth.currentHealth.Value, playerHealth.maxHealth);
     }
 }
