@@ -47,6 +47,7 @@ public class Gun : NetworkBehaviour
 
     public bool CanShoot()
     {
+        //Debug.Log("Gun Script: canShoot " + canShoot);
         return canShoot;
     }
 
