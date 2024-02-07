@@ -8,7 +8,6 @@ public class PlayerShoot : NetworkBehaviour
 
     private Camera playerCam;
     public LayerMask aimColliderLayerMask;
-    private Transform debugTransform;
 
     void Start()
     {
@@ -24,7 +23,7 @@ public class PlayerShoot : NetworkBehaviour
             Gun selectedGun = selectedWeaponObject.GetComponent<Gun>();
             if (selectedGun != null && selectedGun.CanShoot())
             {
-                selectedGun.ShootBullet(playerCam, aimColliderLayerMask, debugTransform);
+                selectedGun.ShootBullet(playerCam, aimColliderLayerMask);
             }
         }
     }

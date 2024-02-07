@@ -10,6 +10,7 @@ public class Testing : MonoBehaviour
     private void Start()
     {
         LevelSystem levelSystem = new LevelSystem();
+
         //levelWindow.SetLevelSystem(levelSystem);
         playerLevel.SetLevelSystem(levelSystem);
 
