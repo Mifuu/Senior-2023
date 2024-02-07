@@ -7,15 +7,14 @@ using UnityEngine.Serialization;
 
 public class Gun : NetworkBehaviour
 {
-    [SerializeField] private float raycastHitRange = 999f;
-    [SerializeField] private Transform debugTransform;
     [SerializeField] private Transform bullet;
     [SerializeField] private Transform bulletSpawnPosition;
+    [SerializeField] private float raycastHitRange = 999f;
     [SerializeField] private float shootingDelay = 0.1f;
 
     private bool canShoot = true;
 
-    public void ShootBullet(Camera playerCam, LayerMask aimColliderLayerMask, Transform debugTransform)
+    public void ShootBullet(Camera playerCam, LayerMask aimColliderLayerMask)
     {
         if (canShoot && IsClient && IsOwner)
         {
@@ -59,9 +58,11 @@ public class Gun : NetworkBehaviour
     }
 
     [ServerRpc]
-    private void SpawnBulletServerRpc(ulong localId, Vector3 bulletSpawnPosition, Quaternion bulletRotation)
+    private void SpawnBulletServerRpc(ulong playerId, Vector3 bulletSpawnPosition, Quaternion bulletRotation)
     {
         var bulletObj = Instantiate(bullet, bulletSpawnPosition, bulletRotation);
+        var bulletComponent = bulletObj.GetComponent<BulletProjectile>();
+        bulletComponent.PlayerId = playerId; // Pass the player's network object ID
         var networkBulletObj = bulletObj.GetComponent<NetworkObject>();
         // networkBulletObj.SpawnWithOwnership(localId);
         networkBulletObj.Spawn();

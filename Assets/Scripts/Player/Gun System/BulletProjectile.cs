@@ -12,6 +12,8 @@ public class BulletProjectile : NetworkBehaviour
     public float lifetime = 5.0f;
     public float damageAmount = 1.0f;
 
+    public ulong PlayerId { get; set; }
+
     private void Awake()
     {
         bulletRigidbody = GetComponent<Rigidbody>();
@@ -29,7 +31,6 @@ public class BulletProjectile : NetworkBehaviour
         lifetime -= Time.deltaTime;
         if (lifetime <= 0)
         {
-            // Destroy(gameObject);
             NetworkObject.Despawn(true);
         }
     }
@@ -42,13 +43,15 @@ public class BulletProjectile : NetworkBehaviour
 
         if (damageable != null)
         {
-            DamageInfo damageInfo = new DamageInfo(gameObject, damageAmount);
-            damageable.Damage(damageInfo);
+            GameObject playerObject = NetworkManager.Singleton.SpawnManager.GetPlayerNetworkObject(PlayerId).gameObject;
+            DamageInfo damageInfo = new DamageInfo(playerObject, damageAmount);
+            damageable.Damage(damageInfo); // Pass the player GameObject to the Damage method
+            Debug.Log("Bullet Script: " + damageInfo.ToString());
             //Instantiate(vfxHit, transform.position, Quaternion.identity);
         }
         else
         {
-            // Debug.Log("Player Script: No Damagable Class Found");
+            Debug.Log("Player Script: No Damagable Class Found");
         }
 
         // Destroy(gameObject);

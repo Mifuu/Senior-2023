@@ -573,7 +573,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49c515c150c22ef47b115f3a9aa7c49f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelWindow: {fileID: 0}
   playerLevel: {fileID: 663060055944682856}
 --- !u!1 &7871012211992077397
 GameObject:
@@ -809,6 +808,7 @@ MonoBehaviour:
   bullet: {fileID: 3822981651942819932, guid: 075f820f055859a4ebde661e803d3fe1, type: 3}
   bulletSpawnPosition: {fileID: 2198584225626737601}
   shootingDelay: 0.1
+  Player: {fileID: 1287504444611049030}
 --- !u!1001 &2694824568494877663
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -873,6 +873,10 @@ PrefabInstance:
       propertyPath: GlobalObjectIdHash
       value: 951099334
       objectReference: {fileID: 0}
+    - target: {fileID: 4122741058421460406, guid: d91f72630ba59bf4d93b9772eef74503, type: 3}
+      propertyPath: Player
+      value: 
+      objectReference: {fileID: 1287504444611049030}
     - target: {fileID: 4122741058421460406, guid: d91f72630ba59bf4d93b9772eef74503, type: 3}
       propertyPath: bullet
       value: 
