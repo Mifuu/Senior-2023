@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 // <summary>
@@ -20,13 +18,24 @@ public struct DamageInfo
 {
     public GameObject dealer;
     public float amount;
-    // GunType?
-    // Element?
-    // BuffEffect?
+    public ElementalDamageParameter elementalDamageParameter;
+    public TemporaryGunType gunType;
 
-    public DamageInfo(GameObject dealer, float amount)
+    public DamageInfo(
+            GameObject dealer,
+            float amount,
+            ElementalDamageParameter elementalDamageParameter,
+            TemporaryGunType gunType = TemporaryGunType.None)
     {
         this.dealer = dealer;
         this.amount = amount;
+        this.elementalDamageParameter = elementalDamageParameter;
+        this.gunType = gunType;
     }
+}
+
+public class ElementalDamageParameter
+{
+    public ElementalType element;
+    public ElementalEntity elementEntity;
 }

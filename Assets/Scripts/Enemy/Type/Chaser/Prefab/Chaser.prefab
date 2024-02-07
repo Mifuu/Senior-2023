@@ -193,6 +193,7 @@ GameObject:
   - component: {fileID: 1101601016422510208}
   - component: {fileID: 3442634205841368557}
   - component: {fileID: 5894831543541535611}
+  - component: {fileID: 1313030825609507613}
   m_Layer: 12
   m_Name: Chaser
   m_TagString: Untagged
@@ -454,6 +455,27 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 3fb24a2c248a98e41b5b6bc36b92c4b9, type: 2}
   NonStaticModules:
   - {fileID: 11400000, guid: fafcd24a184102a47af01abe0d517877, type: 2}
+--- !u!114 &1313030825609507613
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5781375362114392876}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48f1c086cbb862442b18553ebb43a9ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  elementalReactionDictPreset: 0
+  elementalApplyWeightPreset: 0
+  effectList: []
+  applyWeights:
+  - weight: 0
+    gunType: 0
+  - weight: 0
+    gunType: 0
+  maxCountToApply: 10
 --- !u!1 &6571919558389732338
 GameObject:
   m_ObjectHideFlags: 0
