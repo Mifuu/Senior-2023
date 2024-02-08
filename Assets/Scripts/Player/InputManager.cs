@@ -13,6 +13,7 @@ public class InputManager : MonoBehaviour
     private PlayerDash dash;
     public PlayerSwitchWeapon switchWeapon;
     private Coroutine shootingCoroutine;
+    private SkillManager skillManager;
 
     void Awake()
     {
@@ -22,6 +23,7 @@ public class InputManager : MonoBehaviour
         look = GetComponent<PlayerLook>();
         shoot = GetComponent<PlayerShoot>();
         dash = GetComponent<PlayerDash>();
+        skillManager = GetComponent<SkillManager>();   
 
         onFoot.Jump.performed += (ctx) => motor.Jump();
         onFoot.Shoot.started += (ctx) => StartShooting();
@@ -31,6 +33,9 @@ public class InputManager : MonoBehaviour
             float value = ctx.action.ReadValue<float>();
             switchWeapon.SwitchWeapon(value);
         };
+        onFoot.NormalSkill.performed += (ctx) =>  skillManager.ActivateNormalSkill();
+        onFoot.UltimateSkill.performed += (ctx) => skillManager.ActivateUltimateSkill();
+
     }
 
     void FixedUpdate()

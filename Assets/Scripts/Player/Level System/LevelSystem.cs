@@ -11,17 +11,19 @@ public class LevelSystem
 
 
     private int level;
-    private int exp;
-    private int expToNextLevel;
+    private float exp;
+    private float expToNextLevel;
+    private float expToNextLevelScaleFactor;
 
     public LevelSystem() 
     {
         level = 1;
-        exp = 0;
-        expToNextLevel = 100;
+        exp = 0f;
+        expToNextLevel = 100f;
+        expToNextLevelScaleFactor = 1.1f;
     }
 
-    public void AddExp(int amount) 
+    public void AddExp(float amount) 
     {
         exp += amount; 
         while (exp >= expToNextLevel)
@@ -41,6 +43,12 @@ public class LevelSystem
     public float GetExpNormalized()
     {
         return (float)exp / expToNextLevel;
+    }
+
+    public void IncreaseExpToNextLevel()
+    {
+        expToNextLevel *= expToNextLevelScaleFactor;
+        expToNextLevelScaleFactor += 0.02f;
     }
 
 }

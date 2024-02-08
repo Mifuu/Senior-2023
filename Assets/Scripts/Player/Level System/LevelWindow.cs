@@ -27,13 +27,13 @@ public class LevelWindow : MonoBehaviour
 
     private void SetExpBar(float expNormalized)
     {
-        Debug.Log("Setting Exp Bar: " + expNormalized);
+        //Debug.Log("Setting Exp Bar: " + expNormalized);
         expBarImage.fillAmount = expNormalized;
     }
 
     private void SetLevelNumber(int Lv)
     {
-        Debug.Log("Setting Level Number: " + Lv);
+        //Debug.Log("Setting Level Number: " + Lv);
         levelText.text = "Level " + Lv;
     }
 
