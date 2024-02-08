@@ -116,12 +116,13 @@ namespace RoomGeneration.Minimap
 
         void OnDrawGizmos()
         {
+            /*
             Gizmos.color = Color.red;
             Gizmos.DrawSphere(worldBottomLeft, 2f);
             Gizmos.DrawSphere(worldTopRight, 2f);
             Gizmos.DrawSphere(imageBottomLeft, 10f);
             Gizmos.DrawSphere(imageTopRight, 10f);
-
+            */
         }
     }
 
