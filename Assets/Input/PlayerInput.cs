@@ -80,6 +80,24 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""NormalSkill"",
+                    ""type"": ""Button"",
+                    ""id"": ""0942c5a4-0f8b-4fea-9227-954c59838909"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""UltimateSkill"",
+                    ""type"": ""Button"",
+                    ""id"": ""597face5-6255-45ce-90ab-05f6b5b1223e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -203,6 +221,28 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""action"": ""SwitchWeapon"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3f8471bc-4bf6-4891-a4b3-7717f7611367"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""NormalSkill"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""744afedc-ec27-421b-af7b-4c75ae91b83f"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""UltimateSkill"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -217,6 +257,8 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_OnFoot_Shoot = m_OnFoot.FindAction("Shoot", throwIfNotFound: true);
         m_OnFoot_Dash = m_OnFoot.FindAction("Dash", throwIfNotFound: true);
         m_OnFoot_SwitchWeapon = m_OnFoot.FindAction("SwitchWeapon", throwIfNotFound: true);
+        m_OnFoot_NormalSkill = m_OnFoot.FindAction("NormalSkill", throwIfNotFound: true);
+        m_OnFoot_UltimateSkill = m_OnFoot.FindAction("UltimateSkill", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -284,6 +326,8 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_OnFoot_Shoot;
     private readonly InputAction m_OnFoot_Dash;
     private readonly InputAction m_OnFoot_SwitchWeapon;
+    private readonly InputAction m_OnFoot_NormalSkill;
+    private readonly InputAction m_OnFoot_UltimateSkill;
     public struct OnFootActions
     {
         private @PlayerInput m_Wrapper;
@@ -294,6 +338,8 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         public InputAction @Shoot => m_Wrapper.m_OnFoot_Shoot;
         public InputAction @Dash => m_Wrapper.m_OnFoot_Dash;
         public InputAction @SwitchWeapon => m_Wrapper.m_OnFoot_SwitchWeapon;
+        public InputAction @NormalSkill => m_Wrapper.m_OnFoot_NormalSkill;
+        public InputAction @UltimateSkill => m_Wrapper.m_OnFoot_UltimateSkill;
         public InputActionMap Get() { return m_Wrapper.m_OnFoot; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -321,6 +367,12 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @SwitchWeapon.started += instance.OnSwitchWeapon;
             @SwitchWeapon.performed += instance.OnSwitchWeapon;
             @SwitchWeapon.canceled += instance.OnSwitchWeapon;
+            @NormalSkill.started += instance.OnNormalSkill;
+            @NormalSkill.performed += instance.OnNormalSkill;
+            @NormalSkill.canceled += instance.OnNormalSkill;
+            @UltimateSkill.started += instance.OnUltimateSkill;
+            @UltimateSkill.performed += instance.OnUltimateSkill;
+            @UltimateSkill.canceled += instance.OnUltimateSkill;
         }
 
         private void UnregisterCallbacks(IOnFootActions instance)
@@ -343,6 +395,12 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @SwitchWeapon.started -= instance.OnSwitchWeapon;
             @SwitchWeapon.performed -= instance.OnSwitchWeapon;
             @SwitchWeapon.canceled -= instance.OnSwitchWeapon;
+            @NormalSkill.started -= instance.OnNormalSkill;
+            @NormalSkill.performed -= instance.OnNormalSkill;
+            @NormalSkill.canceled -= instance.OnNormalSkill;
+            @UltimateSkill.started -= instance.OnUltimateSkill;
+            @UltimateSkill.performed -= instance.OnUltimateSkill;
+            @UltimateSkill.canceled -= instance.OnUltimateSkill;
         }
 
         public void RemoveCallbacks(IOnFootActions instance)
@@ -368,5 +426,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         void OnShoot(InputAction.CallbackContext context);
         void OnDash(InputAction.CallbackContext context);
         void OnSwitchWeapon(InputAction.CallbackContext context);
+        void OnNormalSkill(InputAction.CallbackContext context);
+        void OnUltimateSkill(InputAction.CallbackContext context);
     }
 }
