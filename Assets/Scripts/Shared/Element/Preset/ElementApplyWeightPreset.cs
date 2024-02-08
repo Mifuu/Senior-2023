@@ -4,7 +4,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "ElementApplyWeightPreset", menuName = "Element/Weapon Weight Preset")]
 public class ElementApplyWeightPreset: ScriptableObject
 {
-    private  Dictionary<TemporaryGunType, int> cachedApplyWeightDictionary; 
+    private Dictionary<TemporaryGunType, int> cachedApplyWeightDictionary; 
     [SerializeField] private List<WeaponAndElementalApplyWeight> weightList; 
 
     public Dictionary<TemporaryGunType, int> TransformListOfWeightToDict(List<WeaponAndElementalApplyWeight> gunTypes)
