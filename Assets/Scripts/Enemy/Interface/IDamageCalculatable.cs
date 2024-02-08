@@ -22,9 +22,9 @@ public struct DamageInfo
     public TemporaryGunType gunType;
 
     public DamageInfo(
-            GameObject dealer,
-            float amount,
-            ElementalDamageParameter elementalDamageParameter,
+            GameObject dealer = null,
+            float amount = 0f,
+            ElementalDamageParameter elementalDamageParameter = new ElementalDamageParameter(),
             TemporaryGunType gunType = TemporaryGunType.None)
     {
         this.dealer = dealer;
@@ -34,7 +34,7 @@ public struct DamageInfo
     }
 }
 
-public class ElementalDamageParameter
+public struct ElementalDamageParameter
 {
     public ElementalType element;
     public ElementalEntity elementEntity;

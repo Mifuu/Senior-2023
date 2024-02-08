@@ -16,7 +16,7 @@ public class DamageDealerCalculationPipeline : NetworkBehaviour, IDamageCalculat
         {
             if (StaticModules[i].requireInstantiation)
             {
-                var instantiatedModule = Instantiate(StaticModules[i]); // Caution: Instantiating a ScriptableObject, might impact performance
+                var instantiatedModule = Instantiate(StaticModules[i]);
                 instantiatedModule.Initialize(this, true, gameObject);
                 StaticModules[i] = instantiatedModule;
                 continue;
@@ -29,7 +29,7 @@ public class DamageDealerCalculationPipeline : NetworkBehaviour, IDamageCalculat
         {
             if (NonStaticModules[i].requireInstantiation)
             {
-                var instantiatedModule = Instantiate(NonStaticModules[i]); // Caution: Instantiating a ScriptableObject, might impact performance
+                var instantiatedModule = Instantiate(NonStaticModules[i]);
                 instantiatedModule.Initialize(this, false, gameObject);
                 NonStaticModules[i] = instantiatedModule;
                 continue;
@@ -57,15 +57,15 @@ public class DamageDealerCalculationPipeline : NetworkBehaviour, IDamageCalculat
 
     public DamageCalculationUnitBase AddUnit(DamageCalculationUnitBase unit, bool isStatic)
     {
+        unit.Initialize(this, isStatic, gameObject);
         if (isStatic)
         {
-            unit.Initialize(this, true, gameObject);
             StaticModules.Add(unit);
-            return unit;
         }
-
-        unit.Initialize(this, false, gameObject);
-        NonStaticModules.Add(unit);
+        else
+        {
+            NonStaticModules.Add(unit);
+        }
         return unit;
     }
 
