@@ -43,6 +43,8 @@ Material:
     m_Floats:
     - _HueShift: 0
     - _Metallic: 0
+    - _Move_Scale: 0.002
+    - _Move_Speed: 0.6
     - _QueueControl: 0
     - _QueueOffset: 0
     - _Smoothness: 0

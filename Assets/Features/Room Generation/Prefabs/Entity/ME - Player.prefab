@@ -26,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 7613600614274097148}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1131.8268, y: 504.4281, z: 190.40344}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -46,3 +46,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   iconPrefab: {fileID: 6593139854808045831, guid: 7638ce2dcd2fc49b688815eb2ff562ba, type: 3}
   trackType: 1
+  isAnchor: 0
