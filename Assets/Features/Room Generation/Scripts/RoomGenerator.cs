@@ -259,7 +259,7 @@ namespace RoomGeneration
 
 
         /// <summary>Get all doors that's compatible with the target door</summary>
-        public List<CandidateDoor> GetCandidateDoors(GeneratedDoorData targetDoor)
+        List<CandidateDoor> GetCandidateDoors(GeneratedDoorData targetDoor)
         {
             // add all doors with compatible parameters
             List<CandidateDoor> candidateDoors = GetCandidateDoors(targetDoor.doorDir);
@@ -287,7 +287,7 @@ namespace RoomGeneration
 
         /// <summary>Get all doors with the specific parameters</summary>
         // note - maybe should cache in the future?
-        public List<CandidateDoor> GetCandidateDoors(DoorDir targetDir)
+        List<CandidateDoor> GetCandidateDoors(DoorDir targetDir)
         {
             DoorDir connectingDir = GetConnectingDoorDir(targetDir);
 
@@ -320,7 +320,7 @@ namespace RoomGeneration
             return candidateDoors;
         }
 
-        public DoorDir GetConnectingDoorDir(DoorDir targetDoorDir)
+        DoorDir GetConnectingDoorDir(DoorDir targetDoorDir)
         {
             switch (targetDoorDir)
             {
@@ -338,7 +338,7 @@ namespace RoomGeneration
             return DoorDir.ZPos;
         }
 
-        public bool CheckVacancy(CandidateDoor candidateDoor, GeneratedDoorData targetDoor)
+        bool CheckVacancy(CandidateDoor candidateDoor, GeneratedDoorData targetDoor)
         {
             // rotate candidateDoor to match rot90
             Vector3 candidateDoorCoord = RoomRotUtil.GetRot90Pos(candidateDoor.doorData.coord, candidateDoor.rot90Factor);
@@ -357,14 +357,14 @@ namespace RoomGeneration
             return true;
         }
 
-        public Vector3Int GetPlacementOffset(DoorData connectingDoor, DoorData targetDoor)
+        Vector3Int GetPlacementOffset(DoorData connectingDoor, DoorData targetDoor)
         {
             Vector3 _p = targetDoor.coord - connectingDoor.coord;
             Vector3Int placementOffset = new Vector3Int(Mathf.RoundToInt(_p.x), Mathf.RoundToInt(_p.y), Mathf.RoundToInt(_p.z));
             return placementOffset;
         }
 
-        public Vector3Int GetPlacementOffset(Vector3 connectingDoorCoord, Vector3 targetDoorCoord)
+        Vector3Int GetPlacementOffset(Vector3 connectingDoorCoord, Vector3 targetDoorCoord)
         {
             Vector3 _p = targetDoorCoord - connectingDoorCoord;
             Vector3Int placementOffset = new Vector3Int(Mathf.RoundToInt(_p.x), Mathf.RoundToInt(_p.y), Mathf.RoundToInt(_p.z));

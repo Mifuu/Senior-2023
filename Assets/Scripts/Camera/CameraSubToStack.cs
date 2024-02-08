@@ -8,7 +8,7 @@ public class CameraSubToStack : MonoBehaviour
 {
     Camera subCamera;
 
-    void Awake()
+    void Start()
     {
         subCamera = GetComponent<Camera>();
         CameraBaseStack.Instance.AddSubCamera(subCamera);
