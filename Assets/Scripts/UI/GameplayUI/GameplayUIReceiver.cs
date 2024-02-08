@@ -1,14 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 namespace GameplayUI
 {
     [RequireComponent(typeof(GameplayUIManager))]
     public class GameplayUIReceiver : MonoBehaviour
     {
-        public GameplayUIManager manager;
-        GameplayUIPlayPanel playPanel;
+        [SerializeField] private GameplayUIManager manager;
+        [SerializeField] private GameplayUIPlayPanel playPanel;
 
         public static GameplayUIReceiver Instance { get; private set; }
 
@@ -25,6 +26,16 @@ namespace GameplayUI
         public void UpdateHPUI(float health, float maxHealth)
         {
             playPanel.UpdateHP(health, maxHealth);
+        }
+
+        public void UpdateExpUI(float exp)
+        {
+            playPanel.UpdateExp(exp);
+        }
+
+        public void UpdateLevelUI(int level)
+        {
+            playPanel.UpdateLevel(level);
         }
     }
 }

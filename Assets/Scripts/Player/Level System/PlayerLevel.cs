@@ -6,18 +6,22 @@ using UnityEngine;
 
 public class PlayerLevel : NetworkBehaviour
 {
-    private LevelSystem levelSystem;
+    public LevelSystem levelSystem;
     private PlayerHealth playerHealth;
 
     private void Awake()
     {
         playerHealth = GetComponent<PlayerHealth>();
+        levelSystem = new LevelSystem();
+        levelSystem.OnLevelChange += LevelSystem_OnlevelChanged;
     }
 
-    public void SetLevelSystem(LevelSystem levelSystem)
+    private void Update()
     {
-        this.levelSystem = levelSystem;
-        levelSystem.OnLevelChange += LevelSystem_OnlevelChanged;
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            AddExp(50);
+        }
     }
 
     // call this to add exp to the player
@@ -28,10 +32,8 @@ public class PlayerLevel : NetworkBehaviour
 
     private void LevelSystem_OnlevelChanged(object sender, EventArgs e)
     {
-        Debug.Log("PlayerLevel Script: player is leveled up to lv " + levelSystem.GetLevel() );
+        Debug.Log("PlayerLevel Script: player is leveled up to lv " + levelSystem.GetLevel());
         levelSystem.IncreaseExpToNextLevel();
         playerHealth.maxHealth += 1;
     }
-
-
 }
