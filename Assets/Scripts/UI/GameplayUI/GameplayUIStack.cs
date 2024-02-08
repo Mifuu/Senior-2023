@@ -2,11 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace UI
+namespace GameplayUI
 {
-    public class GameplayUI : MonoBehaviour
+    [RequireComponent(typeof(GameplayUIManager))]
+    public class GameplayUIStack : MonoBehaviour
     {
-        public static GameplayUI Instance { get; private set; }
+        public GameplayUIManager manager;
+
+        public static GameplayUIStack Instance { get; private set; }
         [ReadOnly] public Stack<PanelType> uiStack = new Stack<PanelType>();
 
         public UIObject[] uiPanels;
@@ -17,6 +20,12 @@ namespace UI
                 Destroy(gameObject);
             else
                 Instance = this;
+        }
+
+        void Start()
+        {
+            DisableAllPanels();
+            Push(PanelType.Play);
         }
 
         /// <summary>remove the top and return its type</summary>
@@ -80,19 +89,27 @@ namespace UI
                 Debug.LogError($"PanelType {panelType} not found in uiPanels", gameObject);
         }
 
+        private void DisableAllPanels()
+        {
+            foreach (UIObject uiObject in uiPanels)
+            {
+                uiObject.panelObject.SetActive(false);
+            }
+        }
+
         [System.Serializable]
         public class UIObject
         {
             public GameObject panelObject;
             public PanelType panelType;
         }
+    }
 
-        public enum PanelType
-        {
-            Gameplay,
-            Pause,
-            Gameover,
-            Minimap,
-        }
+    public enum PanelType
+    {
+        Play,
+        Pause,
+        Gameover,
+        Map,
     }
 }

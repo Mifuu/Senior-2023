@@ -2,7 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GeneratedRoomDataViewer : MonoBehaviour
+namespace RoomGeneration
 {
-    public GeneratedRoomData generatedRoomData;
+    public class GeneratedRoomDataViewer : MonoBehaviour
+    {
+        public GeneratedRoomData generatedRoomData;
+    }
 }
