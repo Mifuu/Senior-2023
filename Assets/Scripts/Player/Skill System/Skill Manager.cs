@@ -21,10 +21,10 @@ public class SkillManager : MonoBehaviour
     }
     public void ActivateNormalSkill()
     {
-        Debug.Log("SkillManaget: Try to activate Normal skill");
+        //Debug.Log("SkillManaget: Try to activate Normal skill");
         if (normalSkillReady)
         {
-            Debug.Log("SkillManaget: Try to activate Normal skill success");
+            //Debug.Log("SkillManaget: Try to activate Normal skill success");
             normalSkill.Activate();
             normalSkillReady = false;
             StartCoroutine(NormalSkillCooldown());
@@ -46,7 +46,7 @@ public class SkillManager : MonoBehaviour
 
     public void ActivateUltimateSkill()
     {
-        Debug.Log("SkillManaget: Try to activate Ultimate skill");
+        //Debug.Log("SkillManaget: Try to activate Ultimate skill");
         if (ultimateSkill != null&& ultimateSkillReady)
         {
             ultimateSkill.Activate();

@@ -23,7 +23,7 @@ public class InputManager : MonoBehaviour
         look = GetComponent<PlayerLook>();
         shoot = GetComponent<PlayerShoot>();
         dash = GetComponent<PlayerDash>();
-        skillManager = GetComponent<SkillManager>();   
+        skillManager = transform.Find("SkillManager").GetComponent<SkillManager>();  
 
         onFoot.Jump.performed += (ctx) => motor.Jump();
         onFoot.Shoot.started += (ctx) => StartShooting();
