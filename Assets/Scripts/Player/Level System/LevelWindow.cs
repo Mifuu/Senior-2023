@@ -5,6 +5,7 @@ using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.UI;
 
+[System.Obsolete("This class is outdated")]
 public class LevelWindow : MonoBehaviour
 {
     private LevelSystem levelSystem;
