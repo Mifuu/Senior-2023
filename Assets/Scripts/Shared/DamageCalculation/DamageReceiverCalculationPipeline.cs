@@ -7,35 +7,35 @@ public class DamageReceiverCalculationPipeline : NetworkBehaviour, IDamageCalcul
 {
     public float CachedFactor { get; protected set; }
     public float DefaultValue { get; set; } = 1;
-    [SerializeField] public List<DamageCalculationUnitBase> StaticModules { get; set; } = new List<DamageCalculationUnitBase>();
-    [SerializeField] public List<DamageCalculationUnitBase> NonStaticModules { get; set; } = new List<DamageCalculationUnitBase>();
+    [SerializeField] public List<DamageCalculationUnitBase> StaticUnits { get; set; } = new List<DamageCalculationUnitBase>();
+    [SerializeField] public List<DamageCalculationUnitBase> NonStaticUnits { get; set; } = new List<DamageCalculationUnitBase>();
 
     public void Start()
     {
-        for (int i = 0; i < StaticModules.Count; i++)
+        for (int i = 0; i < StaticUnits.Count; i++)
         {
-            if (StaticModules[i].requireInstantiation)
+            if (StaticUnits[i].requireInstantiation)
             {
-                var instantiatedModule = Instantiate(StaticModules[i]); // Caution: Instantiating a ScriptableObject, might impact performance
+                var instantiatedModule = Instantiate(StaticUnits[i]); // Caution: Instantiating a ScriptableObject, might impact performance
                 instantiatedModule.Initialize(this, true, gameObject);
-                StaticModules[i] = instantiatedModule;
+                StaticUnits[i] = instantiatedModule;
                 continue;
             }
 
-            StaticModules[i].Initialize(this, true, gameObject);
+            StaticUnits[i].Initialize(this, true, gameObject);
         }
 
-        for (int i = 0; i < NonStaticModules.Count; i++)
+        for (int i = 0; i < NonStaticUnits.Count; i++)
         {
-            if (NonStaticModules[i].requireInstantiation)
+            if (NonStaticUnits[i].requireInstantiation)
             {
-                var instantiatedModule = Instantiate(NonStaticModules[i]); // Caution: Instantiating a ScriptableObject, might impact performance
+                var instantiatedModule = Instantiate(NonStaticUnits[i]); // Caution: Instantiating a ScriptableObject, might impact performance
                 instantiatedModule.Initialize(this, true, gameObject);
-                NonStaticModules[i] = instantiatedModule;
+                NonStaticUnits[i] = instantiatedModule;
                 continue;
             }
 
-            NonStaticModules[i].Initialize(this, false, gameObject);
+            NonStaticUnits[i].Initialize(this, false, gameObject);
         }
 
         CalculateAndCache();
@@ -44,15 +44,24 @@ public class DamageReceiverCalculationPipeline : NetworkBehaviour, IDamageCalcul
     public override void OnDestroy()
     {
         base.OnDestroy();
-        foreach (var modules in StaticModules)
+        foreach (var modules in StaticUnits)
         {
             modules.Dispose();
         }
 
-        foreach (var modules in NonStaticModules)
+        foreach (var modules in NonStaticUnits)
         {
             modules.Dispose();
         }
+    }
+    
+    public DamageCalculationUnitBase FindUnit(DamageCalculationUnitBase unit, bool isStatic)
+    {
+        if (isStatic)
+        {
+            return StaticUnits.Find(unitInList => unit == unitInList);
+        }
+        return NonStaticUnits.Find(unitInList => unit == unitInList);
     }
 
     public DamageCalculationUnitBase AddUnit(DamageCalculationUnitBase unit, bool isStatic)
@@ -60,18 +69,41 @@ public class DamageReceiverCalculationPipeline : NetworkBehaviour, IDamageCalcul
         if (isStatic)
         {
             unit.Initialize(this, true, gameObject);
-            StaticModules.Add(unit);
+            StaticUnits.Add(unit);
             return unit;
         }
 
         unit.Initialize(this, false, gameObject);
-        NonStaticModules.Add(unit);
+        NonStaticUnits.Add(unit);
         return unit;
+    }
+
+    public bool RemoveUnit(DamageCalculationUnitBase unit, bool isStatic)  
+    {
+        if (isStatic)
+        {
+            return StaticUnits.Remove(unit);
+        }
+        
+        return NonStaticUnits.Remove(unit);
+    }
+    
+
+    public bool ChangeUnitEnableState(DamageCalculationUnitBase unit, bool isStatic, bool newState)
+    {
+        var foundUnit = FindUnit(unit, isStatic);
+        if (foundUnit != null)
+        {
+            foundUnit.IsEnabled = newState;    
+            return true;
+        }
+
+        return false;
     }
 
     public void CalculateAndCache()
     {
-        CachedFactor = StaticModules.Aggregate(DefaultValue, (aggregatedFactor, next) =>
+        CachedFactor = StaticUnits.Aggregate(DefaultValue, (aggregatedFactor, next) =>
         {
             if (!next.IsEnabled) return aggregatedFactor;
             return next.PreCalculate(aggregatedFactor);
@@ -81,7 +113,7 @@ public class DamageReceiverCalculationPipeline : NetworkBehaviour, IDamageCalcul
     public DamageInfo GetFinalReceivedDamageInfo(DamageInfo info)
     {
         info.amount = info.amount * CachedFactor;
-        return NonStaticModules.Aggregate(info, (aggregatedDamage, next) =>
+        return NonStaticUnits.Aggregate(info, (aggregatedDamage, next) =>
         {
             if (!next.IsEnabled) return aggregatedDamage;
             return next.Calculate(aggregatedDamage);

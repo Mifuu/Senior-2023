@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName= "ElementReactionEffectPreset", menuName = "Element/Reaction Preset")]
-public class ElementReactionEffectPreset: ScriptableObject
+[CreateAssetMenu(fileName = "ElementReactionEffectPreset", menuName = "Element/Preset/Reaction Preset")]
+public class ElementReactionEffectPreset : ScriptableObject
 {
     private Dictionary<ElementalType, Dictionary<ElementalType, ElementalReactionEffect>> cachedEffectDictionary;
     [SerializeField] private List<ElementalReactionEffect> effectList;
@@ -20,8 +20,13 @@ public class ElementReactionEffectPreset: ScriptableObject
             }
 
             Dictionary<ElementalType, ElementalReactionEffect> innerDict;
-            effectListDict.TryGetValue(effect.primary, out innerDict);
-            innerDict.TryAdd(effect.secondary, effect);
+            bool tryGetSuccess = effectListDict.TryGetValue(effect.primary, out innerDict);
+            
+            if (tryGetSuccess)
+            {
+                bool tryAddSuccess = innerDict.TryAdd(effect.secondary, effect);
+                if (!tryAddSuccess) Debug.LogWarning("Try adding does not return a success result, Recheck parameter");
+            }
         }
 
         return effectListDict;
