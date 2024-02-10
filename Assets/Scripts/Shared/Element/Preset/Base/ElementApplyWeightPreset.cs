@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "ElementApplyWeightPreset", menuName = "Element/Weapon Weight Preset")]
+[CreateAssetMenu(fileName = "ElementApplyWeightPreset", menuName = "Element/Preset/Weapon Weight Preset")]
 public class ElementApplyWeightPreset: ScriptableObject
 {
     private Dictionary<TemporaryGunType, int> cachedApplyWeightDictionary; 
@@ -12,7 +12,8 @@ public class ElementApplyWeightPreset: ScriptableObject
         Dictionary<TemporaryGunType, int> tempDict = new Dictionary<TemporaryGunType, int>();
         foreach (var gunWeight in gunTypes)
         {
-            tempDict.Add(gunWeight.gunType, gunWeight.weight);
+            bool tryAddSuccess = tempDict.TryAdd(gunWeight.gunType, gunWeight.weight);
+            if (!tryAddSuccess) Debug.LogWarning("Try adding does not return a successful result");
         }
         return tempDict;
     }

@@ -9,7 +9,8 @@ public class ElementAppliable : NetworkBehaviour
 
     [Header("Preset Configuration")]
     [Tooltip("Setting Preset will override the setting set on individual ElementAppliable Component")]
-    [SerializeField] private ElementReactionEffectPreset elementalReactionDictPreset;
+    [SerializeField] private ElementReactionEffectPreset elementalReactionEffectPreset;
+    [Tooltip("Setting Preset will override the setting set on individual ElementAppliable Component")]
     [SerializeField] private ElementApplyWeightPreset elementalApplyWeightPreset;
 
     [Header("Elemental Reaction Effect List")]
@@ -29,13 +30,13 @@ public class ElementAppliable : NetworkBehaviour
 
     public void Awake()
     {
-        if (elementalReactionDictPreset != null)
+        if (elementalReactionEffectPreset != null)
         {
-            effectListDict = elementalReactionDictPreset.GetDictionary();
+            effectListDict = elementalReactionEffectPreset.GetDictionary();
         }
         else
         {
-            effectListDict = elementalReactionDictPreset.TransformListOfEffectToDict(effectList);
+            effectListDict = elementalReactionEffectPreset.TransformListOfEffectToDict(effectList);
         }
 
         if (elementalApplyWeightPreset != null)
@@ -51,9 +52,7 @@ public class ElementAppliable : NetworkBehaviour
     public void TryApplyElement(GameObject applier, ElementalDamageParameter elementalDamageParameter, TemporaryGunType gunType)
     {
         int currentGunTypeWeight;
-        bool success = applyWeightDict.TryGetValue(gunType, out currentGunTypeWeight);
-
-        if (success)
+        if (applyWeightDict.TryGetValue(gunType, out currentGunTypeWeight))
         {
             Debug.LogWarning("Gun Elemental Apply Weight not found");
             currentGunTypeWeight = defaultWeaponApplyWeight;
@@ -66,6 +65,7 @@ public class ElementAppliable : NetworkBehaviour
         }
 
         elementApplyCount += currentGunTypeWeight;
+
         if (elementApplyCount <= maxCountToApply) return;
         if (!elementalDamageParameter.elementEntity.ApplyElement(elementalDamageParameter.element)) return;
 
@@ -75,22 +75,24 @@ public class ElementAppliable : NetworkBehaviour
 
             elementApplyCount = 0;
             Dictionary<ElementalType, ElementalReactionEffect> initialSearch;
-            bool initialSearchSuccess = effectListDict.TryGetValue(currentAppliedElement.Value, out initialSearch);
 
-            if (initialSearchSuccess)
+            if (effectListDict.TryGetValue(currentAppliedElement.Value, out initialSearch))
             {
                 ElementalReactionEffect secondarySearch;
-                bool secondarySearchSuccess = initialSearch.TryGetValue(elementalDamageParameter.element, out secondarySearch);
 
-                if (secondarySearchSuccess)
+                if (initialSearch.TryGetValue(elementalDamageParameter.element, out secondarySearch))
+                {
                     secondarySearch.DoEffect(applier, gameObject);
+                }
                 else
+                {
                     currentAppliedElement.Value = ElementalType.None;
+                }
             }
-
             else
+            {
                 currentAppliedElement.Value = ElementalType.None;
-
+            }
             return;
         }
 
