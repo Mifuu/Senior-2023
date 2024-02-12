@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Unity.Netcode;
 using UnityEngine;
+using System;
 
 public class DamageReceiverCalculationPipeline : NetworkBehaviour, IDamageCalculationPipelineBase
 {
@@ -9,6 +10,7 @@ public class DamageReceiverCalculationPipeline : NetworkBehaviour, IDamageCalcul
     public float DefaultValue { get; set; } = 1;
     [SerializeField] public List<DamageCalculationUnitBase> StaticUnits { get; set; } = new List<DamageCalculationUnitBase>();
     [SerializeField] public List<DamageCalculationUnitBase> NonStaticUnits { get; set; } = new List<DamageCalculationUnitBase>();
+    public event Action<float, float> OnCacheCalculate;
 
     public void Start()
     {
@@ -103,11 +105,14 @@ public class DamageReceiverCalculationPipeline : NetworkBehaviour, IDamageCalcul
 
     public void CalculateAndCache()
     {
+        var oldCache = CachedFactor;
         CachedFactor = StaticUnits.Aggregate(DefaultValue, (aggregatedFactor, next) =>
         {
             if (!next.IsEnabled) return aggregatedFactor;
             return next.PreCalculate(aggregatedFactor);
         });
+
+        OnCacheCalculate?.Invoke(oldCache, CachedFactor);
     }
 
     public DamageInfo GetFinalReceivedDamageInfo(DamageInfo info)
