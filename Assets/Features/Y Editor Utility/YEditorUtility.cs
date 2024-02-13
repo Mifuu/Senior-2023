@@ -7,11 +7,13 @@ public static class YEditorUtility
 {
     public static void BestGirlBanner()
     {
+#if UNITY_EDITOR
         Texture banner = (Texture)AssetDatabase.LoadAssetAtPath("Assets/Sprites/Editor/bestgirl_banner.png", typeof(Texture));
         float imageWidth = EditorGUIUtility.currentViewWidth - 40;
         float imageHeight = imageWidth * banner.height / banner.width;
         Rect rect = GUILayoutUtility.GetRect(imageWidth, imageHeight);
         GUI.DrawTexture(rect, banner, ScaleMode.ScaleToFit);
         GUILayout.Space(10);
+#endif
     }
 }
