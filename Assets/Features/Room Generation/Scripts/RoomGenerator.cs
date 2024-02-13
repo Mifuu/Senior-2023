@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
+using Unity.Netcode;
 using RoomGenUtil;
 
 namespace RoomGeneration
@@ -163,6 +164,13 @@ namespace RoomGeneration
 
             if (roomObject.TryGetComponent(out RoomDataPlotter plotter))
                 plotter.DisablePlotting();
+
+            // sync multiplayer
+            NetworkObject networkObject = roomObject.GetComponent<NetworkObject>();
+            if (networkObject != null)
+                networkObject.Spawn();
+            else
+                Debug.LogWarning($"{roomObject.name} does not have NetworkObject component and will NOT work in multiplayer");
         }
 
         GeneratedRoomData AddRoom(CandidateDoor candidateDoor, GeneratedDoorData targetDoor = null)
@@ -221,11 +229,16 @@ namespace RoomGeneration
 
             // disable plotting
             if (roomObject.TryGetComponent(out RoomDataPlotter plotter))
-            {
                 plotter.DisablePlotting();
-            }
 
             roomObject.AddComponent<GeneratedRoomDataViewer>().generatedRoomData = generatedRoomData;
+
+            // sync multiplayer
+            NetworkObject networkObject = roomObject.GetComponent<NetworkObject>();
+            if (networkObject != null)
+                networkObject.Spawn();
+            else
+                Debug.LogWarning($"{roomObject.name} does not have NetworkObject component and will NOT work in multiplayer");
 
             return generatedRoomData;
         }
