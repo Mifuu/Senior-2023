@@ -13,6 +13,7 @@ public class InputManager : MonoBehaviour
     private PlayerDash dash;
     public PlayerSwitchWeapon switchWeapon;
     private Coroutine shootingCoroutine;
+    private SkillManager skillManager;
 
     void Awake()
     {
@@ -22,6 +23,7 @@ public class InputManager : MonoBehaviour
         look = GetComponent<PlayerLook>();
         shoot = GetComponent<PlayerShoot>();
         dash = GetComponent<PlayerDash>();
+        skillManager = transform.Find("SkillManager").GetComponent<SkillManager>();  
 
         onFoot.Jump.performed += (ctx) => motor.Jump();
         onFoot.Shoot.started += (ctx) => StartShooting();
@@ -29,15 +31,11 @@ public class InputManager : MonoBehaviour
         onFoot.Dash.performed += ctx => dash.Dash(onFoot.Movement.ReadValue<Vector2>());
         onFoot.SwitchWeapon.performed += ctx => {
             float value = ctx.action.ReadValue<float>();
-            if (switchWeapon != null && switchWeapon.guns[(int)value].CanShoot())
-            {
-                switchWeapon.SwitchWeapon(value);
-            }
-            else
-            {
-                Debug.LogWarning("switchWeapon is null");
-            }
+            switchWeapon.SwitchWeapon(value);
         };
+        onFoot.NormalSkill.performed += (ctx) =>  skillManager.ActivateNormalSkill();
+        onFoot.UltimateSkill.performed += (ctx) => skillManager.ActivateUltimateSkill();
+
     }
 
     void FixedUpdate()

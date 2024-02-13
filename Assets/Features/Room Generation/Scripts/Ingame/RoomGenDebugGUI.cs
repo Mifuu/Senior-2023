@@ -3,50 +3,53 @@ using System.Collections.Generic;
 using UnityEngine;
 using Enemy;
 
-public class RoomGenDebugGUI : MonoBehaviour
+namespace RoomGeneration
 {
-    public RoomGenNetworkManager roomGenNetworkManager;
-    public RoomGenSpawnEnemy roomGenSpawnEnemy;
-
-    void OnGUI()
+    public class RoomGenDebugGUI : MonoBehaviour
     {
-        if (!DebugGUIManager.active)
-            return;
+        public RoomGenNetworkManager roomGenNetworkManager;
+        public RoomGenSpawnEnemy roomGenSpawnEnemy;
 
-        GUILayout.BeginArea(new Rect(Screen.width - 400, Screen.height / 3 + 10, 400, Screen.height / 3));
-        GUILayout.Label("[RoomGenNetworkDebugGUI]");
-        if (roomGenNetworkManager == null)
+        void OnGUI()
         {
-            GUILayout.Label("RoomGenNetworkManager.Instance == null");
-        }
-        else
-        {
-            if (!RoomGenNetworkManager.Instance.IsServer)
+            if (!DebugGUIManager.active)
+                return;
+
+            GUILayout.BeginArea(new Rect(Screen.width - 400, Screen.height / 3 + 10, 400, Screen.height / 3));
+            GUILayout.Label("[RoomGenNetworkDebugGUI]");
+            if (roomGenNetworkManager == null)
             {
-                GUILayout.Label("Not a server, no permissions to generate Room");
+                GUILayout.Label("RoomGenNetworkManager.Instance == null");
             }
             else
             {
-                if (GUILayout.Button("Generate Level (CTRL + M)"))
+                if (!RoomGenNetworkManager.Instance.IsServer)
                 {
-                    if (roomGenNetworkManager == null)
-                    {
-                        Debug.Log("RoomGenNetworkManager Not Found");
-                        return;
-                    }
-                    roomGenNetworkManager.TryGenerate();
+                    GUILayout.Label("Not a server, no permissions to generate Room");
                 }
-                if (GUILayout.Button("Spawn Enemy (CTRL + N)"))
+                else
                 {
-                    if (roomGenSpawnEnemy == null)
+                    if (GUILayout.Button("Generate Level (CTRL + M)"))
                     {
-                        Debug.Log("RoomGenSpawnEnemy Not Found");
-                        return;
+                        if (roomGenNetworkManager == null)
+                        {
+                            Debug.Log("RoomGenNetworkManager Not Found");
+                            return;
+                        }
+                        roomGenNetworkManager.TryGenerate();
                     }
-                    roomGenSpawnEnemy.ImidiateSpawnEnemy();
+                    if (GUILayout.Button("Spawn Enemy (CTRL + N)"))
+                    {
+                        if (roomGenSpawnEnemy == null)
+                        {
+                            Debug.Log("RoomGenSpawnEnemy Not Found");
+                            return;
+                        }
+                        roomGenSpawnEnemy.ImidiateSpawnEnemy();
+                    }
                 }
             }
+            GUILayout.EndArea();
         }
-        GUILayout.EndArea();
     }
 }
