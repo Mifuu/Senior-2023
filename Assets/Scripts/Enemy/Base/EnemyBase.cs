@@ -2,7 +2,6 @@ using UnityEngine;
 using Unity.Netcode;
 using UnityEngine.AI;
 using Unity.Netcode.Components;
-using UnityEngine.Events;
 using ObserverPattern;
 
 namespace Enemy
@@ -135,19 +134,20 @@ namespace Enemy
             StateMachine.ChangeState(IdleState);
         }
 
-        public void Damage(float damageAmount)
+        public void Damage(float damageAmount, GameObject dealer)
         {
             if (!IsServer || !isActiveAndEnabled) return;
             currentHealth.Value -= damageAmount;
             if (currentHealth.Value <= 0f)
             {
-                Die();
+                Die(dealer);
             }
         }
 
-        public void Die()
+        public void Die(GameObject dealer)
         {
             if (!IsServer || !isActiveAndEnabled) return;
+            dealer.GetComponent<PlayerLevel>()?.AddExp(100);
             CleanUp();
             var enemyNetworkObject = GetComponent<NetworkObject>();
             enemyNetworkObject.Despawn();
@@ -218,7 +218,7 @@ namespace Enemy
             var newPlayer = FindTargetPlayer();
             if (newPlayer == null)
             {
-                Die();
+                Die(null);
                 return;
             }
 
