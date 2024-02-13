@@ -47,13 +47,15 @@ public class PlayerStat : NetworkBehaviour
 
     public float GetElementDMGBonus(ElementalType element) => ElementalDMGBonus[(int)element];
     public float GetElementRES(ElementalType element) => ElementalRES[(int)element];
+    public float SetElementDMGBonud(ElementalType element, float value) => ElementalDMGBonus[(int)element] = value;
+    public float SetElementRES(ElementalType element, float value) => ElementalRES[(int)element] = value;
 
     #endregion
 
     #region Stats Upgrade
 
     [Serializable]
-    public struct StatUpgrageDetail
+    private struct StatUpgradeDetail
     {
         public enum MethodEnums { Additive, Multiplicative, Overwrite }
         [SerializeField] public MethodEnums Method;
@@ -64,16 +66,16 @@ public class PlayerStat : NetworkBehaviour
     }
 
     [Header("Stats Automatic Upgrade Details")]
-    [SerializeField] private List<StatUpgrageDetail> UpgradeDetail = new List<StatUpgrageDetail>();
+    [SerializeField] private List<StatUpgradeDetail> UpgradeDetail = new List<StatUpgradeDetail>();
 
     #endregion
 
     // NOTE: In Level Changed - Stats Upgrade Event, 
     // OnStatsChanged will be called ONCE even if multiple stats are changed
     public event Action OnStatsChanged;
+    private PlayerLevel playerLevel;
     private bool canEmitOnStatChanged = true;
     private bool isStatsReady = false;
-    private PlayerLevel playerLevel;
 
     public void Awake()
     {
@@ -141,7 +143,7 @@ public class PlayerStat : NetworkBehaviour
         canEmitOnStatChanged = false;
 
         // Writing O(n2) code like a pro
-        foreach (StatUpgrageDetail upgradeDetail in UpgradeDetail)
+        foreach (StatUpgradeDetail upgradeDetail in UpgradeDetail)
         {
             if (!(newLevel >= upgradeDetail.LevelLowerBoundInclusive && newLevel < upgradeDetail.LevelUpperBoundExclusive)) continue;
             foreach (StatsEnum statsEnum in upgradeDetail.Stats)
@@ -150,13 +152,13 @@ public class PlayerStat : NetworkBehaviour
                 {
                     switch (upgradeDetail.Method)
                     {
-                        case StatUpgrageDetail.MethodEnums.Additive:
+                        case StatUpgradeDetail.MethodEnums.Additive:
                             BaseStat[(int)statsEnum] += upgradeDetail.Amount;
                             break;
-                        case StatUpgrageDetail.MethodEnums.Multiplicative:
+                        case StatUpgradeDetail.MethodEnums.Multiplicative:
                             BaseStat[(int)statsEnum] *= upgradeDetail.Amount;
                             break;
-                        case StatUpgrageDetail.MethodEnums.Overwrite:
+                        case StatUpgradeDetail.MethodEnums.Overwrite:
                             BaseStat[(int)statsEnum] = upgradeDetail.Amount;
                             break;
                     }
@@ -169,13 +171,13 @@ public class PlayerStat : NetworkBehaviour
                     {
                         switch (upgradeDetail.Method)
                         {
-                            case StatUpgrageDetail.MethodEnums.Additive:
+                            case StatUpgradeDetail.MethodEnums.Additive:
                                 ElementalDMGBonus[i] += upgradeDetail.Amount;
                                 break;
-                            case StatUpgrageDetail.MethodEnums.Multiplicative:
+                            case StatUpgradeDetail.MethodEnums.Multiplicative:
                                 ElementalDMGBonus[i] *= upgradeDetail.Amount;
                                 break;
-                            case StatUpgrageDetail.MethodEnums.Overwrite:
+                            case StatUpgradeDetail.MethodEnums.Overwrite:
                                 ElementalDMGBonus[i] = upgradeDetail.Amount;
                                 break;
                         }
@@ -188,13 +190,13 @@ public class PlayerStat : NetworkBehaviour
                     {
                         switch (upgradeDetail.Method)
                         {
-                            case StatUpgrageDetail.MethodEnums.Additive:
+                            case StatUpgradeDetail.MethodEnums.Additive:
                                 ElementalRES[i] += upgradeDetail.Amount;
                                 break;
-                            case StatUpgrageDetail.MethodEnums.Multiplicative:
+                            case StatUpgradeDetail.MethodEnums.Multiplicative:
                                 ElementalRES[i] *= upgradeDetail.Amount;
                                 break;
-                            case StatUpgrageDetail.MethodEnums.Overwrite:
+                            case StatUpgradeDetail.MethodEnums.Overwrite:
                                 ElementalRES[i] = upgradeDetail.Amount;
                                 break;
                         }
