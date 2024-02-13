@@ -15,7 +15,7 @@ using System.Collections.Generic;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Utilities;
 
-public partial class @PlayerInput: IInputActionCollection2, IDisposable
+public partial class @PlayerInput : IInputActionCollection2, IDisposable
 {
     public InputActionAsset asset { get; }
     public @PlayerInput()
@@ -80,6 +80,24 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""NormalSkill"",
+                    ""type"": ""Button"",
+                    ""id"": ""0942c5a4-0f8b-4fea-9227-954c59838909"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""UltimateSkill"",
+                    ""type"": ""Button"",
+                    ""id"": ""597face5-6255-45ce-90ab-05f6b5b1223e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -203,6 +221,76 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""action"": ""SwitchWeapon"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3f8471bc-4bf6-4891-a4b3-7717f7611367"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""NormalSkill"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""744afedc-ec27-421b-af7b-4c75ae91b83f"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""UltimateSkill"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""OnUI"",
+            ""id"": ""0ab2d8e2-c4ff-410c-b763-d0912ead8603"",
+            ""actions"": [
+                {
+                    ""name"": ""Back"",
+                    ""type"": ""Button"",
+                    ""id"": ""c8cd26c0-c6bc-430c-a86e-992319523ec1"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Map"",
+                    ""type"": ""Button"",
+                    ""id"": ""71c045ce-327e-4202-9fb8-b76b3c56e426"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""adf01f7e-9d9b-4b0c-889c-8fcdb127320d"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Back"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""dd90ed18-477c-4a20-8195-03aaaf65abde"",
+                    ""path"": ""<Keyboard>/m"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Map"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -217,6 +305,12 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_OnFoot_Shoot = m_OnFoot.FindAction("Shoot", throwIfNotFound: true);
         m_OnFoot_Dash = m_OnFoot.FindAction("Dash", throwIfNotFound: true);
         m_OnFoot_SwitchWeapon = m_OnFoot.FindAction("SwitchWeapon", throwIfNotFound: true);
+        m_OnFoot_NormalSkill = m_OnFoot.FindAction("NormalSkill", throwIfNotFound: true);
+        m_OnFoot_UltimateSkill = m_OnFoot.FindAction("UltimateSkill", throwIfNotFound: true);
+        // OnUI
+        m_OnUI = asset.FindActionMap("OnUI", throwIfNotFound: true);
+        m_OnUI_Back = m_OnUI.FindAction("Back", throwIfNotFound: true);
+        m_OnUI_Map = m_OnUI.FindAction("Map", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -284,6 +378,8 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_OnFoot_Shoot;
     private readonly InputAction m_OnFoot_Dash;
     private readonly InputAction m_OnFoot_SwitchWeapon;
+    private readonly InputAction m_OnFoot_NormalSkill;
+    private readonly InputAction m_OnFoot_UltimateSkill;
     public struct OnFootActions
     {
         private @PlayerInput m_Wrapper;
@@ -294,6 +390,8 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         public InputAction @Shoot => m_Wrapper.m_OnFoot_Shoot;
         public InputAction @Dash => m_Wrapper.m_OnFoot_Dash;
         public InputAction @SwitchWeapon => m_Wrapper.m_OnFoot_SwitchWeapon;
+        public InputAction @NormalSkill => m_Wrapper.m_OnFoot_NormalSkill;
+        public InputAction @UltimateSkill => m_Wrapper.m_OnFoot_UltimateSkill;
         public InputActionMap Get() { return m_Wrapper.m_OnFoot; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -321,6 +419,12 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @SwitchWeapon.started += instance.OnSwitchWeapon;
             @SwitchWeapon.performed += instance.OnSwitchWeapon;
             @SwitchWeapon.canceled += instance.OnSwitchWeapon;
+            @NormalSkill.started += instance.OnNormalSkill;
+            @NormalSkill.performed += instance.OnNormalSkill;
+            @NormalSkill.canceled += instance.OnNormalSkill;
+            @UltimateSkill.started += instance.OnUltimateSkill;
+            @UltimateSkill.performed += instance.OnUltimateSkill;
+            @UltimateSkill.canceled += instance.OnUltimateSkill;
         }
 
         private void UnregisterCallbacks(IOnFootActions instance)
@@ -343,6 +447,12 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @SwitchWeapon.started -= instance.OnSwitchWeapon;
             @SwitchWeapon.performed -= instance.OnSwitchWeapon;
             @SwitchWeapon.canceled -= instance.OnSwitchWeapon;
+            @NormalSkill.started -= instance.OnNormalSkill;
+            @NormalSkill.performed -= instance.OnNormalSkill;
+            @NormalSkill.canceled -= instance.OnNormalSkill;
+            @UltimateSkill.started -= instance.OnUltimateSkill;
+            @UltimateSkill.performed -= instance.OnUltimateSkill;
+            @UltimateSkill.canceled -= instance.OnUltimateSkill;
         }
 
         public void RemoveCallbacks(IOnFootActions instance)
@@ -360,6 +470,60 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         }
     }
     public OnFootActions @OnFoot => new OnFootActions(this);
+
+    // OnUI
+    private readonly InputActionMap m_OnUI;
+    private List<IOnUIActions> m_OnUIActionsCallbackInterfaces = new List<IOnUIActions>();
+    private readonly InputAction m_OnUI_Back;
+    private readonly InputAction m_OnUI_Map;
+    public struct OnUIActions
+    {
+        private @PlayerInput m_Wrapper;
+        public OnUIActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Back => m_Wrapper.m_OnUI_Back;
+        public InputAction @Map => m_Wrapper.m_OnUI_Map;
+        public InputActionMap Get() { return m_Wrapper.m_OnUI; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(OnUIActions set) { return set.Get(); }
+        public void AddCallbacks(IOnUIActions instance)
+        {
+            if (instance == null || m_Wrapper.m_OnUIActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_OnUIActionsCallbackInterfaces.Add(instance);
+            @Back.started += instance.OnBack;
+            @Back.performed += instance.OnBack;
+            @Back.canceled += instance.OnBack;
+            @Map.started += instance.OnMap;
+            @Map.performed += instance.OnMap;
+            @Map.canceled += instance.OnMap;
+        }
+
+        private void UnregisterCallbacks(IOnUIActions instance)
+        {
+            @Back.started -= instance.OnBack;
+            @Back.performed -= instance.OnBack;
+            @Back.canceled -= instance.OnBack;
+            @Map.started -= instance.OnMap;
+            @Map.performed -= instance.OnMap;
+            @Map.canceled -= instance.OnMap;
+        }
+
+        public void RemoveCallbacks(IOnUIActions instance)
+        {
+            if (m_Wrapper.m_OnUIActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(IOnUIActions instance)
+        {
+            foreach (var item in m_Wrapper.m_OnUIActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_OnUIActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public OnUIActions @OnUI => new OnUIActions(this);
     public interface IOnFootActions
     {
         void OnMovement(InputAction.CallbackContext context);
@@ -368,5 +532,12 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         void OnShoot(InputAction.CallbackContext context);
         void OnDash(InputAction.CallbackContext context);
         void OnSwitchWeapon(InputAction.CallbackContext context);
+        void OnNormalSkill(InputAction.CallbackContext context);
+        void OnUltimateSkill(InputAction.CallbackContext context);
+    }
+    public interface IOnUIActions
+    {
+        void OnBack(InputAction.CallbackContext context);
+        void OnMap(InputAction.CallbackContext context);
     }
 }

@@ -32,4 +32,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/EnemyAndBossDev.unity
     guid: e764d537a1228694182435d8f942d885
+  - enabled: 1
+    path: Assets/Features/Room Generation/Scenes/MinimapDev.unity
+    guid: 9d45a2429466f44b2a8bd9df181c270a
+  - enabled: 1
+    path: Assets/Features/Pixel Rendered Camera/PixelRenderedCameraDev.unity
+    guid: 3be7423e0e0504e6089b2dd0db9912f8
+  - enabled: 1
+    path: Assets/Scenes/Sprint3Showcase.unity
+    guid: 25da36134c7cf4fd9b579d4d1c0120f6
   m_configObjects: {}

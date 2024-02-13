@@ -19,7 +19,6 @@ namespace Enemy
 
         [field: SerializeField] public float maxHealth { get; set; }
         public NetworkVariable<float> currentHealth { get; set; } = new NetworkVariable<float>(-1.0f);
-        public UnityEvent OnHealthChanged { get; set; }
 
         #endregion
 

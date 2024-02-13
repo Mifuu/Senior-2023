@@ -11,7 +11,6 @@ namespace Enemy
     {
         [field: SerializeField] public float maxHealth { get; set; }
         public NetworkVariable<float> currentHealth { get; set; } = new NetworkVariable<float>(0.0f); // NetworkVariable must be initialized
-        public UnityEvent OnHealthChanged { get; set; }
         public Rigidbody rigidBody { get; set; }
         [SerializeField] private EnemyTriggerCheck aggroDistanceTriggerCheck;
         private bool initialSetupComplete = false;
@@ -140,7 +139,6 @@ namespace Enemy
         {
             if (!IsServer || !isActiveAndEnabled) return;
             currentHealth.Value -= damageAmount;
-            OnHealthChanged?.Invoke();
             if (currentHealth.Value <= 0f)
             {
                 Die();
