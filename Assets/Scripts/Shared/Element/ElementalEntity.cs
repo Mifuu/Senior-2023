@@ -17,21 +17,22 @@ public class ElementalEntity : NetworkBehaviour
         }
     }
 
-    public bool ApplyElement(ElementalType elementalType)
+    public bool CheckCanApplyElement(ElementalType elementalType, bool setCooldownIfCanApply)
     {
         bool canApply;
         bool getSuccess = canApplyElementOfType.TryGetValue(elementalType, out canApply);
 
+        if (!setCooldownIfCanApply) return canApply;
         if (canApply && getSuccess)
         {
-            StartCoroutine(ApplyAndSetCooldown(elementalType));
+            StartCoroutine(SetApplyCooldown(elementalType));
             return true;
         }
 
         return false;
     }
 
-    private IEnumerator ApplyAndSetCooldown(ElementalType elementalType)
+    private IEnumerator SetApplyCooldown(ElementalType elementalType)
     {
         canApplyElementOfType[elementalType] = false;
         yield return new WaitForSeconds(cooldownTime);
