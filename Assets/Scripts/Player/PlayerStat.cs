@@ -5,10 +5,22 @@ using System.Collections.Generic;
 
 public class PlayerStat : NetworkBehaviour
 {
+    #region Stats Enum
+
     public enum StatsEnum { ATK, DEF, CritDMG, CritRate, EDMG, ERES, ALL }
+    private List<StatsEnum> StatsGroup1 = new List<StatsEnum>()
+    {
+        StatsEnum.ATK,
+        StatsEnum.DEF,
+        StatsEnum.CritDMG,
+        StatsEnum.CritRate
+    };
+
+    #endregion
 
     #region Stats Default Value
 
+    [Header("Default Stats")]
     [SerializeField] private float defaultATK = 1.0f;
     [SerializeField] private float defaultDEF = 1.0f;
     [SerializeField] private float defaultCritDMG = 1.0f;
@@ -20,9 +32,9 @@ public class PlayerStat : NetworkBehaviour
 
     #region Stats Internal
 
-    private NetworkList<float> BaseStat = new NetworkList<float>();
-    private NetworkList<float> ElementalDMGBonus = new NetworkList<float>();
-    private NetworkList<float> ElementalRES = new NetworkList<float>();
+    private NetworkList<float> BaseStat;
+    private NetworkList<float> ElementalDMGBonus;
+    private NetworkList<float> ElementalRES;
 
     #endregion
 
@@ -33,10 +45,8 @@ public class PlayerStat : NetworkBehaviour
     public float CritDMG { get => BaseStat[(int)StatsEnum.CritDMG]; set => BaseStat[(int)StatsEnum.CritDMG] = value; }
     public float CritRate { get => BaseStat[(int)StatsEnum.CritRate]; set => BaseStat[(int)StatsEnum.CritRate] = value; }
 
-    // public NetworkVariable<float> BaseATK = new NetworkVariable<float>(-1f);
-    // public NetworkVariable<float> BaseDEF = new NetworkVariable<float>(-1f);
-    // public NetworkVariable<float> CritDMG = new NetworkVariable<float>(-1f);
-    // public NetworkVariable<float> CritRate = new NetworkVariable<float>(-1f);
+    public float GetElementDMGBonus(ElementalType element) => ElementalDMGBonus[(int)element];
+    public float GetElementRES(ElementalType element) => ElementalRES[(int)element];
 
     #endregion
 
@@ -53,11 +63,25 @@ public class PlayerStat : NetworkBehaviour
         [SerializeField] public int LevelUpperBoundExclusive;
     }
 
+    [Header("Stats Automatic Upgrade Details")]
     [SerializeField] private List<StatUpgrageDetail> UpgradeDetail = new List<StatUpgrageDetail>();
 
     #endregion
 
+    // NOTE: In Level Changed - Stats Upgrade Event, 
+    // OnStatsChanged will be called ONCE even if multiple stats are changed
+    public event Action OnStatsChanged;
+    private bool canEmitOnStatChanged = true;
     private bool isStatsReady = false;
+    private PlayerLevel playerLevel;
+
+    public void Awake()
+    {
+        BaseStat = new NetworkList<float>(new float[StatsGroup1.Count]);
+        ElementalRES = new NetworkList<float>(new float[Enum.GetNames(typeof(ElementalType)).Length]);
+        ElementalDMGBonus = new NetworkList<float>(new float[Enum.GetNames(typeof(ElementalType)).Length]);
+        playerLevel = GetComponent<PlayerLevel>();
+    }
 
     public override void OnNetworkSpawn()
     {
@@ -75,10 +99,20 @@ public class PlayerStat : NetworkBehaviour
             ElementalRES[(int)elementalType] = defaultElementalRES;
         }
 
-        // Like and Subscribe to Player Level change here
-        
+        playerLevel.levelSystem.OnLevelChange += Temp_OnLevelChanged;
+        BaseStat.OnListChanged += OnStatsChangedAdapter;
+        ElementalRES.OnListChanged += OnStatsChangedAdapter;
+        ElementalDMGBonus.OnListChanged += OnStatsChangedAdapter;
+
         ServerSendStatsReadyClientRpc(true);
-        throw new System.NotImplementedException("PlayerStats should subscribe to player level change");
+    }
+
+    public override void OnNetworkDespawn()
+    {
+        playerLevel.levelSystem.OnLevelChange -= Temp_OnLevelChanged;
+        BaseStat.OnListChanged -= OnStatsChangedAdapter;
+        ElementalRES.OnListChanged -= OnStatsChangedAdapter;
+        ElementalDMGBonus.OnListChanged -= OnStatsChangedAdapter;
     }
 
     public override void OnDestroy()
@@ -88,28 +122,31 @@ public class PlayerStat : NetworkBehaviour
         BaseStat?.Dispose();
     }
 
-    // Used when Adapting/Changing stats when level changed
-    public void OnLevelChanged(int prev, int current)
+    private void Temp_OnLevelChanged(object o, System.EventArgs e)
+    {
+        Debug.LogWarning("Stats System is using temporary OnLevelChanged EventHandler");
+        OnLevelChanged(0, GetComponent<PlayerLevel>().levelSystem.GetLevel());
+    }
+
+    // Used to Adapting/Changing stats when player's level changed
+    private void OnLevelChanged(int prev, int current)
     {
         if (!IsServer) return;
         UpgradeStatsOnLevelChanged(current);
     }
 
-    public float GetElementDMGBonus(ElementalType element) => ElementalDMGBonus[(int)element];
-
-    public float GetElementRES(ElementalType element) => ElementalRES[(int)element];
-
     // Level Upgrade does not run often, so iterating through a list should be performant enough
     private void UpgradeStatsOnLevelChanged(float newLevel)
     {
+        canEmitOnStatChanged = false;
+
         // Writing O(n2) code like a pro
         foreach (StatUpgrageDetail upgradeDetail in UpgradeDetail)
         {
-            if (!(newLevel <= upgradeDetail.LevelLowerBoundInclusive && newLevel > upgradeDetail.LevelUpperBoundExclusive)) continue;
+            if (!(newLevel >= upgradeDetail.LevelLowerBoundInclusive && newLevel < upgradeDetail.LevelUpperBoundExclusive)) continue;
             foreach (StatsEnum statsEnum in upgradeDetail.Stats)
             {
-                if ((new List<StatsEnum>() { StatsEnum.ATK, StatsEnum.DEF, StatsEnum.CritDMG, StatsEnum.CritRate }).Contains(statsEnum)
-                        || statsEnum == StatsEnum.ALL)
+                if (StatsGroup1.Contains(statsEnum) || statsEnum == StatsEnum.ALL)
                 {
                     switch (upgradeDetail.Method)
                     {
@@ -125,9 +162,9 @@ public class PlayerStat : NetworkBehaviour
                     }
                 }
 
-                // WRITING O(N3) CODE LIKE A PRO
                 if (statsEnum == StatsEnum.ALL || statsEnum == StatsEnum.EDMG)
                 {
+                    // WRITING O(N3) CODE LIKE A PRO
                     for (int i = 0; i < ElementalDMGBonus.Count; i++)
                     {
                         switch (upgradeDetail.Method)
@@ -165,6 +202,15 @@ public class PlayerStat : NetworkBehaviour
                 }
             }
         }
+
+        canEmitOnStatChanged = true;
+        OnStatsChanged?.Invoke();
+    }
+
+    private void OnStatsChangedAdapter(NetworkListEvent<float> networkListEvent)
+    {
+        if (!canEmitOnStatChanged) return;
+        OnStatsChanged?.Invoke();
     }
 
     [ClientRpc]

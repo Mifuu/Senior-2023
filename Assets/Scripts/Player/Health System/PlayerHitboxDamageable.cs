@@ -23,7 +23,7 @@ public class PlayerHitboxDamageable : NetworkBehaviour, IDamageCalculatable
     public void Damage(DamageInfo damageInfo)
     {
         var trueDamageAmount = CalculateDamage(damageInfo);
-        damageable.Damage(trueDamageAmount);
+        damageable.Damage(trueDamageAmount, damageInfo.dealer);
     }
 
     public float getCurrentHealth() => damageable.currentHealth.Value;
