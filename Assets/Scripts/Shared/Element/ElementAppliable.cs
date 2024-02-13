@@ -67,7 +67,7 @@ public class ElementAppliable : NetworkBehaviour
         elementApplyCount += currentGunTypeWeight;
 
         if (elementApplyCount <= maxCountToApply) return;
-        if (!elementalDamageParameter.elementEntity.ApplyElement(elementalDamageParameter.element)) return;
+        if (!elementalDamageParameter.elementEntity.CheckCanApplyElement(elementalDamageParameter.element, true)) return;
 
         if (currentAppliedElement.Value != ElementalType.None)
         {
