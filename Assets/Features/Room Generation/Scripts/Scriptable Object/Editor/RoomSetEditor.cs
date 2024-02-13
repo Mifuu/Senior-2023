@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+using Unity.Netcode;
 
 namespace RoomGeneration
 {
@@ -9,6 +10,7 @@ namespace RoomGeneration
     public class RoomSetEditor : Editor
     {
         RoomSet roomSet;
+        NetworkPrefabsList networkPrefabsList;
 
         public override void OnInspectorGUI()
         {
@@ -24,7 +26,7 @@ namespace RoomGeneration
                 LoadAssets();
 
             GUILayout.Space(10);
-            GUILayout.Label("Auto Same Name Prefabs");
+            GUILayout.Label("Auto Setting Same Name Prefabs");
             if (GUILayout.Button("Get Room Prefabs"))
                 GetRoomPrefabs();
 

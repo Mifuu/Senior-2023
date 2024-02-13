@@ -24,6 +24,16 @@ namespace RoomGeneration
         [SerializeField]
         private NavigationBaker navigationBaker;
 
+        private void Awake()
+        {
+            if (!IsServer)
+            {
+                // disable the room generator and navigation baker if not server
+                roomGenerator.enabled = false;
+                navigationBaker.enabled = false;
+            }
+        }
+
         private void Update()
         {
             if (Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.M))
@@ -51,8 +61,14 @@ namespace RoomGeneration
             seed.Value = Random.Range(int.MinValue, int.MaxValue);
             isGeneratedOnServer.Value = true;
 
-            // tell clients to generate
-            GenerateLevelClientRpc(seed.Value);
+            // generate rooms
+            float startTime = Time.realtimeSinceStartup;
+
+            roomGenerator.StepAddRoom(roomAmount, seed.Value);
+            navigationBaker.BakeNavMesh();
+
+            Debug.Log("RoomGenNetworkManager.GenerateServerRPC(): Seed = " + seed.Value + ", Room Amount = " + roomAmount);
+            Debug.Log("Client ID: " + NetworkManager.Singleton.LocalClientId + " generated rooms in " + (Time.realtimeSinceStartup - startTime) + " seconds");
         }
 
         [ClientRpc]
@@ -66,18 +82,6 @@ namespace RoomGeneration
 
             Debug.Log("GenerateLevelClientRpc(): Seed = " + seedValue + ", Room Amount = " + roomAmount);
             Debug.Log("Client ID: " + NetworkManager.Singleton.LocalClientId + " generated rooms in " + (Time.realtimeSinceStartup - startTime) + " seconds");
-        }
-
-        public override void OnNetworkSpawn()
-        {
-            base.OnNetworkSpawn();
-
-            // check if host already generated the room
-            if (isGeneratedOnServer.Value)
-            {
-                GenerateLevelClientRpc(seed.Value);
-            }
-
         }
     }
 }

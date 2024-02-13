@@ -6,10 +6,13 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Features/Room Generation/Scenes/RoomGenCurrent.unity
+    guid: 1ddfaf24c3f554ff398145f7277c5d2e
+  - enabled: 1
     path: Assets/Scenes/Sprint2Showcase.unity
     guid: 8d6ff6d2dacf9410f95262d394f891dc
   - enabled: 0
-    path: Assets/Features/Room Generation/Scenes/RoomGenMultiplayer.unity
+    path: Assets/Features/Room Generation/Scenes/Archived/Archived_RoomGenMultiplayer.unity
     guid: 89d6eb69141cc4fb9b06b3be2e3a9813
   - enabled: 0
     path: Assets/Scenes/TerrainNetworkDev.unity
@@ -33,7 +36,7 @@ EditorBuildSettings:
     path: Assets/Scenes/EnemyAndBossDev.unity
     guid: e764d537a1228694182435d8f942d885
   - enabled: 1
-    path: Assets/Features/Room Generation/Scenes/MinimapDev.unity
+    path: Assets/Features/Room Generation/Scenes/Archived/Archived_MinimapDev.unity
     guid: 9d45a2429466f44b2a8bd9df181c270a
   - enabled: 1
     path: Assets/Features/Pixel Rendered Camera/PixelRenderedCameraDev.unity
