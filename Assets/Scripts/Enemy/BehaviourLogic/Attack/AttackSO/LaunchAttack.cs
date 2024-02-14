@@ -1,7 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using System;
 
 namespace Enemy
 {
@@ -9,7 +7,6 @@ namespace Enemy
     public class LaunchAttack : EnemyAttack
     {
         [Header("Launch Attack Attribute")]
-        [SerializeField] private float waitTime = 3.0f;
         [SerializeField] private float launchSpeed = 1000f;
         [SerializeField] private float preAttackWaitTime = 0.5f;
         [SerializeField] private float damagableTime = 1.0f;
@@ -41,7 +38,7 @@ namespace Enemy
 
             canDamage = true;
             enemy.rigidBody.AddForce(enemy.transform.forward * launchSpeed);
-            yield return new WaitForSeconds(waitTime);
+            yield return new WaitForSeconds(damagableTime);
             canDamage = false;
             EmitAttackEndsEvent();
 

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
 using System;
@@ -15,13 +13,25 @@ namespace Enemy
         [Header("Temporary Material Field")]
         [SerializeField] private Material activateMaterial;
         [SerializeField] private Material preActivateMaterial;
+        private NetworkVariable<bool> isOnActivateMaterial = new NetworkVariable<bool>(false);
 
         protected EnemyWithinTriggerCheck areaOfEffectTrigger;
         public event Action OnAOEPeriodEnd;
 
+        #region Animation
+
+        protected Animator animator;
+        protected readonly int attackAnimationTrigger = Animator.StringToHash("BeginAttack");
+        protected readonly int endAOEAnimationTrigger = Animator.StringToHash("BeginEnd");
+
+        #endregion
+
         public void Awake()
         {
             areaOfEffectTrigger = transform.Find("AOE")?.GetComponent<EnemyWithinTriggerCheck>();
+            animator = GetComponent<Animator>();
+            animator.keepAnimatorStateOnDisable = false;
+
             if (areaOfEffectTrigger == null)
             {
                 Debug.LogError("AOE have no trigger check (Hitbox)");
@@ -30,7 +40,7 @@ namespace Enemy
 
         public virtual void InitializeAOE(GameObject PlayerTarget, EnemyBase enemy)
         {
-            Debug.Log("AOE Base Player Target: " + PlayerTarget);
+            // Debug.Log("AOE Base Player Target: " + PlayerTarget);
             this.PlayerTarget = PlayerTarget;
             this.enemy = enemy;
         }
@@ -38,6 +48,11 @@ namespace Enemy
         protected void EmitAOEEndsEvent()
         {
             OnAOEPeriodEnd?.Invoke();
+        }
+
+        public override void OnNetworkSpawn()
+        {
+            base.OnNetworkSpawn();
         }
 
         public override void OnNetworkDespawn()
@@ -48,13 +63,17 @@ namespace Enemy
 
         public virtual void PreEffect() { }
         public virtual void CancelPreEffect() { }
-        public virtual void ActivateEffect() { GetComponent<Renderer>().material = activateMaterial; }
+        public virtual void ActivateEffect()
+        {
+            if (!IsServer) return;
+            animator.SetTrigger(attackAnimationTrigger);
+        }
         public virtual void CancelEffect() { }
         public virtual void ResetValue()
         {
             this.PlayerTarget = null;
             this.enemy = null;
-            GetComponent<Renderer>().material = preActivateMaterial;
+            if (!IsServer) return;
         }
     }
 }

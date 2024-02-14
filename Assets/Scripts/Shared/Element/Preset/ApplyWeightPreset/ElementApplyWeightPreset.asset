@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e2619f516bd9e345a1b3835211d305a, type: 3}
+  m_Name: ElementApplyWeightPreset
+  m_EditorClassIdentifier: 
+  weightList:
+  - weight: 8
+    gunType: 0
+  - weight: 3
+    gunType: 1
+  - weight: 5
+    gunType: 2
+  - weight: 1
+    gunType: 3
