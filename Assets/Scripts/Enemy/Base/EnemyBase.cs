@@ -50,7 +50,7 @@ namespace Enemy
         public Subject<float> CritRate = new Subject<float>(0.5f);
         public Subject<float> CritDmgFactor = new Subject<float>(1.2f);
 
-        public DamageDealerCalculationPipeline dealerPipeline;
+        public DamageCalculationComponent dealerPipeline;
 
         #endregion
 
@@ -59,7 +59,7 @@ namespace Enemy
             rigidBody = GetComponent<Rigidbody>();
             navMeshAgent = GetComponent<NavMeshAgent>();
             StateMachine = GetComponent<EnemyStateMachine>();
-            dealerPipeline = GetComponent<DamageDealerCalculationPipeline>();
+            dealerPipeline = GetComponent<DamageCalculationComponent>();
         }
 
         public void Update()

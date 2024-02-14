@@ -30,9 +30,11 @@ namespace Enemy
                 return info;
             }
 
-            info.amount = enemy.GetComponent<DamageDealerCalculationPipeline>().GetFinalDealthDamageAmount();
+            info.amount = enemy.GetComponent<DamageCalculationComponent>().GetFinalDealthDamageAmount();
             info.dealer = enemy.gameObject;
             Debug.Log("Damaging Amount: " + info.amount);
+
+            enemy.BaseAtk.Value += 20;
 
             damageable.Damage(info);
             return info;

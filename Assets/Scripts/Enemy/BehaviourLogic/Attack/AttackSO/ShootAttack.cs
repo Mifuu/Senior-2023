@@ -14,7 +14,7 @@ namespace Enemy
         [SerializeField] private float bulletDelay = 0.1f;
         private Rigidbody bulletRB;
         private GameObject bulletSpawn;
-        private DamageDealerCalculationPipeline dealerPipeline;
+        private DamageCalculationComponent dealerPipeline;
 
         public override void Initialize(GameObject targetPlayer, GameObject enemyGameObject)
         {

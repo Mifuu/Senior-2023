@@ -61,7 +61,7 @@ namespace Enemy
                 return info;
             }
 
-            var pipe = bulletOwner.GetComponent<DamageDealerCalculationPipeline>();
+            var pipe = bulletOwner.GetComponent<DamageCalculationComponent>();
             Debug.Log("Bullet Damage Amount: " + pipe.GetFinalDealthDamageAmount());
 
             info.dealer = bulletOwner;
