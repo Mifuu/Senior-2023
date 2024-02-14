@@ -37,12 +37,13 @@ namespace RoomGeneration
         void LoadAssets()
         {
             RoomSet roomSet = (RoomSet)target;
-            roomSet.roomSetItems = new RoomSetItem[0];
+            // roomSet.roomSetItems = new RoomSetItem[0];
 
             string[] guids = AssetDatabase.FindAssets("t:RoomData", new[] { roomSet.roomDataPath });
-
             Debug.Log("Found " + guids.Length + " asset in " + roomSet.roomDataPath + " folder");
 
+            // create new list
+            List<RoomSetItem> newList = new List<RoomSetItem>();
             foreach (string guid in guids)
             {
                 string path = AssetDatabase.GUIDToAssetPath(guid);
@@ -51,8 +52,30 @@ namespace RoomGeneration
                 RoomSetItem roomSetItem = new RoomSetItem();
                 roomSetItem.roomData = roomData;
 
-                ArrayUtility.Add(ref roomSet.roomSetItems, roomSetItem);
+                newList.Add(roomSetItem);
             }
+
+            List<RoomSetItem> currentList = new List<RoomSetItem>(roomSet.roomSetItems);
+
+            // remove items that is in current list but not in new list from current list
+            foreach (RoomSetItem c in currentList)
+            {
+                if (!newList.Contains(c))
+                {
+                    currentList.Remove(c);
+                }
+            }
+
+            // add items that is in new list but not in current list to current list
+            foreach (RoomSetItem n in newList)
+            {
+                if (!currentList.Contains(n))
+                {
+                    currentList.Add(n);
+                }
+            }
+
+            roomSet.roomSetItems = currentList.ToArray();
         }
 
         void GetRoomPrefabs()

@@ -10,6 +10,7 @@ namespace RoomGeneration
     public class RoomSet : ScriptableObject
     {
         public RoomBoxSnapValue snapValue;
+        public bool useFirstEntryAsStartingRoom = false;
         public RoomSetItem[] roomSetItems;
         [HideInInspector] public string roomDataPath = "";
 
@@ -20,6 +21,8 @@ namespace RoomGeneration
 
         public RoomData GetStartingRoomData()
         {
+            if (useFirstEntryAsStartingRoom)
+                return roomSetItems[0].roomData;
             var i = GetRandom(roomSetItems);
             return i.roomData;
         }
