@@ -30,6 +30,12 @@ public class PlayerLevel : NetworkBehaviour
         levelSystem.AddExp(amount);
     }
 
+    [ContextMenu("Add 100 EXP")]
+    public void Add100Exp()
+    {
+        AddExp(100f);
+    }
+
     private void LevelSystem_OnlevelChanged(object sender, EventArgs e)
     {
         Debug.Log("PlayerLevel Script: player is leveled up to lv " + levelSystem.GetLevel());

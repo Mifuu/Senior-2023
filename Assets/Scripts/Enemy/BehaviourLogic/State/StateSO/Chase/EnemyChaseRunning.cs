@@ -24,6 +24,7 @@ namespace Enemy
             if (!enemy.IsServer) return;
 
             isMoving = true;
+            enemy.navMeshAgent.speed = chaseSpeed;
             enemy.StartCoroutine(Move());
         }
 

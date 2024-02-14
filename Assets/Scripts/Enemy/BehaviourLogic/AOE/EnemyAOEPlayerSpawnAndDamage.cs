@@ -1,26 +1,25 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using System;
 
 namespace Enemy
 {
     public class EnemyAOEPlayerSpawnAndDamage : EnemyAOEPlayerSpawnAndActivate
     {
-        [SerializeField] private float baseDamageAmount = 5.0f;
-
         public override void ActivateEffect()
         {
             base.ActivateEffect();
             foreach (var players in areaOfEffectTrigger.PlayerWithinTrigger)
             {
-                DamageInfo info = new DamageInfo(enemy.gameObject, baseDamageAmount);
+                var info = enemy.dealerPipeline.GetFinalDealthDamageInfo();
+                info.dealer = enemy.gameObject;
+
+                // CONTINUE HERE: Bug, AOE cant damage the player since can't get IDamageCalculatable from here
                 var damager = players.GetComponent<IDamageCalculatable>();
                 if (damager == null)
                 {
+                    Debug.LogError("IDamageCalculatable Not found On Object " + players);
                     return;
                 }
-
+                
                 damager.Damage(info);
             }
         }
@@ -28,7 +27,7 @@ namespace Enemy
         public override void CancelEffect()
         {
             base.CancelEffect();
-            Debug.Log("Canceling Effect");
+            // Debug.Log("Canceling Effect");
             EmitAOEEndsEvent();
             throw new System.NotImplementedException("Implement EnemyAOEPlayerSpawnAndDamage CancelEffect Function");
         }

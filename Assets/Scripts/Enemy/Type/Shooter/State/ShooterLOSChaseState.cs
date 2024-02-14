@@ -42,14 +42,15 @@ namespace Enemy
 
             while (isStillChecking)
             {
-                Debug.Log("Shooter checking LOS, State: Chase");
                 if (lineOfSightCheck.IsPlayerInLineOfSight())
                 {
+                    Debug.Log("Shooter Checking LOS: Found");
                     isStillChecking = false;
                     enemy.StateMachine.ChangeState(enemy.AttackState);
                 }
                 else
                 {
+                    Debug.Log("Shooter Checking LOS: Not Found");
                     yield return new WaitForSeconds(checkCooldownTime);
                 }
             }

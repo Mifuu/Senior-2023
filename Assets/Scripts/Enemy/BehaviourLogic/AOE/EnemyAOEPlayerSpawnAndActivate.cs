@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
 
@@ -25,6 +24,11 @@ namespace Enemy
             CancelPreEffect();
             ActivateEffect();
             yield return new WaitForSeconds(timeTillDestroy);
+            animator.SetTrigger(endAOEAnimationTrigger);
+        }
+
+        public void OnAOEDespawnAnimationEnds()
+        {
             DespawnAOE();
             EmitAOEEndsEvent();
         }
@@ -34,7 +38,6 @@ namespace Enemy
             if (!IsServer) return;
             var networkObj = GetComponent<NetworkObject>();
             networkObj.Despawn();
-            // WTF: Comment this returnnetworkobj function and no key not found error
             // NetworkObjectPool.Singleton.ReturnNetworkObject(networkObj, AOEGameObjectPrefab);;
         }
     }
