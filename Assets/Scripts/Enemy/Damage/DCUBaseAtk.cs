@@ -1,27 +1,39 @@
 using UnityEngine;
-using ObserverPattern;
 
 namespace Enemy
 {
     [CreateAssetMenu(menuName = "Enemy/Enemy Damage Unit/Base Attack", fileName = "Base Attack")]
-    public class DCUBaseAtk : DamageCalculationUnit<float>
+    public class DCUBaseAtk : DamageCalculationUnitBase
     {
-        // Static Unit 
-        Subject<float> BaseAtk;
-
-        public override void Setup()
+        public override void Dispose(DamageCalculationComponent component, SubscriptionRemover remover)
         {
-            BaseAtk = AddParameterToTrackList("BaseAtk", gameObject.GetComponent<EnemyBase>().BaseAtk);
-            if (BaseAtk == null)
-            {
-                Debug.LogError(gameObject + " Base Damage Calculation Setup Fault");
-                IsEnabled = false;
-            }
+            throw new System.NotImplementedException();
         }
 
-        public override float PreCalculate(float initialValue)
+        public override void Initialize(DamageCalculationComponent component, SubscriptionAdder adder, bool updateOnChange)
         {
-            return BaseAtk.Value;
+            adder.AddFloat("BaseAtk", component.gameObject.GetComponent<EnemyBase>().BaseAtk);
+        }
+
+        public override float CalculateCache(DamageCalculationComponent component, SubscriptionGetter getter, float initialValue)
+        {
+            float BaseATK;
+            if (getter.GetFloat("BaseAtk", out BaseATK))
+            {
+                return BaseATK;
+            }
+
+            return initialValue;
         }
     }
 }
+
+// ENEMY DEALER 
+// - Base ATK (amount)
+// - Elemental DMG Bonus
+//
+// ENEMY RECEIVER
+// - Base DEF (factor)
+// - Elemental RES
+// - Weakpoint Damage Factor
+// - Gun Type

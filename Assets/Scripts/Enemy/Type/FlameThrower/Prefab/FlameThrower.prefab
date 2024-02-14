@@ -364,7 +364,7 @@ GameObject:
   - component: {fileID: 3883310846579953944}
   - component: {fileID: 5645603515667937679}
   - component: {fileID: 6875021862684231183}
-  - component: {fileID: 3851390108173021021}
+  - component: {fileID: 2299260608986427745}
   m_Layer: 12
   m_Name: FlameThrower
   m_TagString: Untagged
@@ -611,7 +611,7 @@ NavMeshAgent:
   m_BaseOffset: 1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &3851390108173021021
+--- !u!114 &2299260608986427745
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -623,9 +623,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 203c41fb2ba5eed4082bd90de9720711, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StaticModules:
-  - {fileID: 11400000, guid: 3fb24a2c248a98e41b5b6bc36b92c4b9, type: 2}
-  NonStaticModules: []
+  DealerPipeline:
+    StaticUnits:
+    - {fileID: 11400000, guid: 980fb623fa0981846ac9cb655a994d79, type: 2}
+    - {fileID: 11400000, guid: 3fb24a2c248a98e41b5b6bc36b92c4b9, type: 2}
+    NonStaticUnits:
+    - {fileID: 11400000, guid: fafcd24a184102a47af01abe0d517877, type: 2}
+    managerModule: {fileID: 0}
+  ReceiverPipeline:
+    StaticUnits: []
+    NonStaticUnits: []
+    managerModule: {fileID: 0}
 --- !u!1 &6583572216043592126
 GameObject:
   m_ObjectHideFlags: 0

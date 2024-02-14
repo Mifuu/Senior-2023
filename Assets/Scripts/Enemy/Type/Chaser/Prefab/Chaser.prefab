@@ -192,8 +192,8 @@ GameObject:
   - component: {fileID: 1403371354826126111}
   - component: {fileID: 1101601016422510208}
   - component: {fileID: 3442634205841368557}
-  - component: {fileID: 5894831543541535611}
   - component: {fileID: 1313030825609507613}
+  - component: {fileID: 8098474509445016584}
   m_Layer: 12
   m_Name: Chaser
   m_TagString: Untagged
@@ -438,23 +438,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6c0be61502bb534f922ebb746851216, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &5894831543541535611
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5781375362114392876}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 203c41fb2ba5eed4082bd90de9720711, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  StaticModules:
-  - {fileID: 11400000, guid: 980fb623fa0981846ac9cb655a994d79, type: 2}
-  - {fileID: 11400000, guid: 3fb24a2c248a98e41b5b6bc36b92c4b9, type: 2}
-  NonStaticModules:
-  - {fileID: 11400000, guid: fafcd24a184102a47af01abe0d517877, type: 2}
 --- !u!114 &1313030825609507613
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -473,6 +456,29 @@ MonoBehaviour:
   applyWeights: []
   maxCountToApply: 20
   defaultWeaponApplyWeight: 1
+--- !u!114 &8098474509445016584
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5781375362114392876}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 203c41fb2ba5eed4082bd90de9720711, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DealerPipeline:
+    StaticUnits:
+    - {fileID: 11400000, guid: 980fb623fa0981846ac9cb655a994d79, type: 2}
+    - {fileID: 11400000, guid: 3fb24a2c248a98e41b5b6bc36b92c4b9, type: 2}
+    NonStaticUnits:
+    - {fileID: 11400000, guid: fafcd24a184102a47af01abe0d517877, type: 2}
+    managerModule: {fileID: 0}
+  ReceiverPipeline:
+    StaticUnits: []
+    NonStaticUnits: []
+    managerModule: {fileID: 0}
 --- !u!1 &6571919558389732338
 GameObject:
   m_ObjectHideFlags: 0

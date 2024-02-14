@@ -1,35 +1,38 @@
 using UnityEngine;
-using ObserverPattern;
 
 namespace Enemy
 {
     [CreateAssetMenu(menuName = "Enemy/Enemy Damage Unit/Elemental Damage", fileName = "Elemental Damage Calculator")]
-    public class DCUElementalDamage : DamageCalculationUnit<float>
+    public class DCUElementalDamage : DamageCalculationUnitBase
     {
-        // Static Unit
-        EnemyBase enemy;
-        Subject<float> hydro;
-        Subject<float> pyro;
-        Subject<float> electro;
-
-        public override void Setup()
+        public override float CalculateCache(DamageCalculationComponent component, SubscriptionGetter getter, float initialValue)
         {
-            enemy = gameObject.GetComponent<EnemyBase>();
-            hydro = AddParameterToTrackList("hydro", enemy.HydroDamageBonus);
-            pyro = AddParameterToTrackList("pyro", enemy.PyroDamageBonus);
-            electro = AddParameterToTrackList("electro", enemy.ElectroDamageBonus);
+            float hydro, pyro, electro;
+            getter.GetFloat("hydro", out hydro);
+            getter.GetFloat("pyro", out pyro);
+            getter.GetFloat("electro", out electro);
+            return initialValue * hydro * pyro * electro;
+        }
 
-            if (hydro == null || pyro == null || electro == null)
+        public override void Initialize(DamageCalculationComponent component, SubscriptionAdder adder, bool updateOnChange)
+        {
+            var enemy = component.gameObject.GetComponent<EnemyBase>();
+            var hydro = adder.AddFloat("hydro", enemy.HydroDamageBonus);
+            var pyro = adder.AddFloat("pyro", enemy.PyroDamageBonus);
+            var electro = adder.AddFloat("electro", enemy.ElectroDamageBonus);
+
+            if (!hydro || !pyro || !electro)
             {
                 Debug.LogError("Elemental Damage Calculation Setup Fault");
-                IsEnabled = false;
+                // IsEnabled = false;
             }
         }
 
-        public override float PreCalculate(float initialValue)
+        public override void Dispose(DamageCalculationComponent component, SubscriptionRemover remover)
         {
-            // Not the real function, just testing
-            return initialValue * hydro.Value * pyro.Value * electro.Value;
+            remover.RemoveFloat("hydro");
+            remover.RemoveFloat("pyro");
+            remover.RemoveFloat("electro");
         }
     }
 }
