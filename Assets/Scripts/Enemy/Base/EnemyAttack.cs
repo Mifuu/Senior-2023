@@ -14,10 +14,6 @@ namespace Enemy
     {
         protected EnemyBase enemy;
         protected GameObject enemyGameObject;
-
-        [Header("Base Damage Attribute")]
-        [SerializeField] float baseDamageAmount = 5.0f;
-
         public event Action OnAttackEnds;
 
         public virtual void Initialize(GameObject targetPlayer, GameObject enemyGameObject)
@@ -34,11 +30,13 @@ namespace Enemy
                 return info;
             }
 
+            info.amount = enemy.GetComponent<DamageCalculationComponent>().GetFinalDealthDamageAmount();
             info.dealer = enemy.gameObject;
-            info.amount = baseDamageAmount;
-            damageable.Damage(info);
+            Debug.Log("Damaging Amount: " + info.amount);
 
-            Debug.Log("DAMAGING: Dealing " + info.amount + " DMG");
+            enemy.BaseAtk.Value += 20;
+
+            damageable.Damage(info);
             return info;
         }
 

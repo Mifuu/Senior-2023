@@ -18,7 +18,7 @@ public class PlayerHealth : NetworkBehaviour, IDamageable
         currentHealth.Value = maxHealth;
     }
 
-    public void Damage(float damageAmount)
+    public void Damage(float damageAmount, GameObject dealer)
     {
         if (!IsServer) return;
 
@@ -26,10 +26,10 @@ public class PlayerHealth : NetworkBehaviour, IDamageable
 
         if (currentHealth.Value <= 0f)
         {
-            Die();
+            Die(dealer);
         }
     }
-    public void Die()
+    public void Die(GameObject killer)
     {
         Debug.Log("Player Script: Player has died!");
         if (OnPlayerDie != null)

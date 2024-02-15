@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 183632532009993283}
   - component: {fileID: 7024638591926554329}
   - component: {fileID: 4088483597032151949}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: AOE
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -146,7 +146,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: f60f8d1a2516ea04db828100ddedd2cc, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.0001992
+      value: 1.000199
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: f60f8d1a2516ea04db828100ddedd2cc, type: 3}
       propertyPath: m_LocalPosition.z
@@ -188,6 +188,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MageAOEPrefab
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: f60f8d1a2516ea04db828100ddedd2cc, type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -201,6 +205,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: f60f8d1a2516ea04db828100ddedd2cc, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8207371979607444858}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: f60f8d1a2516ea04db828100ddedd2cc, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3547699661127956811}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: f60f8d1a2516ea04db828100ddedd2cc, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7755817018039167716}
   m_SourcePrefab: {fileID: 100100000, guid: f60f8d1a2516ea04db828100ddedd2cc, type: 3}
 --- !u!4 &5117675021699760723 stripped
 Transform:
@@ -250,3 +260,52 @@ MonoBehaviour:
   SpawnWithObservers: 1
   DontDestroyWithOwner: 0
   AutoObjectParentSync: 1
+--- !u!95 &3547699661127956811
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5498458629423864041}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 824d60f68b34b2243a4964551802f89e, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &7755817018039167716
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5498458629423864041}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8d0727d5ae3244e3b569694d3912374, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TransitionStateInfoList:
+  - IsCrossFadeExit: 0
+    Layer: 0
+    OriginatingState: 1496785226
+    DestinationState: 952107227
+    TransitionDuration: 0.25
+    TriggerNameHash: 267138845
+    TransitionIndex: 0
+  - IsCrossFadeExit: 0
+    Layer: 0
+    OriginatingState: 952107227
+    DestinationState: -1000361026
+    TransitionDuration: 0.25
+    TriggerNameHash: 1255046934
+    TransitionIndex: 0
+  m_Animator: {fileID: 3547699661127956811}
