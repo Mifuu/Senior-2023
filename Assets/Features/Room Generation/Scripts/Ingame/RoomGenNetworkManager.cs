@@ -17,6 +17,7 @@ namespace RoomGeneration
 
         [Header("Settings")]
         public int roomAmount = 10;
+        public int playSpawnRoomAmount = 4;
 
         [Header("Requirements")]
         [SerializeField]
@@ -64,7 +65,8 @@ namespace RoomGeneration
             // generate rooms
             float startTime = Time.realtimeSinceStartup;
 
-            roomGenerator.StepAddRoom(roomAmount, seed.Value);
+            // roomGenerator.StepAddRoom(roomAmount, seed.Value);
+            roomGenerator.GenerateLevel(roomAmount);
             navigationBaker.BakeNavMesh();
 
             Debug.Log("RoomGenNetworkManager.GenerateServerRPC(): Seed = " + seed.Value + ", Room Amount = " + roomAmount);

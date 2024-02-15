@@ -16,15 +16,18 @@ namespace RoomGeneration
         public RoomSetItem[] roomSetItems;
         [HideInInspector] public string roomDataPath = "";
 
-        public RoomData[] GetRoomDatas()
+        [Header("Generation Settings")]
+        public float minPlayerSpawnRoomDistance = 40f;
+
+        public List<RoomData> GetNormalRoomDatas()
         {
-            return roomSetItems.Select(i => i.roomData).ToArray();
+            return GetRoomDatasByTag(RoomTag.NormalRoom);
         }
 
         public RoomData GetStartingRoomData()
         {
-            RoomData[] centerRooms = GetRoomDatasByTag(RoomTag.CenterRoom);
-            if (centerRooms.Length != 0)
+            List<RoomData> centerRooms = GetRoomDatasByTag(RoomTag.CenterRoom);
+            if (centerRooms.Count() != 0)
             {
                 return GetRandom(centerRooms);
             }
@@ -34,9 +37,22 @@ namespace RoomGeneration
             return i.roomData;
         }
 
-        public RoomData[] GetRoomDatasByTag(RoomTag tag)
+        public RoomData GetPlayerSpawnRoomData()
         {
-            return roomSetItems.Where(i => i.HasTag(tag)).Select(i => i.roomData).ToArray();
+            List<RoomData> playerSpawnRooms = GetRoomDatasByTag(RoomTag.PlayerSpawnRoom);
+            if (playerSpawnRooms.Count() != 0)
+            {
+                return GetRandom(playerSpawnRooms);
+            }
+
+            Debug.Log("RoomSet.GetPlayerSpawnRoomData: No room with PlayerSpawnRoom tag found, returning random room.");
+            var i = GetRandom(roomSetItems);
+            return i.roomData;
+        }
+
+        public List<RoomData> GetRoomDatasByTag(RoomTag tag)
+        {
+            return roomSetItems.Where(i => i.HasTag(tag)).Select(i => i.roomData).ToList();
         }
 
         T GetRandom<T>(List<T> list) => list[UnityEngine.Random.Range(0, list.Count)];
@@ -56,7 +72,7 @@ namespace RoomGeneration
     {
         public RoomData roomData;
         [GenericMask("NormalRoom", "CenterRoom", "PlayerSpawnRoom")]
-        [SerializeField] private int mask = 1;
+        [SerializeField] private int mask = 0;
 
         public bool HasTag(RoomTag tag)
         {
@@ -66,8 +82,8 @@ namespace RoomGeneration
 
     public enum RoomTag
     {
-        NormalRoom = 1,
-        CenterRoom = 2,
-        PlayerSpawnRoom = 3
+        NormalRoom = 0,
+        CenterRoom = 1,
+        PlayerSpawnRoom = 2
     }
 }
