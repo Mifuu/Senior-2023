@@ -14,6 +14,7 @@ namespace GameplayUI
         public RelaySlider healthSlider;
         public RelaySlider expSlider;
         public TMP_Text levelText;
+        public TextMeshProUGUI promptText;
 
         public void UpdateHP(float health, float maxHealth)
         {
@@ -28,6 +29,11 @@ namespace GameplayUI
         public void UpdateLevel(int level)
         {
             levelText.text = "lv:" + level.ToString();
+        }
+
+        public void UpdatePromptText(string text)
+        {
+            promptText.text = text;
         }
     }
 }

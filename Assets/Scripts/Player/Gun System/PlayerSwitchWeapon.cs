@@ -34,6 +34,16 @@ public class PlayerSwitchWeapon : NetworkBehaviour
             int newWeaponIndex = Mathf.FloorToInt(index - 1);
             if (newWeaponIndex >= 0 && newWeaponIndex < guns.Length && guns[currentWeaponIndex].CanShoot())
             {
+                /*
+                if (guns[currentWeaponIndex].IsOwned())
+                {
+                    Debug.Log($"Player Script: Switch to weapon {newWeaponIndex + 1}");
+                    selectedWeapon = newWeaponIndex;
+                    SelectWeapon();
+                    guns[selectedWeapon].UpdateCanShoot(true);
+                }
+                */
+
                 Debug.Log($"Player Script: Switch to weapon {newWeaponIndex + 1}");
                 selectedWeapon = newWeaponIndex;
                 SelectWeapon();
