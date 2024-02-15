@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 901af196af09e55468290f0fa53963df, type: 3}
+  m_Name: EnemyReactionPreset
+  m_EditorClassIdentifier: 
+  effectList:
+  - {fileID: 11400000, guid: 6788bebb6121abb4fb2807f5bddf33f6, type: 2}
+  - {fileID: 11400000, guid: 29ec0d48490d96e49a224a2dc90f10b4, type: 2}
+  - {fileID: 11400000, guid: c379d5d26bb117449b5871aee68771e8, type: 2}
+  - {fileID: 11400000, guid: 8e117bb056206744b9dad64c742121de, type: 2}

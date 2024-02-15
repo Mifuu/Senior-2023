@@ -2,7 +2,7 @@ using UnityEngine;
 using Unity.Netcode;
 using UnityEngine.AI;
 using Unity.Netcode.Components;
-using UnityEngine.Events;
+using ObserverPattern;
 
 namespace Enemy
 {
@@ -11,6 +11,8 @@ namespace Enemy
         [field: SerializeField] public float maxHealth { get; set; }
         public NetworkVariable<float> currentHealth { get; set; } = new NetworkVariable<float>(0.0f); // NetworkVariable must be initialized
         public Rigidbody rigidBody { get; set; }
+        [SerializeField] private EnemyTriggerCheck aggroDistanceTriggerCheck;
+        private bool initialSetupComplete = false;
 
         #region State ScriptableObject Variable
 
@@ -39,32 +41,25 @@ namespace Enemy
         public GameObject targetPlayer;
         public NavMeshAgent navMeshAgent;
 
-        public void Start()
-        {
-            EnemyIdleBaseInstance.Initialize(gameObject, this);
-            EnemyAttackBaseInstance.Initialize(gameObject, this);
-            EnemyChaseBaseInstance.Initialize(gameObject, this);
-            EnemyKnockbackBaseInstance.Initialize(gameObject, this);
+        #region Stat and Damage Calculation
 
-            StateMachine.Initialize(IdleState);
-        }
+        public Subject<float> BaseAtk = new Subject<float>(100f);
+        public Subject<float> HydroDamageBonus = new Subject<float>(2f);
+        public Subject<float> PyroDamageBonus = new Subject<float>(2f);
+        public Subject<float> ElectroDamageBonus = new Subject<float>(2f);
+        public Subject<float> CritRate = new Subject<float>(0.5f);
+        public Subject<float> CritDmgFactor = new Subject<float>(1.2f);
+
+        public DamageCalculationComponent dealerPipeline;
+
+        #endregion
 
         public void Awake()
         {
-            EnemyChaseBaseInstance = Instantiate(EnemyChaseBase);
-            EnemyAttackBaseInstance = Instantiate(EnemyAttackBase);
-            EnemyIdleBaseInstance = Instantiate(EnemyIdleBase);
-            EnemyKnockbackBaseInstance = Instantiate(EnemyKnockbackBase);
-
-            StateMachine = gameObject.AddComponent<EnemyStateMachine>();
-
-            IdleState = new Enemy.EnemyIdleState(this, StateMachine);
-            ChaseState = new Enemy.EnemyChaseState(this, StateMachine);
-            AttackState = new Enemy.EnemyAttackState(this, StateMachine);
-            KnockbackState = new Enemy.EnemyKnockbackState(this, StateMachine);
-
             rigidBody = GetComponent<Rigidbody>();
             navMeshAgent = GetComponent<NavMeshAgent>();
+            StateMachine = GetComponent<EnemyStateMachine>();
+            dealerPipeline = GetComponent<DamageCalculationComponent>();
         }
 
         public void Update()
@@ -79,47 +74,83 @@ namespace Enemy
 
         public override void OnNetworkSpawn()
         {
-            OnEnemySpawn();
+            if (initialSetupComplete) return;
+            initialSetupComplete = true;
+
             if (!IsServer)
             {
-                Destroy(navMeshAgent);
-                Destroy(GetComponent<NetworkRigidbody>());
-                Destroy(GetComponent<Rigidbody>());
-                Destroy(GetComponent<Collider>());
+                ClientSetup();
             }
+            else
+            {
+                ServerSetup();
+            }
+
+            OnEnemySpawn();
         }
 
-        public override void OnNetworkDespawn()
+        private void ClientSetup()
         {
-            var playerHealth = targetPlayer.GetComponent<PlayerHealth>();
-            playerHealth.OnPlayerDie -= OnTargetPlayerRefindRequired;
+            Debug.Log("Running Non Server Setup");
+            Destroy(navMeshAgent);
+            Destroy(GetComponent<NetworkRigidbody>());
+            Destroy(GetComponent<Rigidbody>());
+            Destroy(GetComponent<Collider>());
+            enabled = false;
+            StateMachine.enabled = false;
+        }
+
+        private void ServerSetup()
+        {
+            Debug.Log("Running Server Setup");
+            EnemyChaseBaseInstance = Instantiate(EnemyChaseBase);
+            EnemyAttackBaseInstance = Instantiate(EnemyAttackBase);
+            EnemyIdleBaseInstance = Instantiate(EnemyIdleBase);
+            EnemyKnockbackBaseInstance = Instantiate(EnemyKnockbackBase);
+
+            IdleState = new Enemy.EnemyIdleState(this, StateMachine);
+            ChaseState = new Enemy.EnemyChaseState(this, StateMachine);
+            AttackState = new Enemy.EnemyAttackState(this, StateMachine);
+            KnockbackState = new Enemy.EnemyKnockbackState(this, StateMachine);
+
+            EnemyIdleBaseInstance.Initialize(gameObject, this);
+            EnemyAttackBaseInstance.Initialize(gameObject, this);
+            EnemyChaseBaseInstance.Initialize(gameObject, this);
+            EnemyKnockbackBaseInstance.Initialize(gameObject, this);
+
+            StateMachine.Initialize(IdleState);
+
+            rigidBody.isKinematic = false;
+            rigidBody.useGravity = false;
+
+            aggroDistanceTriggerCheck.OnHitboxTriggerEnter += (Collider other) => OnTargetPlayerChangeRequired(other.gameObject);
         }
 
         private void OnEnemySpawn()
         {
-            if (!IsServer) return; // temporary fix
+            if (!IsServer) return;
             OnTargetPlayerRefindRequired();
             currentHealth.Value = maxHealth;
             StateMachine.ChangeState(IdleState);
         }
 
-        public void Damage(float damageAmount)
+        public void Damage(float damageAmount, GameObject dealer)
         {
-            if (!IsServer) return;
+            if (!IsServer || !isActiveAndEnabled) return;
             currentHealth.Value -= damageAmount;
             if (currentHealth.Value <= 0f)
             {
-                Die();
+                Die(dealer);
             }
         }
 
-        public void Die()
+        public void Die(GameObject dealer)
         {
+            if (!IsServer || !isActiveAndEnabled) return;
+            dealer.GetComponent<PlayerLevel>()?.AddExp(100);
             CleanUp();
             var enemyNetworkObject = GetComponent<NetworkObject>();
             enemyNetworkObject.Despawn();
-            // BUG (FATAL): GameObject can not be used in the ReturnNetworkObject function, must reference actual prefab
-            // Comment this out as a temporary fix
             // NetworkObjectPool.Singleton.ReturnNetworkObject(enemyNetworkObject, gameObject);
         }
 
@@ -141,6 +172,8 @@ namespace Enemy
             PlayFootstepSounds
         }
 
+        private bool CheckIsNewPlayer(GameObject objectToCheck) => objectToCheck.GetComponent<PlayerHealth>() != null && objectToCheck != targetPlayer;
+
         private GameObject FindTargetPlayer()
         {
             var allPlayers = GameObject.FindGameObjectsWithTag("Player");
@@ -149,6 +182,8 @@ namespace Enemy
 
             foreach (var player in allPlayers)
             {
+                if (!CheckIsNewPlayer(player)) continue;
+
                 float distanceSqr = (player.transform.position - transform.position).sqrMagnitude;
                 if (distanceSqr <= closestDistanceSqr)
                 {
@@ -159,13 +194,14 @@ namespace Enemy
             return closestPlayer;
         }
 
-        private void OnTargetPlayerChangeRequired(GameObject newTargetPlayer)
+        public void OnTargetPlayerChangeRequired(GameObject newTargetPlayer)
         {
             if (!IsServer) return;
             if (targetPlayer != null)
             {
                 DesetupTargetPlayer();
             }
+            if (!CheckIsNewPlayer(newTargetPlayer)) return;
 
             targetPlayer = newTargetPlayer;
             SetupNewTargetPlayer(targetPlayer);
@@ -180,9 +216,9 @@ namespace Enemy
             }
 
             var newPlayer = FindTargetPlayer();
-            if (newPlayer == null && IsServer)
+            if (newPlayer == null)
             {
-                Die();
+                Die(null);
                 return;
             }
 
@@ -203,7 +239,6 @@ namespace Enemy
             // Setup target player, such as subscribe to player die event
             var playerHealth = targetPlayer.GetComponent<PlayerHealth>();
             playerHealth.OnPlayerDie += OnTargetPlayerRefindRequired;
-
         }
 
         [ClientRpc]
@@ -211,7 +246,7 @@ namespace Enemy
         {
             if (targetPlayerRef.TryGet(out NetworkObject targetPlayerNetworkObj, NetworkManager.Singleton))
             {
-                Debug.Log("New Target Player: " + targetPlayerNetworkObj);
+                Debug.Log(gameObject + " has new Target Player: " + targetPlayerNetworkObj);
                 targetPlayer = targetPlayerNetworkObj.gameObject;
             }
             else

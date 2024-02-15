@@ -70,17 +70,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Active: 1
   m_Settings:
-    AOMethod: 0
+    AOMethod: 1
     Downsample: 0
     AfterOpaque: 0
     Source: 1
     NormalSamples: 1
-    Intensity: 0.51
+    Intensity: 0.97
     DirectLightingStrength: 0.13
-    Radius: 0.54
+    Radius: 0.36
     Samples: 1
     BlurQuality: 0
-    Falloff: 165.6
+    Falloff: 15.87
     SampleCount: -1
   m_BlueNoise256Textures:
   - {fileID: 2800000, guid: 36f118343fc974119bee3d09e2111500, type: 3}
