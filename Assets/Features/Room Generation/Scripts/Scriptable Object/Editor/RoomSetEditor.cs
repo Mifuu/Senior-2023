@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEditor;
 using Unity.Netcode;
@@ -56,20 +57,23 @@ namespace RoomGeneration
             }
 
             List<RoomSetItem> currentList = new List<RoomSetItem>(roomSet.roomSetItems);
+            List<RoomData> newRoomDatas = newList.Select(i => i.roomData).ToList();
 
             // remove items that is in current list but not in new list from current list
-            foreach (RoomSetItem c in currentList)
+            for (int i = currentList.Count - 1; i >= 0; i--)
             {
-                if (!newList.Contains(c))
+                if (!newRoomDatas.Contains(currentList[i].roomData))
                 {
-                    currentList.Remove(c);
+                    currentList.RemoveAt(i);
                 }
             }
+
+            List<RoomData> currentRoomDatas = currentList.Select(i => i.roomData).ToList();
 
             // add items that is in new list but not in current list to current list
             foreach (RoomSetItem n in newList)
             {
-                if (!currentList.Contains(n))
+                if (!currentRoomDatas.Contains(n.roomData))
                 {
                     currentList.Add(n);
                 }
