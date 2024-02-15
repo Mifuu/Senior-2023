@@ -1,8 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEditor;
+
+using PropertyAttributes;
 
 namespace RoomGeneration
 {
@@ -10,7 +13,6 @@ namespace RoomGeneration
     public class RoomSet : ScriptableObject
     {
         public RoomBoxSnapValue snapValue;
-        public bool useFirstEntryAsStartingRoom = false;
         public RoomSetItem[] roomSetItems;
         [HideInInspector] public string roomDataPath = "";
 
@@ -21,15 +23,25 @@ namespace RoomGeneration
 
         public RoomData GetStartingRoomData()
         {
-            if (useFirstEntryAsStartingRoom)
-                return roomSetItems[0].roomData;
+            RoomData[] centerRooms = GetRoomDatasByTag(RoomTag.CenterRoom);
+            if (centerRooms.Length != 0)
+            {
+                return GetRandom(centerRooms);
+            }
+
+            Debug.Log("RoomSet.GetStartingRoomData: No room with CenterRoom tag found, returning random room.");
             var i = GetRandom(roomSetItems);
             return i.roomData;
         }
 
-        T GetRandom<T>(List<T> list) => list[Random.Range(0, list.Count)];
+        public RoomData[] GetRoomDatasByTag(RoomTag tag)
+        {
+            return roomSetItems.Where(i => i.HasTag(tag)).Select(i => i.roomData).ToArray();
+        }
 
-        T GetRandom<T>(T[] array) => array[Random.Range(0, array.Length)];
+        T GetRandom<T>(List<T> list) => list[UnityEngine.Random.Range(0, list.Count)];
+
+        T GetRandom<T>(T[] array) => array[UnityEngine.Random.Range(0, array.Length)];
 
         void OnValidate()
         {
@@ -43,5 +55,19 @@ namespace RoomGeneration
     public class RoomSetItem
     {
         public RoomData roomData;
+        [GenericMask("NormalRoom", "CenterRoom", "PlayerSpawnRoom")]
+        [SerializeField] private int mask = 1;
+
+        public bool HasTag(RoomTag tag)
+        {
+            return (mask & (1 << (int)tag)) != 0;
+        }
+    }
+
+    public enum RoomTag
+    {
+        NormalRoom = 1,
+        CenterRoom = 2,
+        PlayerSpawnRoom = 3
     }
 }
