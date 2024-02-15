@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GunSystem : MonoBehaviour
+public class GunInteractable : InteractableItem
 {
     // Start is called before the first frame update
     void Start()
@@ -14,5 +14,10 @@ public class GunSystem : MonoBehaviour
     void Update()
     {
         
+    }
+
+    protected override void Interact()
+    {
+        Debug.Log("interacted with" + gameObject.name);
     }
 }

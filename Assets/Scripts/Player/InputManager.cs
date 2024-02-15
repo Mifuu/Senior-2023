@@ -14,6 +14,7 @@ public class InputManager : MonoBehaviour
     public PlayerSwitchWeapon switchWeapon;
     private Coroutine shootingCoroutine;
     private SkillManager skillManager;
+    private PlayerInteract interact;
 
     void Awake()
     {
@@ -23,6 +24,7 @@ public class InputManager : MonoBehaviour
         look = GetComponent<PlayerLook>();
         shoot = GetComponent<PlayerShoot>();
         dash = GetComponent<PlayerDash>();
+        interact = GetComponent<PlayerInteract>();
         skillManager = transform.Find("SkillManager").GetComponent<SkillManager>();  
 
         onFoot.Jump.performed += (ctx) => motor.Jump();
@@ -35,6 +37,7 @@ public class InputManager : MonoBehaviour
         };
         onFoot.NormalSkill.performed += (ctx) =>  skillManager.ActivateNormalSkill();
         onFoot.UltimateSkill.performed += (ctx) => skillManager.ActivateUltimateSkill();
+        onFoot.Drop.performed += (_) => interact.DropHoldingGun();
 
     }
 

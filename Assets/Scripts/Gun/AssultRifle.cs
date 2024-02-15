@@ -5,48 +5,15 @@ using Unity.Netcode;
 using Unity.Netcode.Components;
 using UnityEngine.Serialization;
 
-public class Gun : NetworkBehaviour
+public class AssultRifle : NetworkBehaviour
 {
     [SerializeField] private Transform bullet;
     [SerializeField] private Transform bulletSpawnPosition;
     [SerializeField] private float raycastHitRange = 999f;
     [SerializeField] private float shootingDelay = 0.1f;
-    public GunInteractable gunInteractable;
+    public GameObject gunCounterpart;
 
     private bool canShoot = true;
-    private bool isOwned = true;
-
-    /*
-    private void Start()
-    {
-        // Load the prefab from the project's assets
-        GameObject loadedPrefab = Resources.Load<GameObject>("Path/To/Your/Prefab");
-
-        if (loadedPrefab != null)
-        {
-            // Instantiate the prefab in the scene
-            GameObject instance = Instantiate(loadedPrefab);
-
-            // Get the component from the instantiated prefab
-            YourComponentType component = instance.GetComponent<YourComponentType>();
-
-            if (component != null)
-            {
-                // Component is found, you can now use it
-                // For example, you can call a method on the component
-                component.YourMethod();
-            }
-            else
-            {
-                Debug.LogWarning("Component not found in the prefab.");
-            }
-        }
-        else
-        {
-            Debug.LogWarning("Prefab not found in the resources.");
-        }
-    }
-    */
 
     public void ShootBullet(Camera playerCam, LayerMask aimColliderLayerMask)
     {
@@ -105,19 +72,10 @@ public class Gun : NetworkBehaviour
         canShoot = boolean;
     }
 
-    public void UpdateIsOwned(bool boolean)
-    {
-       isOwned = boolean;
-    }
-
     public bool CanShoot()
     {
+        //Debug.Log("Gun Script: canShoot " + canShoot);
         return canShoot;
-    }
-
-    public bool IsOwned()
-    {
-        return isOwned;
     }
 
     private IEnumerator ShootingDelay()
