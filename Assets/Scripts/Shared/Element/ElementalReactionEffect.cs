@@ -9,6 +9,6 @@ public class ElementalReactionEffect : ScriptableObject
 
     public void DoEffect(GameObject applier, GameObject applied)
     {
-        Debug.Log(applier + " applied " + testString + " to " + applied);
+        Debug.LogWarning(applier + " applied " + testString + " to " + applied);
     }
 }

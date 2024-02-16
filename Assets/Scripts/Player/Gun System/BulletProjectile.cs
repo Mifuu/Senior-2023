@@ -11,12 +11,14 @@ public class BulletProjectile : NetworkBehaviour
     public float speed = 600f;
     public float lifetime = 5.0f;
     public float damageAmount = 1.0f;
+    public DamageCalculationComponent component;
 
     public ulong PlayerId { get; set; }
 
     private void Awake()
     {
         bulletRigidbody = GetComponent<Rigidbody>();
+        component = GetComponent<DamageCalculationComponent>();
     }
 
     public override void OnNetworkSpawn()
@@ -44,7 +46,14 @@ public class BulletProjectile : NetworkBehaviour
         if (damageable != null)
         {
             GameObject playerObject = NetworkManager.Singleton.SpawnManager.GetPlayerNetworkObject(PlayerId).gameObject;
+
+            if (component == null) // Warning: Null check is expensive, change later
+            {
+                component = playerObject.GetComponent<DamageCalculationComponent>();
+            }
+
             DamageInfo damageInfo = new DamageInfo(playerObject, damageAmount);
+            damageInfo = component.GetFinalDealthDamageInfo(damageInfo);
             damageable.Damage(damageInfo); // Pass the player GameObject to the Damage method
             Debug.Log("Bullet Script: " + playerObject.name);
             //Instantiate(vfxHit, transform.position, Quaternion.identity);

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ElementAppliable : NetworkBehaviour
 {
+    [SerializeField] private ElementalType defaultElement;
     private readonly NetworkVariable<ElementalType> currentAppliedElement = new NetworkVariable<ElementalType>(ElementalType.None);
     private ElementalType candidateElement;
 
@@ -49,10 +50,16 @@ public class ElementAppliable : NetworkBehaviour
         }
     }
 
+    public override void OnNetworkSpawn()
+    {
+        if (!IsServer) return;
+        currentAppliedElement.Value = defaultElement;
+    }
+
     public void TryApplyElement(GameObject applier, ElementalDamageParameter elementalDamageParameter, TemporaryGunType gunType)
     {
         int currentGunTypeWeight;
-        if (applyWeightDict.TryGetValue(gunType, out currentGunTypeWeight))
+        if (!applyWeightDict.TryGetValue(gunType, out currentGunTypeWeight))
         {
             Debug.LogWarning("Gun Elemental Apply Weight not found");
             currentGunTypeWeight = defaultWeaponApplyWeight;
@@ -65,8 +72,8 @@ public class ElementAppliable : NetworkBehaviour
         }
 
         elementApplyCount += currentGunTypeWeight;
-
         if (elementApplyCount <= maxCountToApply) return;
+
         if (!elementalDamageParameter.elementEntity.CheckCanApplyElement(elementalDamageParameter.element, true)) return;
 
         if (currentAppliedElement.Value != ElementalType.None)
@@ -76,11 +83,11 @@ public class ElementAppliable : NetworkBehaviour
             elementApplyCount = 0;
             Dictionary<ElementalType, ElementalReactionEffect> initialSearch;
 
-            if (effectListDict.TryGetValue(currentAppliedElement.Value, out initialSearch))
+            if (effectListDict.TryGetValue(elementalDamageParameter.element, out initialSearch))
             {
                 ElementalReactionEffect secondarySearch;
 
-                if (initialSearch.TryGetValue(elementalDamageParameter.element, out secondarySearch))
+                if (initialSearch.TryGetValue(currentAppliedElement.Value, out secondarySearch))
                 {
                     secondarySearch.DoEffect(applier, gameObject);
                 }

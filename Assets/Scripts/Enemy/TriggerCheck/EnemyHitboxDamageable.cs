@@ -8,21 +8,23 @@ namespace Enemy
     public class EnemyHitboxDamageable : NetworkBehaviour, IDamageCalculatable
     {
         private EnemyBase enemy;
+        private DamageCalculationComponent damageComponent;
+
         [SerializeField] private float simpleDamageFactor = 1.0f;
 
         public void Start()
         {
             enemy = GetComponentInParent<EnemyBase>(true);
+            damageComponent = GetComponentInParent<DamageCalculationComponent>();
             if (enemy == null)
             {
                 Debug.LogError(gameObject + ": Enemy Base Class Not Found");
             }
         }
 
-        // TODO: Temporary Damage Calculator
         protected virtual float CalculateDamage(DamageInfo damageInfo)
         {
-            return simpleDamageFactor * damageInfo.amount;
+            return damageComponent.GetFinalReceivedDamageAmount(damageInfo);
         }
 
         public void Damage(DamageInfo damageInfo)
