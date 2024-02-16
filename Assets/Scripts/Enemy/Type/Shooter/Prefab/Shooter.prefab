@@ -262,6 +262,9 @@ GameObject:
   - component: {fileID: -1184083049262301138}
   - component: {fileID: -8925991869078331464}
   - component: {fileID: -1543024161540903748}
+  - component: {fileID: -8648630474887892702}
+  - component: {fileID: -1655598033046370789}
+  - component: {fileID: -1582424334776719075}
   m_Layer: 12
   m_Name: Shooter
   m_TagString: Untagged
@@ -526,14 +529,58 @@ MonoBehaviour:
   DealerPipeline:
     StaticUnits:
     - {fileID: 11400000, guid: 980fb623fa0981846ac9cb655a994d79, type: 2}
-    - {fileID: 11400000, guid: 3fb24a2c248a98e41b5b6bc36b92c4b9, type: 2}
-    NonStaticUnits:
-    - {fileID: 11400000, guid: fafcd24a184102a47af01abe0d517877, type: 2}
+    NonStaticUnits: []
     managerModule: {fileID: 0}
   ReceiverPipeline:
     StaticUnits: []
-    NonStaticUnits: []
+    NonStaticUnits:
+    - {fileID: 11400000, guid: dfbe388722caebd4b98cb643122044d7, type: 2}
     managerModule: {fileID: 0}
+--- !u!114 &-8648630474887892702
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5446555976368360068}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48f1c086cbb862442b18553ebb43a9ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaultElement: 1
+  elementalReactionEffectPreset: {fileID: 11400000, guid: fc5a3b13384fe6848a26eddac95c58ed, type: 2}
+  elementalApplyWeightPreset: {fileID: 11400000, guid: 7e185ea1ce9046948b3c82f063ec56a0, type: 2}
+  effectList: []
+  applyWeights: []
+  maxCountToApply: 20
+  defaultWeaponApplyWeight: 1
+--- !u!114 &-1655598033046370789
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5446555976368360068}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ce46554f6442d64fbe7b4fbca0bea82, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cooldownTime: 5
+--- !u!114 &-1582424334776719075
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5446555976368360068}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d52bb18434f18b4391b8af7c7d25928, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  element: 0
 --- !u!1 &7085348734243973380
 GameObject:
   m_ObjectHideFlags: 0

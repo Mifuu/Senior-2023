@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e53675e86edda645a0087af52b8932b, type: 3}
   m_Name: New DCU Elemental Damage
   m_EditorClassIdentifier: 
-  requireInstantiation: 1
+  UniqueName: EnemyElemental
+  requireInstantiation: 0
