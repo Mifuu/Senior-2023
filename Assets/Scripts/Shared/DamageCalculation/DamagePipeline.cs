@@ -79,7 +79,6 @@ public class DamagePipeline
 
     public void CalculateAndCache()
     {
-        Debug.LogWarning("RECALCULATING CACHE");
         var oldCache = CachedValue;
         CachedValue = StaticUnits.Aggregate(DefaultValue, (aggregatedDamage, next) =>
         {

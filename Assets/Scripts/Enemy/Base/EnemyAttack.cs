@@ -32,9 +32,6 @@ namespace Enemy
 
             info.amount = enemy.GetComponent<DamageCalculationComponent>().GetFinalDealthDamageAmount();
             info.dealer = enemy.gameObject;
-            Debug.Log("Damaging Amount: " + info.amount);
-
-            enemy.BaseAtk.Value += 20;
 
             damageable.Damage(info);
             return info;
