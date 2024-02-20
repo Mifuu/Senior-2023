@@ -21,9 +21,13 @@ namespace RoomGeneration
 
         [Header("Requirements")]
         [SerializeField]
-        private RoomGenerator roomGenerator;
+        public RoomGenerator roomGenerator;
         [SerializeField]
         private NavigationBaker navigationBaker;
+
+
+        public delegate void OnGenerateLevel();
+        public OnGenerateLevel onGenerateLevel;
 
         private void Awake()
         {
@@ -71,6 +75,8 @@ namespace RoomGeneration
 
             Debug.Log("RoomGenNetworkManager.GenerateServerRPC(): Seed = " + seed.Value + ", Room Amount = " + roomAmount);
             Debug.Log("Client ID: " + NetworkManager.Singleton.LocalClientId + " generated rooms in " + (Time.realtimeSinceStartup - startTime) + " seconds");
+
+            onGenerateLevel?.Invoke();
         }
 
         [ClientRpc]

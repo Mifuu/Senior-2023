@@ -16,6 +16,9 @@ namespace RoomGeneration
         public RoomBoxData roomBoxData;
         public RoomDoorData roomDoorData;
 
+        [HideInInspector]
+        public int roomTagMask;     // this is for RoomSet to assign when setting tag
+
         public List<DoorData> GetDoorDatas(DoorDir doorDir)
         {
             List<DoorData> doorDatas = new List<DoorData>();
@@ -25,6 +28,11 @@ namespace RoomGeneration
                     doorDatas.Add(d);
             }
             return doorDatas;
+        }
+
+        public bool HasTag(RoomTag tag)
+        {
+            return (roomTagMask & (1 << (int)tag)) != 0;
         }
     }
 

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
-
+#if UNITY_EDITOR
 using PropertyAttributes;
 
 [CustomPropertyDrawer(typeof(GenericMaskAttribute))]
@@ -21,3 +21,5 @@ public class GenericMaskPropertyDrawer : PropertyDrawer
         property.intValue = EditorGUI.MaskField(position, label, property.intValue, attrib.MaskNames);
     }
 }
+
+#endif

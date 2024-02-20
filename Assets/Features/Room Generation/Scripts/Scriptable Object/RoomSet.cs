@@ -63,6 +63,11 @@ namespace RoomGeneration
         {
 #if UNITY_EDITOR
             EditorUtility.SetDirty(this);
+
+            foreach (var item in roomSetItems)
+            {
+                item.roomData.roomTagMask = item.mask;
+            }
 #endif
         }
     }
@@ -72,7 +77,7 @@ namespace RoomGeneration
     {
         public RoomData roomData;
         [GenericMask("NormalRoom", "CenterRoom", "PlayerSpawnRoom")]
-        [SerializeField] private int mask = 0;
+        [SerializeField] public int mask = 0;
 
         public bool HasTag(RoomTag tag)
         {
