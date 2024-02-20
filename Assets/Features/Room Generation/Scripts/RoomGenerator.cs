@@ -296,11 +296,13 @@ namespace RoomGeneration
 
             // sync multiplayer
             NetworkObject networkObject = roomObject.GetComponent<NetworkObject>();
-            if (networkObject != null)
-                networkObject.Spawn();
-            else
-                Debug.LogWarning($"{roomObject.name} does not have NetworkObject component and will NOT work in multiplayer");
-
+            if (Application.isPlaying)
+            {
+                if (networkObject != null)
+                    networkObject.Spawn();
+                else
+                    Debug.LogWarning($"{roomObject.name} does not have NetworkObject component and will NOT work in multiplayer");
+            }
             return generatedRoomData;
         }
 
@@ -534,6 +536,45 @@ namespace RoomGeneration
             }
 
             return false;
+        }
+
+        public List<GameObject> GetSpawnRooms()
+        {
+            List<GameObject> outputs = new List<GameObject>();
+            foreach (var d in generatedRoomDatas)
+            {
+                if (d.roomData.HasTag(RoomTag.PlayerSpawnRoom))
+                {
+                    outputs.Add(d.gameObject);
+                }
+            }
+
+            return outputs;
+        }
+
+        public List<Transform> GetSpawnTransforms()
+        {
+            List<GameObject> spawnRooms = GetSpawnRooms();
+
+            List<Transform> outputs = new List<Transform>();
+            foreach (var r in spawnRooms)
+            {
+                RoomDataPlotter rdp = r.GetComponent<RoomDataPlotter>();
+                if (!rdp)
+                {
+                    Debug.LogError("RoomGenerator.GetSpawnTransforms: RoomDataPlotter not found in " + r.name);
+                    continue;
+                }
+                if (!rdp.spawnTransform)
+                {
+                    Debug.LogError("RoomGenerator.GetSpawnTransforms: spawnTransform not found in " + r.name + " even though it is a RoomTag.PlayerSpawnRoom");
+                    continue;
+                }
+
+                outputs.Add(rdp.spawnTransform);
+            }
+
+            return outputs;
         }
 
         /*
