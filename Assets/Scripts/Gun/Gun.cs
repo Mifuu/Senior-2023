@@ -11,42 +11,20 @@ public class Gun : NetworkBehaviour
     [SerializeField] private Transform bulletSpawnPosition;
     [SerializeField] private float raycastHitRange = 999f;
     [SerializeField] private float shootingDelay = 0.1f;
+    //public GameObject playerObject;
+    public ElementalEntity playerEntity;
     public GunInteractable gunInteractable;
+    public ElementAttachable elementAttachable;
 
     private bool canShoot = true;
     private bool isOwned = true;
 
-    /*
-    private void Start()
+    private void Awake()
     {
-        // Load the prefab from the project's assets
-        GameObject loadedPrefab = Resources.Load<GameObject>("Path/To/Your/Prefab");
-
-        if (loadedPrefab != null)
-        {
-            // Instantiate the prefab in the scene
-            GameObject instance = Instantiate(loadedPrefab);
-
-            // Get the component from the instantiated prefab
-            YourComponentType component = instance.GetComponent<YourComponentType>();
-
-            if (component != null)
-            {
-                // Component is found, you can now use it
-                // For example, you can call a method on the component
-                component.YourMethod();
-            }
-            else
-            {
-                Debug.LogWarning("Component not found in the prefab.");
-            }
-        }
-        else
-        {
-            Debug.LogWarning("Prefab not found in the resources.");
-        }
+        elementAttachable = GetComponent<ElementAttachable>();
+        GameObject playerObject = transform.parent.parent.gameObject;
+        playerEntity = playerObject.GetComponent<ElementalEntity>();
     }
-    */
 
     public void ShootBullet(Camera playerCam, LayerMask aimColliderLayerMask)
     {
@@ -131,10 +109,12 @@ public class Gun : NetworkBehaviour
     private void SpawnBulletServerRpc(ulong playerId, Vector3 bulletSpawnPosition, Quaternion bulletRotation)
     {
         var bulletObj = Instantiate(bullet, bulletSpawnPosition, bulletRotation);
+
         var bulletComponent = bulletObj.GetComponent<BulletProjectile>();
         bulletComponent.PlayerId = playerId; // Pass the player's network object ID
+        bulletComponent.elementalType = elementAttachable.element;
+        bulletComponent.entity = playerEntity;
         var networkBulletObj = bulletObj.GetComponent<NetworkObject>();
-        // networkBulletObj.SpawnWithOwnership(localId);
         networkBulletObj.Spawn();
     }
 

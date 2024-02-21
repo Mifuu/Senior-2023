@@ -69,6 +69,10 @@ GameObject:
   - component: {fileID: 663060055944682856}
   - component: {fileID: 1093752573501184549}
   - component: {fileID: 1855286808091104082}
+  - component: {fileID: -934966325237789224}
+  - component: {fileID: 7995700460758469413}
+  - component: {fileID: 2748762815417405034}
+  - component: {fileID: 1235742095557865747}
   m_Layer: 14
   m_Name: Player
   m_TagString: Player
@@ -383,6 +387,79 @@ MonoBehaviour:
   mask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &-934966325237789224
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1287504444611049030}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1587fd49cf6332a44896da413485fd9f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaultATK: 1
+  defaultDEF: 1
+  defaultCritDMG: 1
+  defaultCritRate: 1
+  defaultElementalDMGBonus: 1
+  defaultElementalRES: 1
+  UpgradeDetail: []
+--- !u!114 &7995700460758469413
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1287504444611049030}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 203c41fb2ba5eed4082bd90de9720711, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DealerPipeline:
+    StaticUnits:
+    - {fileID: 11400000, guid: df930b97c0fc1354db5acfcc5859d935, type: 2}
+    NonStaticUnits:
+    - {fileID: 11400000, guid: 5fe5b83ec80afa8468c50314f26946b8, type: 2}
+    managerModule: {fileID: 0}
+  ReceiverPipeline:
+    StaticUnits: []
+    NonStaticUnits: []
+    managerModule: {fileID: 0}
+--- !u!114 &2748762815417405034
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1287504444611049030}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ce46554f6442d64fbe7b4fbca0bea82, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cooldownTime: 5
+--- !u!114 &1235742095557865747
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1287504444611049030}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48f1c086cbb862442b18553ebb43a9ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaultElement: 4
+  elementalReactionEffectPreset: {fileID: 0}
+  elementalApplyWeightPreset: {fileID: 0}
+  effectList: []
+  applyWeights: []
+  maxCountToApply: 20
+  defaultWeaponApplyWeight: 1
 --- !u!1 &2159792468815808837
 GameObject:
   m_ObjectHideFlags: 0

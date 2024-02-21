@@ -18,8 +18,8 @@ public class PlayerNonStatic : DamageCalculationUnitBase
 
     public override DamageInfo CalculateActual(DamageCalculationComponent component, SubscriptionGetter getter, DamageInfo info)
     {
-        info.elementalDamageParameter = new ElementalDamageParameter(attachable.element, entity);
-        info.amount *= stat.GetElementDMGBonus(attachable.element);
+        //info.elementalDamageParameter = new ElementalDamageParameter(attachable.element, entity);
+        info.amount *= stat.GetElementDMGBonus(info.elementalDamageParameter.element);
         info.gunType = TemporaryGunType.Pistol;
         return info;
     }
