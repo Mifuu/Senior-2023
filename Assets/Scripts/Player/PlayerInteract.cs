@@ -50,6 +50,7 @@ public class PlayerInteract : NetworkBehaviour
             InteractableItem interactable = hitinfo.collider.GetComponent<InteractableItem>();
             if (interactable != null)
             {
+                //Debug.Log("player is looking at: " + interactable.name);
                 promptText = interactable.promptMessage;
                 if (inputManager.onFoot.Interact.triggered)
                 {

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5978096147618632017}
   - component: {fileID: -5754440858381666308}
   - component: {fileID: -5800418474134001730}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Shotgun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -119,7 +119,7 @@ GameObject:
   - component: {fileID: 4761132358657418541}
   - component: {fileID: 8718575055161074135}
   - component: {fileID: 231764366767809776}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cylinder (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -226,7 +226,7 @@ GameObject:
   - component: {fileID: 1136838628265378839}
   - component: {fileID: 4501752166057082344}
   - component: {fileID: 6716879961559552753}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Capsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -333,7 +333,7 @@ GameObject:
   - component: {fileID: 7761006857482164065}
   - component: {fileID: 7645879860131956180}
   - component: {fileID: 7787976473833509611}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: w
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -438,7 +438,7 @@ GameObject:
   - component: {fileID: 2696975000198402305}
   - component: {fileID: 6238063764727084177}
   - component: {fileID: 3984746058002960860}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: w (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -543,7 +543,7 @@ GameObject:
   - component: {fileID: 1202391969905825367}
   - component: {fileID: 9023225825170306055}
   - component: {fileID: 6566324446120351254}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cylinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
