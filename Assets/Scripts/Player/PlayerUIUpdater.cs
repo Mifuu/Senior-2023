@@ -45,11 +45,22 @@ public class PlayerUIUpdater : MonoBehaviour
             Debug.LogWarning("GameplayUIReceiver is not found");
         }
 
+        // Update Player Prompt Text
+        if (playerInteract.IsOwner && gameplayUIReceiver)
+        {
+            playerInteract.OnPromptTextChanged += HandlePromptTextChanged =>
+            gameplayUIReceiver.UpdatePromptText(playerInteract.promptText);
+        }
+
         // Update Player Key
         if (playerInventory != null && playerInventory.IsOwner && gameplayUIReceiver)
         {
             playerInventory.Key.OnValueChanged += (prev, current) => 
             gameplayUIReceiver.UpdateKeyText(playerInventory.Key.Value);
+        }
+        else if (!gameplayUIReceiver)
+        {
+            Debug.LogWarning("GameplayUIReceiver is not found");
         }
     }
 }

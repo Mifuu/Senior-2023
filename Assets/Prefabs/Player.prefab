@@ -474,7 +474,7 @@ MonoBehaviour:
   playerHealth: {fileID: 267396813232174775}
   playerLevel: {fileID: 663060055944682856}
   playerInteract: {fileID: 1855286808091104082}
-  playerInventory: {fileID: 0}
+  playerInventory: {fileID: 1093752573501184549}
 --- !u!1 &4983654777501466718
 GameObject:
   m_ObjectHideFlags: 0
