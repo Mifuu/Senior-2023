@@ -10,8 +10,10 @@ public class BulletProjectile : NetworkBehaviour
     private Rigidbody bulletRigidbody;
     public float speed = 600f;
     public float lifetime = 5.0f;
-    public float damageAmount = 1.0f;
+    //public float damageAmount = 1.0f;
     public DamageCalculationComponent component;
+    public ElementalType elementalType; // gun need to set this when fire a bullet ***
+    public ElementalEntity entity;
 
     public ulong PlayerId { get; set; }
 
@@ -52,7 +54,8 @@ public class BulletProjectile : NetworkBehaviour
                 component = playerObject.GetComponent<DamageCalculationComponent>();
             }
 
-            DamageInfo damageInfo = new DamageInfo(playerObject, damageAmount);
+            DamageInfo damageInfo = new DamageInfo(playerObject);
+            damageInfo.elementalDamageParameter = new ElementalDamageParameter(elementalType, entity);
             damageInfo = component.GetFinalDealthDamageInfo(damageInfo);
             damageable.Damage(damageInfo); // Pass the player GameObject to the Damage method
             Debug.Log("Bullet Script: " + playerObject.name);
