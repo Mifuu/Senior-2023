@@ -233,6 +233,10 @@ GameObject:
   - component: {fileID: -7445528833963190562}
   - component: {fileID: 5298137167184838573}
   - component: {fileID: -1602356023900199517}
+  - component: {fileID: 5098019750962643724}
+  - component: {fileID: -8698348121100161140}
+  - component: {fileID: 7806393220172879936}
+  - component: {fileID: -1952474762954063180}
   m_Layer: 12
   m_Name: Mage
   m_TagString: Untagged
@@ -372,6 +376,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <maxHealth>k__BackingField: 40
   aggroDistanceTriggerCheck: {fileID: 7161197138267151029}
+  stat: {fileID: 0}
   EnemyAttackBase: {fileID: 11400000, guid: 630b896d110854841be2dffd8f01818b, type: 2}
   EnemyIdleBase: {fileID: 11400000, guid: 14134fe2c295e9544a5547525c22c16b, type: 2}
   EnemyChaseBase: {fileID: 11400000, guid: f0de20db2f3463e48b7db5c836ced6d3, type: 2}
@@ -488,14 +493,87 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DealerPipeline:
+    disabledStaticUnit: 0
+    disabledNonStaticUnit: 0
     StaticUnits:
-    - {fileID: 11400000, guid: 980fb623fa0981846ac9cb655a994d79, type: 2}
-    NonStaticUnits: []
+    - {fileID: 11400000, guid: 6067f0f8570f69a428eeb193b8809213, type: 2}
+    NonStaticUnits:
+    - {fileID: 11400000, guid: ab9495666d0f31e48815a4bee6f8e43a, type: 2}
+    - {fileID: 11400000, guid: a16c31727ded7944980fba1aa08427f3, type: 2}
     managerModule: {fileID: 0}
   ReceiverPipeline:
-    StaticUnits: []
-    NonStaticUnits: []
+    disabledStaticUnit: 0
+    disabledNonStaticUnit: 0
+    StaticUnits:
+    - {fileID: 11400000, guid: ab9495666d0f31e48815a4bee6f8e43a, type: 2}
+    NonStaticUnits:
+    - {fileID: 11400000, guid: 04fcf0ca823cacd42b8829db2378e981, type: 2}
     managerModule: {fileID: 0}
+--- !u!114 &5098019750962643724
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5759202222480714440}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 479c2ffaf86b75d459cd890ef8f37998, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  upgradeDetail: {fileID: 11400000, guid: 641307a09eec1f447aac8900e3027ea2, type: 2}
+  gunWeakness: {fileID: 11400000, guid: cfe138e0ad3b6f54ab4a8d67ae97c250, type: 2}
+  defaultBaseDMG: 10
+  defaultBaseDMGReceiveFactor: 1
+  defaultElementalDmg: 1
+  defaultElementalRES: 1
+  Level:
+    m_InternalValue: 1
+--- !u!114 &-8698348121100161140
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5759202222480714440}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48f1c086cbb862442b18553ebb43a9ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaultElement: 0
+  elementalReactionEffectPreset: {fileID: 11400000, guid: fc5a3b13384fe6848a26eddac95c58ed, type: 2}
+  elementalApplyWeightPreset: {fileID: 11400000, guid: 7e185ea1ce9046948b3c82f063ec56a0, type: 2}
+  effectList: []
+  applyWeights: []
+  maxCountToApply: 20
+  defaultWeaponApplyWeight: 1
+--- !u!114 &7806393220172879936
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5759202222480714440}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d52bb18434f18b4391b8af7c7d25928, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  element: 0
+--- !u!114 &-1952474762954063180
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5759202222480714440}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ce46554f6442d64fbe7b4fbca0bea82, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cooldownTime: 5
 --- !u!1001 &4956878632974531975
 PrefabInstance:
   m_ObjectHideFlags: 0

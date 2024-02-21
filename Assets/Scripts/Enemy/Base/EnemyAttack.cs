@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using System;
 
@@ -24,14 +22,11 @@ namespace Enemy
 
         public DamageInfo Damage(IDamageCalculatable damageable)
         {
-            DamageInfo info = new DamageInfo();
+            DamageInfo info = enemy.GetComponent<DamageCalculationComponent>().GetFinalDealthDamageInfo();
             if (damageable == null)
             {
                 return info;
             }
-
-            info.amount = enemy.GetComponent<DamageCalculationComponent>().GetFinalDealthDamageAmount();
-            info.dealer = enemy.gameObject;
 
             damageable.Damage(info);
             return info;
