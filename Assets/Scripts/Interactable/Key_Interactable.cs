@@ -24,23 +24,13 @@ public class Key_Interactable : InteractableItem
         NetworkObject networkObject = other.GetComponent<NetworkObject>();
         if (networkObject != null && networkObject.IsPlayerObject)
         {
+            Debug.Log("Key collided with " +  networkObject.name);
             // Call a server RPC on the player to increase the key count
             if (other.TryGetComponent<PlayerInventory>(out var playerInventory))
             {
                 playerInventory.IncreaseKeyServerRpc();
                 NetworkObject.Despawn(true);
             }
-        }
-    }
-
-    public void Spawn()
-    {
-        // Check if we are the server before spawning the gun
-        if (NetworkManager.Singleton.IsServer)
-        {
-            // Spawn the key prefab
-            NetworkObject key = Instantiate(NetworkObject, transform.position, transform.rotation).GetComponent<NetworkObject>();
-            key.Spawn();
         }
     }
 

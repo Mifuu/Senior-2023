@@ -133,8 +133,8 @@ Transform:
   m_GameObject: {fileID: 776408440454080079}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.0024387, y: 8.3919, z: 0}
-  m_LocalScale: {x: 0.024518197, y: 0.024518197, z: 0.024518197}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.05572496, y: 0.05572496, z: 0.05572496}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1383917150981710119}
@@ -167,8 +167,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 6.7618737, y: 16.4694, z: 3.3689713}
-  m_Center: {x: -0.09241192, y: 2.477927, z: 0.00000053178934}
+  m_Size: {x: 13.282788, y: 22.184437, z: 11.600293}
+  m_Center: {x: 0.06793865, y: 3.0067043, z: 0.26725176}
 --- !u!114 &6448293027880118139
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -201,6 +201,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d20c1010b8fe854bb696b2c2629b868, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  interactableItemPrefab: {fileID: 776408440454080079}
   promptMessage: key
 --- !u!1 &1362545464066702534
 GameObject:
