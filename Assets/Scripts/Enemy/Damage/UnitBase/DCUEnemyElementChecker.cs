@@ -4,19 +4,21 @@ using UnityEngine;
 public class DCUEnemyElementChecker : DamageCalculationUnitBase
 {
     ElementAppliable appliable;
+    Enemy.EnemyStat stat;
+
     public override void Dispose(DamageCalculationComponent component, SubscriptionRemover remover)
     {
     }
 
     public override void Initialize(DamageCalculationComponent component, SubscriptionAdder adder, bool updateOnChange)
     {
-        Debug.LogWarning("Init Element Checker");
         appliable = component.gameObject.GetComponent<ElementAppliable>();
+        stat = component.gameObject.GetComponent<Enemy.EnemyStat>();
     }
 
     public override DamageInfo CalculateActual(DamageCalculationComponent component, SubscriptionGetter getter, DamageInfo info)
     {
-        // Should also adjust the damage
+        info.amount *= stat.GetElementalRESValue(info.elementalDamageParameter.element);
         appliable.TryApplyElement(info.dealer, info.elementalDamageParameter, info.gunType);
         return info;
     }

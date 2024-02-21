@@ -7,21 +7,21 @@ namespace Enemy
     {
         ElementalEntity elementalEntity;
         ElementAttachable elementAttached;
+        Enemy.EnemyStat enemyStat;
 
-        public override void Dispose(DamageCalculationComponent component, SubscriptionRemover remover)
-        {
-        }
+        public override void Dispose(DamageCalculationComponent component, SubscriptionRemover remover) { }
 
         public override void Initialize(DamageCalculationComponent component, SubscriptionAdder adder, bool updateOnChange)
         {
             elementalEntity = component.gameObject.GetComponent<ElementalEntity>();
             elementAttached = component.gameObject.GetComponent<ElementAttachable>();
+            enemyStat = component.gameObject.GetComponent<EnemyStat>();
         }
 
         public override DamageInfo CalculateActual(DamageCalculationComponent component, SubscriptionGetter getter, DamageInfo info)
         {
-            // Calculating Elemental Damage Bonus is omitted for now
             info.elementalDamageParameter = new ElementalDamageParameter(elementAttached.element, elementalEntity);
+            info.amount *= enemyStat.GetElementalDMGValue(elementAttached.element);
             return info;
         }
     }
