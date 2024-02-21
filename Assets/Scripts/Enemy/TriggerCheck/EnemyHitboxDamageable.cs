@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
 
@@ -24,7 +22,7 @@ namespace Enemy
 
         protected virtual float CalculateDamage(DamageInfo damageInfo)
         {
-            return damageComponent.GetFinalReceivedDamageAmount(damageInfo);
+            return damageComponent.GetFinalReceivedDamageAmount(damageInfo) * simpleDamageFactor;
         }
 
         public void Damage(DamageInfo damageInfo)
