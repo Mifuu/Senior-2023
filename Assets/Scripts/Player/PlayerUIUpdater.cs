@@ -2,11 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using GameplayUI;
+using TMPro;
+using JetBrains.Annotations;
 
 public class PlayerUIUpdater : MonoBehaviour
 {
     [SerializeField] private PlayerHealth playerHealth;
     [SerializeField] private PlayerLevel playerLevel;
+    [SerializeField] private PlayerInteract playerInteract;
 
     GameplayUIReceiver gameplayUIReceiver;
 
@@ -14,6 +17,7 @@ public class PlayerUIUpdater : MonoBehaviour
     {
         gameplayUIReceiver = GameplayUIReceiver.Instance;
 
+        // Update Player Health
         if (playerHealth.IsOwner && gameplayUIReceiver)
         {
             playerHealth.currentHealth.OnValueChanged += (prev, current) =>
@@ -24,6 +28,7 @@ public class PlayerUIUpdater : MonoBehaviour
             Debug.LogWarning("GameplayUIReceiver is not found");
         }
 
+        // Update Player EXP & Level
         if (playerLevel.IsOwner && gameplayUIReceiver)
         {
             playerLevel.levelSystem.OnExpChange += (sender, arg) =>
@@ -37,6 +42,13 @@ public class PlayerUIUpdater : MonoBehaviour
         else if (!gameplayUIReceiver)
         {
             Debug.LogWarning("GameplayUIReceiver is not found");
+        }
+
+        // Update Player Prompt Text
+        if (playerInteract.IsOwner && gameplayUIReceiver)
+        {
+            playerInteract.OnPromptTextChanged += HandlePromptTextChanged =>
+            gameplayUIReceiver.UpdatePromptText(playerInteract.promptText);
         }
     }
 }

@@ -37,5 +37,10 @@ namespace GameplayUI
         {
             playPanel.UpdateLevel(level);
         }
+
+        public void UpdatePromptText(string text)
+        {
+            playPanel.UpdatePromptText(text);
+        }
     }
 }

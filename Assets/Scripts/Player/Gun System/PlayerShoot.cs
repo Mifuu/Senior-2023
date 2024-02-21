@@ -18,7 +18,7 @@ public class PlayerShoot : NetworkBehaviour
     {
         if (IsClient && IsOwner)
         {
-            int selectedWeaponIndex = weaponSwitching.selectedWeapon;
+            int selectedWeaponIndex = weaponSwitching.selectedWeapon.Value;
             GameObject selectedWeaponObject = weaponSwitching.transform.GetChild(selectedWeaponIndex).gameObject;
             Gun selectedGun = selectedWeaponObject.GetComponent<Gun>();
             if (selectedGun != null && selectedGun.CanShoot())
