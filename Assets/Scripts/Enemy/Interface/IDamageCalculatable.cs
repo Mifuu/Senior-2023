@@ -38,4 +38,10 @@ public struct ElementalDamageParameter
 {
     public ElementalType element;
     public ElementalEntity elementEntity;
+
+    public ElementalDamageParameter(ElementalType element, ElementalEntity elementalEntity)
+    {
+        this.element = element;
+        this.elementEntity = elementalEntity;
+    }
 }

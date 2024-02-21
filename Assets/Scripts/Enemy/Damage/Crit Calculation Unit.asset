@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfb988e265842f14899fde80fd18622e, type: 3}
   m_Name: Crit Calculation Unit
   m_EditorClassIdentifier: 
+  UniqueName: EnemyCritCalculate
   requireInstantiation: 1
