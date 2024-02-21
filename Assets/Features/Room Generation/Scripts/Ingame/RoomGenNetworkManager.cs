@@ -17,12 +17,27 @@ namespace RoomGeneration
 
         [Header("Settings")]
         public int roomAmount = 10;
+        public int playSpawnRoomAmount = 4;
 
         [Header("Requirements")]
         [SerializeField]
-        private RoomGenerator roomGenerator;
+        public RoomGenerator roomGenerator;
         [SerializeField]
         private NavigationBaker navigationBaker;
+
+
+        public delegate void OnGenerateLevel();
+        public OnGenerateLevel onGenerateLevel;
+
+        private void Awake()
+        {
+            if (!IsServer)
+            {
+                // disable the room generator and navigation baker if not server
+                roomGenerator.enabled = false;
+                navigationBaker.enabled = false;
+            }
+        }
 
         private void Update()
         {
@@ -51,8 +66,17 @@ namespace RoomGeneration
             seed.Value = Random.Range(int.MinValue, int.MaxValue);
             isGeneratedOnServer.Value = true;
 
-            // tell clients to generate
-            GenerateLevelClientRpc(seed.Value);
+            // generate rooms
+            float startTime = Time.realtimeSinceStartup;
+
+            // roomGenerator.StepAddRoom(roomAmount, seed.Value);
+            roomGenerator.GenerateLevel(roomAmount);
+            navigationBaker.BakeNavMesh();
+
+            Debug.Log("RoomGenNetworkManager.GenerateServerRPC(): Seed = " + seed.Value + ", Room Amount = " + roomAmount);
+            Debug.Log("Client ID: " + NetworkManager.Singleton.LocalClientId + " generated rooms in " + (Time.realtimeSinceStartup - startTime) + " seconds");
+
+            onGenerateLevel?.Invoke();
         }
 
         [ClientRpc]
@@ -66,18 +90,6 @@ namespace RoomGeneration
 
             Debug.Log("GenerateLevelClientRpc(): Seed = " + seedValue + ", Room Amount = " + roomAmount);
             Debug.Log("Client ID: " + NetworkManager.Singleton.LocalClientId + " generated rooms in " + (Time.realtimeSinceStartup - startTime) + " seconds");
-        }
-
-        public override void OnNetworkSpawn()
-        {
-            base.OnNetworkSpawn();
-
-            // check if host already generated the room
-            if (isGeneratedOnServer.Value)
-            {
-                GenerateLevelClientRpc(seed.Value);
-            }
-
         }
     }
 }

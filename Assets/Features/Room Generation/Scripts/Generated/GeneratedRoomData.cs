@@ -133,7 +133,6 @@ namespace RoomGeneration
                 roomDoorObject.Set(true);
             else
                 roomDoorObject.Set(false);
-
         }
     }
 

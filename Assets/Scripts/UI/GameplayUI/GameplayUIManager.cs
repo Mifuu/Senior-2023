@@ -21,6 +21,11 @@ namespace GameplayUI
                 Instance = this;
         }
 
+        void Start()
+        {
+            stack.Push(PanelType.Play);
+        }
+
         void OnValidate()
         {
             if (!stack && TryGetComponent(out stack))

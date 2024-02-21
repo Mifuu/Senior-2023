@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d22f73cc5bbf48bababa2f3f1b0eb3f, type: 3}
+  m_Name: ERP Hall 1
+  m_EditorClassIdentifier: 
+  poolItems:
+  - prefab: {fileID: 5781375362114392876, guid: 9f873713cf9c782478e3e9b09361b0bd, type: 3}
+    weight: 5
+  - prefab: {fileID: 5467584396805372388, guid: d45b9872bab04d347a2a06f31a7bbf2b, type: 3}
+    weight: 5
+  - prefab: {fileID: 5446555976368360068, guid: d1017491dbc8233409c7b0a923e2e466, type: 3}
+    weight: 5
+  - prefab: {fileID: 5759202222480714440, guid: 5af02b5c663274b46b8a198bcf495f0f, type: 3}
+    weight: 5

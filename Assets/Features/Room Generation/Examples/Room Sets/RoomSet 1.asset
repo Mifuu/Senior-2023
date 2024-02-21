@@ -15,5 +15,8 @@ MonoBehaviour:
   snapValue: {fileID: 11400000, guid: f8f15a0025fb74400b479d62ee7d1ce5, type: 2}
   roomSetItems:
   - roomData: {fileID: 11400000, guid: 115f8dc24971b486795de633253f12ac, type: 2}
+    mask: 0
   - roomData: {fileID: 11400000, guid: 3ade69a07d8a14f8abdb805f7748bc64, type: 2}
+    mask: 0
   roomDataPath: Assets/Features/Room Generation/Examples/Room 1 Objs
+  minPlayerSpawnRoomDistance: 40
