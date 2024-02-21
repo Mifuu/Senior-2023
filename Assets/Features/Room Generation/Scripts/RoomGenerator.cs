@@ -8,7 +8,7 @@ using RoomGenUtil;
 
 namespace RoomGeneration
 {
-    public class RoomGenerator : MonoBehaviour
+    public class RoomGenerator : Singleton<RoomGenerator>
     {
         public RoomSet roomSet;
 
