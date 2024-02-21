@@ -6,6 +6,8 @@ using System;
 [Serializable]
 public class DamagePipeline
 {
+    [SerializeField] private bool disabledStaticUnit = false;
+    [SerializeField] private bool disabledNonStaticUnit = false;
     [SerializeField] public float DefaultValue { get; set; }
     [SerializeField] public float CachedValue { get; private set; }
     [SerializeField] public List<DamageCalculationUnitBase> StaticUnits = new List<DamageCalculationUnitBase>();
@@ -31,32 +33,46 @@ public class DamagePipeline
         remover = new SubscriptionRemover("", isDealer, managerModule.subscriptionContainer);
         getter = new SubscriptionGetter("", isDealer, managerModule.subscriptionContainer);
 
-        for (int i = 0; i < StaticUnits.Count; i++)
+        if (!disabledStaticUnit)
         {
-            adder.UnitName = StaticUnits[i].UniqueName;
-            if (StaticUnits[i].requireInstantiation)
+            for (int i = 0; i < StaticUnits.Count; i++)
             {
-                var instantiatedModule = GameObject.Instantiate(StaticUnits[i]);
-                instantiatedModule.Initialize(managerModule, adder, true);
-                StaticUnits[i] = instantiatedModule;
-                continue;
-            }
+                adder.UnitName = StaticUnits[i].UniqueName;
+                if (StaticUnits[i].requireInstantiation)
+                {
+                    var instantiatedModule = GameObject.Instantiate(StaticUnits[i]);
+                    instantiatedModule.Initialize(managerModule, adder, true);
+                    StaticUnits[i] = instantiatedModule;
+                    continue;
+                }
 
-            StaticUnits[i].Initialize(managerModule, adder, true);
+                StaticUnits[i].Initialize(managerModule, adder, true);
+            }
+        }
+        else if (disabledStaticUnit && StaticUnits.Count != 0)
+        {
+            Debug.LogError("Static Unit is disabled yet it has units in it");
         }
 
-        for (int i = 0; i < NonStaticUnits.Count; i++)
+        if (!disabledNonStaticUnit)
         {
-            adder.UnitName = NonStaticUnits[i].UniqueName;
-            if (NonStaticUnits[i].requireInstantiation)
+            for (int i = 0; i < NonStaticUnits.Count; i++)
             {
-                var instantiatedModule = GameObject.Instantiate(NonStaticUnits[i]);
-                instantiatedModule.Initialize(managerModule, adder, false);
-                NonStaticUnits[i] = instantiatedModule;
-                continue;
-            }
+                adder.UnitName = NonStaticUnits[i].UniqueName;
+                if (NonStaticUnits[i].requireInstantiation)
+                {
+                    var instantiatedModule = GameObject.Instantiate(NonStaticUnits[i]);
+                    instantiatedModule.Initialize(managerModule, adder, false);
+                    NonStaticUnits[i] = instantiatedModule;
+                    continue;
+                }
 
-            NonStaticUnits[i].Initialize(managerModule, adder, false);
+                NonStaticUnits[i].Initialize(managerModule, adder, false);
+            }
+        }
+        else if (disabledNonStaticUnit && NonStaticUnits.Count != 0)
+        {
+            Debug.LogError("Non Static Unit is disabled yet it has units in it");
         }
 
         CalculateAndCache();

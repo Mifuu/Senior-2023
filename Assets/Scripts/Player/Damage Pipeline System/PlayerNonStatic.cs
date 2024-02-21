@@ -14,9 +14,7 @@ public class PlayerNonStatic : DamageCalculationUnitBase
         stat = component.GetComponent<PlayerStat>();
     }
 
-    public override void Dispose(DamageCalculationComponent component, SubscriptionRemover remover)
-    {
-    }
+    public override void Dispose(DamageCalculationComponent component, SubscriptionRemover remover) { }
 
     public override DamageInfo CalculateActual(DamageCalculationComponent component, SubscriptionGetter getter, DamageInfo info)
     {
