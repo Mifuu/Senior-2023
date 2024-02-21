@@ -27,15 +27,19 @@ namespace RoomGeneration
         [Header("roomData Info")]
         [ReadOnly]
         [SerializeField]
-        public List<GameObject> roomBoxes;
+        public List<GameObject> roomBoxes = new List<GameObject>();
         [ReadOnly]
         [SerializeField]
-        public List<GameObject> roomDoors;
+        public List<GameObject> roomDoors = new List<GameObject>();
 
         [Space]
         [Header("Requirements")]
         public Transform roomBoxesParent;
         public Transform roomDoorsParent;
+
+        [Space]
+        [Header("Conditional Reqs")]
+        public Transform spawnTransform;
 
         [Space]
         [Header("Debug")]
@@ -56,8 +60,10 @@ namespace RoomGeneration
         {
             if (roomDoorsParent == null)
             {
-                Debug.LogError("RoomDataPlotter.AddRoomDoor(): roomDoorsParent is null.");
-                return;
+                Debug.Log("RoomDataPlotter.AddRoomDoor(): roomDoorsParent is null, creating one...");
+                GameObject newParent = new GameObject("_Room Doors Parent");
+                newParent.transform.parent = transform;
+                roomDoorsParent = newParent.transform;
             }
 
             // game object setup
@@ -88,8 +94,10 @@ namespace RoomGeneration
         {
             if (roomDoorsParent == null)
             {
-                Debug.LogError("RoomDataPlotter.GetColliders(): dataColliderParent is null.");
-                return;
+                Debug.Log("RoomDataPlotter.AddRoomDoor(): roomDoorsParent is null, creating one...");
+                GameObject newParent = new GameObject("_Room Doors Parent");
+                newParent.transform.parent = transform;
+                roomDoorsParent = newParent.transform;
             }
 
             roomDoors = new List<GameObject>();
@@ -108,8 +116,10 @@ namespace RoomGeneration
         {
             if (roomBoxesParent == null)
             {
-                Debug.LogError("RoomDataPlotter.AddCollider(): dataColliderParent is null.");
-                return;
+                Debug.Log("RoomDataPlotter.AddRoomBox(): roomBoxesParent is null, creating one...");
+                GameObject newParent = new GameObject("_Room Boxes Parent");
+                newParent.transform.parent = transform;
+                roomBoxesParent = newParent.transform;
             }
 
             // game object setup
@@ -139,8 +149,10 @@ namespace RoomGeneration
         {
             if (roomBoxesParent == null)
             {
-                Debug.LogError("RoomDataPlotter.GetColliders(): dataColliderParent is null.");
-                return;
+                Debug.Log("RoomDataPlotter.AddRoomBox(): roomBoxesParent is null, creating one...");
+                GameObject newParent = new GameObject("_Room Boxes Parent");
+                newParent.transform.parent = transform;
+                roomBoxesParent = newParent.transform;
             }
 
             roomBoxes = new List<GameObject>();
