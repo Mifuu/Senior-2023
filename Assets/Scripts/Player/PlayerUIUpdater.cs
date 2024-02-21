@@ -10,6 +10,7 @@ public class PlayerUIUpdater : MonoBehaviour
     [SerializeField] private PlayerHealth playerHealth;
     [SerializeField] private PlayerLevel playerLevel;
     [SerializeField] private PlayerInteract playerInteract;
+    [SerializeField] private PlayerInventory playerInventory;
 
     GameplayUIReceiver gameplayUIReceiver;
 
@@ -49,6 +50,17 @@ public class PlayerUIUpdater : MonoBehaviour
         {
             playerInteract.OnPromptTextChanged += HandlePromptTextChanged =>
             gameplayUIReceiver.UpdatePromptText(playerInteract.promptText);
+        }
+
+        // Update Player Key
+        if (playerInventory != null && playerInventory.IsOwner && gameplayUIReceiver)
+        {
+            playerInventory.Key.OnValueChanged += (prev, current) => 
+            gameplayUIReceiver.UpdateKeyText(playerInventory.Key.Value);
+        }
+        else if (!gameplayUIReceiver)
+        {
+            Debug.LogWarning("GameplayUIReceiver is not found");
         }
     }
 }
