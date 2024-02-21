@@ -9,6 +9,7 @@ public class PlayerInteract : NetworkBehaviour
     [SerializeField] private LayerMask mask;
     private Camera cam;
     private PlayerSwitchWeapon switchWeapon;
+    private InputManager inputManager;
 
     // Define the event for when the prompt text changes
     public event Action<string> OnPromptTextChanged;
@@ -32,6 +33,7 @@ public class PlayerInteract : NetworkBehaviour
     {
         cam = GetComponent<PlayerLook>().cam;
         switchWeapon = GetComponentInChildren<PlayerSwitchWeapon>();
+        inputManager = GetComponent<InputManager>();
         promptText = string.Empty;
     }
 
@@ -49,27 +51,32 @@ public class PlayerInteract : NetworkBehaviour
             if (interactable != null)
             {
                 promptText = interactable.promptMessage;
+                if (inputManager.onFoot.Interact.triggered)
+                {
+                    interactable.BaseInteract(NetworkManager.Singleton.LocalClientId);
+                }
             }
             
         }
     }
 
-    
-    public void DropHoldingGun ()
+
+    public void DropHoldingGun()
     {
-        
-        int currentGunIndex = switchWeapon.selectedWeapon;
-        if (switchWeapon.guns[currentGunIndex] != null)
-        {
-            if (switchWeapon.guns[currentGunIndex].CanShoot()) //switchWeapon.guns[currentGunIndex].IsOwned()
+        if (IsOwner && IsClient) 
+        { 
+            int currentGunIndex = switchWeapon.selectedWeapon.Value;
+            if (switchWeapon.guns[currentGunIndex] != null)
             {
-                //GameObject gunToDrop = switchWeapon.guns[currentGunIndex].gunCounterpart.gameObject;
-                Vector3 spawnPosition = transform.position + transform.forward * 2;
-                Vector3 aimDir = (cam.transform.forward).normalized;
-                Quaternion gunRotation = Quaternion.LookRotation(aimDir, Vector3.up);
-                DropHoldingGuntServerRpc(spawnPosition, gunRotation);
-                switchWeapon.guns[currentGunIndex].gameObject.SetActive(false);
-                switchWeapon.guns[currentGunIndex].UpdateIsOwned(false);
+                if (switchWeapon.guns[currentGunIndex].CanShoot()) //switchWeapon.guns[currentGunIndex].IsOwned()
+                {
+                    Vector3 spawnPosition = transform.position + transform.forward * 1;
+                    Vector3 aimDir = (cam.transform.forward).normalized;
+                    Quaternion gunRotation = Quaternion.LookRotation(aimDir, Vector3.up);
+                    DropHoldingGuntServerRpc(spawnPosition, gunRotation);
+                    switchWeapon.guns[currentGunIndex].gameObject.SetActive(false);
+                    switchWeapon.guns[currentGunIndex].UpdateIsOwned(false);
+                }
             }
         }
     }
@@ -78,9 +85,8 @@ public class PlayerInteract : NetworkBehaviour
     [ServerRpc]
     private void DropHoldingGuntServerRpc(Vector3 playerPosition, Quaternion playerRotation)
     {
-
-        int currentGunIndex = switchWeapon.selectedWeapon;
-        GameObject gunToDrop = switchWeapon.guns[currentGunIndex].gunCounterpart.gameObject;
+        int currentGunIndex = switchWeapon.selectedWeapon.Value;
+        GameObject gunToDrop = switchWeapon.guns[currentGunIndex].gunInteractable.gameObject;
         var gunObject = Instantiate(gunToDrop.gameObject, playerPosition, playerRotation);
         var networkGunObject = gunObject.GetComponent<NetworkObject>();
         networkGunObject.Spawn();

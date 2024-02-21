@@ -7,14 +7,21 @@ public abstract class InteractableItem : NetworkBehaviour
 {
     public string promptMessage;
 
-    public void BaseInteract()
+    public void BaseInteract(ulong PlayerId)
     {
-        Interact();
+        Interact(PlayerId);
     }
 
-    protected virtual void Interact()
+    protected virtual void Interact(ulong PlayerId)
     {
-
+        
     }
-   
+
+    /*
+    [ServerRpc]
+    private void InteractServerRpc(ulong PlayerId)
+    {
+        Interact(PlayerId);
+    }
+    */
 }

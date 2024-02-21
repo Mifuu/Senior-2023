@@ -543,8 +543,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.17272255, y: 0.42105716, z: 0.83092105}
-  m_Center: {x: 0.000000044703484, y: 0.0053841174, z: 0.21134835}
+  m_Size: {x: 0.17272255, y: 0.3711806, z: 0.7863884}
+  m_Center: {x: 0.000000044703484, y: 0.0053841174, z: 0.21223903}
 --- !u!114 &-943114617614784020
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -623,6 +623,7 @@ MonoBehaviour:
   bulletSpawnPosition: {fileID: 6483475509016348490}
   raycastHitRange: 999
   shootingDelay: 0.1
+  gunInteractable: {fileID: 0}
 --- !u!114 &2343801909853003337
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -649,3 +650,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   promptMessage: '[F] Pick up'
+  gunCounterpart: {fileID: 5927619281284109883, guid: e66a9aaed12910b4cacb107303a4c177, type: 3}
