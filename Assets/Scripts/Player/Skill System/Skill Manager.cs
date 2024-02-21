@@ -16,8 +16,7 @@ public class SkillManager : MonoBehaviour
     {
         normalSkill = normalTransform.GetComponent<Skill>();
         ultimateSkill = ultimateTransform.GetComponent<Skill>();
-        Debug.Log(normalSkill.name);
-
+        //Debug.Log(normalSkill.name);
     }
     public void ActivateNormalSkill()
     {
