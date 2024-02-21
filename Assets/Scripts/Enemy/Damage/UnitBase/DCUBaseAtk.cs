@@ -7,18 +7,18 @@ namespace Enemy
     {
         public override void Dispose(DamageCalculationComponent component, SubscriptionRemover remover)
         {
-            throw new System.NotImplementedException();
+            remover.RemoveFloat("BaseDMG");
         }
 
         public override void Initialize(DamageCalculationComponent component, SubscriptionAdder adder, bool updateOnChange)
         {
-            adder.AddFloat("BaseAtk", component.gameObject.GetComponent<EnemyBase>().BaseAtk);
+            adder.AddFloat("BaseDMG", component.gameObject.GetComponent<EnemyBase>().stat.BaseDamage);
         }
 
         public override float CalculateCache(DamageCalculationComponent component, SubscriptionGetter getter, float initialValue)
         {
             float BaseATK;
-            if (getter.GetFloat("BaseAtk", out BaseATK))
+            if (getter.GetFloat("BaseDMG", out BaseATK))
             {
                 return BaseATK;
             }
@@ -27,13 +27,3 @@ namespace Enemy
         }
     }
 }
-
-// ENEMY DEALER 
-// - Base ATK (amount)
-// - Elemental DMG Bonus
-//
-// ENEMY RECEIVER
-// - Base DEF (factor)
-// - Elemental RES
-// - Weakpoint Damage Factor
-// - Gun Type

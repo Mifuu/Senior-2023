@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using UnityEngine;
 
 public class DamageSubscriptionContainer<T, K, U, V>
 {

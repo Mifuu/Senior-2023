@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0cadb7a3a80b71b4b9576e65d731248f, type: 3}
-  m_Name: EnemyElementalDamage
+  m_Name: DefaultElementDMG
   m_EditorClassIdentifier: 
-  UniqueName: EnemyELEMENT
-  requireInstantiation: 1
+  UniqueName: 
+  requireInstantiation: 0

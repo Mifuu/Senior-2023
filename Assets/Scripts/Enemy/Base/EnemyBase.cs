@@ -14,6 +14,8 @@ namespace Enemy
         [SerializeField] private EnemyTriggerCheck aggroDistanceTriggerCheck;
         private bool initialSetupComplete = false;
 
+        public EnemyStat stat;
+
         #region State ScriptableObject Variable
 
         [SerializeField] private Enemy.EnemyAttackSOBase EnemyAttackBase;
@@ -60,6 +62,7 @@ namespace Enemy
             navMeshAgent = GetComponent<NavMeshAgent>();
             StateMachine = GetComponent<EnemyStateMachine>();
             dealerPipeline = GetComponent<DamageCalculationComponent>();
+            stat = GetComponent<EnemyStat>();
         }
 
         public void Update()
