@@ -20,12 +20,8 @@ namespace GameplayUI
                 Destroy(gameObject);
             else
                 Instance = this;
-        }
 
-        void Start()
-        {
             DisableAllPanels();
-            Push(PanelType.Play);
         }
 
         /// <summary>remove the top and return its type</summary>
