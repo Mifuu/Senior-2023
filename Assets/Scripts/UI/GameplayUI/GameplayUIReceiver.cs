@@ -42,5 +42,10 @@ namespace GameplayUI
         {
             playPanel.UpdatePromptText(text);
         }
+
+        public void UpdateKeyText(int keyValue)
+        {
+            playPanel.UpdateKeyText(keyValue);
+        }
     }
 }

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6940176992162794017}
   - component: {fileID: 3339880804817287424}
   - component: {fileID: 6937125120176632417}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: e
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -150,7 +150,7 @@ GameObject:
   - component: {fileID: 3761673687642118166}
   - component: {fileID: 6653668403919711716}
   - component: {fileID: 3588385219768465503}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -255,7 +255,7 @@ GameObject:
   - component: {fileID: 299536906831455506}
   - component: {fileID: 3461854236338850913}
   - component: {fileID: 5772493246053588321}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cube (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -360,7 +360,7 @@ GameObject:
   - component: {fileID: 2562814935088400714}
   - component: {fileID: 3163671745721639957}
   - component: {fileID: 8722796383971968938}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -464,7 +464,7 @@ GameObject:
   - component: {fileID: 4978708862874327355}
   - component: {fileID: 5927619281284109883}
   - component: {fileID: -3915949518657979807}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: AssultRifle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
