@@ -38,7 +38,6 @@ public class InputManager : MonoBehaviour
         onFoot.NormalSkill.performed += (ctx) =>  skillManager.ActivateNormalSkill();
         onFoot.UltimateSkill.performed += (ctx) => skillManager.ActivateUltimateSkill();
         onFoot.Drop.performed += (_) => interact.DropHoldingGun();
-
     }
 
     void FixedUpdate()

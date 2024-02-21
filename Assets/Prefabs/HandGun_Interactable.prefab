@@ -85,8 +85,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.19329546, y: 0.43756562, z: 0.41053858}
-  m_Center: {x: 0.0011248961, y: 0.013542086, z: 0.121684864}
+  m_Size: {x: 0.1736823, y: 0.4092355, z: 0.39310464}
+  m_Center: {x: 0.000035274774, y: 0.008093998, z: 0.1238641}
 --- !u!114 &3980216553179382026
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -162,6 +162,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   promptMessage: '[F] Pick up'
+  gunCounterpart: {fileID: 4122741058421460406, guid: d91f72630ba59bf4d93b9772eef74503, type: 3}
 --- !u!1 &4919616838328120068
 GameObject:
   m_ObjectHideFlags: 0
@@ -191,7 +192,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0.003, z: 0}
-  m_LocalScale: {x: -0.0699146, y: 0.38037968, z: 0.09738573}
+  m_LocalScale: {x: 0.0699146, y: 0.38037968, z: 0.09738573}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1947769577271263173}
@@ -296,7 +297,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0.152, z: 0.125}
-  m_LocalScale: {x: -0.13870353, y: 0.34321004, z: 0.09738573}
+  m_LocalScale: {x: 0.1387035, y: 0.34321004, z: 0.09738573}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1947769577271263173}
