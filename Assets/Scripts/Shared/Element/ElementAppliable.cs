@@ -61,7 +61,7 @@ public class ElementAppliable : NetworkBehaviour
         int currentGunTypeWeight;
         if (!applyWeightDict.TryGetValue(gunType, out currentGunTypeWeight))
         {
-            Debug.LogWarning("Gun Elemental Apply Weight not found");
+            // Debug.LogWarning("Gun Elemental Apply Weight not found");
             currentGunTypeWeight = defaultWeaponApplyWeight;
         }
 
