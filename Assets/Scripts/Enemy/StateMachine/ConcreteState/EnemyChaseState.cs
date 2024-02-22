@@ -9,7 +9,7 @@ namespace Enemy
             stateId = "Chase";
         }
 
-        public override void AnimationTrigger(EnemyBase.AnimationTriggerType triggerType)
+        public override void AnimationTrigger(int triggerType)
         {
             base.AnimationTrigger(triggerType);
             enemy.EnemyChaseBaseInstance.DoAnimationTriggerEventLogic();

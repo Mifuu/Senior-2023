@@ -46,6 +46,7 @@ namespace Enemy
                 {
                     Debug.Log("Shooter Checking LOS: Found");
                     isStillChecking = false;
+                    enemy.animator.SetTrigger(enemy.attackAnimationTrigger);
                     enemy.StateMachine.ChangeState(enemy.AttackState);
                 }
                 else
