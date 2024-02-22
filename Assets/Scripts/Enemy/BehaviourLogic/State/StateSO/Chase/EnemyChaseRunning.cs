@@ -22,6 +22,7 @@ namespace Enemy
         {
             base.DoEnterLogic();
             if (!enemy.IsServer) return;
+            enemy.animator.SetTrigger(enemy.startChasingAnimationTrigger);
 
             isMoving = true;
             enemy.navMeshAgent.speed = chaseSpeed;

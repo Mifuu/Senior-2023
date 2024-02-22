@@ -31,7 +31,7 @@ namespace Enemy
         {
             BaseDamage.Value = defaultBaseDMG;
             DamageReceiveFactor.Value = defaultBaseDMGReceiveFactor;
-            for (int i = 0; i < Enum.GetNames(typeof(EnemyStatsEnum)).Length; i++)
+            for (int i = 0; i < Enum.GetNames(typeof(ElementalType)).Length; i++)
             {
                 ListOfElementalDamageBonus.Add(new Subject<float>(defaultElementalDmg));
                 ListOfElementalRES.Add(new Subject<float>(defaultElementalRES));
@@ -55,7 +55,7 @@ namespace Enemy
         {
             BaseDamage.Value = defaultBaseDMG;
             DamageReceiveFactor.Value = defaultBaseDMGReceiveFactor;
-            for (int i = 0; i < Enum.GetNames(typeof(EnemyStatsEnum)).Length; i++)
+            for (int i = 0; i < Enum.GetNames(typeof(ElementalType)).Length; i++)
             {
                 ListOfElementalDamageBonus[i].Value = defaultElementalDmg;
                 ListOfElementalRES[i].Value = defaultElementalRES;
