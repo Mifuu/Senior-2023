@@ -2,7 +2,6 @@ using UnityEngine;
 using Unity.Netcode;
 using UnityEngine.AI;
 using Unity.Netcode.Components;
-using ObserverPattern;
 
 namespace Enemy
 {
@@ -45,14 +44,25 @@ namespace Enemy
 
         #region Stat and Damage Calculation
 
-        public Subject<float> BaseAtk = new Subject<float>(100f);
-        public Subject<float> HydroDamageBonus = new Subject<float>(2f);
-        public Subject<float> PyroDamageBonus = new Subject<float>(2f);
-        public Subject<float> ElectroDamageBonus = new Subject<float>(2f);
-        public Subject<float> CritRate = new Subject<float>(0.5f);
-        public Subject<float> CritDmgFactor = new Subject<float>(1.2f);
+        // public Subject<float> BaseAtk = new Subject<float>(100f);
+        // public Subject<float> HydroDamageBonus = new Subject<float>(2f);
+        // public Subject<float> PyroDamageBonus = new Subject<float>(2f);
+        // public Subject<float> ElectroDamageBonus = new Subject<float>(2f);
+        // public Subject<float> CritRate = new Subject<float>(0.5f);
+        // public Subject<float> CritDmgFactor = new Subject<float>(1.2f);
 
         public DamageCalculationComponent dealerPipeline;
+
+        #endregion
+
+        #region Animation
+
+        public Animator animator;
+        public readonly int startChasingAnimationTrigger = Animator.StringToHash("StartChasing");
+        public readonly int knockedbackAnimationTrigger = Animator.StringToHash("KnockedBack");
+        public readonly int attackAnimationTrigger = Animator.StringToHash("Attack");
+        public readonly int finishedAttackingAnimationTrigger = Animator.StringToHash("FinishedAttacking");
+        public readonly int finishedKnockbackAnimationTrigger = Animator.StringToHash("FinishedKnockback");
 
         #endregion
 
@@ -63,6 +73,7 @@ namespace Enemy
             StateMachine = GetComponent<EnemyStateMachine>();
             dealerPipeline = GetComponent<DamageCalculationComponent>();
             stat = GetComponent<EnemyStat>();
+            animator = GetComponentInChildren<Animator>();
         }
 
         public void Update()
@@ -163,17 +174,17 @@ namespace Enemy
             DesetupTargetPlayer();
         }
 
-        private void AnimationTrigger(AnimationTriggerType triggerType)
+        private void AnimationTrigger(int triggerType)
         {
             StateMachine.CurrentEnemyState.AnimationTrigger(triggerType);
         }
 
         // Test animation trigger type - May not really be used
-        public enum AnimationTriggerType
-        {
-            EnemyDamaged,
-            PlayFootstepSounds
-        }
+        // public enum AnimationTriggerType
+        // {
+        //     EnemyDamaged,
+        //     PlayFootstepSounds
+        // }
 
         private bool CheckIsNewPlayer(GameObject objectToCheck) => objectToCheck.GetComponent<PlayerHealth>() != null && objectToCheck != targetPlayer;
 

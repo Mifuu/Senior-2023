@@ -24,7 +24,9 @@ namespace Enemy
         public IEnumerator Cooldown()
         {
             // TODO: Maybe define more of the knockback logic
+            enemy.animator.SetTrigger(enemy.knockedbackAnimationTrigger);
             yield return new WaitForSeconds(cooldownTime);
+            enemy.animator.SetTrigger(enemy.finishedKnockbackAnimationTrigger);
             enemy.StateMachine.ChangeState(enemy.ChaseState);
         }
     }

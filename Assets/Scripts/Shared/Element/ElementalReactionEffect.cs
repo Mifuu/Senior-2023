@@ -10,5 +10,10 @@ public class ElementalReactionEffect : ScriptableObject
     public void DoEffect(GameObject applier, GameObject applied)
     {
         Debug.LogWarning(applier + " applied " + testString + " to " + applied);
+        var enemy = applied.GetComponent<Enemy.EnemyBase>();
+        if (enemy != null)
+        {
+            enemy.StateMachine.ChangeState(enemy.KnockbackState);
+        }
     }
 }
