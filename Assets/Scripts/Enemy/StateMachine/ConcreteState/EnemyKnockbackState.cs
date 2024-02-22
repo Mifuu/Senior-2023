@@ -9,7 +9,7 @@ namespace Enemy
             stateId = "Knockback";
         }
 
-        public override void AnimationTrigger(EnemyBase.AnimationTriggerType triggerType)
+        public override void AnimationTrigger(int triggerType)
         {
             base.AnimationTrigger(triggerType);
             enemy.EnemyKnockbackBaseInstance.DoAnimationTriggerEventLogic();
