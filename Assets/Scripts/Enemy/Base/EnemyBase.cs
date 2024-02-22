@@ -3,6 +3,7 @@ using Unity.Netcode;
 using UnityEngine.AI;
 using Unity.Netcode.Components;
 using ObserverPattern;
+using UnityEngine.VFX;
 
 namespace Enemy
 {
@@ -63,6 +64,9 @@ namespace Enemy
             StateMachine = GetComponent<EnemyStateMachine>();
             dealerPipeline = GetComponent<DamageCalculationComponent>();
             stat = GetComponent<EnemyStat>();
+            // var test = GetComponentInChildren<VisualEffect>();
+
+            // test.SetVector4("New Color", new Vector4(255, 0, 0, 255));
         }
 
         public void Update()
