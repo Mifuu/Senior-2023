@@ -366,7 +366,7 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
@@ -541,7 +541,7 @@ MonoBehaviour:
     disabledStaticUnit: 0
     disabledNonStaticUnit: 0
     StaticUnits:
-    - {fileID: 11400000, guid: ab9495666d0f31e48815a4bee6f8e43a, type: 2}
+    - {fileID: 11400000, guid: ca2966b9536679b41aa24e569ad342b9, type: 2}
     NonStaticUnits:
     - {fileID: 11400000, guid: 04fcf0ca823cacd42b8829db2378e981, type: 2}
     managerModule: {fileID: 0}

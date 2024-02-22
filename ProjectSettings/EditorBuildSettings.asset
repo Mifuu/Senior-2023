@@ -26,10 +26,10 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/SampleScene.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/DemoScene.unity
     guid: c02eb4ba98e49204181d4eca81e7658c
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/EnemyAndBossDev.unity
     guid: e764d537a1228694182435d8f942d885
   - enabled: 0
@@ -44,4 +44,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Sprint4Showcase.unity
     guid: 288a4856315524b26a2bfc3d55f05fc7
+  - enabled: 0
+    path: Assets/Scenes/DemoScene 1.unity
+    guid: d656f4683e32f374385a2249efb8d1bb
   m_configObjects: {}
