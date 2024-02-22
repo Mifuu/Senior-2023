@@ -18,7 +18,7 @@ public class MultiplayerGameManager : Singleton<MultiplayerGameManager>
 
     void Update()
     {
-        if (Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.G))
+        if (Input.GetKey(KeyCode.LeftControl) && Input.GetKey(KeyCode.G))
         {
             StartGame();
         }

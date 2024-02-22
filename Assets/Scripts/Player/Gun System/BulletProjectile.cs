@@ -30,6 +30,11 @@ public class BulletProjectile : NetworkBehaviour
         bulletRigidbody.velocity = transform.forward * speed;
     }
 
+    public void Initialize(GameObject gameObject)
+    {
+                
+    }
+
     public void Update()
     {
         if (!IsServer) return;
