@@ -11,7 +11,7 @@ public class Gun : NetworkBehaviour
     [SerializeField] private Transform bulletSpawnPosition;
     [SerializeField] private float raycastHitRange = 999f;
     [SerializeField] private float shootingDelay = 0.1f;
-    //public GameObject playerObject;
+    public GameObject playerObject;
     public ElementalEntity playerEntity;
     public GunInteractable gunInteractable;
     public ElementAttachable elementAttachable;
@@ -22,7 +22,7 @@ public class Gun : NetworkBehaviour
     private void Awake()
     {
         elementAttachable = GetComponent<ElementAttachable>();
-        GameObject playerObject = transform.parent.parent.gameObject;
+        playerObject = transform.parent.parent.gameObject;
         playerEntity = playerObject.GetComponent<ElementalEntity>();
     }
 
@@ -114,6 +114,7 @@ public class Gun : NetworkBehaviour
         bulletComponent.PlayerId = playerId; // Pass the player's network object ID
         bulletComponent.elementalType = elementAttachable.element;
         bulletComponent.entity = playerEntity;
+        bulletComponent.bulletInitialize(playerObject);
         var networkBulletObj = bulletObj.GetComponent<NetworkObject>();
         networkBulletObj.Spawn();
     }
