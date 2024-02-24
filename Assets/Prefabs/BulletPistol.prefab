@@ -412,6 +412,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   vfxHit: {fileID: 0}
-  speed: 600
+  speed: 10
   lifetime: 5
-  damageAmount: 5
+  component: {fileID: 0}
+  elementalType: 0
+  entity: {fileID: 0}

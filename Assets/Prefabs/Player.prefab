@@ -402,10 +402,70 @@ MonoBehaviour:
   defaultATK: 1
   defaultDEF: 1
   defaultCritDMG: 1
-  defaultCritRate: 1
+  defaultCritRate: 0.2
   defaultElementalDMGBonus: 1
   defaultElementalRES: 1
-  UpgradeDetail: []
+  UpgradeDetail:
+  - Method: 1
+    Stats: 0000000001000000
+    Amount: 1.1
+    LevelLowerBoundInclusive: 1
+    LevelUpperBoundExclusive: 6
+  - Method: 1
+    Stats: 0000000001000000
+    Amount: 1.075
+    LevelLowerBoundInclusive: 6
+    LevelUpperBoundExclusive: 11
+  - Method: 1
+    Stats: 0000000001000000
+    Amount: 1.05
+    LevelLowerBoundInclusive: 11
+    LevelUpperBoundExclusive: 16
+  - Method: 1
+    Stats: 0000000001000000
+    Amount: 1.03
+    LevelLowerBoundInclusive: 16
+    LevelUpperBoundExclusive: 21
+  - Method: 1
+    Stats: 0000000001000000
+    Amount: 1.01
+    LevelLowerBoundInclusive: 21
+    LevelUpperBoundExclusive: 99999
+  - Method: 0
+    Stats: 02000000
+    Amount: 0.05
+    LevelLowerBoundInclusive: 1
+    LevelUpperBoundExclusive: 99999
+  - Method: 1
+    Stats: 02000000
+    Amount: 1.02
+    LevelLowerBoundInclusive: 1
+    LevelUpperBoundExclusive: 11
+  - Method: 1
+    Stats: 02000000
+    Amount: 1.01
+    LevelLowerBoundInclusive: 11
+    LevelUpperBoundExclusive: 99999
+  - Method: 0
+    Stats: 0400000005000000
+    Amount: 1.01
+    LevelLowerBoundInclusive: 11
+    LevelUpperBoundExclusive: 99999
+  - Method: 0
+    Stats: 03000000
+    Amount: 0.03
+    LevelLowerBoundInclusive: 1
+    LevelUpperBoundExclusive: 6
+  - Method: 0
+    Stats: 03000000
+    Amount: 0.02
+    LevelLowerBoundInclusive: 6
+    LevelUpperBoundExclusive: 11
+  - Method: 0
+    Stats: 03000000
+    Amount: 0.01
+    LevelLowerBoundInclusive: 11
+    LevelUpperBoundExclusive: 20
 --- !u!114 &7995700460758469413
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -419,12 +479,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DealerPipeline:
+    disabledStaticUnit: 0
+    disabledNonStaticUnit: 0
     StaticUnits:
     - {fileID: 11400000, guid: df930b97c0fc1354db5acfcc5859d935, type: 2}
     NonStaticUnits:
     - {fileID: 11400000, guid: 5fe5b83ec80afa8468c50314f26946b8, type: 2}
     managerModule: {fileID: 0}
   ReceiverPipeline:
+    disabledStaticUnit: 0
+    disabledNonStaticUnit: 0
     StaticUnits: []
     NonStaticUnits: []
     managerModule: {fileID: 0}
@@ -454,8 +518,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defaultElement: 4
-  elementalReactionEffectPreset: {fileID: 0}
-  elementalApplyWeightPreset: {fileID: 0}
+  elementalReactionEffectPreset: {fileID: 11400000, guid: fc5a3b13384fe6848a26eddac95c58ed, type: 2}
+  elementalApplyWeightPreset: {fileID: 11400000, guid: 7e185ea1ce9046948b3c82f063ec56a0, type: 2}
   effectList: []
   applyWeights: []
   maxCountToApply: 20

@@ -41,19 +41,7 @@ namespace Enemy
 
         public GameObject targetPlayer;
         public NavMeshAgent navMeshAgent;
-
-        #region Stat and Damage Calculation
-
-        // public Subject<float> BaseAtk = new Subject<float>(100f);
-        // public Subject<float> HydroDamageBonus = new Subject<float>(2f);
-        // public Subject<float> PyroDamageBonus = new Subject<float>(2f);
-        // public Subject<float> ElectroDamageBonus = new Subject<float>(2f);
-        // public Subject<float> CritRate = new Subject<float>(0.5f);
-        // public Subject<float> CritDmgFactor = new Subject<float>(1.2f);
-
         public DamageCalculationComponent dealerPipeline;
-
-        #endregion
 
         #region Animation
 
@@ -105,7 +93,7 @@ namespace Enemy
 
         private void ClientSetup()
         {
-            Debug.Log("Running Non Server Setup");
+            Debug.Log(gameObject + "Running Non Server Setup");
             Destroy(navMeshAgent);
             Destroy(GetComponent<NetworkRigidbody>());
             Destroy(GetComponent<Rigidbody>());
@@ -116,7 +104,7 @@ namespace Enemy
 
         private void ServerSetup()
         {
-            Debug.Log("Running Server Setup");
+            Debug.Log(gameObject + " Running Server Setup");
             EnemyChaseBaseInstance = Instantiate(EnemyChaseBase);
             EnemyAttackBaseInstance = Instantiate(EnemyAttackBase);
             EnemyIdleBaseInstance = Instantiate(EnemyIdleBase);
