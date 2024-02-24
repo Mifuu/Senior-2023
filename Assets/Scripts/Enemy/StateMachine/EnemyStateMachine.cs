@@ -64,19 +64,15 @@ namespace Enemy
             switch (current)
             {
                 case AvailableEnemyState.Idle:
-                    Debug.Log(enemy.IdleState);
                     newState = enemy.IdleState;
                     break;
                 case AvailableEnemyState.Chase:
-                    Debug.Log(enemy.ChaseState);
                     newState = enemy.ChaseState;
                     break;
                 case AvailableEnemyState.Attack:
-                    Debug.Log(enemy.AttackState);
                     newState = enemy.AttackState;
                     break;
                 case AvailableEnemyState.Knockback:
-                    Debug.Log(enemy.KnockbackState);
                     newState = enemy.KnockbackState;
                     break;
                 case AvailableEnemyState.None:
