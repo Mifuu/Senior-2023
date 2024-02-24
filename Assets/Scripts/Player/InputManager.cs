@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class InputManager : MonoBehaviour
 {
+    private ulong playerId;
     private PlayerInput playerInput;
     public PlayerInput.OnFootActions onFoot;
     private PlayerMotor motor;
@@ -38,6 +40,12 @@ public class InputManager : MonoBehaviour
         onFoot.NormalSkill.performed += (ctx) =>  skillManager.ActivateNormalSkill();
         onFoot.UltimateSkill.performed += (ctx) => skillManager.ActivateUltimateSkill();
         onFoot.Drop.performed += (_) => interact.DropHoldingGun();
+    }
+    private void Start()
+    {
+        playerId = NetworkManager.Singleton.LocalClientId;
+        PlayerHitboxDamageable hitbox = GetComponentInChildren<PlayerHitboxDamageable>();
+        hitbox.InitializePlayerId(playerId);
     }
 
     void FixedUpdate()

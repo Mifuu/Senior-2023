@@ -55,7 +55,10 @@ MonoBehaviour:
   bulletSpawnPosition: {fileID: 1152056080524507042}
   raycastHitRange: 999
   shootingDelay: 1
+  playerObject: {fileID: 0}
+  playerEntity: {fileID: 0}
   gunInteractable: {fileID: -8554396455691063704, guid: 214219baea31dec4fa5fd7aebbf56dab, type: 3}
+  elementAttachable: {fileID: 0}
 --- !u!114 &-5800418474134001730
 MonoBehaviour:
   m_ObjectHideFlags: 0
