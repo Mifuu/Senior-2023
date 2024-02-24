@@ -116,7 +116,7 @@ public class Gun : NetworkBehaviour
         bulletComponent.PlayerId = playerId; // Pass the player's network object ID
         bulletComponent.elementalType = elementAttachable.element;
         bulletComponent.entity = playerEntity;
-        bulletComponent.bulletInitialize(playerObject);
+        bulletComponent.BulletInitialize(playerObject);
         var networkBulletObj = bulletObj.GetComponent<NetworkObject>();
         networkBulletObj.Spawn();
     }

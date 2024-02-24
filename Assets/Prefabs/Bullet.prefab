@@ -101,7 +101,7 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
@@ -190,8 +190,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.25, y: 1.25, z: 0.83}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1.5344224, y: 1.5303755, z: 0.92935205}
+  m_Center: {x: -0.004309356, y: 0.018691786, z: 0.0007872004}
 --- !u!114 &4659134432245326836
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -267,10 +267,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   vfxHit: {fileID: 0}
-  speed: 1200
+  speed: 600
   lifetime: 5
   component: {fileID: 0}
-  elementalType: 0
+  elementalType: 4
   entity: {fileID: 0}
   playerObject: {fileID: 0}
 --- !u!1 &6127754639014077554

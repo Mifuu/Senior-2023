@@ -40,7 +40,7 @@ public class BulletProjectile : NetworkBehaviour
         }
     }
 
-    public void bulletInitialize(GameObject player)
+    public void BulletInitialize(GameObject player)
     {
         playerObject = player;
     }
@@ -48,6 +48,9 @@ public class BulletProjectile : NetworkBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (!IsServer) return;
+        
+        PlayerHitboxDamageable playerHitbox = other.GetComponentInChildren<PlayerHitboxDamageable>(); // return if collide with dealer
+        if (playerHitbox != null && playerHitbox.HasMatchingPlayerId(PlayerId)) return; 
 
         Debug.Log("bullet collide with: " + other.name);
         IDamageCalculatable damageable = other.GetComponentInChildren<IDamageCalculatable>();
