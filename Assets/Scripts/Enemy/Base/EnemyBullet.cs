@@ -62,23 +62,21 @@ namespace Enemy
             }
 
             var pipe = bulletOwner.GetComponent<DamageCalculationComponent>();
-            Debug.Log("Bullet Damage Amount: " + pipe.GetFinalDealthDamageAmount());
-
-            info.dealer = bulletOwner;
-            info.amount = baseDamageAmount;
+            info = pipe.GetFinalDealthDamageInfo();
             damagable.Damage(info);
 
-            // Debug.Log("DAMAGE: dealing " + info.amount + " DMG");
             return info;
         }
 
         public void OnTriggerEnter(Collider collider)
         {
             if (!IsServer) return;
-            var damager = collider.GetComponent<IDamageCalculatable>();
-            DamageDamageable(damager);
 
-            // TODO: Bullet maynot die immediately after hit, as it may just pass through
+            IDamageCalculatable damager;
+            bool success = collider.TryGetComponent<IDamageCalculatable>(out damager);
+            if (!success) return;
+
+            DamageDamageable(damager);
             Die(null);
         }
 

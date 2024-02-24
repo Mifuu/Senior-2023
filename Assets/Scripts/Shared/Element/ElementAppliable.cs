@@ -40,7 +40,7 @@ public class ElementAppliable : NetworkBehaviour
         }
         else
         {
-            Debug.LogWarning("This might not work currently");
+            Debug.LogError("None preset setup might not work currently, Use the presetted Scriptable Object instead");
             effectListDict = elementalReactionEffectPreset.TransformListOfEffectToDict(effectList);
         }
 
@@ -50,7 +50,7 @@ public class ElementAppliable : NetworkBehaviour
         }
         else
         {
-            Debug.LogWarning("This might not work currently");
+            Debug.LogError("None preset setup might not work currently, Use the presetted Scriptable Object instead");
             applyWeightDict = elementalApplyWeightPreset.TransformListOfWeightToDict(applyWeights);
         }
 
