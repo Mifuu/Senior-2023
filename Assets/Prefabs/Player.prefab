@@ -399,7 +399,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1587fd49cf6332a44896da413485fd9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultATK: 10
+  defaultATK: 5
   defaultDEF: 1
   defaultCritDMG: 1
   defaultCritRate: 1

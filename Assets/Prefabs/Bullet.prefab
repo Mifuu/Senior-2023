@@ -267,9 +267,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   vfxHit: {fileID: 0}
-  speed: 600
+  speed: 1200
   lifetime: 5
-  damageAmount: 1.5
+  component: {fileID: 0}
+  elementalType: 0
+  entity: {fileID: 0}
+  playerObject: {fileID: 0}
 --- !u!1 &6127754639014077554
 GameObject:
   m_ObjectHideFlags: 0
