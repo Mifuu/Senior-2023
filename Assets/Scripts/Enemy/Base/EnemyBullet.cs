@@ -73,8 +73,7 @@ namespace Enemy
             if (!IsServer) return;
 
             IDamageCalculatable damager;
-            bool success = collider.TryGetComponent<IDamageCalculatable>(out damager);
-            if (!success) return;
+            if(!collider.TryGetComponent<IDamageCalculatable>(out damager)) return;
 
             DamageDamageable(damager);
             Die(null);

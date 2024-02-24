@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Player/Player Damage/Test Non Static")]
+[CreateAssetMenu(menuName = "Player/Player Damage/Player Element")]
 public class DCUNonStaticPlayerElemental : DamageCalculationUnitBase
 {
     ElementAttachable attachable;
