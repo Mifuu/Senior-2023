@@ -1,7 +1,6 @@
 using UnityEngine;
 using System;
 using Unity.Netcode;
-using System.Collections.Generic;
 
 public class DamageCalculationComponent : NetworkBehaviour
 {
@@ -11,8 +10,6 @@ public class DamageCalculationComponent : NetworkBehaviour
 
     public event Action OnDealerDamageRecalculate;
     public event Action OnReceiverDamageRecalculate;
-
-    private List<Action> ListOfUnSubscriber = new List<Action>();
 
     public void Awake()
     {
@@ -27,36 +24,8 @@ public class DamageCalculationComponent : NetworkBehaviour
 
     public override void OnDestroy()
     {
-        base.OnDestroy();
-        for (int i = 0; i < ListOfUnSubscriber.Count; i++)
-        {
-            ListOfUnSubscriber[i]?.Invoke();
-        }
-
-        ListOfUnSubscriber.RemoveAll((action) => true);
-
         DealerPipeline.Dispose();
         ReceiverPipeline.Dispose();
-    }
-
-    public void RegisterRecalculateEvent(Action action, bool recalculateDealer, bool recalculateReceiver)
-    {
-        if (recalculateDealer)
-        {
-            action += DealerPipeline.CalculateAndCache;
-            ListOfUnSubscriber.Add(() =>
-            {
-                action -= DealerPipeline.CalculateAndCache;
-            });
-        }
-        if (recalculateReceiver)
-        {
-            action += ReceiverPipeline.CalculateAndCache;
-            ListOfUnSubscriber.Add(() =>
-            {
-                action -= ReceiverPipeline.CalculateAndCache;
-            });
-        }
     }
 
     public DamageInfo GetFinalDealthDamageInfo(DamageInfo info = new DamageInfo()) => DealerPipeline.GetValueInfo(info);

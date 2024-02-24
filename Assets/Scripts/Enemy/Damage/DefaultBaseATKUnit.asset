@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c19b8e0ceb0b21e4fb43131c2846fe30, type: 3}
   m_Name: DefaultBaseATKUnit
   m_EditorClassIdentifier: 
-  UniqueName: 
+  UniqueName: DefaultBaseAtk
   requireInstantiation: 0

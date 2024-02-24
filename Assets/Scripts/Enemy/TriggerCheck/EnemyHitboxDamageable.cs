@@ -14,9 +14,13 @@ namespace Enemy
         {
             enemy = GetComponentInParent<EnemyBase>(true);
             damageComponent = GetComponentInParent<DamageCalculationComponent>();
-            if (enemy == null)
+            if (enemy == null || damageComponent == null)
             {
-                Debug.LogError(gameObject + ": Enemy Base Class Not Found");
+                Debug.LogError("------------------------------------------------");
+                Debug.LogError(gameObject + " Parent: " + transform.parent.gameObject);
+                Debug.LogError(gameObject + " Enemy Base Class: " + enemy);
+                Debug.LogError(gameObject + " Damage Component Class: " + damageComponent);
+                Debug.LogError("------------------------------------------------");
             }
         }
 
