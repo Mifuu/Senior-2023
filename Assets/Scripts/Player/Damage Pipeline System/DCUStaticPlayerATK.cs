@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Player/Player Damage/Test Static")]
+[CreateAssetMenu(menuName = "Player/Player Damage/Player ATK")]
 public class DCUStaticPlayerATK : DamageCalculationUnitBase
 {
     public override void Dispose(DamageCalculationComponent component, SubscriptionRemover remover)
