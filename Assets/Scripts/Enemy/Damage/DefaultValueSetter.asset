@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 894fdc9ebd82d2f4795e88cca13f43f8, type: 3}
   m_Name: DefaultValueSetter
   m_EditorClassIdentifier: 
-  UniqueName: 
+  UniqueName: DefaultValueSetter
   requireInstantiation: 0

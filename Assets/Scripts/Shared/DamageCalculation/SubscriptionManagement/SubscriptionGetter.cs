@@ -1,6 +1,6 @@
 public class SubscriptionGetter
 {
-    public string UnitName { private get; set; }
+    public string UnitName { get; set; }
     private bool isDealer;
     private DamageSubscriptionContainer<float, string, int, bool> subscriptionContainer;
 

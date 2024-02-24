@@ -1,7 +1,7 @@
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Player/Player Damage/Test Non Static")]
-public class PlayerNonStatic : DamageCalculationUnitBase
+[CreateAssetMenu(menuName = "Player/Player Damage/Player Element")]
+public class DCUNonStaticPlayerElemental : DamageCalculationUnitBase
 {
     ElementAttachable attachable;
     ElementalEntity entity;
@@ -12,6 +12,7 @@ public class PlayerNonStatic : DamageCalculationUnitBase
         attachable = component.GetComponent<ElementAttachable>();
         entity = component.GetComponent<ElementalEntity>();
         stat = component.GetComponent<PlayerStat>();
+        Debug.LogWarning("Current Player Damage Calculation Still only use Pistol as gun type, change this later");
     }
 
     public override void Dispose(DamageCalculationComponent component, SubscriptionRemover remover) { }
@@ -20,7 +21,7 @@ public class PlayerNonStatic : DamageCalculationUnitBase
     {
         //info.elementalDamageParameter = new ElementalDamageParameter(attachable.element, entity);
         info.amount *= stat.GetElementDMGBonus(info.elementalDamageParameter.element);
-        info.gunType = TemporaryGunType.Pistol;
+        info.gunType = TemporaryGunType.Pistol; // Change this later
         return info;
     }
 }
