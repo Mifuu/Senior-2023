@@ -55,9 +55,12 @@ public class BulletProjectile : NetworkBehaviour
 
         if (damageable == null)
         {
-            Debug.LogWarning("Collider does not have IDamageCalculatable component.");
-            NetworkObject.Despawn(true);
-            return;
+            if(!other.TryGetComponent<IDamageCalculatable>(out damageable))
+            {
+                Debug.LogWarning("Collider does not have IDamageCalculatable component.");
+                NetworkObject.Despawn(true);
+                return;
+            } 
         }
 
         if (component == null) // Warning: Null check is expensive, change later
@@ -65,8 +68,10 @@ public class BulletProjectile : NetworkBehaviour
             component = playerObject.GetComponent<DamageCalculationComponent>();
         }
 
-        DamageInfo damageInfo = new DamageInfo(playerObject);
-        damageInfo.elementalDamageParameter = new ElementalDamageParameter(elementalType, entity);
+        DamageInfo damageInfo = new(playerObject)
+        {
+            elementalDamageParameter = new ElementalDamageParameter(elementalType, entity)
+        };
         damageInfo = component.GetFinalDealthDamageInfo(damageInfo);
         damageable.Damage(damageInfo); // Pass the player GameObject to the Damage method
         Debug.Log("Damage dealt to " + other.name + ": "  + damageInfo.amount);
