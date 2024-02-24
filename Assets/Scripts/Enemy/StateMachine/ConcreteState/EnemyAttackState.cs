@@ -6,7 +6,7 @@ namespace Enemy
     {
         public EnemyAttackState(EnemyBase enemy, EnemyStateMachine enemyStateMachine) : base(enemy, enemyStateMachine)
         {
-            stateId = "Attack";
+            stateId = EnemyStateMachine.AvailableEnemyState.Attack;
         }
 
         public override void AnimationTrigger(int triggerType)

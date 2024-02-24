@@ -76,16 +76,18 @@ namespace Enemy
 
         public override void OnNetworkSpawn()
         {
-            if (initialSetupComplete) return;
-            initialSetupComplete = true;
+            if (!initialSetupComplete)
+            {
+                initialSetupComplete = true;
 
-            if (!IsServer)
-            {
-                ClientSetup();
-            }
-            else
-            {
-                ServerSetup();
+                if (!IsServer)
+                {
+                    ClientSetup();
+                }
+                else
+                {
+                    ServerSetup();
+                }
             }
 
             OnEnemySpawn();
@@ -133,7 +135,7 @@ namespace Enemy
             if (!IsServer) return;
             OnTargetPlayerRefindRequired();
             currentHealth.Value = maxHealth;
-            StateMachine.ChangeState(IdleState);
+            // StateMachine.ChangeState(IdleState);
         }
 
         public void Damage(float damageAmount, GameObject dealer)
@@ -151,7 +153,7 @@ namespace Enemy
         public void Die(GameObject dealer)
         {
             if (!IsServer || !isActiveAndEnabled) return;
-            dealer.GetComponent<PlayerLevel>()?.AddExp(100);
+            if (dealer != null) dealer.GetComponent<PlayerLevel>()?.AddExp(100);
             CleanUp();
             var enemyNetworkObject = GetComponent<NetworkObject>();
             enemyNetworkObject.Despawn();
@@ -195,17 +197,18 @@ namespace Enemy
                     closestDistanceSqr = distanceSqr;
                 }
             }
+
             return closestPlayer;
         }
 
         public void OnTargetPlayerChangeRequired(GameObject newTargetPlayer)
         {
-            if (!IsServer) return;
+            if (!IsServer || newTargetPlayer == null || !CheckIsNewPlayer(newTargetPlayer)) return;
+
             if (targetPlayer != null)
             {
                 DesetupTargetPlayer();
             }
-            if (!CheckIsNewPlayer(newTargetPlayer)) return;
 
             targetPlayer = newTargetPlayer;
             SetupNewTargetPlayer(targetPlayer);
@@ -233,6 +236,7 @@ namespace Enemy
         {
             var playerHealth = targetPlayer.GetComponent<PlayerHealth>();
             playerHealth.OnPlayerDie -= OnTargetPlayerRefindRequired;
+            targetPlayer = null;
         }
 
         private void SetupNewTargetPlayer(GameObject newTargetPlayer)
