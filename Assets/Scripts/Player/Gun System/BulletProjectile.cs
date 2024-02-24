@@ -74,7 +74,7 @@ public class BulletProjectile : NetworkBehaviour
         damageInfo.elementalDamageParameter = new ElementalDamageParameter(elementalType, entity);
         damageInfo = component.GetFinalDealthDamageInfo(damageInfo);
         damageable.Damage(damageInfo); // Pass the player GameObject to the Damage method
-        Debug.Log("Bullet Script: " + playerObject.name);
+        Debug.Log("Damage dealt to " + other.name + ": "  + damageInfo.amount);
         //Instantiate(vfxHit, transform.position, Quaternion.identity);
 
         // Destroy(gameObject);

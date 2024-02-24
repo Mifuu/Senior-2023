@@ -19,6 +19,28 @@ public class Gun : NetworkBehaviour
     private bool canShoot = true;
     private bool isOwned = true;
 
+    #region Boolean Updater
+    public void UpdateCanShoot(bool boolean)
+    {
+        canShoot = boolean;
+    }
+
+    public void UpdateIsOwned(bool boolean)
+    {
+        isOwned = boolean;
+    }
+
+    public bool CanShoot()
+    {
+        return canShoot;
+    }
+
+    public bool IsOwned()
+    {
+        return isOwned;
+    }
+    #endregion
+
     private void Awake()
     {
         elementAttachable = GetComponent<ElementAttachable>();
@@ -76,26 +98,6 @@ public class Gun : NetworkBehaviour
 
             StartCoroutine(ShootingDelay());
         }
-    }
-
-    public void UpdateCanShoot(bool boolean)
-    {
-        canShoot = boolean;
-    }
-
-    public void UpdateIsOwned(bool boolean)
-    {
-       isOwned = boolean;
-    }
-
-    public bool CanShoot()
-    {
-        return canShoot;
-    }
-
-    public bool IsOwned()
-    {
-        return isOwned;
     }
 
     private IEnumerator ShootingDelay()
