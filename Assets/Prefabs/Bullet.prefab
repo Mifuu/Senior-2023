@@ -273,8 +273,7 @@ MonoBehaviour:
   elementalType: 4
   entity: {fileID: 0}
   playerObject: {fileID: 0}
-
-
+--- !u!1 &6127754639014077554
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
