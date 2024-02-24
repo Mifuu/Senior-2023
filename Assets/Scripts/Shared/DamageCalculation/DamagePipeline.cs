@@ -80,6 +80,8 @@ public class DamagePipeline
 
     public void Dispose()
     {
+        if (!gameObject) return; // Check whether the script has already been destroyed
+
         foreach (var modules in StaticUnits)
         {
             remover.UnitName = modules.UniqueName;
@@ -96,6 +98,7 @@ public class DamagePipeline
     public void CalculateAndCache()
     {
         var oldCache = CachedValue;
+
         CachedValue = StaticUnits.Aggregate(DefaultValue, (aggregatedDamage, next) =>
         {
             // if (!next.IsEnabled) return aggregatedDamage;
