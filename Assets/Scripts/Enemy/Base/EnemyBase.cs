@@ -7,16 +7,14 @@ namespace Enemy
 {
     public class EnemyBase : NetworkBehaviour, IDamageable
     {
+        [Header("Preset Value")]
+        [SerializeField] private EnemyTriggerCheck aggroDistanceTriggerCheck;
         [field: SerializeField] public float maxHealth { get; set; }
         public NetworkVariable<float> currentHealth { get; set; } = new NetworkVariable<float>(0.0f); // NetworkVariable must be initialized
-        public Rigidbody rigidBody { get; set; }
-        [SerializeField] private EnemyTriggerCheck aggroDistanceTriggerCheck;
-        private bool initialSetupComplete = false;
-
-        public EnemyStat stat;
 
         #region State ScriptableObject Variable
 
+        [Header("State Machine Behaviour")]
         [SerializeField] private Enemy.EnemyAttackSOBase EnemyAttackBase;
         [SerializeField] private Enemy.EnemyIdleSOBase EnemyIdleBase;
         [SerializeField] private Enemy.EnemyChaseSOBase EnemyChaseBase;
@@ -39,9 +37,13 @@ namespace Enemy
 
         #endregion
 
+        [Header("Parameter Init at Runtime")]
         public GameObject targetPlayer;
         public NavMeshAgent navMeshAgent;
         public DamageCalculationComponent dealerPipeline;
+        public EnemyStat stat;
+        private bool initialSetupComplete = false;
+        public Rigidbody rigidBody { get; set; }
 
         #region Animation
 
@@ -262,5 +264,8 @@ namespace Enemy
                 Debug.LogError("Target Player Not found");
             }
         }
+
+        [ClientRpc]
+        public void ChangeMaxHealthClientRpc(float newMaxHealth) => maxHealth = newMaxHealth;
     }
 }
