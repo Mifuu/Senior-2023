@@ -399,7 +399,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1587fd49cf6332a44896da413485fd9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultATK: 1
+  defaultATK: 10
   defaultDEF: 1
   defaultCritDMG: 1
   defaultCritRate: 1
@@ -419,12 +419,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DealerPipeline:
+    disabledStaticUnit: 0
+    disabledNonStaticUnit: 0
     StaticUnits:
     - {fileID: 11400000, guid: df930b97c0fc1354db5acfcc5859d935, type: 2}
     NonStaticUnits:
     - {fileID: 11400000, guid: 5fe5b83ec80afa8468c50314f26946b8, type: 2}
     managerModule: {fileID: 0}
   ReceiverPipeline:
+    disabledStaticUnit: 0
+    disabledNonStaticUnit: 0
     StaticUnits: []
     NonStaticUnits: []
     managerModule: {fileID: 0}
