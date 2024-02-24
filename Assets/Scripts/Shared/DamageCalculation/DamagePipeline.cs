@@ -154,7 +154,7 @@ public class DamagePipeline
 
     public DamageInfo GetValueInfo(DamageInfo info = new DamageInfo())
     {
-        info.amount = CachedValue;
+        info.amount = isDealer ? CachedValue : CachedValue * info.amount;
         return NonStaticUnits.Aggregate(info, (aggregatedDamage, next) =>
         {
             // if (!next.IsEnabled) return aggregatedDamage;

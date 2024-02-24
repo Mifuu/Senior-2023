@@ -548,7 +548,7 @@ CapsuleCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.5000001
   m_Height: 2
@@ -745,7 +745,7 @@ MonoBehaviour:
     disabledStaticUnit: 0
     disabledNonStaticUnit: 0
     StaticUnits:
-    - {fileID: 11400000, guid: ab9495666d0f31e48815a4bee6f8e43a, type: 2}
+    - {fileID: 11400000, guid: ca2966b9536679b41aa24e569ad342b9, type: 2}
     NonStaticUnits:
     - {fileID: 11400000, guid: 04fcf0ca823cacd42b8829db2378e981, type: 2}
     managerModule: {fileID: 0}
@@ -1005,7 +1005,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: -0.3, z: 0}
-  m_LocalScale: {x: 0.59098, y: 1.425, z: 1}
+  m_LocalScale: {x: 0.71414024, y: 1.425, z: 5.6283}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3399814115944224133}
