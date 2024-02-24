@@ -13,7 +13,7 @@ namespace Enemy
                 info.dealer = enemy.gameObject;
 
                 // CONTINUE HERE: Bug, AOE cant damage the player since can't get IDamageCalculatable from here
-                var damager = players.GetComponent<IDamageCalculatable>();
+                var damager = players.GetComponentInChildren<IDamageCalculatable>();
                 if (damager == null)
                 {
                     Debug.LogError("IDamageCalculatable Not found On Object " + players);

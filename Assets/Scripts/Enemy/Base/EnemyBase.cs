@@ -140,6 +140,8 @@ namespace Enemy
         {
             if (!IsServer || !isActiveAndEnabled) return;
             currentHealth.Value -= damageAmount;
+            Debug.Log("Enemy script: receive damage = " + damageAmount);
+            Debug.Log("Current Health is: " + currentHealth.Value);
             if (currentHealth.Value <= 0f)
             {
                 Die(dealer);

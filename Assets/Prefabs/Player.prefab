@@ -399,7 +399,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1587fd49cf6332a44896da413485fd9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultATK: 1
+  defaultATK: 5
   defaultDEF: 1
   defaultCritDMG: 1
   defaultCritRate: 0.2
@@ -871,6 +871,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8250c19bb6ef3684fa2ede863dce07b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerId: 1
   simpleDamageFactor: 1
 --- !u!1 &8342141568514335701
 GameObject:

@@ -12,8 +12,9 @@ public class BulletProjectile : NetworkBehaviour
     public float lifetime = 5.0f;
     //public float damageAmount = 1.0f;
     public DamageCalculationComponent component;
-    public ElementalType elementalType; // gun need to set this when fire a bullet ***
+    public ElementalType elementalType; 
     public ElementalEntity entity;
+    public GameObject playerObject;
 
     public ulong PlayerId { get; set; }
 
@@ -39,37 +40,49 @@ public class BulletProjectile : NetworkBehaviour
         }
     }
 
+    public void BulletInitialize(GameObject player)
+    {
+        playerObject = player;
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (!IsServer) return;
+        
+        PlayerHitboxDamageable playerHitbox = other.GetComponentInChildren<PlayerHitboxDamageable>(); // return if collide with dealer
+        if (playerHitbox != null && playerHitbox.HasMatchingPlayerId(PlayerId)) return; 
 
-        IDamageCalculatable damageable = other.GetComponent<IDamageCalculatable>();
+        Debug.Log("bullet collide with: " + other.name);
+        IDamageCalculatable damageable = other.GetComponentInChildren<IDamageCalculatable>();
+        //Debug.Log("damageable: "+damageable.ToString());
 
-        if (damageable != null)
+        if (damageable == null)
         {
-            GameObject playerObject = NetworkManager.Singleton.SpawnManager.GetPlayerNetworkObject(PlayerId).gameObject;
-
-            if (component == null) // Warning: Null check is expensive, change later
+            if(!other.TryGetComponent<IDamageCalculatable>(out damageable))
             {
-                component = playerObject.GetComponent<DamageCalculationComponent>();
-            }
+                Debug.LogWarning("Collider does not have IDamageCalculatable component.");
+                NetworkObject.Despawn(true);
+                return;
+            } 
+        }
 
-            DamageInfo damageInfo = new DamageInfo(playerObject);
-            damageInfo.elementalDamageParameter = new ElementalDamageParameter(elementalType, entity);
-            damageInfo = component.GetFinalDealthDamageInfo(damageInfo);
-            damageable.Damage(damageInfo); // Pass the player GameObject to the Damage method
-            Debug.Log("Bullet Script: " + playerObject.name);
-            //Instantiate(vfxHit, transform.position, Quaternion.identity);
-        }
-        else
+        if (component == null) // Warning: Null check is expensive, change later
         {
-            Debug.Log("Player Script: No Damagable Class Found");
+            component = playerObject.GetComponent<DamageCalculationComponent>();
         }
+
+        DamageInfo damageInfo = new(playerObject)
+        {
+            elementalDamageParameter = new ElementalDamageParameter(elementalType, entity)
+        };
+        damageInfo = component.GetFinalDealthDamageInfo(damageInfo);
+        damageable.Damage(damageInfo); // Pass the player GameObject to the Damage method
+        Debug.Log("Damage dealt to " + other.name + ": "  + damageInfo.amount);
+        //Instantiate(vfxHit, transform.position, Quaternion.identity);
 
         // Destroy(gameObject);
 
-        // despawn network object
         NetworkObject.Despawn(true);
-        // NetworkObject.Despawn();
+      
     }
 }

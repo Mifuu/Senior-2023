@@ -4,6 +4,7 @@ using Unity.Netcode;
 public class PlayerHitboxDamageable : NetworkBehaviour, IDamageCalculatable
 {
     private IDamageable damageable;
+    public ulong playerId;
     [SerializeField] private float simpleDamageFactor = 1.0f;
 
     private void Awake()
@@ -15,6 +16,11 @@ public class PlayerHitboxDamageable : NetworkBehaviour, IDamageCalculatable
         }
     }
 
+    public void InitializePlayerId(ulong receivedPlayerId)
+    {
+        playerId = receivedPlayerId;
+    }
+
     protected virtual float CalculateDamage(DamageInfo damageInfo)
     {
         return simpleDamageFactor * damageInfo.amount;
@@ -24,6 +30,12 @@ public class PlayerHitboxDamageable : NetworkBehaviour, IDamageCalculatable
     {
         var trueDamageAmount = CalculateDamage(damageInfo);
         damageable.Damage(trueDamageAmount, damageInfo.dealer);
+    }
+
+    public bool HasMatchingPlayerId(ulong receivedPlayerId)
+    {
+        if (playerId == receivedPlayerId) return true;
+        else { return false; }
     }
 
     public float getCurrentHealth() => damageable.currentHealth.Value;
