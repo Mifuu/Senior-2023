@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Enemy
@@ -52,6 +51,7 @@ namespace Enemy
                 {
                     Debug.Log("Shooter checking LOS, State: Attack");
                     isContinueAttacking = false;
+                    enemy.animator.SetTrigger(enemy.finishedAttackingAnimationTrigger);
                     enemy.StateMachine.ChangeState(enemy.ChaseState);
                     yield break;
                 }

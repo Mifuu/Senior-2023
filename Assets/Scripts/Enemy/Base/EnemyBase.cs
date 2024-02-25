@@ -2,7 +2,6 @@ using UnityEngine;
 using Unity.Netcode;
 using UnityEngine.AI;
 using Unity.Netcode.Components;
-using ObserverPattern;
 
 namespace Enemy
 {
@@ -42,17 +41,16 @@ namespace Enemy
 
         public GameObject targetPlayer;
         public NavMeshAgent navMeshAgent;
-
-        #region Stat and Damage Calculation
-
-        public Subject<float> BaseAtk = new Subject<float>(100f);
-        public Subject<float> HydroDamageBonus = new Subject<float>(2f);
-        public Subject<float> PyroDamageBonus = new Subject<float>(2f);
-        public Subject<float> ElectroDamageBonus = new Subject<float>(2f);
-        public Subject<float> CritRate = new Subject<float>(0.5f);
-        public Subject<float> CritDmgFactor = new Subject<float>(1.2f);
-
         public DamageCalculationComponent dealerPipeline;
+
+        #region Animation
+
+        public Animator animator;
+        public readonly int startChasingAnimationTrigger = Animator.StringToHash("StartChasing");
+        public readonly int knockedbackAnimationTrigger = Animator.StringToHash("KnockedBack");
+        public readonly int attackAnimationTrigger = Animator.StringToHash("Attack");
+        public readonly int finishedAttackingAnimationTrigger = Animator.StringToHash("FinishedAttacking");
+        public readonly int finishedKnockbackAnimationTrigger = Animator.StringToHash("FinishedKnockback");
 
         #endregion
 
@@ -63,6 +61,7 @@ namespace Enemy
             StateMachine = GetComponent<EnemyStateMachine>();
             dealerPipeline = GetComponent<DamageCalculationComponent>();
             stat = GetComponent<EnemyStat>();
+            animator = GetComponentInChildren<Animator>();
         }
 
         public void Update()
@@ -94,7 +93,7 @@ namespace Enemy
 
         private void ClientSetup()
         {
-            Debug.Log("Running Non Server Setup");
+            Debug.Log(gameObject + "Running Non Server Setup");
             Destroy(navMeshAgent);
             Destroy(GetComponent<NetworkRigidbody>());
             Destroy(GetComponent<Rigidbody>());
@@ -105,7 +104,7 @@ namespace Enemy
 
         private void ServerSetup()
         {
-            Debug.Log("Running Server Setup");
+            Debug.Log(gameObject + " Running Server Setup");
             EnemyChaseBaseInstance = Instantiate(EnemyChaseBase);
             EnemyAttackBaseInstance = Instantiate(EnemyAttackBase);
             EnemyIdleBaseInstance = Instantiate(EnemyIdleBase);
@@ -141,6 +140,8 @@ namespace Enemy
         {
             if (!IsServer || !isActiveAndEnabled) return;
             currentHealth.Value -= damageAmount;
+            Debug.Log("Enemy script: receive damage = " + damageAmount);
+            Debug.Log("Current Health is: " + currentHealth.Value);
             if (currentHealth.Value <= 0f)
             {
                 Die(dealer);
@@ -163,17 +164,17 @@ namespace Enemy
             DesetupTargetPlayer();
         }
 
-        private void AnimationTrigger(AnimationTriggerType triggerType)
+        private void AnimationTrigger(int triggerType)
         {
             StateMachine.CurrentEnemyState.AnimationTrigger(triggerType);
         }
 
         // Test animation trigger type - May not really be used
-        public enum AnimationTriggerType
-        {
-            EnemyDamaged,
-            PlayFootstepSounds
-        }
+        // public enum AnimationTriggerType
+        // {
+        //     EnemyDamaged,
+        //     PlayFootstepSounds
+        // }
 
         private bool CheckIsNewPlayer(GameObject objectToCheck) => objectToCheck.GetComponent<PlayerHealth>() != null && objectToCheck != targetPlayer;
 

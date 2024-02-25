@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43be76b809eb6ef4597a394bf2428a21, type: 3}
   m_Name: DefaultElementReceiver
   m_EditorClassIdentifier: 
-  UniqueName: 
-  requireInstantiation: 0
+  UniqueName: DefaultERcv
+  requireInstantiation: 1
