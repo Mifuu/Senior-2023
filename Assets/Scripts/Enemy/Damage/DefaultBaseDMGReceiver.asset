@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02db1e979ba59a144a1d4a74aedfd9d0, type: 3}
   m_Name: DefaultBaseDMGReceiver
   m_EditorClassIdentifier: 
-  UniqueName: 
+  UniqueName: DefaultBaseDmgRcv
   requireInstantiation: 0
+  defaultEmergencyBaseDef: 1

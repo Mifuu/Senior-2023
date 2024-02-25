@@ -5,6 +5,8 @@ namespace Enemy
     [CreateAssetMenu(menuName = "Enemy/Enemy Damage Unit/Base Damage Receive Factor", fileName = "Base Damage Receive Factor")]
     public class DCUBaseDef : DamageCalculationUnitBase
     {
+        [SerializeField] private float defaultEmergencyBaseDef;
+
         public override void Dispose(DamageCalculationComponent component, SubscriptionRemover remover)
         {
             remover.RemoveFloat("BaseDef");
@@ -20,10 +22,9 @@ namespace Enemy
             float def;
             if (getter.GetFloat("BaseDef", out def))
             {
-                return initialValue * def;
+                return def;
             }
-            return initialValue;
+            return defaultEmergencyBaseDef;
         }
     }
-
 }

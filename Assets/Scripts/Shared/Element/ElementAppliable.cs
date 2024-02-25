@@ -1,6 +1,7 @@
 using Unity.Netcode;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class ElementAppliable : NetworkBehaviour
 {
@@ -29,6 +30,8 @@ public class ElementAppliable : NetworkBehaviour
     [SerializeField] private int defaultWeaponApplyWeight = 1;
     private int elementApplyCount = 0;
 
+    private VisualEffect vfx;
+
     public void Awake()
     {
         if (elementalReactionEffectPreset != null)
@@ -37,6 +40,7 @@ public class ElementAppliable : NetworkBehaviour
         }
         else
         {
+            Debug.LogError("None preset setup might not work currently, Use the presetted Scriptable Object instead");
             effectListDict = elementalReactionEffectPreset.TransformListOfEffectToDict(effectList);
         }
 
@@ -46,14 +50,50 @@ public class ElementAppliable : NetworkBehaviour
         }
         else
         {
+            Debug.LogError("None preset setup might not work currently, Use the presetted Scriptable Object instead");
             applyWeightDict = elementalApplyWeightPreset.TransformListOfWeightToDict(applyWeights);
         }
+
+        vfx = GetComponentInChildren<VisualEffect>();
     }
 
     public override void OnNetworkSpawn()
     {
+        currentAppliedElement.OnValueChanged += ChangeVfxColorOfAppliedElement;
         if (!IsServer) return;
         currentAppliedElement.Value = defaultElement;
+    }
+
+    public override void OnNetworkDespawn()
+    {
+        currentAppliedElement.OnValueChanged -= ChangeVfxColorOfAppliedElement;
+    }
+
+    public void ChangeVfxColorOfAppliedElement(ElementalType prev, ElementalType current)
+    {
+        if (vfx == null) return;
+        Vector4 color = vfx.GetVector4("New Color");
+
+        switch (currentAppliedElement.Value)
+        {
+            case ElementalType.None:
+                color = new Vector4(147, 147, 147, 231);
+                break;
+            case ElementalType.Water:
+                color = new Vector4(7, 152, 191, 255);
+                break;
+            case ElementalType.Fire:
+                color = new Vector4(191, 63, 0, 231);
+                break;
+            case ElementalType.Earth:
+                color = new Vector4(191, 2, 0, 231);
+                break;
+            case ElementalType.Wind:
+                color = new Vector4(0, 191, 21, 231);
+                break;
+        }
+
+        vfx.SetVector4("New Color", color);
     }
 
     public void TryApplyElement(GameObject applier, ElementalDamageParameter elementalDamageParameter, TemporaryGunType gunType)

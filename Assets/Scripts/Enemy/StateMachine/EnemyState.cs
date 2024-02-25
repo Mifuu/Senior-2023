@@ -20,6 +20,6 @@ namespace Enemy
         public virtual void ExitState() { }
         public virtual void FrameUpdate() { }
         public virtual void PhysicsUpdate() { }
-        public virtual void AnimationTrigger(EnemyBase.AnimationTriggerType triggerType) { }
+        public virtual void AnimationTrigger(int triggerType) { }
     }
 }

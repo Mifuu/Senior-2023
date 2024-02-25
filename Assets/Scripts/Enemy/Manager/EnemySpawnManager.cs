@@ -75,6 +75,7 @@ namespace Enemy
             SpawnEnemy(enemyPrefabList[randomEnemyIndex]);
         }
 
+        [ContextMenu("Spawn Selected Enemy")]
         public void SpawnSelectedEnemy()
         {
             if (chooseEnemyToSpawn == null)
