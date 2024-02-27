@@ -19,9 +19,9 @@ MonoBehaviour:
     AfterOpaque: 0
     Source: 1
     NormalSamples: 1
-    Intensity: 0.8
-    DirectLightingStrength: 0.25
-    Radius: 0.5
+    Intensity: 1.83
+    DirectLightingStrength: 1
+    Radius: 0.93
     Samples: 1
     BlurQuality: 0
     Falloff: 44
@@ -35,6 +35,23 @@ MonoBehaviour:
   - {fileID: 2800000, guid: 3302065f671a8450b82c9ddf07426f3a, type: 3}
   - {fileID: 2800000, guid: 56a77a3e8d64f47b6afe9e3c95cb57d5, type: 3}
   m_Shader: {fileID: 4800000, guid: 0849e84e3d62649e8882e9d6f056a017, type: 3}
+--- !u!114 &-7061679442015628773
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d613f08f173d4dd895bb07b3230baa9, type: 3}
+  m_Name: FullScreenPassRendererFeature
+  m_EditorClassIdentifier: 
+  m_Active: 0
+  passMaterial: {fileID: 2100000, guid: 987d160989e184d10a48d6a5e08a5dd5, type: 2}
+  injectionPoint: 600
+  requirements: 4
+  passIndex: 1
 --- !u!114 &-6083149748965476233
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -48,10 +65,27 @@ MonoBehaviour:
   m_Name: FullScreenPassRendererFeature
   m_EditorClassIdentifier: 
   m_Active: 1
-  passMaterial: {fileID: 2100000, guid: f9ac25e4ee2974672a43c9e1d1297dfb, type: 2}
+  passMaterial: {fileID: 2100000, guid: 6e22cbd59e514415d82105c55799b862, type: 2}
   injectionPoint: 450
   requirements: 6
   passIndex: 1
+--- !u!114 &-1782343567264656533
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d613f08f173d4dd895bb07b3230baa9, type: 3}
+  m_Name: FullScreenPassRendererFeature
+  m_EditorClassIdentifier: 
+  m_Active: 0
+  passMaterial: {fileID: 2100000, guid: f9ac25e4ee2974672a43c9e1d1297dfb, type: 2}
+  injectionPoint: 550
+  requirements: 6
+  passIndex: 0
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -69,8 +103,10 @@ MonoBehaviour:
     hdrDebugViewPS: {fileID: 4800000, guid: 573620ae32aec764abd4d728906d2587, type: 3}
   m_RendererFeatures:
   - {fileID: -9058802762731162861}
+  - {fileID: -1782343567264656533}
+  - {fileID: -7061679442015628773}
   - {fileID: -6083149748965476233}
-  m_RendererFeatureMap: 13f31405e2aa488277f86781884f94ab
+  m_RendererFeatureMap: 13f31405e2aa48826bd37c05f8d743e71bd2fa3cf6dfff9d77f86781884f94ab
   m_UseNativeRenderPass: 0
   postProcessData: {fileID: 11400000, guid: 41439944d30ece34e96484bdb6645b55, type: 2}
   xrSystemData: {fileID: 11400000, guid: 60e1133243b97e347b653163a8c01b64, type: 2}
