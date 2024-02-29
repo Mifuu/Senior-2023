@@ -19,12 +19,12 @@ MonoBehaviour:
     AfterOpaque: 0
     Source: 1
     NormalSamples: 1
-    Intensity: 1.83
+    Intensity: 1.2
     DirectLightingStrength: 1
-    Radius: 0.93
+    Radius: 0.63
     Samples: 1
     BlurQuality: 0
-    Falloff: 44
+    Falloff: 25.85
     SampleCount: -1
   m_BlueNoise256Textures:
   - {fileID: 2800000, guid: 36f118343fc974119bee3d09e2111500, type: 3}
@@ -81,7 +81,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d613f08f173d4dd895bb07b3230baa9, type: 3}
   m_Name: FullScreenPassRendererFeature
   m_EditorClassIdentifier: 
-  m_Active: 0
+  m_Active: 1
   passMaterial: {fileID: 2100000, guid: f9ac25e4ee2974672a43c9e1d1297dfb, type: 2}
   injectionPoint: 550
   requirements: 6
@@ -103,10 +103,10 @@ MonoBehaviour:
     hdrDebugViewPS: {fileID: 4800000, guid: 573620ae32aec764abd4d728906d2587, type: 3}
   m_RendererFeatures:
   - {fileID: -9058802762731162861}
+  - {fileID: -6083149748965476233}
   - {fileID: -1782343567264656533}
   - {fileID: -7061679442015628773}
-  - {fileID: -6083149748965476233}
-  m_RendererFeatureMap: 13f31405e2aa48826bd37c05f8d743e71bd2fa3cf6dfff9d77f86781884f94ab
+  m_RendererFeatureMap: 13f31405e2aa488277f86781884f94ab6bd37c05f8d743e71bd2fa3cf6dfff9d
   m_UseNativeRenderPass: 0
   postProcessData: {fileID: 11400000, guid: 41439944d30ece34e96484bdb6645b55, type: 2}
   xrSystemData: {fileID: 11400000, guid: 60e1133243b97e347b653163a8c01b64, type: 2}
