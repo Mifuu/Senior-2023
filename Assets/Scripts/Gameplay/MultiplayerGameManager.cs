@@ -31,17 +31,18 @@ public class MultiplayerGameManager : Singleton<MultiplayerGameManager>
 
     public void StartGame()
     {
+        if (!IsServer)
+        {
+            Debug.LogWarning("Not server, no permissions to start game");
+            return;
+        }
+
         if (timeSinceStart >= 0)
         {
             Debug.LogWarning("Game already started");
             return;
         }
         timeSinceStart = 0.1f;
-
-        if (!IsServer)
-        {
-            Debug.LogWarning("Not server, no permissions to start game");
-        }
 
         NetworkDebugManager.LogMessage("[MGM] Starting game...");
         NetworkDebugManager.LogMessage("[MGM] Generating level...");
