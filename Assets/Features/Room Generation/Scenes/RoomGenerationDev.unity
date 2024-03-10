@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.45116025, g: 0.4997989, b: 0.5677669, a: 1}
+  m_IndirectSpecularColor: {r: 0.4511603, g: 0.49979883, b: 0.567767, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3335,10 +3335,6 @@ PrefabInstance:
     - target: {fileID: 8370552561504519156, guid: 944e92cf4deba48fe8e778dcb2472b6b, type: 3}
       propertyPath: m_Name
       value: Ramayana 1 Hall 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8370552561504519156, guid: 944e92cf4deba48fe8e778dcb2472b6b, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9170135659901140350, guid: 944e92cf4deba48fe8e778dcb2472b6b, type: 3}
       propertyPath: GlobalObjectIdHash

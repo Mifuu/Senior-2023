@@ -75,7 +75,7 @@ public class MultiplayerGameManager : Singleton<MultiplayerGameManager>
                 Debug.LogWarning("No spawn position... Spawning at 0,0,0");
 
 
-            GameObject player = Instantiate(playerPrefab, spawnTransform[0].position, Quaternion.identity);
+            GameObject player = Instantiate(playerPrefab, spawnPosition, Quaternion.identity);
             player.GetComponent<NetworkObject>().SpawnWithOwnership(id);
             playerList.Add(player);
         }
