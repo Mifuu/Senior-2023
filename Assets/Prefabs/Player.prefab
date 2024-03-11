@@ -1062,6 +1062,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7430242168604739017, guid: e66a9aaed12910b4cacb107303a4c177, type: 3}
+      propertyPath: playerObject
+      value: 
+      objectReference: {fileID: 1287504444611049030}
     - target: {fileID: 8427827198844314800, guid: e66a9aaed12910b4cacb107303a4c177, type: 3}
       propertyPath: m_Name
       value: AssultRifle
