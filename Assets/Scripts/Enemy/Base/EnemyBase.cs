@@ -97,13 +97,13 @@ namespace Enemy
 
         private void ClientSetup()
         {
-            Debug.Log(gameObject + "Running Non Server Setup");
+            Debug.Log(gameObject + " Running Non Server Setup");
+            enabled = false;
+            StateMachine.enabled = false;
             Destroy(navMeshAgent);
             Destroy(GetComponent<NetworkRigidbody>());
             Destroy(GetComponent<Rigidbody>());
             Destroy(GetComponent<Collider>());
-            enabled = false;
-            StateMachine.enabled = false;
         }
 
         private void ServerSetup()
@@ -144,8 +144,8 @@ namespace Enemy
         {
             if (!IsServer || !isActiveAndEnabled) return;
             currentHealth.Value -= damageAmount;
-            Debug.Log("Enemy script: receive damage = " + damageAmount);
-            Debug.Log("Current Health is: " + currentHealth.Value);
+            // Debug.Log("Enemy script: receive damage = " + damageAmount);
+            // Debug.Log("Current Health is: " + currentHealth.Value);
             if (currentHealth.Value <= 0f)
             {
                 Die(dealer);
@@ -206,7 +206,6 @@ namespace Enemy
         public void OnTargetPlayerChangeRequired(GameObject newTargetPlayer)
         {
             if (!IsServer || newTargetPlayer == null || !CheckIsNewPlayer(newTargetPlayer)) return;
-
             if (targetPlayer != null)
             {
                 DesetupTargetPlayer();

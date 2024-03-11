@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Enemy
@@ -42,7 +41,7 @@ namespace Enemy
 
             while (isStillChecking)
             {
-                if (lineOfSightCheck.IsPlayerInLineOfSight())
+                if (lineOfSightCheck.IsPlayerInLineOfSight(enemy.targetPlayer))
                 {
                     Debug.Log("Shooter Checking LOS: Found");
                     isStillChecking = false;

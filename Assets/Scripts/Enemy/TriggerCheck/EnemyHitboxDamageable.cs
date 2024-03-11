@@ -17,6 +17,7 @@ namespace Enemy
             if (enemy == null || damageComponent == null)
             {
                 Debug.LogError("------------------------------------------------");
+                Debug.LogError("Enemy Hitbox Setup Error");
                 Debug.LogError(gameObject + " Parent: " + transform.parent.gameObject);
                 Debug.LogError(gameObject + " Enemy Base Class: " + enemy);
                 Debug.LogError(gameObject + " Damage Component Class: " + damageComponent);
