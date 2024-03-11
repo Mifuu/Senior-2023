@@ -28,6 +28,7 @@ namespace Enemy
         public override void DoFrameUpdateLogic()
         {
             base.DoFrameUpdateLogic();
+            // TODO: Remove all the IsServer check from the State since client enemy no longer has the state machine
             if (!enemy.IsServer) return;
             transform.LookAt(enemy.targetPlayer.transform);
             transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);

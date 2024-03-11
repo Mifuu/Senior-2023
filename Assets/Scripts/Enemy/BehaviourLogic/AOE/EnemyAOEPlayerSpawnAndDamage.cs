@@ -26,7 +26,6 @@ namespace Enemy
         public override void CancelEffect()
         {
             base.CancelEffect();
-            // Debug.Log("Canceling Effect");
             EmitAOEEndsEvent();
             throw new System.NotImplementedException("Implement EnemyAOEPlayerSpawnAndDamage CancelEffect Function");
         }
