@@ -2,21 +2,20 @@ using UnityEngine;
 using Unity.Netcode;
 using UnityEngine.AI;
 using Unity.Netcode.Components;
+using System;
 
 namespace Enemy
 {
     public class EnemyBase : NetworkBehaviour, IDamageable
     {
+        [Header("Preset Value")]
+        [SerializeField] private EnemyTriggerCheck aggroDistanceTriggerCheck;
         [field: SerializeField] public float maxHealth { get; set; }
         public NetworkVariable<float> currentHealth { get; set; } = new NetworkVariable<float>(0.0f); // NetworkVariable must be initialized
-        public Rigidbody rigidBody { get; set; }
-        [SerializeField] private EnemyTriggerCheck aggroDistanceTriggerCheck;
-        private bool initialSetupComplete = false;
-
-        public EnemyStat stat;
 
         #region State ScriptableObject Variable
 
+        [Header("State Machine Behaviour")]
         [SerializeField] private Enemy.EnemyAttackSOBase EnemyAttackBase;
         [SerializeField] private Enemy.EnemyIdleSOBase EnemyIdleBase;
         [SerializeField] private Enemy.EnemyChaseSOBase EnemyChaseBase;
@@ -39,13 +38,23 @@ namespace Enemy
 
         #endregion
 
+        [Header("Parameter Init at Runtime")]
         public GameObject targetPlayer;
         public NavMeshAgent navMeshAgent;
         public DamageCalculationComponent dealerPipeline;
+        public EnemyStat stat;
+        private bool initialSetupComplete = false;
+        public Rigidbody rigidBody { get; set; }
+
+        [Header("Adjustable Parameter")]
+        [Range(0f, 10f)]
+        [Tooltip("Configure How fast the Navmesh Agent is turning")]
+        public float navMeshAngularSpeedFactor = 5.0f;
+        public EnemyModelAnimationEventEmitter animationEventEmitter;
 
         #region Animation
 
-        public Animator animator;
+        [HideInInspector] public Animator animator;
         public readonly int startChasingAnimationTrigger = Animator.StringToHash("StartChasing");
         public readonly int knockedbackAnimationTrigger = Animator.StringToHash("KnockedBack");
         public readonly int attackAnimationTrigger = Animator.StringToHash("Attack");
@@ -62,6 +71,9 @@ namespace Enemy
             dealerPipeline = GetComponent<DamageCalculationComponent>();
             stat = GetComponent<EnemyStat>();
             animator = GetComponentInChildren<Animator>();
+
+            navMeshAgent.angularSpeed = navMeshAngularSpeedFactor * navMeshAgent.angularSpeed;
+            navMeshAgent.acceleration = navMeshAgent.acceleration * 2;
         }
 
         public void Update()
@@ -76,16 +88,12 @@ namespace Enemy
 
         public override void OnNetworkSpawn()
         {
-            if (initialSetupComplete) return;
-            initialSetupComplete = true;
+            if (!initialSetupComplete)
+            {
+                initialSetupComplete = true;
 
-            if (!IsServer)
-            {
-                ClientSetup();
-            }
-            else
-            {
-                ServerSetup();
+                if (!IsServer) ClientSetup();
+                else ServerSetup();
             }
 
             OnEnemySpawn();
@@ -93,13 +101,13 @@ namespace Enemy
 
         private void ClientSetup()
         {
-            Debug.Log(gameObject + "Running Non Server Setup");
-            Destroy(navMeshAgent);
-            Destroy(GetComponent<NetworkRigidbody>());
-            Destroy(GetComponent<Rigidbody>());
-            Destroy(GetComponent<Collider>());
+            Debug.Log(gameObject + " Running Non Server Setup");
             enabled = false;
             StateMachine.enabled = false;
+            Destroy(navMeshAgent);
+            // Destroy(GetComponent<NetworkRigidbody>());
+            // Destroy(GetComponent<Rigidbody>());
+            Destroy(GetComponent<Collider>());
         }
 
         private void ServerSetup()
@@ -133,15 +141,15 @@ namespace Enemy
             if (!IsServer) return;
             OnTargetPlayerRefindRequired();
             currentHealth.Value = maxHealth;
-            StateMachine.ChangeState(IdleState);
+            // StateMachine.ChangeState(IdleState);
         }
 
         public void Damage(float damageAmount, GameObject dealer)
         {
             if (!IsServer || !isActiveAndEnabled) return;
             currentHealth.Value -= damageAmount;
-            Debug.Log("Enemy script: receive damage = " + damageAmount);
-            Debug.Log("Current Health is: " + currentHealth.Value);
+            // Debug.Log("Enemy script: receive damage = " + damageAmount);
+            // Debug.Log("Current Health is: " + currentHealth.Value);
             if (currentHealth.Value <= 0f)
             {
                 Die(dealer);
@@ -151,7 +159,7 @@ namespace Enemy
         public void Die(GameObject dealer)
         {
             if (!IsServer || !isActiveAndEnabled) return;
-            dealer.GetComponent<PlayerLevel>()?.AddExp(100);
+            if (dealer != null) dealer.GetComponent<PlayerLevel>()?.AddExp(100); // TODO: Change the EXP to be based on the level of enemy
             CleanUp();
             var enemyNetworkObject = GetComponent<NetworkObject>();
             enemyNetworkObject.Despawn();
@@ -195,17 +203,17 @@ namespace Enemy
                     closestDistanceSqr = distanceSqr;
                 }
             }
+
             return closestPlayer;
         }
 
         public void OnTargetPlayerChangeRequired(GameObject newTargetPlayer)
         {
-            if (!IsServer) return;
+            if (!IsServer || newTargetPlayer == null || !CheckIsNewPlayer(newTargetPlayer)) return;
             if (targetPlayer != null)
             {
                 DesetupTargetPlayer();
             }
-            if (!CheckIsNewPlayer(newTargetPlayer)) return;
 
             targetPlayer = newTargetPlayer;
             SetupNewTargetPlayer(targetPlayer);
@@ -233,6 +241,7 @@ namespace Enemy
         {
             var playerHealth = targetPlayer.GetComponent<PlayerHealth>();
             playerHealth.OnPlayerDie -= OnTargetPlayerRefindRequired;
+            targetPlayer = null;
         }
 
         private void SetupNewTargetPlayer(GameObject newTargetPlayer)
@@ -258,5 +267,8 @@ namespace Enemy
                 Debug.LogError("Target Player Not found");
             }
         }
+
+        [ClientRpc]
+        public void ChangeMaxHealthClientRpc(float newMaxHealth) => maxHealth = newMaxHealth;
     }
 }

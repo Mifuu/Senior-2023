@@ -409,9 +409,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddead72d729e01543b7bc746f68d462d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <maxHealth>k__BackingField: 40
   aggroDistanceTriggerCheck: {fileID: 7161197138267151029}
-  stat: {fileID: 0}
+  <maxHealth>k__BackingField: 40
   EnemyAttackBase: {fileID: 11400000, guid: 630b896d110854841be2dffd8f01818b, type: 2}
   EnemyIdleBase: {fileID: 11400000, guid: 14134fe2c295e9544a5547525c22c16b, type: 2}
   EnemyChaseBase: {fileID: 11400000, guid: f0de20db2f3463e48b7db5c836ced6d3, type: 2}
@@ -419,6 +418,9 @@ MonoBehaviour:
   targetPlayer: {fileID: 0}
   navMeshAgent: {fileID: 0}
   dealerPipeline: {fileID: 0}
+  stat: {fileID: 0}
+  navMeshAngularSpeedFactor: 5
+  animationEventEmitter: {fileID: 4007888533607387383}
   animator: {fileID: 0}
 --- !u!114 &-387585368819642466
 MonoBehaviour:
@@ -432,6 +434,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8142ced76a0cb0c45941806d300eb47a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  networkEnemyState:
+    m_InternalValue: 0
 --- !u!114 &6403244955190301084
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -898,7 +902,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: fe0a1d7a9ed92c84c83f68f37d761bba, type: 3}
       propertyPath: m_Name
-      value: Idle (1)
+      value: Model
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -907,6 +911,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: fe0a1d7a9ed92c84c83f68f37d761bba, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8807702804764763809}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: fe0a1d7a9ed92c84c83f68f37d761bba, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4007888533607387383}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: fe0a1d7a9ed92c84c83f68f37d761bba, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4815272761088506079}
   m_SourcePrefab: {fileID: 100100000, guid: fe0a1d7a9ed92c84c83f68f37d761bba, type: 3}
 --- !u!4 &8450748503535980196 stripped
 Transform:
@@ -939,3 +949,29 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &4007888533607387383
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9082852603819021342}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e20b4cf876ade04dae6c38ed7aa1aa9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4815272761088506079
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9082852603819021342}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8d0727d5ae3244e3b569694d3912374, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TransitionStateInfoList: []
+  m_Animator: {fileID: 8807702804764763809}

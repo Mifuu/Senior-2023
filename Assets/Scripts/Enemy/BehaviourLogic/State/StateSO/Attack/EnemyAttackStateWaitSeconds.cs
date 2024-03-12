@@ -15,6 +15,12 @@ namespace Enemy
             enemy.StartCoroutine(PerformAttackCoroutine());
         }
 
+        public override void DoExitLogic()
+        {
+            base.DoExitLogic();
+            enemy.StopCoroutine(PerformAttackCoroutine());
+        }
+
         public virtual IEnumerator PerformAttackCoroutine()
         {
             yield return new WaitForSeconds(timeBeforeAttackBegin);
@@ -26,7 +32,6 @@ namespace Enemy
         public override void DoFrameUpdateLogic()
         {
             base.DoFrameUpdateLogic();
-            if (!enemy.IsServer) return;
             transform.LookAt(enemy.targetPlayer.transform);
             transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
         }

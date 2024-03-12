@@ -1,14 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 namespace Enemy
 {
     public class EnemyState
     {
         protected EnemyBase enemy;
         protected EnemyStateMachine enemyStateMachine;
-        public string stateId;
+        public EnemyStateMachine.AvailableEnemyState stateId;
 
         public EnemyState(EnemyBase enemy, EnemyStateMachine enemyStateMachine)
         {
