@@ -2,6 +2,7 @@ using UnityEngine;
 using Unity.Netcode;
 using UnityEngine.AI;
 using Unity.Netcode.Components;
+using System;
 
 namespace Enemy
 {
@@ -45,9 +46,15 @@ namespace Enemy
         private bool initialSetupComplete = false;
         public Rigidbody rigidBody { get; set; }
 
+        [Header("Adjustable Parameter")]
+        [Range(0f, 10f)]
+        [Tooltip("Configure How fast the Navmesh Agent is turning")]
+        public float navMeshAngularSpeedFactor = 5.0f;
+        public EnemyModelAnimationEventEmitter animationEventEmitter;
+
         #region Animation
 
-        public Animator animator;
+        [HideInInspector] public Animator animator;
         public readonly int startChasingAnimationTrigger = Animator.StringToHash("StartChasing");
         public readonly int knockedbackAnimationTrigger = Animator.StringToHash("KnockedBack");
         public readonly int attackAnimationTrigger = Animator.StringToHash("Attack");
@@ -64,6 +71,9 @@ namespace Enemy
             dealerPipeline = GetComponent<DamageCalculationComponent>();
             stat = GetComponent<EnemyStat>();
             animator = GetComponentInChildren<Animator>();
+
+            navMeshAgent.angularSpeed = navMeshAngularSpeedFactor * navMeshAgent.angularSpeed;
+            navMeshAgent.acceleration = navMeshAgent.acceleration * 2;
         }
 
         public void Update()

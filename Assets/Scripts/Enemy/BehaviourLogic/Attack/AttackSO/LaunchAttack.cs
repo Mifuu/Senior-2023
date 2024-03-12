@@ -7,7 +7,7 @@ namespace Enemy
     public class LaunchAttack : EnemyAttack
     {
         [Header("Launch Attack Attribute")]
-        [SerializeField] private float launchSpeed = 1000f;
+        [SerializeField] private float launchSpeed = 10f;
         [SerializeField] private float preAttackWaitTime = 0.5f;
         [SerializeField] private float damagableTime = 1.0f;
         private bool canDamage = false;
@@ -15,11 +15,11 @@ namespace Enemy
         public override void Initialize(GameObject targetPlayer, GameObject enemyGameObject)
         {
             base.Initialize(targetPlayer, enemyGameObject);
-            // TODO: Recheck the name, maybe hitbox needs to be inherited somewhere
+            // Make sure to recheck the name and check that the EnemyTriggerCheck is in there
             var hitbox = enemy.transform.Find("HitBox")?.gameObject.GetComponentInChildren<EnemyTriggerCheck>();
             if (hitbox == null)
             {
-                Debug.LogError("Enemy has no hitbox");
+                Debug.LogError(enemy.gameObject + " Has No Damager Hitbox");
                 return;
             }
 
@@ -34,24 +34,26 @@ namespace Enemy
 
         private IEnumerator Launch()
         {
+            enemy.animationEventEmitter.OnAttackAnimationEnds += EndingAttack;
+            enemy.navMeshAgent.isStopped = true;
             yield return new WaitForSeconds(preAttackWaitTime);
 
+            enemy.transform.LookAt(enemy.targetPlayer.transform);
             canDamage = true;
-            enemy.rigidBody.AddForce(enemy.transform.forward * launchSpeed);
-            yield return new WaitForSeconds(damagableTime);
-            canDamage = false;
-            EmitAttackEndsEvent();
+            enemy.rigidBody.velocity = enemy.transform.forward * launchSpeed;
+        }
 
-            enemy.StateMachine.ChangeState(enemy.IdleState);
+        public void EndingAttack()
+        {
+            enemy.animationEventEmitter.OnAttackAnimationEnds -= EndingAttack;
+            canDamage = false;
+            enemy.rigidBody.velocity = Vector3.zero;
+            EmitAttackEndsEvent();
         }
 
         public void DamagePlayer(Collider collider)
         {
-            if (!canDamage)
-            {
-                return;
-            }
-
+            if (!canDamage) return;
             var info = Damage(collider.GetComponent<IDamageCalculatable>());
         }
     }

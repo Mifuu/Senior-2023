@@ -17,10 +17,11 @@ namespace Enemy
 
         public IEnumerator StandStill()
         {
+            enemy.navMeshAgent.isStopped = true;
             yield return new WaitForSeconds(cooldownTime);
+            enemy.navMeshAgent.isStopped = false;
             enemy.StateMachine.ChangeState(enemy.ChaseState);
             yield break;
         }
     }
 }
-
