@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 743832c8a40735d428575236ba9ca212, type: 3}
   m_Name: NormalLaunch
   m_EditorClassIdentifier: 
-  waitTime: 3
-  launchSpeed: 1000
+  launchSpeed: 10
   preAttackWaitTime: 0.5
+  damagableTime: 1
