@@ -15,7 +15,7 @@ public class Key_Interactable : InteractableItem
             // Call a server RPC on the player to increase the key count
             if (other.TryGetComponent<PlayerInventory>(out var playerInventory))
             {
-                playerInventory.IncreaseKeyServerRpc();
+                playerInventory.AddKeyServerRpc(1);
                 NetworkObject.Despawn(true);
             }
         }
