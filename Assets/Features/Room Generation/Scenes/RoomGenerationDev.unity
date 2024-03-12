@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.45116025, g: 0.4997989, b: 0.5677669, a: 1}
+  m_IndirectSpecularColor: {r: 0.4511603, g: 0.49979883, b: 0.567767, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2261,10 +2261,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ramayana 1 Spawn 1
       objectReference: {fileID: 0}
-    - target: {fileID: 4497323378029832235, guid: c2449fd09b74b426a8b28b0c86bc038a, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7509450837360587924, guid: c2449fd09b74b426a8b28b0c86bc038a, type: 3}
       propertyPath: GlobalObjectIdHash
       value: 1841472960
@@ -2949,7 +2945,7 @@ PrefabInstance:
     - target: {fileID: 5150643524499746467, guid: e97a1f9ed9d3444b29cb2729c7b8213c, type: 3}
       propertyPath: roomSet
       value: 
-      objectReference: {fileID: 11400000, guid: 4d3311073f0fe488194243cb3f54c6fc, type: 2}
+      objectReference: {fileID: 11400000, guid: 9b919aa6e85b8480bb16d0efb0635ae6, type: 2}
     - target: {fileID: 5150643524499746467, guid: e97a1f9ed9d3444b29cb2729c7b8213c, type: 3}
       propertyPath: latestTargetDoorPos.x
       value: -80

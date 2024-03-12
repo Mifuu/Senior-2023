@@ -31,17 +31,18 @@ public class MultiplayerGameManager : Singleton<MultiplayerGameManager>
 
     public void StartGame()
     {
+        if (!IsServer)
+        {
+            Debug.LogWarning("Not server, no permissions to start game");
+            return;
+        }
+
         if (timeSinceStart >= 0)
         {
             Debug.LogWarning("Game already started");
             return;
         }
         timeSinceStart = 0.1f;
-
-        if (!IsServer)
-        {
-            Debug.LogWarning("Not server, no permissions to start game");
-        }
 
         NetworkDebugManager.LogMessage("[MGM] Starting game...");
         NetworkDebugManager.LogMessage("[MGM] Generating level...");
@@ -74,7 +75,7 @@ public class MultiplayerGameManager : Singleton<MultiplayerGameManager>
                 Debug.LogWarning("No spawn position... Spawning at 0,0,0");
 
 
-            GameObject player = Instantiate(playerPrefab, spawnTransform[0].position, Quaternion.identity);
+            GameObject player = Instantiate(playerPrefab, spawnPosition, Quaternion.identity);
             player.GetComponent<NetworkObject>().SpawnWithOwnership(id);
             playerList.Add(player);
         }
