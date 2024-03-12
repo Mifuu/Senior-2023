@@ -3,6 +3,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Player/Player Damage/Player ATK")]
 public class DCUStaticPlayerATK : DamageCalculationUnitBase
 {
+    // TODO: Refactor the Damage calculation to use the buffcomponent multiplier
     public override void Dispose(DamageCalculationComponent component, SubscriptionRemover remover)
     {
         PlayerStat stat;

@@ -15,6 +15,12 @@ namespace Enemy
             enemy.StartCoroutine(PerformAttackCoroutine());
         }
 
+        public override void DoExitLogic()
+        {
+            base.DoExitLogic();
+            enemy.StopCoroutine(PerformAttackCoroutine());
+        }
+
         public virtual IEnumerator PerformAttackCoroutine()
         {
             yield return new WaitForSeconds(timeBeforeAttackBegin);

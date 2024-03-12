@@ -92,14 +92,8 @@ namespace Enemy
             {
                 initialSetupComplete = true;
 
-                if (!IsServer)
-                {
-                    ClientSetup();
-                }
-                else
-                {
-                    ServerSetup();
-                }
+                if (!IsServer) ClientSetup();
+                else ServerSetup();
             }
 
             OnEnemySpawn();
@@ -111,8 +105,8 @@ namespace Enemy
             enabled = false;
             StateMachine.enabled = false;
             Destroy(navMeshAgent);
-            Destroy(GetComponent<NetworkRigidbody>());
-            Destroy(GetComponent<Rigidbody>());
+            // Destroy(GetComponent<NetworkRigidbody>());
+            // Destroy(GetComponent<Rigidbody>());
             Destroy(GetComponent<Collider>());
         }
 
@@ -165,7 +159,7 @@ namespace Enemy
         public void Die(GameObject dealer)
         {
             if (!IsServer || !isActiveAndEnabled) return;
-            if (dealer != null) dealer.GetComponent<PlayerLevel>()?.AddExp(100);
+            if (dealer != null) dealer.GetComponent<PlayerLevel>()?.AddExp(100); // TODO: Change the EXP to be based on the level of enemy
             CleanUp();
             var enemyNetworkObject = GetComponent<NetworkObject>();
             enemyNetworkObject.Despawn();

@@ -3,6 +3,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Player/Player Damage/Player Element")]
 public class DCUNonStaticPlayerElemental : DamageCalculationUnitBase
 {
+    // TODO: Refactor the Damage calculation to use the buffcomponent multiplier
     ElementAttachable attachable;
     ElementalEntity entity;
     PlayerStat stat;
