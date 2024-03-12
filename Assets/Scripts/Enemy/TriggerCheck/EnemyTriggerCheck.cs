@@ -25,5 +25,4 @@ namespace Enemy
             OnHitboxTriggerExit?.Invoke(collider);
         }
     }
-
 }
