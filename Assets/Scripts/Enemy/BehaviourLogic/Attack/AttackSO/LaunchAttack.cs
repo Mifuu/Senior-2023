@@ -49,12 +49,13 @@ namespace Enemy
             canDamage = false;
             enemy.rigidBody.velocity = Vector3.zero;
             EmitAttackEndsEvent();
+            ResetProcessedDamageable();
         }
 
         public void DamagePlayer(Collider collider)
         {
             if (!canDamage) return;
-            var info = Damage(collider.GetComponent<IDamageCalculatable>());
+            Damage(collider.GetComponentInChildren<IDamageCalculatable>());
         }
     }
 }

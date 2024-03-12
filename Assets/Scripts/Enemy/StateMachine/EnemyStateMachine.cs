@@ -11,9 +11,10 @@ namespace Enemy
 
         private EnemyBase enemy;
         private EnemyState startingState;
-        private bool isInitialized;
+        private bool isInitialized = false;
+        private bool isStateMachineRunning = false;
 
-        public void Start()
+        public void Awake()
         {
             enemy = GetComponent<EnemyBase>();
         }
@@ -22,13 +23,14 @@ namespace Enemy
         {
             this.startingState = startingState;
             this.isInitialized = true;
-            StartStateMachine();
+            if (!isStateMachineRunning) StartStateMachine();
         }
 
         public void StartStateMachine()
         {
-            if (!IsServer) return;
+            if (!IsServer || isStateMachineRunning) return;
 
+            isStateMachineRunning = true;
             networkEnemyState.Value = startingState.stateId;
             CurrentEnemyState = startingState;
             CurrentEnemyState.EnterState();
@@ -44,9 +46,9 @@ namespace Enemy
         {
             base.OnNetworkSpawn();
             if (!IsServer) return;
-            
+
             networkEnemyState.OnValueChanged += SynchronizeState;
-            if (isInitialized) StartStateMachine();
+            if (isInitialized && !isStateMachineRunning) StartStateMachine();
         }
 
         public override void OnNetworkDespawn()
@@ -54,6 +56,7 @@ namespace Enemy
             base.OnNetworkDespawn();
             if (!IsServer) return;
 
+            isStateMachineRunning = false;
             networkEnemyState.Value = AvailableEnemyState.None;
             networkEnemyState.OnValueChanged -= SynchronizeState;
         }

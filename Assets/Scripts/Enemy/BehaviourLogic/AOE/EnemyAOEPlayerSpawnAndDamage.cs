@@ -4,6 +4,8 @@ namespace Enemy
 {
     public class EnemyAOEPlayerSpawnAndDamage : EnemyAOEPlayerSpawnAndActivate
     {
+        [SerializeField] public float pushBackForce = 10.0f;
+
         public override void ActivateEffect()
         {
             base.ActivateEffect();
@@ -12,6 +14,12 @@ namespace Enemy
                 var info = enemy.dealerPipeline.GetFinalDealthDamageInfo();
                 info.dealer = enemy.gameObject;
 
+                // Push back
+                // NullReference, Player do not have RigidBody
+                // var rb = players.GetComponent<Rigidbody>();
+                // rb.AddForce(GenerateRandomDirection(), ForceMode.Impulse);
+
+                // Do damage
                 var damager = players.GetComponentInChildren<IDamageCalculatable>();
                 if (damager == null)
                 {
@@ -21,6 +29,19 @@ namespace Enemy
 
                 damager.Damage(info);
             }
+        }
+
+        public Vector3 GenerateRandomDirection()
+        {
+            float x = Random.Range(-1f, 1f);
+            float z = Random.Range(-1f, 1f);
+            return new Vector3(x, 0.5f, z).normalized * pushBackForce;
+        }
+
+        public Vector3 GenerateDirectedPushbackDirection()
+        {
+            // TODO: Define the proper pushback direction
+            return Vector3.zero;
         }
 
         public override void CancelEffect()
