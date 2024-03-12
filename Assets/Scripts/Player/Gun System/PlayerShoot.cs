@@ -23,7 +23,7 @@ public class PlayerShoot : NetworkBehaviour
             Gun selectedGun = selectedWeaponObject.GetComponent<Gun>();
             if (selectedGun != null && selectedGun.CanShoot())
             {
-                selectedGun.ShootBullet(playerCam, aimColliderLayerMask);
+                selectedGun.ShootBullet_(playerCam, aimColliderLayerMask);
             }
         }
     }

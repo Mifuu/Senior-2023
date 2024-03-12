@@ -15,6 +15,7 @@ public class Gun : NetworkBehaviour
     public ElementalEntity playerEntity;
     public GunInteractable gunInteractable;
     public ElementAttachable elementAttachable;
+    public DamageCalculationComponent playerDmgComponent;
 
     private bool canShoot = true;
     private bool isOwned = true;
@@ -46,6 +47,7 @@ public class Gun : NetworkBehaviour
         elementAttachable = GetComponent<ElementAttachable>();
         playerObject = transform.parent.parent.gameObject;
         playerEntity = playerObject.GetComponent<ElementalEntity>();
+        playerDmgComponent = playerObject.GetComponent<DamageCalculationComponent>();
     }
 
     public void ShootBullet(Camera playerCam, LayerMask aimColliderLayerMask)
@@ -67,14 +69,14 @@ public class Gun : NetworkBehaviour
             Quaternion bulletRotation = Quaternion.LookRotation(aimDir, Vector3.up);
 
             // spawning
-            SpawnBulletServerRpc(NetworkManager.Singleton.LocalClientId, bulletSpawnPosition.position, bulletRotation);
+            SpawnSlowBulletServerRpc(NetworkManager.Singleton.LocalClientId, bulletSpawnPosition.position, bulletRotation);
             // SpawnBulletPoolServerRpc(bulletSpawnPosition.position, bulletRotation);
 
             StartCoroutine(ShootingDelay());
         }
     }
 
-    protected virtual void ShootBullet_(Camera playerCam, LayerMask aimColliderLayerMask)
+    public void ShootBullet_(Camera playerCam, LayerMask aimColliderLayerMask)
     {
         if (canShoot && IsClient && IsOwner)
         {
@@ -84,20 +86,21 @@ public class Gun : NetworkBehaviour
             {
                 Vector3 mouseWorldPosition = raycastHit.point;
                 aimDir = (mouseWorldPosition - bulletSpawnPosition.position).normalized;
-                // Debug.Log(raycastHit.collider.name, raycastHit.collider.gameObject);
             }
             else
             {
                 aimDir = (playerCam.transform.forward).normalized;
             }
             Quaternion bulletRotation = Quaternion.LookRotation(aimDir, Vector3.up);
-
-            // spawning
-            SpawnBulletServerRpc(NetworkManager.Singleton.LocalClientId, bulletSpawnPosition.position, bulletRotation);
-            // SpawnBulletPoolServerRpc(bulletSpawnPosition.position, bulletRotation);
-
+            Shoot(playerCam, aimColliderLayerMask, raycastHitRange);
+            SpawnFastBulletServerRpc(bulletSpawnPosition.position, bulletRotation);
             StartCoroutine(ShootingDelay());
         }
+    }
+
+    protected virtual void Shoot(Camera playerCam, LayerMask aimColliderLayerMask, float raycastHitRange)
+    {
+
     }
 
     private IEnumerator ShootingDelay()
@@ -108,7 +111,15 @@ public class Gun : NetworkBehaviour
     }
 
     [ServerRpc]
-    private void SpawnBulletServerRpc(ulong playerId, Vector3 bulletSpawnPosition, Quaternion bulletRotation)
+    private void SpawnFastBulletServerRpc(Vector3 bulletSpawnPosition, Quaternion bulletRotation)
+    {
+        var bulletObj = Instantiate(bullet, bulletSpawnPosition, bulletRotation);
+        var networkBulletObj = bulletObj.GetComponent<NetworkObject>();
+        networkBulletObj.Spawn();
+    }
+
+    [ServerRpc]
+    private void SpawnSlowBulletServerRpc(ulong playerId, Vector3 bulletSpawnPosition, Quaternion bulletRotation)
     {
         var bulletObj = Instantiate(bullet, bulletSpawnPosition, bulletRotation);
 
