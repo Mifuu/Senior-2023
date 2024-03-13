@@ -21,6 +21,7 @@ namespace Enemy
             }
             aoeBase.InitializeAOE(enemy.targetPlayer, enemy);
             aoe.Spawn();
+            EmitAttackEndsEvent();
         }
     }
 }

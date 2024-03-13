@@ -167,7 +167,7 @@ MonoBehaviour:
   m_OverrideTileSize: 0
   m_TileSize: 256
   m_OverrideVoxelSize: 0
-  m_VoxelSize: 0.16666667
+  m_VoxelSize: 0.1
   m_MinRegionArea: 2
   m_NavMeshData: {fileID: 23800000, guid: 3e73f5817f33b9c4084b53dbfde56e4c, type: 2}
   m_BuildHeightMesh: 0
@@ -590,7 +590,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isSpawning:
     m_InternalValue: 0
-  chooseEnemyToSpawn: {fileID: 5781375362114392876, guid: 9f873713cf9c782478e3e9b09361b0bd, type: 3}
+  chooseEnemyToSpawn: {fileID: 5781375362114392876, guid: 3f29c21da1f9cc0419fb95387bf03654, type: 3}
   spawnNumber: 1
 --- !u!1 &627502688
 GameObject:
@@ -760,6 +760,8 @@ MonoBehaviour:
     PrewarmCount: 5
   - Prefab: {fileID: 5498458629423864041, guid: d28aed5a908ce4e49b84e335d144e92f, type: 3}
     PrewarmCount: 5
+  - Prefab: {fileID: 5781375362114392876, guid: 3f29c21da1f9cc0419fb95387bf03654, type: 3}
+    PrewarmCount: 5
 --- !u!4 &657738820
 Transform:
   m_ObjectHideFlags: 0
@@ -924,7 +926,7 @@ PrefabInstance:
     - target: {fileID: 726476910482576936, guid: 69e3fe6ae2a66410c8cdbbe96eb1361a, type: 3}
       propertyPath: m_Mesh
       value: 
-      objectReference: {fileID: 1585670855}
+      objectReference: {fileID: 1688882781}
     - target: {fileID: 4724070551431545364, guid: 69e3fe6ae2a66410c8cdbbe96eb1361a, type: 3}
       propertyPath: detailLevels.Array.data[1].lod
       value: 2
@@ -1609,7 +1611,45 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 0
---- !u!43 &1585670855
+--- !u!1 &1591299728
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1591299729}
+  m_Layer: 0
+  m_Name: Environment
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1591299729
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1591299728}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 15.749419, y: -0.117784135, z: -6.781036}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1433549907}
+  - {fileID: 627502689}
+  - {fileID: 1971852926}
+  - {fileID: 2009334454}
+  - {fileID: 1423871905}
+  - {fileID: 1065216101}
+  - {fileID: 1240032501}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!43 &1688882781
 Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1774,44 +1814,6 @@ Mesh:
     offset: 0
     size: 0
     path: 
---- !u!1 &1591299728
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1591299729}
-  m_Layer: 0
-  m_Name: Environment
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1591299729
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1591299728}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 15.749419, y: -0.117784135, z: -6.781036}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1433549907}
-  - {fileID: 627502689}
-  - {fileID: 1971852926}
-  - {fileID: 2009334454}
-  - {fileID: 1423871905}
-  - {fileID: 1065216101}
-  - {fileID: 1240032501}
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1803829740
 GameObject:
   m_ObjectHideFlags: 0
@@ -1838,7 +1840,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1803829740}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!20 &1803829742
 Camera:
   m_ObjectHideFlags: 0
