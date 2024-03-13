@@ -6,10 +6,10 @@ using UnityEngine;
 public class PlayerInventory : NetworkBehaviour
 {
     #region network variables
-    public NetworkVariable<float> WaterShard { get; set; } = new NetworkVariable<float>(0.0f);
-    public NetworkVariable<float> FireShard { get; set; } = new NetworkVariable<float>(0.0f);
-    public NetworkVariable<float> EarthShard { get; set; } = new NetworkVariable<float>(0.0f);
-    public NetworkVariable<float> WindShard { get; set; } = new NetworkVariable<float>(0.0f);
+    public NetworkVariable<int> WaterShard { get; set; } = new NetworkVariable<int>(0);
+    public NetworkVariable<int> FireShard { get; set; } = new NetworkVariable<int>(0);
+    public NetworkVariable<int> EarthShard { get; set; } = new NetworkVariable<int>(0);
+    public NetworkVariable<int> WindShard { get; set; } = new NetworkVariable<int>(0);
 
     public NetworkVariable<int> Key { get; set; } = new NetworkVariable<int>(0);
     #endregion
