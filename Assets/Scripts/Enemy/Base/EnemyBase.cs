@@ -1,7 +1,6 @@
 using UnityEngine;
 using Unity.Netcode;
 using UnityEngine.AI;
-using Unity.Netcode.Components;
 using System;
 
 namespace Enemy
@@ -49,7 +48,10 @@ namespace Enemy
         [Header("Adjustable Parameter")]
         [Range(0f, 10f)]
         [Tooltip("Configure How fast the Navmesh Agent is turning")]
-        public float navMeshAngularSpeedFactor = 5.0f;
+        [SerializeField] private float navMeshAngularSpeedFactor = 5.0f;
+        [Range(0f, 10f)]
+        [Tooltip("Configure Navmesh Agent's acceleration")]
+        [SerializeField] private float navMeshAcceleration = 2.0f;
         public EnemyModelAnimationEventEmitter animationEventEmitter;
 
         #region Animation
@@ -73,7 +75,7 @@ namespace Enemy
             animator = GetComponentInChildren<Animator>();
 
             navMeshAgent.angularSpeed = navMeshAngularSpeedFactor * navMeshAgent.angularSpeed;
-            navMeshAgent.acceleration = navMeshAgent.acceleration * 2;
+            navMeshAgent.acceleration = navMeshAgent.acceleration * navMeshAcceleration;
         }
 
         public void Update()
