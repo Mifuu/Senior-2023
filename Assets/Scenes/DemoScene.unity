@@ -206,7 +206,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: -6475312798802024937, guid: 8c55fec5e4b0ead498d017a87c32d426, type: 3}
+      - m_Target: {fileID: 6819107820675444316, guid: 2d4003d0ecb4ea84f8e821eb37dbc8fe, type: 3}
         m_TargetAssemblyTypeName: InteractableItem, Assembly-CSharp
         m_MethodName: Spawn
         m_Mode: 1
@@ -630,7 +630,7 @@ PrefabInstance:
     - target: {fileID: 726476910482576936, guid: 69e3fe6ae2a66410c8cdbbe96eb1361a, type: 3}
       propertyPath: m_Mesh
       value: 
-      objectReference: {fileID: 1049124945}
+      objectReference: {fileID: 977622908}
     - target: {fileID: 4724070551431545364, guid: 69e3fe6ae2a66410c8cdbbe96eb1361a, type: 3}
       propertyPath: detailLevels.Array.data[1].lod
       value: 2
@@ -1120,7 +1120,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 837009054}
   m_CullTransparentMesh: 1
---- !u!43 &1049124945
+--- !u!43 &977622908
 Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
