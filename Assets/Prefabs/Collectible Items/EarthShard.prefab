@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 2331401428485864773}
   - component: {fileID: 3565002611181109811}
   - component: {fileID: -5102476165985025829}
-  - component: {fileID: 5338772147962220733}
+  - component: {fileID: 6819107820675444316}
   m_Layer: 0
-  m_Name: WaterShard
+  m_Name: EarthShard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -105,7 +105,7 @@ MonoBehaviour:
   SpawnWithObservers: 1
   DontDestroyWithOwner: 0
   AutoObjectParentSync: 1
---- !u!114 &5338772147962220733
+--- !u!114 &6819107820675444316
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -118,8 +118,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interactableItemPrefab: {fileID: 505309755994122864}
-  promptMessage: Water Shard
-  itemType: 1
+  promptMessage: Earth Shard
+  itemType: 3
 --- !u!1 &4903111069024576023
 GameObject:
   m_ObjectHideFlags: 0
@@ -182,7 +182,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 86229c6357fa7af44b84c9e3ff585409, type: 2}
+  - {fileID: 2100000, guid: 6cdd6c2cf1747e14481a46065e0fb48a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -287,7 +287,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 86229c6357fa7af44b84c9e3ff585409, type: 2}
+  - {fileID: 2100000, guid: 6cdd6c2cf1747e14481a46065e0fb48a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
