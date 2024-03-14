@@ -40,35 +40,18 @@ namespace Enemy
         //  if return SKIP, change state
         public void ProcessAttack()
         {
-            // Debug.LogWarning("**************************PROCESSING ATTACK**************************");
             var listOfAttackIndex = GenerateRandomAttackIndexPool();
             var randomProcessSucceed = false;
             int currentSeachIteration = 0;
 
             while (!randomProcessSucceed && listOfAttackIndex.Count != 0)
             {
-                // Possible BUG, list can be empty when SelectRandomAttack is called
                 var selectedAttackIndex = SelectRandomAttack(listOfAttackIndex);
                 currentSeachIteration++;
-
-                // Debug.Log("Pool Count: = " + listOfAttackIndex.Count + ", " + (listOfAttackIndex.Count == 0));
-                // Debug.Log("Pool: " + DebugPrintList(listOfAttackIndex));
-                // Debug.Log("Max Reach: " + currentSeachIteration + ", " + (currentSeachIteration >= maximumSearchIteration));
 
                 // Check if no more available attack as well as prevent too many search iteration
                 if (listOfAttackIndex.Count == 0 || currentSeachIteration >= maximumSearchIteration)
                 {
-                    // Debug.LogError("-------------------------------------");
-                    // Debug.LogError("Search Exits");
-                    // Debug.LogError("Available Attack: " + listOfAttackIndex.Count);
-                    // Debug.LogError("Search Iteration: " + currentSeachIteration);
-                    // foreach (var attack in weightedAttacks)
-                    // {
-                    //     Debug.LogError(attack + "'s current weight: " + attack.currentWeight);
-                    // }
-                    // Debug.LogError("Resetting Weight");
-                    // Debug.LogError("-------------------------------------");
-
                     ResetWeight();
                     break;
                 }
@@ -79,10 +62,7 @@ namespace Enemy
                     consecutiveAttack++;
                     if (consecutiveAttack >= maximumConsecutiveAttack)
                     {
-                        // Debug.LogWarning("Too much Consecutive");
-                        // Debug.LogWarning("Removing: " + selectedAttackIndex);
                         listOfAttackIndex = RemoveAttackFromRandomPool(listOfAttackIndex, selectedAttackIndex);
-                        // Debug.LogWarning("List: " + DebugPrintList(listOfAttackIndex));
                         continue;
                     }
                 }
@@ -96,23 +76,21 @@ namespace Enemy
                 switch (response)
                 {
                     case EnemyWeightedAttackResponseMode.Proceed:
-                        Debug.LogWarning("Weighted Attack Proceeding " + weightedAttacks[selectedAttackIndex]);
+                        // Debug.LogWarning("Weighted Attack Proceeding " + weightedAttacks[selectedAttackIndex]);
                         SwitchAttack(selectedAttackIndex);
                         randomProcessSucceed = true;
                         break;
                     case EnemyWeightedAttackResponseMode.Hold:
-                        Debug.LogWarning("Weighted Attack Holding " + weightedAttacks[selectedAttackIndex]);
+                        // Debug.LogWarning("Weighted Attack Holding " + weightedAttacks[selectedAttackIndex]);
                         enemy.StartCoroutine(RequestStateHoldingCallback(selectedAttackIndex));
                         randomProcessSucceed = true;
                         break;
                     case EnemyWeightedAttackResponseMode.Repick:
-                        Debug.LogWarning("Weighted Attack Repicking " + weightedAttacks[selectedAttackIndex]);
+                        // Debug.LogWarning("Weighted Attack Repicking " + weightedAttacks[selectedAttackIndex]);
                         listOfAttackIndex = RemoveAttackFromRandomPool(listOfAttackIndex, selectedAttackIndex);
-                        // Debug.LogWarning("Removing: " + selectedAttackIndex);
-                        // Debug.LogWarning("List: " + DebugPrintList(listOfAttackIndex));
                         break;
                     case EnemyWeightedAttackResponseMode.Skip:
-                        Debug.LogWarning("Weighted Attack Skipping " + weightedAttacks[selectedAttackIndex]);
+                        // Debug.LogWarning("Weighted Attack Skipping " + weightedAttacks[selectedAttackIndex]);
                         enemy.StateMachine.ChangeState(enemy.IdleState);
                         randomProcessSucceed = true;
                         return;
@@ -201,7 +179,6 @@ namespace Enemy
         // Used in emergency, when all the attack has no weight
         private void ResetWeight()
         {
-            // Debug.LogWarning("Resetting All Weight");
             foreach (var attack in weightedAttacks)
             {
                 attack.ResetWeight();
