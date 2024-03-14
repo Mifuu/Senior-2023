@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Enemy
@@ -31,7 +30,7 @@ namespace Enemy
 
         private IEnumerator PerformFlyChase()
         {
-            while (!lineOfSightCheck.IsPlayerInLineOfSight())
+            while (!lineOfSightCheck.IsPlayerInLineOfSight(enemy.targetPlayer))
             {
                 // Set the destination to the player (Navmesh Agent)
                 yield return new WaitForSeconds(chaseCooldownInterval);

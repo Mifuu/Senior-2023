@@ -6,7 +6,7 @@ namespace Enemy
     {
         public EnemyKnockbackState(EnemyBase enemy, EnemyStateMachine enemyStateMachine) : base(enemy, enemyStateMachine)
         {
-            stateId = "Knockback";
+            stateId = EnemyStateMachine.AvailableEnemyState.Knockback;
         }
 
         public override void AnimationTrigger(int triggerType)
