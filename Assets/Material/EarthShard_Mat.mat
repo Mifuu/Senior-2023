@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: WaterShard_Mat
+  m_Name: EarthShard_Mat
   m_Shader: {fileID: -6465566751694194690, guid: e868858e99677484fa61ab37fb3b7ad6, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -128,10 +128,10 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
-    - _BaseColor: {r: 0.36912602, g: 0.91847914, b: 0.990566, a: 1}
-    - _BottomColor: {r: 0, g: 0.6792453, b: 0.37083116, a: 1}
+    - _BaseColor: {r: 0.6603774, g: 0.3266216, b: 0, a: 1}
+    - _BottomColor: {r: 0.990566, g: 0.5704729, b: 0.36912602, a: 1}
     - _Color: {r: 0, g: 0.004193252, b: 0.9811321, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
-    - _TopColor: {r: 0.11747954, g: 0.17766297, b: 0.754717, a: 1}
+    - _TopColor: {r: 0.735849, g: 0.26013744, b: 0.12148449, a: 1}
   m_BuildTextureStacks: []
