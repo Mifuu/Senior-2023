@@ -16,6 +16,7 @@ namespace Enemy
 
         public override void GenerateHoldingCallback(Action callback)
         {
+            Debug.Log("Generating Holding Callback");
             staminaManager.GenerateStaminaLevelCallback(requiredStamina, callback);
         }
     }

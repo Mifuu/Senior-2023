@@ -61,6 +61,7 @@ namespace Enemy
             void _callback(int prev, int current)
             {
                 // Callback would also be used if the current level has already reached maxLevel
+                Debug.Log("Current Stamina Level: " + current);
                 if (targetStaminaLevel == current || current == MaxStamina)
                 {
                     callback();

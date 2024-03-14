@@ -102,7 +102,7 @@ namespace Enemy
                         break;
                     case EnemyWeightedAttackResponseMode.Hold:
                         Debug.LogWarning("Weighted Attack Holding " + weightedAttacks[selectedAttackIndex]);
-                        RequestStateHoldingCallback(selectedAttackIndex);
+                        enemy.StartCoroutine(RequestStateHoldingCallback(selectedAttackIndex));
                         randomProcessSucceed = true;
                         break;
                     case EnemyWeightedAttackResponseMode.Repick:

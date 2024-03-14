@@ -377,6 +377,7 @@ GameObject:
   - component: {fileID: -4917748360305040873}
   - component: {fileID: 2040013773459935040}
   - component: {fileID: 3388744621044889110}
+  - component: {fileID: -821974063482501057}
   m_Layer: 12
   m_Name: LustMiniboss
   m_TagString: Untagged
@@ -746,6 +747,30 @@ MonoBehaviour:
   defaultManualIncrementAmount: 1
   defaultManualDecrementAmount: 1
   currentStamina:
+    m_InternalValue: 0
+--- !u!114 &-821974063482501057
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5781375362114392876}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b448930f12347664bbcabdf5f3e7dcf5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UniqueId: SwarmSpawnManager
+  enemyPrefabList:
+  - {fileID: 5781375362114392876, guid: 9f873713cf9c782478e3e9b09361b0bd, type: 3}
+  - {fileID: 5446555976368360068, guid: d1017491dbc8233409c7b0a923e2e466, type: 3}
+  SpawnGroupGameObject:
+  - {fileID: 2058537944979775384, guid: 7152efed9ff3a194fa806e9fe8b1f890, type: 3}
+  - {fileID: 6632564691288071378, guid: 9cd3beb3c8ae77b4288f268bb5d5b699, type: 3}
+  randomEnemyTypeAmount: 2
+  stratify: 1
+  groupMaxRandom: 0
+  currentAliveEnemy:
     m_InternalValue: 0
 --- !u!1 &6571919558389732338
 GameObject:

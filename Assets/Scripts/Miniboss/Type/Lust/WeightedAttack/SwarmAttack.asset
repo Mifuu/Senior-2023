@@ -9,13 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 199cb641566d2b6409ff27f683625fe6, type: 3}
-  m_Name: MultipleAOEAttack
+  m_Script: {fileID: 11500000, guid: a138c3c2b47c1ec418202341b0c07fdf, type: 3}
+  m_Name: SwarmAttack
   m_EditorClassIdentifier: 
-  attack: {fileID: 11400000, guid: 7e170541ea5d77a46b227fc98e2d908d, type: 2}
-  requiredStamina: 3
+  attack: {fileID: 11400000, guid: 85807989dc9c8bb4ca83aa0587acc887, type: 2}
+  requiredStamina: 8
   startingWeight: 5
   incrementWeightAmount: 1
   decrementWeightAmount: 1
-  requireAttackEnds: 0
+  requireAttackEnds: 1
   currentWeight: 0

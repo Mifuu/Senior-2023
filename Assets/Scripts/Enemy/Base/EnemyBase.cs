@@ -53,6 +53,7 @@ namespace Enemy
         [Tooltip("Configure Navmesh Agent's acceleration")]
         [SerializeField] private float navMeshAcceleration = 2.0f;
         public EnemyModelAnimationEventEmitter animationEventEmitter;
+        public event Action OnEnemyDie;
 
         #region Animation
 
@@ -163,6 +164,7 @@ namespace Enemy
             if (!IsServer || !isActiveAndEnabled) return;
             if (dealer != null) dealer.GetComponent<PlayerLevel>()?.AddExp(100); // TODO: Change the EXP to be based on the level of enemy
             CleanUp();
+            OnEnemyDie?.Invoke();
             var enemyNetworkObject = GetComponent<NetworkObject>();
             enemyNetworkObject.Despawn();
             // NetworkObjectPool.Singleton.ReturnNetworkObject(enemyNetworkObject, gameObject);
