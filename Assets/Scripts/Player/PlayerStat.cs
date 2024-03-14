@@ -7,6 +7,7 @@ public class PlayerStat : NetworkBehaviour
 {
     #region Stats Enum
 
+    // TODO: Get Buff Component 
     public enum StatsEnum { ATK, DEF, CritDMG, CritRate, EDMG, ERES, ALL }
     private List<StatsEnum> StatsGroup1 = new List<StatsEnum>()
     {

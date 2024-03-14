@@ -1,5 +1,6 @@
 using UnityEngine;
 using System;
+using System.Collections.Generic;
 
 namespace Enemy
 {
@@ -11,30 +12,41 @@ namespace Enemy
     public abstract class EnemyAttack : ScriptableObject
     {
         protected EnemyBase enemy;
+        protected DamageCalculationComponent damageComponent;
         protected GameObject enemyGameObject;
         public event Action OnAttackEnds;
+        public HashSet<IDamageCalculatable> processedDamagable;
 
         public virtual void Initialize(GameObject targetPlayer, GameObject enemyGameObject)
         {
             this.enemy = enemyGameObject.GetComponent<EnemyBase>();
             this.enemyGameObject = enemyGameObject;
+            this.damageComponent = enemyGameObject.GetComponent<DamageCalculationComponent>();
+            ResetProcessedDamageable();
         }
 
         public DamageInfo Damage(IDamageCalculatable damageable)
         {
-            DamageInfo info = enemy.GetComponent<DamageCalculationComponent>().GetFinalDealthDamageInfo();
-            if (damageable == null)
+            DamageInfo info = damageComponent.GetFinalDealthDamageInfo();
+            if (damageable != null)
             {
-                return info;
+                if (processedDamagable.Contains(damageable)) return info;
+                damageable.Damage(info);
+                processedDamagable.Add(damageable);
             }
 
-            damageable.Damage(info);
             return info;
         }
 
         protected void EmitAttackEndsEvent()
         {
             OnAttackEnds?.Invoke();
+        }
+
+        protected void ResetProcessedDamageable()
+        {
+            // TODO: Implement processed Damageable on all the attack
+            processedDamagable = new HashSet<IDamageCalculatable>();
         }
 
         public abstract void PerformAttack();
