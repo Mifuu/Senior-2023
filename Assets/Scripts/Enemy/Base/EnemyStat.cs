@@ -9,7 +9,7 @@ namespace Enemy
 {
     public class EnemyStat : NetworkBehaviour
     {
-        public enum EnemyStatsEnum { BaseATK, BaseDEF, ElementDMG, ElementalRES }
+        public enum EnemyStatsEnum { MaxHP, BaseATK, BaseDEF, ElementDMG, ElementalRES }
 
         [Header("Level Stats Detail")]
         [SerializeField] private EnemyStatUpgradeRulesSO upgradeDetail;
@@ -27,6 +27,8 @@ namespace Enemy
         public List<Subject<float>> ListOfElementalDamageBonus = new List<Subject<float>>();
         public List<Subject<float>> ListOfElementalRES = new List<Subject<float>>();
 
+        private EnemyBase enemy;
+
         public void Awake()
         {
             BaseDamage.Value = defaultBaseDMG;
@@ -36,6 +38,8 @@ namespace Enemy
                 ListOfElementalDamageBonus.Add(new Subject<float>(defaultElementalDmg));
                 ListOfElementalRES.Add(new Subject<float>(defaultElementalRES));
             }
+
+            enemy = GetComponent<EnemyBase>();
         }
 
         public override void OnNetworkSpawn()
@@ -80,10 +84,15 @@ namespace Enemy
                             {
                                 subject.Value = subject.Value * (float)Math.Pow(value, current);
                             };
-                        case EnemyStatUpgradeRulesSO.EnemyStatUpgradeDetail.MethodEnums.Overwrite:
+                        case EnemyStatUpgradeRulesSO.EnemyStatUpgradeDetail.MethodEnums.LevelBaseSigmoid:
                             return (Subject<float> subject, float value) =>
                             {
                                 subject.Value = subject.Value / (1.0f + (float)Math.Exp(-subject.Value));
+                            };
+                        case EnemyStatUpgradeRulesSO.EnemyStatUpgradeDetail.MethodEnums.Overwrite:
+                            return (Subject<float> subject, float value) =>
+                            {
+                                subject.Value = value;
                             };
                         default:
                             return (Subject<float> subject, float value) => { };
@@ -112,6 +121,11 @@ namespace Enemy
                             {
                                 reducer(elementStat, value);
                             });
+                            break;
+                        case EnemyStatsEnum.MaxHP:
+                            Subject<float> temp = new Subject<float>(enemy.maxHealth);
+                            reducer(temp, value);
+                            enemy.ChangeMaxHealthClientRpc(temp.Value);
                             break;
                     }
                 });

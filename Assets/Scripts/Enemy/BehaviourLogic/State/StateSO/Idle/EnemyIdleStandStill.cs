@@ -15,12 +15,19 @@ namespace Enemy
             enemy.StartCoroutine(StandStill());
         }
 
+        public override void DoExitLogic()
+        {
+            base.DoExitLogic();
+            enemy.StopCoroutine(StandStill());
+        }
+
         public IEnumerator StandStill()
         {
+            enemy.navMeshAgent.isStopped = true;
             yield return new WaitForSeconds(cooldownTime);
+            enemy.navMeshAgent.isStopped = false;
             enemy.StateMachine.ChangeState(enemy.ChaseState);
             yield break;
         }
     }
 }
-

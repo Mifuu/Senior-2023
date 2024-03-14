@@ -6,7 +6,7 @@ namespace Enemy
     {
         public EnemyIdleState(EnemyBase enemy, EnemyStateMachine enemyStateMachine) : base(enemy, enemyStateMachine)
         {
-            stateId = "Idle";
+            stateId = EnemyStateMachine.AvailableEnemyState.Idle;
         }
 
         public override void AnimationTrigger(int triggerType)

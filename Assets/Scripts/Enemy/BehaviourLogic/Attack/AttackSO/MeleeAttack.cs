@@ -1,7 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using System;
 
 namespace Enemy
 {
@@ -9,7 +7,6 @@ namespace Enemy
     [CreateAssetMenu(menuName = "Enemy/Enemy Logic/Attack Pattern/Melee", fileName = "Melee")]
     public class MeleeAttack : EnemyAttack
     {
-        // TODO: Check the case where there are multiple hitboxes in the enemy prefab
         [Header("Melee Attack Attribute")]
         [SerializeField] private float waitTime = 1.0f;
         [SerializeField] private float timeTillCheck = 1.0f;
@@ -40,6 +37,7 @@ namespace Enemy
             yield return PerformCheck();
             PostAttack();
             yield return new WaitForSeconds(cooldownTime);
+            ResetProcessedDamageable();
             EmitAttackEndsEvent();
         }
 
@@ -48,12 +46,9 @@ namespace Enemy
             int checkAmount = (int)(checkTime / checkInterval);
             for (int i = 0; i < checkAmount; i++)
             {
-                if (hitbox.PlayerWithinTrigger.Count != 0)
+                foreach (GameObject player in hitbox.PlayerWithinTrigger)
                 {
-                    foreach (GameObject player in hitbox.PlayerWithinTrigger)
-                    {
-                        var info = Damage(player.GetComponent<IDamageCalculatable>());
-                    }
+                    var info = Damage(player.GetComponentInChildren<IDamageCalculatable>());
                 }
                 yield return new WaitForSeconds(checkInterval);
             }

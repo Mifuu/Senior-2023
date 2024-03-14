@@ -3,55 +3,83 @@ using UnityEngine;
 
 namespace Enemy
 {
-    [RequireComponent(typeof(EnemyStateMachine))]
     public class EnemyStateMachine : NetworkBehaviour
     {
+        public enum AvailableEnemyState { None, Idle, Chase, Attack, Knockback }
         public EnemyState CurrentEnemyState { get; set; }
-        public NetworkVariable<NetworkString> networkEnemyState = new NetworkVariable<NetworkString>("Idle");
-        private EnemyBase enemy;
+        public NetworkVariable<AvailableEnemyState> networkEnemyState = new NetworkVariable<AvailableEnemyState>(AvailableEnemyState.None);
 
-        public void Start()
+        private EnemyBase enemy;
+        private EnemyState startingState;
+        private bool isInitialized = false;
+        private bool isStateMachineRunning = false;
+
+        public void Awake()
         {
             enemy = GetComponent<EnemyBase>();
         }
 
         public void Initialize(EnemyState startingState)
         {
+            this.startingState = startingState;
+            this.isInitialized = true;
+            if (!isStateMachineRunning) StartStateMachine();
+        }
+
+        public void StartStateMachine()
+        {
+            if (!IsServer || isStateMachineRunning) return;
+
+            isStateMachineRunning = true;
+            networkEnemyState.Value = startingState.stateId;
             CurrentEnemyState = startingState;
             CurrentEnemyState.EnterState();
-            networkEnemyState.OnValueChanged += SynchronizeState;
         }
 
         public void ChangeState(EnemyState newState)
         {
-            // Debug.Log("Changing State: " + newState.stateId);
             if (!IsServer) return;
             networkEnemyState.Value = newState.stateId;
         }
 
-        public override void OnDestroy()
+        public override void OnNetworkSpawn()
         {
-            base.OnDestroy();
+            base.OnNetworkSpawn();
+            if (!IsServer) return;
+
+            networkEnemyState.OnValueChanged += SynchronizeState;
+            if (isInitialized && !isStateMachineRunning) StartStateMachine();
+        }
+
+        public override void OnNetworkDespawn()
+        {
+            base.OnNetworkDespawn();
+            if (!IsServer) return;
+
+            isStateMachineRunning = false;
+            networkEnemyState.Value = AvailableEnemyState.None;
             networkEnemyState.OnValueChanged -= SynchronizeState;
         }
 
-        private void SynchronizeState(NetworkString _, NetworkString current)
+        private void SynchronizeState(AvailableEnemyState _, AvailableEnemyState current)
         {
             EnemyState newState;
             switch (current)
             {
-                case "Idle":
+                case AvailableEnemyState.Idle:
                     newState = enemy.IdleState;
                     break;
-                case "Chase":
+                case AvailableEnemyState.Chase:
                     newState = enemy.ChaseState;
                     break;
-                case "Attack":
+                case AvailableEnemyState.Attack:
                     newState = enemy.AttackState;
                     break;
-                case "Knockback":
+                case AvailableEnemyState.Knockback:
                     newState = enemy.KnockbackState;
                     break;
+                case AvailableEnemyState.None:
+                    return;
                 default:
                     Debug.LogError("State Synchronization ID Error: " + current);
                     return;
