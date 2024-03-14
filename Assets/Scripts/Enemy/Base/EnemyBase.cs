@@ -63,6 +63,13 @@ namespace Enemy
 
         #endregion
 
+        #region VFX
+
+        [Header("VFX")]
+        public DamageFloatingSpawner damageFloatingSpawner;
+
+        #endregion
+
         public void Awake()
         {
             rigidBody = GetComponent<Rigidbody>();
@@ -150,10 +157,18 @@ namespace Enemy
             currentHealth.Value -= damageAmount;
             // Debug.Log("Enemy script: receive damage = " + damageAmount);
             // Debug.Log("Current Health is: " + currentHealth.Value);
+            SpawnDamageFloatingClientRpc(Mathf.Round(damageAmount).ToString());
             if (currentHealth.Value <= 0f)
             {
                 Die(dealer);
             }
+        }
+
+        [ClientRpc]
+        private void SpawnDamageFloatingClientRpc(string value)
+        {
+            if (damageFloatingSpawner != null)
+                damageFloatingSpawner.Spawn(value);
         }
 
         public void Die(GameObject dealer)
