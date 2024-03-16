@@ -13,11 +13,18 @@ namespace RoomGeneration
 
         [Header("Game Object Settings")]
         public GameObject wallObject;
-        private Vector3 wallObjectInitPos;
+        public Vector3 wallObjectInitPos;
         public GameObject passageObject;
-        private Vector3 passageObjectInitPos;
+        public Vector3 passageObjectInitPos;
 
         private void Awake()
+        {
+            SetObjectInitPos();
+
+            // Set(isWall);
+        }
+
+        private void SetObjectInitPos()
         {
             if (wallObject != null) wallObjectInitPos = wallObject.transform.position;
             if (passageObject != null) passageObjectInitPos = passageObject.transform.position;
