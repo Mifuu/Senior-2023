@@ -188,6 +188,9 @@ PrefabInstance:
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 898d895c8777943aa862bb1ac87e6142, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1476602538080339745}
     - targetCorrespondingSourceObject: {fileID: -915652076390910252, guid: 898d895c8777943aa862bb1ac87e6142, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7304780476268299151}
@@ -219,3 +222,38 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 4173632550457043877, guid: 898d895c8777943aa862bb1ac87e6142, type: 3}
+--- !u!1 &7639772036090738772 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 898d895c8777943aa862bb1ac87e6142, type: 3}
+  m_PrefabInstance: {fileID: 7405190890532865285}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1476602538080339745
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7639772036090738772}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09337d41296bc4eb4a07673b8cfbd762, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SyncPositionX: 1
+  SyncPositionY: 1
+  SyncPositionZ: 1
+  SyncRotAngleX: 1
+  SyncRotAngleY: 1
+  SyncRotAngleZ: 1
+  SyncScaleX: 1
+  SyncScaleY: 1
+  SyncScaleZ: 1
+  PositionThreshold: 0.001
+  RotAngleThreshold: 0.01
+  ScaleThreshold: 0.01
+  UseQuaternionSynchronization: 0
+  UseQuaternionCompression: 0
+  UseHalfFloatPrecision: 0
+  InLocalSpace: 0
+  Interpolate: 1
+  SlerpPosition: 0
