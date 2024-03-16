@@ -72,7 +72,7 @@ public class ElementAppliable : NetworkBehaviour
     public void ChangeVfxColorOfAppliedElement(ElementalType prev, ElementalType current)
     {
         if (vfx == null) return;
-        Vector4 color = vfx.GetVector4("New Color");
+        Vector4 color = vfx.GetVector4("Color");
 
         switch (currentAppliedElement.Value)
         {
@@ -93,7 +93,7 @@ public class ElementAppliable : NetworkBehaviour
                 break;
         }
 
-        vfx.SetVector4("New Color", color);
+        vfx.SetVector4("Color", color);
     }
 
     public void TryApplyElement(GameObject applier, ElementalDamageParameter elementalDamageParameter, TemporaryGunType gunType)

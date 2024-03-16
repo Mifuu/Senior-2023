@@ -12,9 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a138c3c2b47c1ec418202341b0c07fdf, type: 3}
   m_Name: EyeAttack
   m_EditorClassIdentifier: 
-  attack: {fileID: 0}
-  requiredStamina: 0
-  startingWeight: 0
-  incrementWeightAmount: 0
-  decrementWeightAmount: 0
+  attack: {fileID: 11400000, guid: 0178544458cf9e64e81535416086df94, type: 2}
+  requiredStamina: 10
+  startingWeight: 5
+  maximumWeight: 10
+  minimumWeight: 0
+  incrementWeightAmount: 1
+  decrementWeightAmount: 1
+  requireAttackEnds: 0
+  staminaBonus: 10
   currentWeight: 0
+  controller: {fileID: 0}

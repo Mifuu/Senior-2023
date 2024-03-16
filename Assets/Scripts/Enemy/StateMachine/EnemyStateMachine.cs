@@ -39,6 +39,7 @@ namespace Enemy
         public void ChangeState(EnemyState newState)
         {
             if (!IsServer) return;
+            Debug.Log("New State: " + newState.stateId);
             networkEnemyState.Value = newState.stateId;
         }
 

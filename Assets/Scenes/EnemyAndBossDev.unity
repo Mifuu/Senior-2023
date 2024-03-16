@@ -976,6 +976,10 @@ MonoBehaviour:
     PrewarmCount: 5
   - Prefab: {fileID: 5781375362114392876, guid: 3f29c21da1f9cc0419fb95387bf03654, type: 3}
     PrewarmCount: 5
+  - Prefab: {fileID: 7423775656597082803, guid: a9d6a8d354ce5f04db13ecc3a0a44954, type: 3}
+    PrewarmCount: 100
+  - Prefab: {fileID: 2392065462373271888, guid: 0c29210eb590bc447a1f6ab66733b5d0, type: 3}
+    PrewarmCount: 5
 --- !u!4 &657738820
 Transform:
   m_ObjectHideFlags: 0
@@ -2190,7 +2194,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!81 &1803829741
 AudioListener:
   m_ObjectHideFlags: 0

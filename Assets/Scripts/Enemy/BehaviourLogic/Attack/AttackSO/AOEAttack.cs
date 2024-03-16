@@ -9,11 +9,14 @@ namespace Enemy
         [SerializeField] private GameObject AOEGameObject;
         [SerializeField] private bool waitForAOEToEnd = false;
 
+        private EnemyAOEBase aoeBase;
+
         public override void PerformAttack()
         {
             if (!enemy.IsServer) return;
             var aoe = NetworkObjectPool.Singleton.GetNetworkObject(AOEGameObject, enemy.transform.position, AOEGameObject.transform.rotation);
-            var aoeBase = aoe.gameObject.GetComponent<EnemyAOEBase>();
+            aoeBase = aoe.gameObject.GetComponent<EnemyAOEBase>();
+
             if (aoeBase == null)
             {
                 Debug.LogError("No AOE Base object, exiting");
@@ -21,7 +24,19 @@ namespace Enemy
             }
             aoeBase.InitializeAOE(enemy.targetPlayer, enemy);
             aoe.Spawn();
+
+            if (waitForAOEToEnd)
+            {
+                aoeBase.OnAOEPeriodEnd += FinishingAttackCallback;
+            }
+            else
+                EmitAttackEndsEvent();
+        }
+
+        public void FinishingAttackCallback()
+        {
             EmitAttackEndsEvent();
+            aoeBase.OnAOEPeriodEnd -= FinishingAttackCallback;
         }
     }
 }

@@ -9,10 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21722969ee54e7a4696d2d2680d00c7d, type: 3}
-  m_Name: LustShootAttack
+  m_Script: {fileID: 11500000, guid: 2621e88ca54b94e4daa42c1799e30d1d, type: 3}
+  m_Name: LustLeerAttack
   m_EditorClassIdentifier: 
-  bulletPrefab: {fileID: 7423775656597082803, guid: a9d6a8d354ce5f04db13ecc3a0a44954, type: 3}
-  bulletAmount: 15
-  preShootDelay: 2
-  bulletDelay: 0.2
+  eyeGameObject: {fileID: 2392065462373271888, guid: 0c29210eb590bc447a1f6ab66733b5d0, type: 3}
+  spawnHeightOffset: 2
+  waitForLeerToEnd: 0

@@ -5,7 +5,7 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Sprint5Showcase.unity
     guid: ca7473538131547c9aa61ba256e14d07
   - enabled: 0
@@ -44,7 +44,7 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/Sprint3Showcase.unity
     guid: 25da36134c7cf4fd9b579d4d1c0120f6
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Sprint4Showcase.unity
     guid: 288a4856315524b26a2bfc3d55f05fc7
   - enabled: 0

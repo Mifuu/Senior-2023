@@ -14,8 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attack: {fileID: 11400000, guid: 7e170541ea5d77a46b227fc98e2d908d, type: 2}
   requiredStamina: 3
-  startingWeight: 5
+  startingWeight: 2
+  maximumWeight: 10
+  minimumWeight: 0
   incrementWeightAmount: 1
   decrementWeightAmount: 1
   requireAttackEnds: 0
+  staminaBonus: 0
   currentWeight: 0
+  controller: {fileID: 0}
