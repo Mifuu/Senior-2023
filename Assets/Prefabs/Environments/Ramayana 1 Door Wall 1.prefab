@@ -9,12 +9,16 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 4e3e16cede457471cb6d55212e8b56f7, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.02
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 4e3e16cede457471cb6d55212e8b56f7, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -0.53
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4e3e16cede457471cb6d55212e8b56f7, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 15.75
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4e3e16cede457471cb6d55212e8b56f7, type: 3}
       propertyPath: m_LocalPosition.z
@@ -48,6 +52,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -8315128947756689215, guid: 4e3e16cede457471cb6d55212e8b56f7, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: -8315128947756689215, guid: 4e3e16cede457471cb6d55212e8b56f7, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: -8315128947756689215, guid: 4e3e16cede457471cb6d55212e8b56f7, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8315128947756689215, guid: 4e3e16cede457471cb6d55212e8b56f7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -90
+      objectReference: {fileID: 0}
     - target: {fileID: -8281724557233800901, guid: 4e3e16cede457471cb6d55212e8b56f7, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -56,6 +76,22 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: f1996f41af76f4fb4b80800ad2042eba, type: 2}
+    - target: {fileID: -5567549040781124650, guid: 4e3e16cede457471cb6d55212e8b56f7, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: -5567549040781124650, guid: 4e3e16cede457471cb6d55212e8b56f7, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: -5567549040781124650, guid: 4e3e16cede457471cb6d55212e8b56f7, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -5567549040781124650, guid: 4e3e16cede457471cb6d55212e8b56f7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -90
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 4e3e16cede457471cb6d55212e8b56f7, type: 3}
       propertyPath: m_Name
       value: Ramayana 1 Door Wall 1
@@ -64,10 +100,48 @@ PrefabInstance:
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 4e3e16cede457471cb6d55212e8b56f7, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 791847078747979329}
     - targetCorrespondingSourceObject: {fileID: -8144648952643149536, guid: 4e3e16cede457471cb6d55212e8b56f7, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7973706284424104522}
   m_SourcePrefab: {fileID: 100100000, guid: 4e3e16cede457471cb6d55212e8b56f7, type: 3}
+--- !u!1 &4371437476178824914 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 4e3e16cede457471cb6d55212e8b56f7, type: 3}
+  m_PrefabInstance: {fileID: 3488916320818639747}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &791847078747979329
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4371437476178824914}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09337d41296bc4eb4a07673b8cfbd762, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SyncPositionX: 1
+  SyncPositionY: 1
+  SyncPositionZ: 1
+  SyncRotAngleX: 1
+  SyncRotAngleY: 1
+  SyncRotAngleZ: 1
+  SyncScaleX: 1
+  SyncScaleY: 1
+  SyncScaleZ: 1
+  PositionThreshold: 0.001
+  RotAngleThreshold: 0.01
+  ScaleThreshold: 0.01
+  UseQuaternionSynchronization: 0
+  UseQuaternionCompression: 0
+  UseHalfFloatPrecision: 0
+  InLocalSpace: 0
+  Interpolate: 1
+  SlerpPosition: 0
 --- !u!1 &4509081820868350627 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -8144648952643149536, guid: 4e3e16cede457471cb6d55212e8b56f7, type: 3}
