@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Enemy
 {
-    [CreateAssetMenu(fileName = "StaminaHold", menuName = "Miniboss/Weighted Attack Wrapper/stamina Hold")]
+    [CreateAssetMenu(fileName = "StaminaHold", menuName = "Miniboss/Weighted Attack Wrapper/Stamina Hold")]
     public class WrapperStaminaHold : WeightedEnemyAttack
     {
         public override EnemyWeightedAttackResponseMode CheckAndActivateAttack()

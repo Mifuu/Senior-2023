@@ -13,10 +13,19 @@ namespace Enemy
         [SerializeField] private EnemyAttack emptyAttack;
         [SerializeField] private bool autoAdjustWeight = true;
 
+        // Making the weight completely constant is not possible, or at least it is not really that necessary
+        [Tooltip("If selected, script will attemps to make total stay constants")]
+        [SerializeField] private bool tryKeepWeightBalance = true;
+
         [Header("Other Config")]
+        [Tooltip("Maximum seconds that an attack is allowed to hold onto the attack state, if reached, state will be changed to idle")]
         [SerializeField] private float maximumStateHoldingTime = 10.0f;
+        [Tooltip("Maximum number of consecutive attacks, if reached, the attack will be temporarily removed from the pool and the random process will resume")]
         [SerializeField] private int maximumConsecutiveAttack = 3;
+        [Tooltip("Maximum number of attack random in an iteration, if reached, all weight will be reset to default")]
         [SerializeField] private int maximumSearchIteration = 10;
+        [Tooltip("Maximum of Combine weight of all attacks, if reached, all weight will be reset to default")]
+        [SerializeField] private int maximumTotalWeight = 40;
 
         private int previousAttackIndex = 0;
         private int consecutiveAttack = 0;
@@ -28,6 +37,7 @@ namespace Enemy
             {
                 attack = Instantiate(attack);
                 attack.Initialize(enemy.targetPlayer, gameObject);
+                attack.controller = this;
                 return attack;
             }).ToList();
         }
@@ -50,7 +60,7 @@ namespace Enemy
                 currentSeachIteration++;
 
                 // Check if no more available attack as well as prevent too many search iteration
-                if (listOfAttackIndex.Count == 0 || currentSeachIteration >= maximumSearchIteration)
+                if (listOfAttackIndex.Count == 0 || currentSeachIteration >= maximumSearchIteration || listOfAttackIndex.Count >= maximumTotalWeight)
                 {
                     ResetWeight();
                     break;
@@ -73,6 +83,7 @@ namespace Enemy
                 }
 
                 var response = weightedAttacks[selectedAttackIndex].CheckAndActivateAttack();
+                DebugWeightList();
                 switch (response)
                 {
                     case EnemyWeightedAttackResponseMode.Proceed:
@@ -122,6 +133,7 @@ namespace Enemy
         {
             var attack = weightedAttacks[weightedAttackIndex];
             attack.DecrementStaminaOnAttackUsed();
+            attack.ApplyStaminaBonus(); // BUG: This line causes a stack overflow
             if (autoAdjustWeight) AdjustWeight(weightedAttackIndex);
 
             this.selectedNextAttack = attack.attack;
@@ -146,33 +158,47 @@ namespace Enemy
 
         private IEnumerator RequestStateHoldingCallback(int weightedAttackIndex)
         {
+            // BUG: This shit causes memory leak, Check ApplyStaminaBonus() function
             bool isHolding = true;
             void HandleHoldingCallback()
             {
-                SwitchAttack(weightedAttackIndex);
-                isHolding = false;
+                if (!isHolding) return;
+                isHolding = false; // DO NOT SWITCH THE POSITION OF THESE 2 LINES
+                SwitchAttack(weightedAttackIndex); // OR YOU CAN CAUSE MEMORY LEAKS
             }
 
             var attack = weightedAttacks[weightedAttackIndex];
             attack.GenerateHoldingCallback(HandleHoldingCallback);
+
             yield return new WaitForSeconds(maximumStateHoldingTime);
-            if (isHolding) enemy.StateMachine.ChangeState(enemy.IdleState);
+            if (isHolding) 
+            {
+                enemy.StateMachine.ChangeState(enemy.IdleState);
+                isHolding = false;
+            }
         }
 
         #endregion
 
         private void AdjustWeight(int weightedAttackIndex)
         {
+            int totalIncrement = 0;
+
             for (int i = 0; i < weightedAttacks.Count; i++)
             {
-                if (i == weightedAttackIndex)
+                if (i != weightedAttackIndex)
                 {
-                    weightedAttacks[i].DecrementCurrentWeight();
+                    totalIncrement += weightedAttacks[i].IncrementCurrentWeight();
                 }
-                else
-                {
-                    weightedAttacks[i].IncrementCurrentWeight();
-                }
+            }
+
+            if (tryKeepWeightBalance)
+            {
+                weightedAttacks[weightedAttackIndex].DecrementCurrentWeight(totalIncrement);
+            }
+            else
+            {
+                weightedAttacks[weightedAttackIndex].DecrementCurrentWeight();
             }
         }
 
@@ -194,6 +220,15 @@ namespace Enemy
             }
 
             return toBePrinted;
+        }
+
+        private void DebugWeightList()
+        {
+            int totalWeight = 0;
+            foreach (var wa in weightedAttacks)
+            {
+                totalWeight += wa.currentWeight;
+            }
         }
 
         public override void DoEnterLogic()

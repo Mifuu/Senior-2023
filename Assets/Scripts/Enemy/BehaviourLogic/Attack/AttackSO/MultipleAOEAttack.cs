@@ -8,7 +8,6 @@ namespace Enemy
     {
         [Header("Multiple AOE Attack Attribute")]
         [SerializeField] private GameObject AOEGameObject;
-        [SerializeField] private bool waitForAOEToEnd = false;
         [SerializeField] private float timeBetweenAoe = 1.0f;
         [SerializeField] private int numberOfTime = 3;
 

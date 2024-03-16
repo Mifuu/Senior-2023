@@ -12,15 +12,20 @@ namespace Enemy
         [SerializeField] public int requiredStamina;
         [Header("Probability Weight")]
         [SerializeField] public int startingWeight;
+        [SerializeField] public int maximumWeight = 10;
+        [SerializeField] public int minimumWeight = 0;
         [SerializeField] public int incrementWeightAmount;
         [SerializeField] public int decrementWeightAmount;
         [Header("Attack Process")]
         [SerializeField] public bool requireAttackEnds;
+        [Header("Stamina Bonus")]
+        [SerializeField] public int staminaBonus = 0;
 
         [HideInInspector] public int currentWeight;
         protected BossStaminaManager staminaManager;
+        [HideInInspector] public WeightAttackPoolAttackStateSO controller;
 
-        public void Initialize(GameObject targetPlayer, GameObject enemy)
+        public virtual void Initialize(GameObject targetPlayer, GameObject enemy)
         {
             currentWeight = startingWeight;
             attack = Instantiate(attack);
@@ -40,18 +45,24 @@ namespace Enemy
 
         public void DecrementStaminaOnAttackUsed() => staminaManager.DecrementStamina(requiredStamina);
 
-        public void IncrementCurrentWeight(int value)
+        public void ApplyStaminaBonus() => staminaManager.IncrementStamina(staminaBonus);
+
+        public int IncrementCurrentWeight(int value)
         {
-            currentWeight += value;
+            int temp = currentWeight;
+            currentWeight = Math.Clamp(currentWeight + value, minimumWeight, maximumWeight);
+            return currentWeight - temp;
         }
 
-        public void IncrementCurrentWeight() => IncrementCurrentWeight(incrementWeightAmount);
+        public int IncrementCurrentWeight() => IncrementCurrentWeight(incrementWeightAmount);
 
-        public void DecrementCurrentWeight(int value)
+        public int DecrementCurrentWeight(int value)
         {
-            currentWeight -= value;
+            int temp = currentWeight;
+            currentWeight -= Math.Clamp(currentWeight - value, minimumWeight, maximumWeight);
+            return temp - currentWeight;
         }
 
-        public void DecrementCurrentWeight() => DecrementCurrentWeight(decrementWeightAmount);
+        public int DecrementCurrentWeight() => DecrementCurrentWeight(decrementWeightAmount);
     }
 }

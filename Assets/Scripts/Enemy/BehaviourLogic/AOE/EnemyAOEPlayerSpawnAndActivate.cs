@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using Unity.Netcode;
+using UnityEngine.AI;
 
 namespace Enemy
 {
@@ -13,8 +14,16 @@ namespace Enemy
         {
             base.OnNetworkSpawn();
             if (!IsServer) return;
-            transform.position = PlayerTarget.transform.position;
+            transform.position = GetSpawnPosition();
             StartCoroutine(AttackCoroutine());
+        }
+
+        private Vector3 GetSpawnPosition()
+        {
+            NavMeshHit hit;
+            if (NavMesh.SamplePosition(PlayerTarget.transform.position, out hit, 10f, NavMesh.AllAreas))
+                return hit.position;
+            return PlayerTarget.transform.position;
         }
 
         public IEnumerator AttackCoroutine()

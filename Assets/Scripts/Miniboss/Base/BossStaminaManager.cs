@@ -25,6 +25,7 @@ namespace Enemy
             if (!IsServer) return;
             InvokeRepeating("RegenStamina", 0f, staminaRegenInterval);
             currentStamina.Value = MaxStamina;
+            currentStamina.OnValueChanged += DebugPrintStamina;
         }
 
         public override void OnNetworkDespawn()
@@ -32,6 +33,12 @@ namespace Enemy
             base.OnNetworkDespawn();
             if (!IsServer) return;
             CancelInvoke("RegenStamina");
+            currentStamina.OnValueChanged -= DebugPrintStamina;
+        }
+
+        public void DebugPrintStamina(int prev, int current)
+        {
+            Debug.Log("Current Stamina: " + current);
         }
 
         public void RegenStamina()
@@ -72,5 +79,8 @@ namespace Enemy
         }
 
         public bool hasEnoughStamina(int requiredStamina) => requiredStamina <= currentStamina.Value;
+
+        // This function returns negative value if current stamina is lower than the target
+        public int compareStamina(int target) => target - currentStamina.Value;
     }
 }
