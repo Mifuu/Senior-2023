@@ -8,14 +8,35 @@ using System;
 
 public class PlayerHealth : NetworkBehaviour, IDamageable
 {
-    [field: SerializeField] public float maxHealth { get; set; }
+    [SerializeField] public float maxHealth { get; set; }
+    [SerializeField] public NetworkVariable<float> BaseMaxHealth { get; set; } = new NetworkVariable<float>(10.0f);
+    [SerializeField] public NetworkVariable<float> HealthBuffMultiplier { get; set; } = new NetworkVariable<float>(1.0f);
+    
+    private float _maxHealth;
     public NetworkVariable<float> currentHealth { get; set; } = new NetworkVariable<float>(0.0f);
     public event Action OnPlayerDie;
 
     private void Start()
     {
-        // Initialize current health to max health on start
+        // Initialize current health to FinalMaxHealth on start
+        RecalculateFinalMaxHealth();
         currentHealth.Value = maxHealth;
+
+        // Recalculate maxhealth everytime BaseMaxHealth or HealthBuffMultiplier values changed
+        BaseMaxHealth.OnValueChanged += (prev, current) => RecalculateFinalMaxHealth();
+        HealthBuffMultiplier.OnValueChanged += (prev, current) => RecalculateFinalMaxHealth();
+
+    }
+
+    private void RecalculateFinalMaxHealth()
+    {
+        if (IsOwner)
+        {
+            _maxHealth = maxHealth;
+            maxHealth = BaseMaxHealth.Value * HealthBuffMultiplier.Value;
+            currentHealth.Value += maxHealth - _maxHealth;
+            Debug.Log("Player Health: " + "max health = " + maxHealth + " Multiplier = " + HealthBuffMultiplier.Value);
+        }
     }
 
     public void Damage(float damageAmount, GameObject dealer)
@@ -29,19 +50,17 @@ public class PlayerHealth : NetworkBehaviour, IDamageable
             Die(dealer);
         }
     }
+
     public void Die(GameObject killer)
     {
         Debug.Log("Player Script: Player has died!");
-        if (OnPlayerDie != null)
-        {
-            OnPlayerDie.Invoke();
-        }
+        OnPlayerDie?.Invoke();
         Respawn();
     }
 
     private void Respawn()
     {
         currentHealth.Value = maxHealth;
-        transform.position = new Vector3(0f, 0f, 0f);
+        //transform.position = Vector3.zero;
     }
 }
