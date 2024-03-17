@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 namespace Enemy
 {
@@ -11,7 +12,7 @@ namespace Enemy
         private PersonalEnemySpawnManager spawnManager;
         private bool IsReady = true;
 
-        private void UnreadyAttack() => IsReady = false;
+        private void UnreadyAttack(List<EnemyBase> enemyList) => IsReady = false;
         private void ReadyAttack() => IsReady = true;
 
         public override void Initialize(GameObject targetPlayer, GameObject enemy)

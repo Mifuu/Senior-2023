@@ -378,6 +378,7 @@ GameObject:
   - component: {fileID: 2040013773459935040}
   - component: {fileID: 3388744621044889110}
   - component: {fileID: -821974063482501057}
+  - component: {fileID: -7503677509450619409}
   m_Layer: 12
   m_Name: LustMiniboss
   m_TagString: Untagged
@@ -524,7 +525,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   aggroDistanceTriggerCheck: {fileID: 4152279539823919615}
   <maxHealth>k__BackingField: 200
-  EnemyAttackBase: {fileID: 11400000, guid: 771af795ec2d86c46953baa5839f4f55, type: 2}
+  EnemyAttackBase: {fileID: 11400000, guid: 78a62da7a255bd04ea3b9dd799b473d3, type: 2}
   EnemyIdleBase: {fileID: 11400000, guid: 2a218f252f47b884c8449a9d26ba4b34, type: 2}
   EnemyChaseBase: {fileID: 11400000, guid: f0de20db2f3463e48b7db5c836ced6d3, type: 2}
   EnemyKnockbackBase: {fileID: 11400000, guid: 3999b70de71ed82438f2f9af437f2c2d, type: 2}
@@ -772,6 +773,32 @@ MonoBehaviour:
   groupMaxRandom: 0
   currentAliveEnemy:
     m_InternalValue: 0
+--- !u!114 &-7503677509450619409
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5781375362114392876}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4e86c89e9b3d724c87757f7494f2ef7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UniqueId: StatueSpawner
+  enemyPrefabList:
+  - {fileID: 5446555976368360068, guid: 994fef0af8a6afd4b9155b738832ecd2, type: 3}
+  SpawnGroupGameObject:
+  - {fileID: 4531609815618788806, guid: 8555fe043a269b64cb70b1a9ba874486, type: 3}
+  - {fileID: 803292522723199623, guid: 69609a5642f26e24eb8e5eaeec1e8a0c, type: 3}
+  - {fileID: 926711423020008025, guid: 0c984c0d1d5ef0241a50313e624ad1c2, type: 3}
+  - {fileID: 4602575467541686599, guid: c7d6412f2c8296b4e916131ced8a0b7a, type: 3}
+  randomEnemyTypeAmount: 1
+  stratify: 0
+  groupMaxRandom: 0
+  currentAliveEnemy:
+    m_InternalValue: 0
+  spawnImmediately: 1
 --- !u!1 &6571919558389732338
 GameObject:
   m_ObjectHideFlags: 0
