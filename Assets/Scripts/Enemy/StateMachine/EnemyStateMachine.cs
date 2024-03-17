@@ -62,7 +62,7 @@ namespace Enemy
             networkEnemyState.OnValueChanged -= SynchronizeState;
         }
 
-        private void SynchronizeState(AvailableEnemyState _, AvailableEnemyState current)
+        public void SynchronizeState(AvailableEnemyState _, AvailableEnemyState current)
         {
             EnemyState newState;
             switch (current)

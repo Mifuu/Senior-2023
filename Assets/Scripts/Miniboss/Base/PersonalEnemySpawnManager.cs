@@ -14,7 +14,7 @@ namespace Enemy
 
         [Header("Spawn Config")]
         private List<List<Vector3>> positionList;
-        [SerializeField] private List<GameObject> enemyPrefabList;
+        [SerializeField] protected List<GameObject> enemyPrefabList;
         [SerializeField] private List<GameObject> SpawnGroupGameObject;
 
         [Tooltip("How many TYPE of enemy would be used in one spawn cycle")]
@@ -28,7 +28,7 @@ namespace Enemy
         public NetworkVariable<int> currentAliveEnemy = new NetworkVariable<int>(0);
         private bool isInit = false;
 
-        public event Action OnEnemySpawns;
+        public event Action<List<EnemyBase>> OnEnemySpawns;
         public event Action<EnemyBase> OnEnemyDies;
         public event Action OnAllEnemyDies;
 
@@ -77,6 +77,7 @@ namespace Enemy
 
             var selectedEnemyList = enemyPrefabList.OrderBy(x => rnd.Next()).Take(randomEnemyTypeAmount);
             var spawnGroupGameObjectIndex = LoopingIndexGenerator(randomEnemyTypeAmount).GetEnumerator();
+            var listOfSpawnEnemy = new List<EnemyBase>();
 
             foreach (var spawnGroupPosition in positionList)
             {
@@ -84,7 +85,8 @@ namespace Enemy
                 {
                     for (int i = 0; i < spawnGroupPosition.Count; i++)
                     {
-                        SpawnEnemyOntoNavmesh(enemyPrefabList[spawnGroupGameObjectIndex.Current], spawnGroupPosition[i]);
+                        var spawnedEnemy = SpawnEnemyOntoNavmesh(enemyPrefabList[spawnGroupGameObjectIndex.Current], spawnGroupPosition[i]);
+                        listOfSpawnEnemy.Add(spawnedEnemy);
                         spawnGroupGameObjectIndex.MoveNext();
                     }
                 }
@@ -92,16 +94,19 @@ namespace Enemy
                 {
                     for (int i = 0; i < spawnGroupPosition.Count; i++)
                     {
-                        SpawnEnemyOntoNavmesh(enemyPrefabList[spawnGroupGameObjectIndex.Current], spawnGroupPosition[i]);
+                        var spawnedEnemy = SpawnEnemyOntoNavmesh(enemyPrefabList[spawnGroupGameObjectIndex.Current], spawnGroupPosition[i]);
+                        listOfSpawnEnemy.Add(spawnedEnemy);
                     }
                     spawnGroupGameObjectIndex.MoveNext();
                 }
             }
+
+            OnEnemySpawns?.Invoke(listOfSpawnEnemy);
         }
 
-        private void SpawnEnemyOntoNavmesh(GameObject gameObject, Vector3 position)
+        private EnemyBase SpawnEnemyOntoNavmesh(GameObject gameObject, Vector3 position)
         {
-            if (!IsServer) return;
+            if (!IsServer) return null;
 
             NavMeshHit hit;
             if (NavMesh.SamplePosition(position, out hit, 1000f, NavMesh.AllAreas))
@@ -121,7 +126,9 @@ namespace Enemy
                 }
 
                 enemy.Spawn();
+                return enemyBase;
             }
+            return null;
         }
 
         private Action GenerateEnemyDieCallback(EnemyBase enemy)

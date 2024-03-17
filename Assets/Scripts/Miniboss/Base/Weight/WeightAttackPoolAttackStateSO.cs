@@ -36,8 +36,8 @@ namespace Enemy
             this.weightedAttacks = this.weightedAttacks.Select((attack) =>
             {
                 attack = Instantiate(attack);
-                attack.Initialize(enemy.targetPlayer, gameObject);
                 attack.controller = this;
+                attack.Initialize(enemy.targetPlayer, gameObject);
                 return attack;
             }).ToList();
         }
@@ -83,7 +83,7 @@ namespace Enemy
                 }
 
                 var response = weightedAttacks[selectedAttackIndex].CheckAndActivateAttack();
-                DebugWeightList();
+                // DebugWeightList();
                 switch (response)
                 {
                     case EnemyWeightedAttackResponseMode.Proceed:
