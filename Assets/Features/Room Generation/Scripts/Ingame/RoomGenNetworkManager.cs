@@ -70,7 +70,7 @@ namespace RoomGeneration
             float startTime = Time.realtimeSinceStartup;
 
             // roomGenerator.StepAddRoom(roomAmount, seed.Value);
-            roomGenerator.GenerateLevel(roomAmount);
+            roomGenerator.GenerateLevel();
             navigationBaker.BakeNavMesh();
 
             Debug.Log("RoomGenNetworkManager.GenerateServerRPC(): Seed = " + seed.Value + ", Room Amount = " + roomAmount);
@@ -79,6 +79,7 @@ namespace RoomGeneration
             onGenerateLevel?.Invoke();
         }
 
+        /*
         [ClientRpc]
         public void GenerateLevelClientRpc(int seedValue)
         {
@@ -91,5 +92,6 @@ namespace RoomGeneration
             Debug.Log("GenerateLevelClientRpc(): Seed = " + seedValue + ", Room Amount = " + roomAmount);
             Debug.Log("Client ID: " + NetworkManager.Singleton.LocalClientId + " generated rooms in " + (Time.realtimeSinceStartup - startTime) + " seconds");
         }
+        */
     }
 }

@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d51bddb8257f84b7ea69b5fde765f984, type: 3}
-  m_Name: Ramayana 1 Hall 1
+  m_Name: Ramayana 1 Boss 1
   m_EditorClassIdentifier: 
-  roomPrefab: {fileID: 8370552561504519156, guid: 944e92cf4deba48fe8e778dcb2472b6b, type: 3}
+  roomPrefab: {fileID: 4571835636477352207, guid: 6d89651133c26493a9511639a9dc55cd, type: 3}
   snapValue: {fileID: 11400000, guid: f836aa6eec5a44397adde93ea29eb6ec, type: 2}
   enableRot90Variant: 1
   roomBoxData:
@@ -96,4 +96,4 @@ MonoBehaviour:
     - roomData: {fileID: 11400000}
       coord: {x: -2, y: 0.5, z: 0}
       doorDir: 3
-  roomTagMask: 3
+  roomTagMask: 2
