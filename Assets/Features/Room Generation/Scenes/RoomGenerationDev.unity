@@ -1452,6 +1452,8 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1147850762}
+  - {fileID: 2545521774412606904}
+  - {fileID: 3862991239519502378}
   - {fileID: 637844357}
   m_Father: {fileID: 628497637}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2507,6 +2509,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3812464369688336541, guid: ae0614b56252d486a8282364127b2db4, type: 3}
   m_PrefabInstance: {fileID: 3777677900271381310}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &2545521774412606904 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3862991239881259830, guid: 6d89651133c26493a9511639a9dc55cd, type: 3}
+  m_PrefabInstance: {fileID: 9184001007539169429}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2604352530650641673
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2854,6 +2861,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 16074c71c014d4e45be83ab200e78f78, type: 3}
+--- !u!4 &3862991239519502378 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3940878695702071510, guid: ca5c0655b5ffb4ab484ad0c966d41ffa, type: 3}
+  m_PrefabInstance: {fileID: 8083031590564999921}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4023780646613620940 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8848377591628303471, guid: 16bae3266849a4d979dceccdc73d9f95, type: 3}
@@ -3231,6 +3243,67 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4759f905f4c1b44618f9fc13ed8455c7, type: 3}
+--- !u!1001 &8083031590564999921
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1678435703}
+    m_Modifications:
+    - target: {fileID: 1408041022832439749, guid: ca5c0655b5ffb4ab484ad0c966d41ffa, type: 3}
+      propertyPath: m_Name
+      value: Ramayana 1 Mini Boss 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3940878695702071510, guid: ca5c0655b5ffb4ab484ad0c966d41ffa, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3940878695702071510, guid: ca5c0655b5ffb4ab484ad0c966d41ffa, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3940878695702071510, guid: ca5c0655b5ffb4ab484ad0c966d41ffa, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3940878695702071510, guid: ca5c0655b5ffb4ab484ad0c966d41ffa, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3940878695702071510, guid: ca5c0655b5ffb4ab484ad0c966d41ffa, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3940878695702071510, guid: ca5c0655b5ffb4ab484ad0c966d41ffa, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3940878695702071510, guid: ca5c0655b5ffb4ab484ad0c966d41ffa, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3940878695702071510, guid: ca5c0655b5ffb4ab484ad0c966d41ffa, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3940878695702071510, guid: ca5c0655b5ffb4ab484ad0c966d41ffa, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3940878695702071510, guid: ca5c0655b5ffb4ab484ad0c966d41ffa, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5619658762690872335, guid: ca5c0655b5ffb4ab484ad0c966d41ffa, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 4018419213
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: ca5c0655b5ffb4ab484ad0c966d41ffa, type: 3}
 --- !u!1001 &8181758912280634044
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3336,9 +3409,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4771627205078427283, guid: 944e92cf4deba48fe8e778dcb2472b6b, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8370552561504519156, guid: 944e92cf4deba48fe8e778dcb2472b6b, type: 3}
       propertyPath: m_Name
       value: Ramayana 1 Hall 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8370552561504519156, guid: 944e92cf4deba48fe8e778dcb2472b6b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9170135659901140350, guid: 944e92cf4deba48fe8e778dcb2472b6b, type: 3}
       propertyPath: GlobalObjectIdHash
@@ -3354,6 +3435,71 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7280070396329535453, guid: d9d307dac282b45c0a870ec906d7ec4f, type: 3}
   m_PrefabInstance: {fileID: 296190236786207209}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &9184001007539169429
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1678435703}
+    m_Modifications:
+    - target: {fileID: 3862991239881259830, guid: 6d89651133c26493a9511639a9dc55cd, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3862991239881259830, guid: 6d89651133c26493a9511639a9dc55cd, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3862991239881259830, guid: 6d89651133c26493a9511639a9dc55cd, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3862991239881259830, guid: 6d89651133c26493a9511639a9dc55cd, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3862991239881259830, guid: 6d89651133c26493a9511639a9dc55cd, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3862991239881259830, guid: 6d89651133c26493a9511639a9dc55cd, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3862991239881259830, guid: 6d89651133c26493a9511639a9dc55cd, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3862991239881259830, guid: 6d89651133c26493a9511639a9dc55cd, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3862991239881259830, guid: 6d89651133c26493a9511639a9dc55cd, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3862991239881259830, guid: 6d89651133c26493a9511639a9dc55cd, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4571835636477352207, guid: 6d89651133c26493a9511639a9dc55cd, type: 3}
+      propertyPath: m_Name
+      value: Ramayana 1 Boss 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4571835636477352207, guid: 6d89651133c26493a9511639a9dc55cd, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9151829199932971062, guid: 6d89651133c26493a9511639a9dc55cd, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 1756570579
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 6d89651133c26493a9511639a9dc55cd, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
