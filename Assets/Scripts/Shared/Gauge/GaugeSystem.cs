@@ -46,15 +46,16 @@ public class GaugeSystem : NetworkBehaviour
         currentGaugeRange = currentLevel.upperBound;
 
         // Debug Only
-        // OnGaugeLevelChanged += DebugLevelChange;
-        // isGaugeVisible.OnValueChanged += DebugVisibleChange;
-        // OnNewWordQueued += Debug.Log;
+        OnGaugeLevelChanged += DebugLevelChange;
+        isGaugeVisible.OnValueChanged += DebugVisibleChange;
+        OnNewWordQueued += Debug.Log;
     }
 
     public void FixedUpdate()
     {
         currentGaugeNumber = Math.Clamp(currentGaugeNumber -= deteriorationRate, 0, maximumGaugeValue);
-        AdjustGauge();
+        // Debug.Log("Current gauge: " + currentGaugeNumber);
+        AdjustGauge(false);
     }
 
     #region Debugging
@@ -81,7 +82,7 @@ public class GaugeSystem : NetworkBehaviour
     {
         OnNewWordQueued?.Invoke(newWord);
         currentGaugeNumber = Math.Clamp(currentGaugeNumber + gaugeNumberAdded, 0, maximumGaugeValue);
-        if (!AdjustGauge()) RecalculateAndEmitGaugeSetDetail();
+        AdjustGauge(true);
         return listOfGaugeLevel[currentGaugeLevelPointer].expMultiplier;
     }
 
@@ -98,14 +99,14 @@ public class GaugeSystem : NetworkBehaviour
         var currentLevel = listOfGaugeLevel[currentGaugeLevelPointer];
         currentGaugeRange = currentGaugeLevelPointer == 0 ? listOfGaugeLevel[0].upperBound
                 : (listOfGaugeLevel[currentGaugeLevelPointer].upperBound - listOfGaugeLevel[currentGaugeLevelPointer - 1].upperBound);
-        float ratio = ((float)currentGaugeNumber - (currentGaugeLevelPointer == 0 ? 0f :
-                    (float)listOfGaugeLevel[currentGaugeLevelPointer - 1].upperBound)) / (float)currentGaugeRange;
+        float ratio = Math.Clamp(((float)currentGaugeNumber - (currentGaugeLevelPointer == 0 ? 0f :
+                    (float)listOfGaugeLevel[currentGaugeLevelPointer - 1].upperBound)) / (float)currentGaugeRange, 0f, 1f);
         GaugeSetDetail gaugeSetDetail = new GaugeSetDetail(currentLevel.name,
                 ratio, (float)deteriorationRate / (float)currentGaugeRange, currentLevel.color);
         OnGaugeLevelChanged?.Invoke(gaugeSetDetail);
     }
 
-    private bool AdjustGauge()
+    private void AdjustGauge(bool forceEmitEvent)
     {
         // Debug.Log("Current Gauge Level: " + currentGaugeNumber);
         SetVisibilty(currentGaugeNumber > 0);
@@ -113,7 +114,7 @@ public class GaugeSystem : NetworkBehaviour
         var levelChanged = false;
         if (currentGaugeLevelPointer >= 0 && currentGaugeLevelPointer < listOfGaugeLevel.Count - 1)
         {
-            if (currentGaugeNumber > listOfGaugeLevel[currentGaugeLevelPointer].upperBound)
+            while (currentGaugeLevelPointer < listOfGaugeLevel.Count && currentGaugeNumber > listOfGaugeLevel[currentGaugeLevelPointer].upperBound)
             {
                 currentGaugeLevelPointer++;
                 levelChanged = true;
@@ -122,25 +123,37 @@ public class GaugeSystem : NetworkBehaviour
 
         if (currentGaugeLevelPointer < listOfGaugeLevel.Count && currentGaugeLevelPointer > 0)
         {
-            if (currentGaugeNumber < listOfGaugeLevel[currentGaugeLevelPointer - 1].upperBound)
+            while (currentGaugeLevelPointer > 0 && currentGaugeNumber < listOfGaugeLevel[currentGaugeLevelPointer - 1].upperBound)
             {
                 currentGaugeLevelPointer--;
                 levelChanged = true;
             }
         }
 
-        if (levelChanged) RecalculateAndEmitGaugeSetDetail();
-        return levelChanged;
+        if (levelChanged || forceEmitEvent) RecalculateAndEmitGaugeSetDetail();
     }
 
-    [ContextMenu("Add 800 Gauge Number")]
-    private void TestAddGauge() => AddGauge("Test", 800);
+    #region Testing Area
+
+    [ContextMenu("Add 80 Gauge Number")]
+    private void TestAddGauge() => AddGauge("Test", 80);
+
+    [ContextMenu("Add 300 Gauge Number")]
+    private void TestAddGauge2() => AddGauge("Test", 300);
 
     [ContextMenu("Add 1500 Gauge Number")]
-    private void TestAddGauge2() => AddGauge("Test", 1500);
+    private void TestAddGauge3() => AddGauge("Test", 1500);
 
-    [ContextMenu("Add 3000 Gauge Number")]
-    private void TestAddGauge3() => AddGauge("Test", 3000);
+    [ContextMenu("Delete 80 Gauge Number")]
+    private void TestAddGauge4() => AddGauge("Test", -80);
+
+    [ContextMenu("Delete 300 Gauge Number")]
+    private void TestAddGauge5() => AddGauge("Test", -300);
+
+    [ContextMenu("Delete 1500 Gauge Number")]
+    private void TestAddGauge6() => AddGauge("Test", -1500);
+
+    #endregion
 }
 
 [Serializable]

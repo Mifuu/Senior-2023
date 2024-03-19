@@ -47,27 +47,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   listOfGaugeLevel:
   - name: Destructive
-    upperBound: 1000
+    upperBound: 500
     expMultiplier: 0.5
     color: {r: 0.051886797, g: 0.36557198, b: 1, a: 0}
   - name: Chaotic
-    upperBound: 2000
+    upperBound: 1000
     expMultiplier: 0.75
     color: {r: 0.13961315, g: 0.754717, b: 0, a: 0}
   - name: Brutal
-    upperBound: 3000
+    upperBound: 1500
     expMultiplier: 1
     color: {r: 0.94163275, g: 1, b: 0.05098039, a: 0}
   - name: Anarchic
-    upperBound: 4000
+    upperBound: 2000
     expMultiplier: 1.25
     color: {r: 1, g: 0.67154396, b: 0.05098039, a: 0}
   - name: Supreme
-    upperBound: 5000
+    upperBound: 2500
     expMultiplier: 1.5
     color: {r: 1, g: 0.19476116, b: 0.05098039, a: 0}
   - name: UltraJames
-    upperBound: 7000
+    upperBound: 3000
     expMultiplier: 2
     color: {r: 1, g: 0.8223181, b: 0.05098039, a: 0}
 --- !u!114 &8149766407068377896
