@@ -15,8 +15,13 @@ MonoBehaviour:
   snapValue: {fileID: 11400000, guid: f836aa6eec5a44397adde93ea29eb6ec, type: 2}
   roomSetItems:
   - roomData: {fileID: 11400000, guid: dbd98ba1b0a37441b8bd0b2698e3340f, type: 2}
-    mask: 3
+    mask: 1
   - roomData: {fileID: 11400000, guid: a1066f6873bd945699022149f41f413a, type: 2}
     mask: 4
+  - roomData: {fileID: 11400000, guid: f7a0604856cae4fea8bde51dc2b46fd6, type: 2}
+    mask: 2
+  - roomData: {fileID: 11400000, guid: edb22c2d5e29f433bb0512d2a5a78a6f, type: 2}
+    mask: 8
   roomDataPath: Assets/Features/Room Generation/Current Assets/Ramayana 1/Objects
-  minPlayerSpawnRoomDistance: 10
+  connectMatrix: {fileID: 11400000, guid: 3e33ee070301640f9b0454946934b3b1, type: 2}
+  minPlayerSpawnRoomDistance: 15

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roomPrefab: {fileID: 8370552561504519156, guid: 944e92cf4deba48fe8e778dcb2472b6b, type: 3}
   snapValue: {fileID: 11400000, guid: f836aa6eec5a44397adde93ea29eb6ec, type: 2}
-  enableRot90Variant: 0
+  enableRot90Variant: 1
   roomBoxData:
     roomSpaces:
     - {x: -2, y: 0, z: -2}
