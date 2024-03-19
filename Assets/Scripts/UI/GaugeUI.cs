@@ -45,9 +45,12 @@ public class GaugeUI : MonoBehaviour
     void Start()
     {
         // Register to the event
-        GaugeSystem.Singleton.isGaugeVisible.OnValueChanged += GaugeVisibleChanged;
-        GaugeSystem.Singleton.OnGaugeLevelChanged += GaugeLevelChanged;
-        GaugeSystem.Singleton.OnNewWordQueued += NewWordQueued;
+        if (GaugeSystem.Singleton != null)
+        {
+            GaugeSystem.Singleton.isGaugeVisible.OnValueChanged += GaugeVisibleChanged;
+            GaugeSystem.Singleton.OnGaugeLevelChanged += GaugeLevelChanged;
+            GaugeSystem.Singleton.OnNewWordQueued += NewWordQueued;
+        }
     }
 
     void FixedUpdate()
