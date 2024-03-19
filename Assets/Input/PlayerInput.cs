@@ -318,6 +318,15 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Skill Card"",
+                    ""type"": ""Button"",
+                    ""id"": ""b3936a04-1127-477d-b40d-7a87a3981ba3"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -340,6 +349,17 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Map"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""07d4c080-f523-4136-a97d-26d301876975"",
+                    ""path"": ""<Keyboard>/t"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Skill Card"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -880,6 +900,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_OnUI = asset.FindActionMap("OnUI", throwIfNotFound: true);
         m_OnUI_Back = m_OnUI.FindAction("Back", throwIfNotFound: true);
         m_OnUI_Map = m_OnUI.FindAction("Map", throwIfNotFound: true);
+        m_OnUI_SkillCard = m_OnUI.FindAction("Skill Card", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1073,12 +1094,14 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private List<IOnUIActions> m_OnUIActionsCallbackInterfaces = new List<IOnUIActions>();
     private readonly InputAction m_OnUI_Back;
     private readonly InputAction m_OnUI_Map;
+    private readonly InputAction m_OnUI_SkillCard;
     public struct OnUIActions
     {
         private @PlayerInput m_Wrapper;
         public OnUIActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
         public InputAction @Back => m_Wrapper.m_OnUI_Back;
         public InputAction @Map => m_Wrapper.m_OnUI_Map;
+        public InputAction @SkillCard => m_Wrapper.m_OnUI_SkillCard;
         public InputActionMap Get() { return m_Wrapper.m_OnUI; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1094,6 +1117,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Map.started += instance.OnMap;
             @Map.performed += instance.OnMap;
             @Map.canceled += instance.OnMap;
+            @SkillCard.started += instance.OnSkillCard;
+            @SkillCard.performed += instance.OnSkillCard;
+            @SkillCard.canceled += instance.OnSkillCard;
         }
 
         private void UnregisterCallbacks(IOnUIActions instance)
@@ -1104,6 +1130,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Map.started -= instance.OnMap;
             @Map.performed -= instance.OnMap;
             @Map.canceled -= instance.OnMap;
+            @SkillCard.started -= instance.OnSkillCard;
+            @SkillCard.performed -= instance.OnSkillCard;
+            @SkillCard.canceled -= instance.OnSkillCard;
         }
 
         public void RemoveCallbacks(IOnUIActions instance)
@@ -1256,6 +1285,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     {
         void OnBack(InputAction.CallbackContext context);
         void OnMap(InputAction.CallbackContext context);
+        void OnSkillCard(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

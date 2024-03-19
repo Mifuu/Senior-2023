@@ -21,6 +21,7 @@ namespace GameplayUI
 
             onUI.Back.performed += ctx => BackInput();
             onUI.Map.performed += ctx => MapInput();
+            onUI.SkillCard.performed += ctx => SkillCardInput();
 
             stack = manager.stack;
         }
@@ -54,6 +55,14 @@ namespace GameplayUI
                 stack.Pop();
             else
                 stack.Push(PanelType.Map);
+        }
+
+        public void SkillCardInput()
+        {
+            if (stack.Peek() == PanelType.SkillCard)
+                stack.Pop();
+            else
+                stack.Push(PanelType.SkillCard);
         }
     }
 }

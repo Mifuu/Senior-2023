@@ -70,6 +70,7 @@ GameObject:
   - component: {fileID: 1093752573501184549}
   - component: {fileID: 1855286808091104082}
   - component: {fileID: -934966325237789224}
+  - component: {fileID: 3372938233736518167}
   - component: {fileID: 7995700460758469413}
   - component: {fileID: 2748762815417405034}
   - component: {fileID: 1235742095557865747}
@@ -99,7 +100,6 @@ Transform:
   - {fileID: 5219349918333646396}
   - {fileID: 7837233365691012553}
   - {fileID: 3904062934068585947}
-  - {fileID: 1210825744010268779}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &8251285557184108911
@@ -347,8 +347,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e0b1b35cad3d15409e661a46899bd0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxHealth: 10
-  _healthBuffMultiplier: 1
 --- !u!114 &663060055944682856
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -373,6 +371,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2214e8418becf334289978f84f720ec3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  skillCardSlots:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  skillCardLevels: 0000000000000000000000000000000000000000000000000000000000000000
 --- !u!114 &1855286808091104082
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -468,6 +476,20 @@ MonoBehaviour:
     Amount: 0.01
     LevelLowerBoundInclusive: 11
     LevelUpperBoundExclusive: 20
+--- !u!114 &3372938233736518167
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1287504444611049030}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1cfe676ca350214b9de56b3d6d1e706, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skillCardIndex: 0
+  firstSkillCardTest: {fileID: 7737883019265630326, guid: 1256aea5aa55f2640ab64b31635c3d0a, type: 3}
 --- !u!114 &7995700460758469413
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -848,51 +870,6 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6950338913258170516}
   m_Enabled: 1
---- !u!1 &7401829785596823546
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1210825744010268779}
-  - component: {fileID: 1052337762892278054}
-  m_Layer: 14
-  m_Name: HpBuff
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1210825744010268779
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7401829785596823546}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 5337336228896262560}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1052337762892278054
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7401829785596823546}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ab60039c8ef86344988481a8e3174fc7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  skillCard: {fileID: 11400000, guid: 825a36c8149e7dd44b2526b07da065f8, type: 2}
 --- !u!1 &7871012211992077397
 GameObject:
   m_ObjectHideFlags: 0

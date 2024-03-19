@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SkillCard_HpBuff : SkillCard_StatModifier
+public class SkillCard_HpBuff : SkillCard
 {
     private PlayerHealth playerHealth;
     protected override void ApplyModifier()
