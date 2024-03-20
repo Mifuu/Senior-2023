@@ -18,7 +18,7 @@ namespace Enemy
         public override void Initialize(GameObject targetPlayer, GameObject enemy)
         {
             base.Initialize(targetPlayer, enemy);
-            var allSpawnManager = enemy.GetComponents<PersonalEnemySpawnManager>();
+            var allSpawnManager = enemy.GetComponentsInChildren<PersonalEnemySpawnManager>();
             foreach (var manager in allSpawnManager)
             {
                 if (manager.UniqueId == spawnManagerId)
