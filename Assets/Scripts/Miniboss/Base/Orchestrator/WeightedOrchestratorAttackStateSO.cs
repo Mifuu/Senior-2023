@@ -32,7 +32,6 @@ namespace Enemy
 
             stateMachine = enemy.GetComponent<EnemyStateMachine>();
             var allSpawnManager = gameObject.GetComponentsInChildren<OrchestratedSpawnManager>();
-            Debug.Log("Spawn managers length: " + allSpawnManager.Count());
             foreach (var manager in allSpawnManager)
             {
                 Debug.Log(manager.UniqueId);
