@@ -6,11 +6,20 @@ namespace Enemy
     public class SwarmAttack : EnemyAttack
     {
         PersonalEnemySpawnManager spawnManager;
+        [SerializeField] private string spawnManagerId;
 
         public override void Initialize(GameObject targetPlayer, GameObject enemyGameObject)
         {
             base.Initialize(targetPlayer, enemyGameObject);
-            spawnManager = enemy.gameObject.GetComponent<PersonalEnemySpawnManager>();
+            var allSpawnManager = enemy.gameObject.GetComponentsInChildren<PersonalEnemySpawnManager>();
+            foreach (var manager in allSpawnManager)
+            {
+                if (manager.UniqueId == spawnManagerId)
+                    spawnManager = manager;
+            }
+
+            if (spawnManager == null) 
+                Debug.LogError($"Spawn Manager with id: {spawnManagerId} " + "is not found");
         }
 
         public override void PerformAttack()

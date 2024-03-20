@@ -15,7 +15,7 @@ namespace Enemy
 
         private IEnumerator AttackSequence()
         {
-            foreach (var attack in listOfOrchestratedAttacks)
+            foreach (var attack in GetAttacks())
             {
                 attack.PerformAttack();
                 yield return new WaitForSeconds(timeBetweenAttacks);
