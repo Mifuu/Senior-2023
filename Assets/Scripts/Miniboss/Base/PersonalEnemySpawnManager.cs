@@ -27,6 +27,7 @@ namespace Enemy
         private List<EnemyBase> spawnedEnemyRef = new List<EnemyBase>();
         public NetworkVariable<int> currentAliveEnemy = new NetworkVariable<int>(0);
         private bool isInit = false;
+        private Queue<Vector3> vacantSpot;
 
         public event Action<List<EnemyBase>> OnEnemySpawns;
         public event Action<EnemyBase> OnEnemyDies;
@@ -42,6 +43,7 @@ namespace Enemy
         {
             base.OnNetworkSpawn();
             if (SpawnGroupGameObject != null) SetSpawnGroupPosition(SpawnGroupGameObject);
+            vacantSpot = new Queue<Vector3>();
         }
 
         public void SetSpawnGroupPosition(List<List<Vector3>> positionList)
@@ -131,17 +133,28 @@ namespace Enemy
             return null;
         }
 
+        private GameObject GetRandomEnemyPrefab() => enemyPrefabList[UnityEngine.Random.Range(0, enemyPrefabList.Count)];
+
+        public EnemyBase SpawnRandomEnemyIntoVacantPosition()
+        {
+            if (vacantSpot.Count == 0) return null;
+            var spawnedEnemy = SpawnEnemyOntoNavmesh(GetRandomEnemyPrefab(), vacantSpot.Dequeue());
+            OnEnemySpawns?.Invoke(new List<EnemyBase>() { spawnedEnemy });
+            return spawnedEnemy;
+        }
+
         private Action GenerateEnemyDieCallback(EnemyBase enemy)
         {
             void callback()
             {
                 OnEnemyDies?.Invoke(enemy);
                 spawnedEnemyRef.Remove(enemy);
+                vacantSpot.Enqueue(enemy.transform.position);
                 currentAliveEnemy.Value -= 1;
 
                 if (currentAliveEnemy.Value == 0)
                 {
-                    OnAllEnemyDies?.Invoke(); 
+                    OnAllEnemyDies?.Invoke();
                 }
 
                 enemy.OnEnemyDie -= callback;

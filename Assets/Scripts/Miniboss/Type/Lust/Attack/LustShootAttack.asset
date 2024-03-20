@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: LustShootAttack
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 7423775656597082803, guid: a9d6a8d354ce5f04db13ecc3a0a44954, type: 3}
-  bulletAmount: 15
+  bulletAmount: 8
   preShootDelay: 2
-  bulletDelay: 0.2
+  bulletDelay: 0.5

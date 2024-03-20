@@ -9,9 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2621e88ca54b94e4daa42c1799e30d1d, type: 3}
-  m_Name: LustLeerAttack
+  m_Script: {fileID: 11500000, guid: 9969bd2fc3c2612489e080f92d09f555, type: 3}
+  m_Name: LustStatuesRespawnAttack
   m_EditorClassIdentifier: 
-  eyeGameObject: {fileID: 2392065462373271888, guid: 0c29210eb590bc447a1f6ab66733b5d0, type: 3}
-  spawnHeightOffset: 3
-  waitForLeerToEnd: 0
+  spawnManagerId: 
+  spawnAmount: 0

@@ -17,6 +17,7 @@ MonoBehaviour:
   weightedAttacks:
   - {fileID: 11400000, guid: e8c9663fd74a38c41a7e6c3c54b5ef63, type: 2}
   - {fileID: 11400000, guid: f99a3330e7e28ab4f84960f196a38ea4, type: 2}
+  - {fileID: 11400000, guid: afcce53338a855444bb4bdf0950b6ce9, type: 2}
   - {fileID: 11400000, guid: a5a4ee6f253c966408420b3be61d0b93, type: 2}
   emptyAttack: {fileID: 11400000, guid: efb517626df3543468d67a3c24765f1b, type: 2}
   autoAdjustWeight: 1
@@ -26,3 +27,4 @@ MonoBehaviour:
   maximumSearchIteration: 10
   maximumTotalWeight: 40
   attackState: {fileID: 11400000, guid: 09fd4ae6f64a44843a49e9fc078c11ba, type: 2}
+  spawnManagerId: StatueSpawner

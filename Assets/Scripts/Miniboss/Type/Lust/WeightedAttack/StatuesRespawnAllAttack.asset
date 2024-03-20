@@ -9,17 +9,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a138c3c2b47c1ec418202341b0c07fdf, type: 3}
-  m_Name: WOEyeAttack
+  m_Script: {fileID: 11500000, guid: 3a8da7e15730d32499781457c398ca1d, type: 3}
+  m_Name: StatuesRespawnAllAttack
   m_EditorClassIdentifier: 
-  attack: {fileID: 11400000, guid: 07d4cc8f08365d945bc49c1448d15588, type: 2}
-  requiredStamina: 8
+  attack: {fileID: 0}
+  requiredStamina: 0
   startingWeight: 0
   maximumWeight: 10
   minimumWeight: 0
-  incrementWeightAmount: 1
-  decrementWeightAmount: 1
+  incrementWeightAmount: 0
+  decrementWeightAmount: 0
   requireAttackEnds: 0
-  staminaBonus: 8
+  staminaBonus: 0
   currentWeight: 0
   controller: {fileID: 0}
+  spawnManagerId: 

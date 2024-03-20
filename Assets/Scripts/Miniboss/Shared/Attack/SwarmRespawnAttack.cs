@@ -2,11 +2,13 @@ using UnityEngine;
 
 namespace Enemy
 {
-    [CreateAssetMenu(fileName = "Swarm Attack", menuName = "Enemy/Enemy Logic/Attack Pattern/Swarm")]
-    public class SwarmAttack : EnemyAttack
+    [CreateAssetMenu(fileName = "SwarmRespawnSomeAttack", menuName = "Enemy/Enemy Logic/Attack Pattern/Swarm Respawn")]
+    public class SwarmRespawnAttack : EnemyAttack
     {
-        PersonalEnemySpawnManager spawnManager;
+        private PersonalEnemySpawnManager spawnManager;
+
         [SerializeField] private string spawnManagerId;
+        [SerializeField] private int spawnAmount;
 
         public override void Initialize(GameObject targetPlayer, GameObject enemyGameObject)
         {
@@ -18,20 +20,17 @@ namespace Enemy
                     spawnManager = manager;
             }
 
-            if (spawnManager == null) 
+            if (spawnManager == null)
                 Debug.LogError($"Spawn Manager with id: {spawnManagerId} " + "is not found");
         }
 
         public override void PerformAttack()
         {
-            spawnManager.Spawn();
-            spawnManager.OnAllEnemyDies += EndAttack;
-        }
-
-        public void EndAttack()
-        {
-            spawnManager.OnAllEnemyDies -= EndAttack;
-            EmitAttackEndsEvent();
+            for (int i = 0; i < spawnAmount; i++)
+            {
+                spawnManager.SpawnRandomEnemyIntoVacantPosition();
+                EmitAttackEndsEvent();
+            }
         }
     }
 }
