@@ -298,7 +298,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: New Text
+  m_text: Enter the Boss Room
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 95d588ef9c8e842ce94559163d1f8dd7, type: 2}
   m_sharedMaterial: {fileID: 531767220398907443, guid: 95d588ef9c8e842ce94559163d1f8dd7, type: 2}
@@ -325,8 +325,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 23.47
+  m_fontSizeBase: 23.47
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
