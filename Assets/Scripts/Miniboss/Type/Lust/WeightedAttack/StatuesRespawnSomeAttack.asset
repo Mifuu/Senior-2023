@@ -12,19 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e283c7cd4f432744283f373bc2f78ccf, type: 3}
   m_Name: StatuesRespawnSomeAttack
   m_EditorClassIdentifier: 
-  attack: {fileID: 0}
-  requiredStamina: 0
+  attack: {fileID: 11400000, guid: e654466cc229e1941a59ff86aba395c6, type: 2}
+  requiredStamina: 8
   startingWeight: 0
   maximumWeight: 10
   minimumWeight: 0
-  incrementWeightAmount: 0
-  decrementWeightAmount: 0
+  incrementWeightAmount: 1
+  decrementWeightAmount: 1
   requireAttackEnds: 0
   staminaBonus: 0
   currentWeight: 0
   controller: {fileID: 0}
-  spawnManagerId: 
+  spawnManagerId: StatueSpawner
   strictEqual: 0
   isMorethan: 0
-  equalTo: 0
-  targetValue: 0
+  equalTo: 1
+  targetValue: 2
