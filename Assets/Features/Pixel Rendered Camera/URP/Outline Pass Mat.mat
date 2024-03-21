@@ -39,8 +39,8 @@ Material:
     m_Ints: []
     m_Floats:
     - _ColorBrightThreshold: 0.86
-    - _ColorThreshold: 0.95
-    - _NormalThreshold: 0.33
+    - _ColorThreshold: 0.2
+    - _NormalThreshold: 0.23
     - _OVERLAY: 1
     m_Colors:
     - _OutlineColor: {r: 0.122641504, g: 0.07694019, b: 0.07694019, a: 1}

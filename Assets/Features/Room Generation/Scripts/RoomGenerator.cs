@@ -37,14 +37,6 @@ namespace RoomGeneration
             get { return roomObjects.Count != 0; }
         }
 
-        void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.B))
-            {
-                StepAddRoom(50);
-            }
-        }
-
         public void Clear()
         {
             roomGrid = new Dictionary<Vector3Int, int>();
@@ -58,22 +50,37 @@ namespace RoomGeneration
                 DestroyImmediate(transform.GetChild(i).gameObject);
         }
 
-        public void GenerateLevel(int roomCount, int playerSpawnRoomCount = 4, int seed = -1)
+        public void GenerateLevel(int playerSpawnRoomCount = 4, int seed = -1)
         {
             // generate levels
             Clear();
-            StepAddRoom(roomCount, seed);
+            // StepAddRoom(1, RoomTag.CenterRoom, seed);
+            StepAddRoom();
+            // StepAddRoom();                                  // the first room
+            StepAddRoom(20, RoomTag.NormalRoom, seed);      // normalRooms
+            StepAddRoomBulk(5, RoomTag.MiniBossRoom, seed); // miniBossRooms
+            StepAddRoom(20, RoomTag.NormalRoom, seed);
 
             // generate player spawn rooms
             AddPlayerSpawnRooms(playerSpawnRoomCount);
         }
 
-        public void StepAddRoom(int amount, int seed = -1)
+        public void StepAddRoom(int amount, RoomTag roomTag, int seed = -1)
         {
             this.seed = seed;
 
             for (int i = 0; i < amount; i++)
-                StepAddRoom();
+                StepAddRoom(roomTag);
+
+            onGenerated?.Invoke();
+        }
+
+        /// <summary>Bulk will generate multiple rooms at the same time, saving calculations but should be use with special small amount rooms</summary>
+        public void StepAddRoomBulk(int amount, RoomTag roomTag, int seed = -1)
+        {
+            this.seed = seed;
+
+            StepAddRoom(roomTag, amount);
 
             onGenerated?.Invoke();
         }
@@ -102,7 +109,7 @@ namespace RoomGeneration
                 if (isDebugMode) Debug.Log("Seed: " + Random.state);
 
                 // get starting room
-                RoomData roomData = roomSet.GetStartingRoomData();
+                RoomData roomData = roomSet.GetOneRoomDataByTag(RoomTag.CenterRoom);
                 int rot90Factor = 0;
                 if (roomData.enableRot90Variant)
                     rot90Factor = Random.Range(0, 4);
@@ -154,6 +161,99 @@ namespace RoomGeneration
             return false;
         }
 
+        bool StepAddRoom(RoomTag roomTag, int bulkAmount = 1)
+        {
+            // check for matching requirements
+            foreach (var r in roomSet.roomSetItems.Select(i => i.roomData))
+            {
+                if (r.snapValue.value != roomSet.snapValue.value)
+                {
+                    Debug.LogError("RoomGenerator.StepAddRoom(): roomSet.snapValue.value != roomData.snapValue.value");
+                    return false;
+                }
+            }
+
+            // get player spawn roomData
+            RoomData roomData = roomSet.GetOneRoomDataByTag(roomTag);
+            List<CandidateDoor> candidateDoors = GetCandidateDoor(roomData);
+            // RoomData playerSpawnRoomData = roomSet.GetOneRoomDataByTag(RoomTag.PlayerSpawnRoom);
+            // List<CandidateDoor> playerSpawnCandidateDoors = GetCandidateDoor(playerSpawnRoomData);
+
+            // filtering vacantDoors
+            List<GeneratedDoorData> vacantDoors = new List<GeneratedDoorData>(vacantDoorDatas);
+
+            // filter by tags
+            RoomTag[] matchingRoomTags = roomSet.GetPreviousRoomTagsByRoomTag(roomTag);
+            for (int i = vacantDoors.Count - 1; i >= 0; i--)
+            {
+                if (!vacantDoors[i].generatedRoomData.roomTags.Intersect(matchingRoomTags).Any())
+                {
+                    vacantDoors.RemoveAt(i);
+                    Debug.Log("Remove Vacant");
+                }
+            }
+
+            // filter by vacancy
+            for (int i = vacantDoors.Count - 1; i >= 0; i--)
+            {
+                // if none candidate door can fit, remove the vacant door
+                bool canFit = false;
+                foreach (var d in candidateDoors)
+                {
+                    if (!CheckVacancy(d, vacantDoors[i]))
+                        continue;
+                    canFit = true;
+                }
+
+                if (!canFit)
+                    vacantDoors.RemoveAt(i);
+            }
+
+            // check number of vacant doors
+            if (vacantDoors.Count < bulkAmount)
+            {
+                Debug.LogError($"RoomGenerator.StepAddRoom({roomTag.ToString()}, {bulkAmount}): Not enough vacant doors. Setting amount to {vacantDoors.Count} instead.");
+                bulkAmount = vacantDoors.Count;
+            }
+
+            for (int i = 0; i < bulkAmount; i++)
+            {
+                // random vacant door
+                // random door data
+                GeneratedDoorData targetDoor = GetRandom(vacantDoors);
+                latestTargetDoorPos = V3Multiply(targetDoor.worldCoord, roomSet.snapValue.value);
+
+                // get possible connection
+                List<CandidateDoor> _candidateDoors = GetCandidateDoors(new List<RoomData> { roomSet.GetOneRoomDataByTag(roomTag) }, targetDoor.doorDir);
+                _candidateDoors = FilterCandidatesCollided(ref _candidateDoors, targetDoor);
+
+                // if no possible rooms for the specific door
+                if (_candidateDoors.Count == 0)
+                {
+                    vacantDoors.Remove(targetDoor);
+                    continue;
+                }
+
+                // choosing random possible rooms
+                CandidateDoor connectingDoor = GetRandom(_candidateDoors);
+
+                // add room and add new doorData to the list
+                AddRoom(connectingDoor, targetDoor);
+
+                // remove doordata
+                vacantDoors.Remove(targetDoor);
+
+                // check remaining
+                if (vacantDoors.Count == 0)
+                {
+                    Debug.LogError("RoomGenerator.StepAddRoom: Out of vacant doors.");
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
         bool AddPlayerSpawnRooms(int amount)
         {
             // check for matching requirements
@@ -167,7 +267,7 @@ namespace RoomGeneration
             }
 
             // get player spawn roomData
-            RoomData playerSpawnRoomData = roomSet.GetPlayerSpawnRoomData();
+            RoomData playerSpawnRoomData = roomSet.GetOneRoomDataByTag(RoomTag.PlayerSpawnRoom);
             List<CandidateDoor> playerSpawnCandidateDoors = GetCandidateDoor(playerSpawnRoomData);
 
             // filter vacantDoors
@@ -204,7 +304,7 @@ namespace RoomGeneration
                 latestTargetDoorPos = V3Multiply(targetDoor.worldCoord, roomSet.snapValue.value);
 
                 // get possible connection
-                List<CandidateDoor> candidateDoors = GetCandidateDoors(new List<RoomData> { roomSet.GetPlayerSpawnRoomData() }, targetDoor.doorDir);
+                List<CandidateDoor> candidateDoors = GetCandidateDoors(new List<RoomData> { roomSet.GetOneRoomDataByTag(RoomTag.PlayerSpawnRoom) }, targetDoor.doorDir);
                 candidateDoors = FilterCandidatesCollided(ref candidateDoors, targetDoor);
 
                 // if no possible rooms for the specific door
@@ -255,7 +355,7 @@ namespace RoomGeneration
             AddRoomToGrid(candidateDoor, placementOffset, index);
 
             // add GeneratedRoomData
-            GeneratedRoomData generatedRoomData = new GeneratedRoomData(candidateDoor.doorData.roomData, index, candidateDoor.rot90Factor, roomObject, placementOffset);
+            GeneratedRoomData generatedRoomData = new GeneratedRoomData(candidateDoor.doorData.roomData, index, candidateDoor.rot90Factor, roomObject, roomSet.GetRoomTagsByRoomData(candidateDoor.doorData.roomData), placementOffset);
             generatedRoomDatas.Add(generatedRoomData);
 
             // add GeneratedDoorData to lists
@@ -368,6 +468,7 @@ namespace RoomGeneration
             return candidateDoors;
         }
 
+        /// <summary>Turn roomData into candidate door</summary>
         List<CandidateDoor> GetCandidateDoor(RoomData candidateRoomData)
         {
             List<CandidateDoor> candidateDoors = new List<CandidateDoor>();
@@ -466,6 +567,12 @@ namespace RoomGeneration
 
         void OnDrawGizmos()
         {
+            if (roomSet != null)
+            {
+                Gizmos.color = Color.yellow;
+                Gizmos.DrawWireSphere(transform.position, roomSet.minPlayerSpawnRoomDistance * roomSet.snapValue.value.x);
+            }
+
             if (RoomGenerator.isDrawDebugMode == false) return;
 
             Gizmos.color = Color.green;

@@ -15,6 +15,7 @@ namespace RoomGeneration
         public int rot90Factor = 0;
         public Vector3Int placementOffset;
         public GameObject gameObject;
+        public RoomTag[] roomTags;
 
         [Header("Generated Data")]
         public List<Vector3Int> roomSpaces;
@@ -27,7 +28,7 @@ namespace RoomGeneration
         public List<GameObject> roomBoxes;
         public List<GameObject> roomDoors;
 
-        public GeneratedRoomData(RoomData roomData, int id, int rot90Factor, GameObject gameObject, Vector3Int placementOffset)
+        public GeneratedRoomData(RoomData roomData, int id, int rot90Factor, GameObject gameObject, RoomTag[] roomTags, Vector3Int placementOffset)
         {
             this.id = id;
 
@@ -36,6 +37,7 @@ namespace RoomGeneration
             this.placementOffset = placementOffset;
 
             this.gameObject = gameObject;
+            this.roomTags = roomTags;
             roomSpaces = new List<Vector3Int>();
             AddRoomSpaces();
             generatedDoorDatas = new List<GeneratedDoorData>();

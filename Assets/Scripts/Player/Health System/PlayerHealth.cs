@@ -28,6 +28,8 @@ public class PlayerHealth : NetworkBehaviour, IDamageable
         {
             Die(dealer);
         }
+
+        BloodVignetteVFX.SimpleBloodVignette();
     }
     public void Die(GameObject killer)
     {

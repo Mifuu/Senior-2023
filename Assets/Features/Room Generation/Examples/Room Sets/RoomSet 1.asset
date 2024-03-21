@@ -19,4 +19,5 @@ MonoBehaviour:
   - roomData: {fileID: 11400000, guid: 3ade69a07d8a14f8abdb805f7748bc64, type: 2}
     mask: 0
   roomDataPath: Assets/Features/Room Generation/Examples/Room 1 Objs
+  connectMatrix: {fileID: 0}
   minPlayerSpawnRoomDistance: 40

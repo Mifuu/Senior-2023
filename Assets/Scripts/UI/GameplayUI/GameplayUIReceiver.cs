@@ -47,5 +47,23 @@ namespace GameplayUI
         {
             playPanel.UpdateKeyText(keyValue);
         }
+
+        public void UpdateWaterShardText(int Value)
+        {
+            playPanel.UpdateWaterShardText(Value);
+        }
+
+        public void UpdateFireShardText(int Value)
+        {
+            playPanel.UpdateFireShardText(Value);
+        }
+        public void UpdateEarthShardText(int Value)
+        {
+            playPanel.UpdateEarthShardText(Value);
+        }
+        public void UpdateWindShardText(int Value)
+        {
+            playPanel.UpdateWindShardText(Value);
+        }
     }
 }
