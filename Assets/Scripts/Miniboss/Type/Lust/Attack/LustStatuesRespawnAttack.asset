@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9969bd2fc3c2612489e080f92d09f555, type: 3}
   m_Name: LustStatuesRespawnAttack
   m_EditorClassIdentifier: 
-  spawnManagerId: 
-  spawnAmount: 0
+  spawnManagerId: StatueSpawner
+  spawnAmount: 1
