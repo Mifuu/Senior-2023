@@ -21,6 +21,7 @@ namespace RoomGeneration
             DrawDefaultInspector();
             RoomGenerator roomGenerator = (RoomGenerator)target;
 
+            /*
             GUILayout.Space(25);
             GUILayout.Label("Debug Step Generation");
 
@@ -38,6 +39,7 @@ namespace RoomGeneration
             {
                 roomGenerator.StepAddRoom(bulkAmount);
             }
+            */
         }
     }
 }

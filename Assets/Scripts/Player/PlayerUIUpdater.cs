@@ -52,11 +52,23 @@ public class PlayerUIUpdater : MonoBehaviour
             gameplayUIReceiver.UpdatePromptText(playerInteract.promptText);
         }
 
-        // Update Player Key
+        // Update Player Inventory
         if (playerInventory != null && playerInventory.IsOwner && gameplayUIReceiver)
         {
             playerInventory.Key.OnValueChanged += (prev, current) => 
             gameplayUIReceiver.UpdateKeyText(playerInventory.Key.Value);
+
+            playerInventory.WaterShard.OnValueChanged += (prev, current) =>
+            gameplayUIReceiver.UpdateWaterShardText(playerInventory.WaterShard.Value);
+
+            playerInventory.FireShard.OnValueChanged += (prev, current) =>
+            gameplayUIReceiver.UpdateFireShardText(playerInventory.FireShard.Value);
+
+            playerInventory.EarthShard.OnValueChanged += (prev, current) =>
+            gameplayUIReceiver.UpdateEarthShardText(playerInventory.EarthShard.Value);
+
+            playerInventory.WindShard.OnValueChanged += (prev, current) =>
+            gameplayUIReceiver.UpdateWindShardText(playerInventory.WindShard.Value);
         }
         else if (!gameplayUIReceiver)
         {

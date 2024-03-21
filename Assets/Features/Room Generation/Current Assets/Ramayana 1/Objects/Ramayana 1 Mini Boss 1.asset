@@ -1,0 +1,99 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d51bddb8257f84b7ea69b5fde765f984, type: 3}
+  m_Name: Ramayana 1 Mini Boss 1
+  m_EditorClassIdentifier: 
+  roomPrefab: {fileID: 4571835636477352207, guid: 6d89651133c26493a9511639a9dc55cd, type: 3}
+  snapValue: {fileID: 11400000, guid: f836aa6eec5a44397adde93ea29eb6ec, type: 2}
+  enableRot90Variant: 1
+  roomBoxData:
+    roomSpaces:
+    - {x: -2, y: 0, z: -2}
+    - {x: -2, y: 0, z: -1}
+    - {x: -2, y: 0, z: 0}
+    - {x: -2, y: 0, z: 1}
+    - {x: -2, y: 1, z: -2}
+    - {x: -2, y: 1, z: -1}
+    - {x: -2, y: 1, z: 0}
+    - {x: -2, y: 1, z: 1}
+    - {x: -2, y: 2, z: -2}
+    - {x: -2, y: 2, z: -1}
+    - {x: -2, y: 2, z: 0}
+    - {x: -2, y: 2, z: 1}
+    - {x: -2, y: 3, z: -2}
+    - {x: -2, y: 3, z: -1}
+    - {x: -2, y: 3, z: 0}
+    - {x: -2, y: 3, z: 1}
+    - {x: -1, y: 0, z: -2}
+    - {x: -1, y: 0, z: -1}
+    - {x: -1, y: 0, z: 0}
+    - {x: -1, y: 0, z: 1}
+    - {x: -1, y: 1, z: -2}
+    - {x: -1, y: 1, z: -1}
+    - {x: -1, y: 1, z: 0}
+    - {x: -1, y: 1, z: 1}
+    - {x: -1, y: 2, z: -2}
+    - {x: -1, y: 2, z: -1}
+    - {x: -1, y: 2, z: 0}
+    - {x: -1, y: 2, z: 1}
+    - {x: -1, y: 3, z: -2}
+    - {x: -1, y: 3, z: -1}
+    - {x: -1, y: 3, z: 0}
+    - {x: -1, y: 3, z: 1}
+    - {x: 0, y: 0, z: -2}
+    - {x: 0, y: 0, z: -1}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 1}
+    - {x: 0, y: 1, z: -2}
+    - {x: 0, y: 1, z: -1}
+    - {x: 0, y: 1, z: 0}
+    - {x: 0, y: 1, z: 1}
+    - {x: 0, y: 2, z: -2}
+    - {x: 0, y: 2, z: -1}
+    - {x: 0, y: 2, z: 0}
+    - {x: 0, y: 2, z: 1}
+    - {x: 0, y: 3, z: -2}
+    - {x: 0, y: 3, z: -1}
+    - {x: 0, y: 3, z: 0}
+    - {x: 0, y: 3, z: 1}
+    - {x: 1, y: 0, z: -2}
+    - {x: 1, y: 0, z: -1}
+    - {x: 1, y: 0, z: 0}
+    - {x: 1, y: 0, z: 1}
+    - {x: 1, y: 1, z: -2}
+    - {x: 1, y: 1, z: -1}
+    - {x: 1, y: 1, z: 0}
+    - {x: 1, y: 1, z: 1}
+    - {x: 1, y: 2, z: -2}
+    - {x: 1, y: 2, z: -1}
+    - {x: 1, y: 2, z: 0}
+    - {x: 1, y: 2, z: 1}
+    - {x: 1, y: 3, z: -2}
+    - {x: 1, y: 3, z: -1}
+    - {x: 1, y: 3, z: 0}
+    - {x: 1, y: 3, z: 1}
+  roomDoorData:
+    parentRoom: {fileID: 0}
+    doorDatas:
+    - roomData: {fileID: 11400000}
+      coord: {x: 0, y: 0.5, z: 2}
+      doorDir: 0
+    - roomData: {fileID: 11400000}
+      coord: {x: 2, y: 0.5, z: 0}
+      doorDir: 1
+    - roomData: {fileID: 11400000}
+      coord: {x: 0, y: 0.5, z: -2}
+      doorDir: 2
+    - roomData: {fileID: 11400000}
+      coord: {x: -2, y: 0.5, z: 0}
+      doorDir: 3
+  roomTagMask: 2
