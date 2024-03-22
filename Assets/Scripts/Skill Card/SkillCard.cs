@@ -5,21 +5,56 @@ using UnityEngine;
 
 public class SkillCard : NetworkBehaviour
 {
-    //protected GameObject playerObject;
-    public SkillCardScriptableObject skillCard;
+    public SkillCardScriptableObject skillCard; // assign the SkillCardScriptableObject corresponding to the carpType in unity inspector
+    [HideInInspector] public BuffManager buffManager;// find buffManager component in player prefab 
+
+    public enum CardType
+    {
+       Atk,
+       Def,
+       Hp,
+       Crit,
+       Jump,
+       Dash,
+       SkillCooldown,
+       HpRegen,
+    }
+
+    public CardType cardType;
 
     private void Start()
     {
-        /*
-        playerObject = transform.parent.gameObject;
-
-        if (playerObject == null)
+        buffManager = FindObjectOfType<BuffManager>();
+        switch (cardType)
         {
-            Debug.LogError("SkillCard_StatModifier: Player object not found");
+            case CardType.Atk:
+                buffManager.AtkBuff_SkillCard.Value = skillCard.Multiplier;
+                break;
+            case CardType.Def:
+                buffManager.DefBuff_SkillCard.Value = skillCard.Multiplier;
+                break;
+            case CardType.Hp:
+                buffManager.HpBuff_SkillCard.Value = skillCard.Multiplier;
+                break;
+            case CardType.Crit:
+                buffManager.CritBuff_SkillCard.Value = skillCard.Multiplier;
+                break;
+            case CardType.Jump:
+                buffManager.JumpBuff_SkillCard.Value = skillCard.Multiplier;
+                break;
+            case CardType.Dash:
+                buffManager.DashBuff_SkillCard.Value = skillCard.Multiplier;
+                break;
+            case CardType.SkillCooldown:
+                buffManager.SkillCooldownBuff_SkillCard.Value = skillCard.Multiplier;
+                break;
+            case CardType.HpRegen: // not yet implemented
+                break;
+            default:
+                Debug.LogError($"Unhandled card type: {cardType}");
+                break;
         }
-        */
-
-        ApplyModifier();
+        ApplyModifier(); 
     }
 
     protected virtual void ApplyModifier()
@@ -27,3 +62,4 @@ public class SkillCard : NetworkBehaviour
 
     }
 }
+   
