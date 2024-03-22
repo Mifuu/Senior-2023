@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e283c7cd4f432744283f373bc2f78ccf, type: 3}
+  m_Name: WOShootAttack 1
+  m_EditorClassIdentifier: 
+  attack: {fileID: 11400000, guid: 35fb33ccc8c4bd94999a0641bd0511cc, type: 2}
+  requiredStamina: 3
+  startingWeight: 5
+  maximumWeight: 10
+  minimumWeight: 0
+  incrementWeightAmount: 1
+  decrementWeightAmount: 1
+  requireAttackEnds: 1
+  staminaBonus: 0
+  currentWeight: 0
+  controller: {fileID: 0}
+  spawnManagerId: StatueSpawner
+  strictEqual: 0
+  isMorethan: 1
+  equalTo: 0
+  targetValue: 0

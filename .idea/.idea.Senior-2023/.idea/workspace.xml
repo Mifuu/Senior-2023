@@ -6,19 +6,13 @@
   <component name="ChangeListManager">
     <list default="true" id="65bc8107-be3d-4f4c-907b-d430cb2f1289" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/EnemyAndBossDev.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/EnemyAndBossDev.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemy/Base/EnemyAttack.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemy/Base/EnemyAttack.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemy/Base/EnemyBase.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemy/Base/EnemyBase.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemy/Base/EnemyBullet.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemy/Base/EnemyBullet.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemy/BehaviourLogic/Attack/AttackSO/ShootAttack.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemy/BehaviourLogic/Attack/AttackSO/ShootAttack.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemy/Type/Chaser/Prefab/Chaser.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemy/Type/Chaser/Prefab/Chaser.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemy/Type/FlameThrower/Prefab/FlameThrower.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemy/Type/FlameThrower/Prefab/FlameThrower.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemy/Type/Mages/Prefab/Mage.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemy/Type/Mages/Prefab/Mage.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemy/Type/Shooter/Prefab/Shooter.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemy/Type/Shooter/Prefab/Shooter.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Shared/DamageCalculation/DamageCalculationUnit.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Shared/DamageCalculation/DamageCalculationUnit.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Shared/DamageCalculation/DamageDealerCalculationPipeline.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Shared/DamageCalculation/DamageDealerCalculationPipeline.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Shared/DamageCalculation/DamageReceiverCalculationPipeline.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Shared/DamageCalculation/DamageReceiverCalculationPipeline.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Shared/DamageCalculation/Interface/IDamageCalculationUnitBase.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Shared/DamageCalculation/Interface/IDamageCalculationUnitBase.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Shared/ObserverPattern/Subject.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Shared/ObserverPattern/Subject.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemy/BehaviourLogic/Attack/AttackSO/SwarmAttack.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemy/BehaviourLogic/Attack/AttackSO/SwarmAttack.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Miniboss/Base/Orchestrator/OrchestrationAttack.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Miniboss/Base/Orchestrator/OrchestrationAttack.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Miniboss/Base/Orchestrator/WeightedOrchestratorAttackStateSO.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Miniboss/Base/Orchestrator/WeightedOrchestratorAttackStateSO.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Miniboss/Base/Weight/WeightAttackPoolAttackStateSO.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Miniboss/Base/Weight/WeightAttackPoolAttackStateSO.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Miniboss/Shared/TimedOrchestratedAttack.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Miniboss/Shared/TimedOrchestratedAttack.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Miniboss/Type/Lust/Prefab/LustMiniboss.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Miniboss/Type/Lust/Prefab/LustMiniboss.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Miniboss/WeightedWrapperConfig/SwarmWrapper.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Miniboss/WeightedWrapperConfig/SwarmWrapper.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,6 +23,15 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/10871f9e312b442cb78b9b97db88fdcb172a00/2c/e3e0d89d/UnitySynchronizationContext.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/10871f9e312b442cb78b9b97db88fdcb172a00/51/195b57d9/SetupCoroutine.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/2e279d988b9d4542841de511fbfdf8c294ae00/0f/47161f1e/SerializedObject.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/b8c852c145a8456ba2512bf23f96ab0b175400/1b/2a01f9b7/UIEventRegistration.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/b8c852c145a8456ba2512bf23f96ab0b175400/38/4025b427/VisualTreeUpdater.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/b8c852c145a8456ba2512bf23f96ab0b175400/b7/2dc52577/VisualTreeBindingsUpdater.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/b8c852c145a8456ba2512bf23f96ab0b175400/d8/a5690c6d/UIElementsUtility.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/f1c028bf8ba8480dbbae6f023d0e205d59c00/04/8234d02b/SerializedObjectBindingContext.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.netcode.gameobjects@1.6.0/Runtime/Core/NetworkBehaviour.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.netcode.gameobjects@1.6.0/Runtime/NetworkVariable/NetworkVariable.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.render-pipelines.universal@14.0.8/Shaders/Lit.shader" root0="SKIP_HIGHLIGHTING" />
   </component>
@@ -69,7 +72,7 @@
 }</component>
   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
     <configuration name="Standalone Player" type="RunUnityExe" factoryName="Unity Executable">
-      <option name="EXE_PATH" value="$PROJECT_DIR$/../../../Desktop/Unity/Build-Test/Senior 2023.exe" />
+      <option name="EXE_PATH" value="$PROJECT_DIR$/../../../Desktop/Unity/Build-Test\Senior 2023.exe" />
       <option name="PROGRAM_PARAMETERS" value="" />
       <option name="WORKING_DIRECTORY" value="C:\Users\user\OneDrive\Desktop\Unity\Build-Test" />
       <option name="PASS_PARENT_ENVS" value="1" />
@@ -144,6 +147,8 @@
       <workItem from="1706098169393" duration="334000" />
       <workItem from="1706102640597" duration="30000" />
       <workItem from="1707060988010" duration="7000" />
+      <workItem from="1710523792759" duration="2684000" />
+      <workItem from="1710950479945" duration="199000" />
     </task>
     <task id="LOCAL-00001" summary="Refactor Bad Code">
       <option name="closed" value="true" />
