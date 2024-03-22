@@ -39,7 +39,7 @@ namespace Enemy
         public override void OnNetworkSpawn()
         {
             base.OnNetworkSpawn();
-            visibleCounter.OnValueChanged += DebugPrintCurrentCounter;
+            // visibleCounter.OnValueChanged += DebugPrintCurrentCounter;
             visibleCounter.OnValueChanged += DetermineThreshold;
         }
 
@@ -49,7 +49,7 @@ namespace Enemy
             isActivated = false;
             isVisible.Value = false;
             visibleCounter.Value = 0;
-            visibleCounter.OnValueChanged -= DebugPrintCurrentCounter;
+            // visibleCounter.OnValueChanged -= DebugPrintCurrentCounter;
             visibleCounter.OnValueChanged -= DetermineThreshold;
         }
 
@@ -68,7 +68,7 @@ namespace Enemy
 
         public void OnBecameVisible() // Unity builtin function
         {
-            Debug.LogWarning("VIsible");
+            // Debug.LogWarning("VIsible");
             rawIsVisible.Value = true;
             if (!isActivated) return;
 
@@ -86,7 +86,7 @@ namespace Enemy
 
         public void OnBecameInvisible() // Unity builtin function
         {
-            Debug.LogWarning("Invisible");
+            // Debug.LogWarning("Invisible");
             rawIsVisible.Value = false;
             if (!isActivated) return;
 

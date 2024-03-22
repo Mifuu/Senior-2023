@@ -277,7 +277,7 @@ namespace Enemy
         {
             if (targetPlayerRef.TryGet(out NetworkObject targetPlayerNetworkObj, NetworkManager.Singleton))
             {
-                Debug.Log(gameObject + " has new Target Player: " + targetPlayerNetworkObj);
+                // Debug.Log(gameObject + " has new Target Player: " + targetPlayerNetworkObj);
                 targetPlayer = targetPlayerNetworkObj.gameObject;
             }
             else
