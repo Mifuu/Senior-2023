@@ -14,7 +14,7 @@ public class ElementalReactionEffect : ScriptableObject
         var networkObject = NetworkObjectPool.Singleton.GetNetworkObject(reactionOrbPrefab, applied.transform.position, applied.transform.rotation);
         networkObject.Spawn();
 
-        var enemy = applied?.GetComponent<Enemy.EnemyBase>();
+        var enemy = applied.GetComponent<Enemy.EnemyBase>();
         if (enemy != null)
         {
             enemy.StateMachine.ChangeState(enemy.KnockbackState);
