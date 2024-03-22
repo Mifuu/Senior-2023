@@ -71,6 +71,7 @@ GameObject:
   - component: {fileID: 1855286808091104082}
   - component: {fileID: -934966325237789224}
   - component: {fileID: 3372938233736518167}
+  - component: {fileID: 3917260383959487730}
   - component: {fileID: 7995700460758469413}
   - component: {fileID: 2748762815417405034}
   - component: {fileID: 1235742095557865747}
@@ -302,8 +303,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cam: {fileID: 5033622202274234613}
-  xSensitivity: 30
-  ySensitivity: 30
+  xSensitivity: 12
+  ySensitivity: 12
 --- !u!114 &5371998881082442535
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -332,9 +333,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc691504a8fcea44eadc9c07f0f17fb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dashSpeed: 45
-  dashTime: 0.2
-  dashCooldown: 1
+  dashSpeed: 18
+  dashTime: 0.3
+  dashCooldown: 5
 --- !u!114 &267396813232174775
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -381,6 +382,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   skillCardLevels: 0000000000000000000000000000000000000000000000000000000000000000
+  skillCardUISlots: []
 --- !u!114 &1855286808091104082
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -490,6 +492,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillCardIndex: 0
   firstSkillCardTest: {fileID: 7737883019265630326, guid: 1256aea5aa55f2640ab64b31635c3d0a, type: 3}
+--- !u!114 &3917260383959487730
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1287504444611049030}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35a4e28d86ac6ad4bb39a8b62e223e8a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AtkBuffTotal: 1
+  DefBuffTotal: 1
+  HpBuffTotal: 1
+  CritBuffTotal: 0
+  JumpBuffTotal: 0
+  DashBuffTotal: 0
+  SkillCooldownBuffTotal: 1
 --- !u!114 &7995700460758469413
 MonoBehaviour:
   m_ObjectHideFlags: 0

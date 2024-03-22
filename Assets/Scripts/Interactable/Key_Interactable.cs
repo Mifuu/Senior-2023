@@ -1,10 +1,13 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 
+
 public class Key_Interactable : InteractableItem
 {
+    [Obsolete("This script is outdated")]
     private void OnTriggerEnter(Collider other)
     {
         // Check if the colliding object is the player

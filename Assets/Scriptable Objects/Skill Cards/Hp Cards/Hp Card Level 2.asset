@@ -10,8 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 92111f096a2fd9b46a6ebbea3432e7b9, type: 3}
-  m_Name: Hp Buff Card
+  m_Name: Hp Card Level 2
   m_EditorClassIdentifier: 
   multiplier: 1.2
-  level: 1
-  nextLevelPrefab: {fileID: 0}
+  level: 2
+  nextLevelPrefab: {fileID: 7737883019265630326, guid: de5b529b59fd69547b97d488e41e3d82, type: 3}
+  icon: {fileID: 0}

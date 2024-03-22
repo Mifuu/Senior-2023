@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4558495999819810454}
   - component: {fileID: -9066906308903821641}
-  - component: {fileID: 6940144682663859221}
+  - component: {fileID: 1323696627726815734}
   m_Layer: 0
-  m_Name: SkillCard_HP Level 2
+  m_Name: SkillCard_Atk Level 4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -53,7 +53,7 @@ MonoBehaviour:
   SpawnWithObservers: 1
   DontDestroyWithOwner: 0
   AutoObjectParentSync: 1
---- !u!114 &6940144682663859221
+--- !u!114 &1323696627726815734
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -65,6 +65,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8b837d8b0580124980962b9498d2988, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skillCard: {fileID: 11400000, guid: 16ddf5a69760a1544a062e3ea14bd1e2, type: 2}
+  skillCard: {fileID: 11400000, guid: 9f8fa32c78040554198c23d4088d5146, type: 2}
   buffManager: {fileID: 0}
-  cardType: 2
+  cardType: 0
