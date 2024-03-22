@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: FireWindReaction
   m_EditorClassIdentifier: 
   primary: 1
-  secondary: 3
   testString: SWIRL
+  secondary: 3
+  reactionOrbPrefab: {fileID: 1439638749425770896, guid: b4cc7514209b5894ca74d328ec68d5c2, type: 3}

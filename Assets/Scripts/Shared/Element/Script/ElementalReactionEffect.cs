@@ -4,12 +4,16 @@ using UnityEngine;
 public class ElementalReactionEffect : ScriptableObject
 {
     public ElementalType primary;
-    public ElementalType secondary;
     public string testString;
+    public ElementalType secondary;
+
+    [SerializeField] private GameObject reactionOrbPrefab;
 
     public void DoEffect(GameObject applier, GameObject applied)
     {
-        Debug.LogWarning(applier + " applied " + testString + " to " + applied);
+        var networkObject = NetworkObjectPool.Singleton.GetNetworkObject(reactionOrbPrefab, applied.transform.position, applied.transform.rotation);
+        networkObject.Spawn();
+
         var enemy = applied.GetComponent<Enemy.EnemyBase>();
         if (enemy != null)
         {

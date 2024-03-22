@@ -1,7 +1,6 @@
 using UnityEngine;
 using Unity.Netcode;
 using UnityEngine.AI;
-using Unity.Netcode.Components;
 using System;
 
 namespace Enemy
@@ -49,8 +48,12 @@ namespace Enemy
         [Header("Adjustable Parameter")]
         [Range(0f, 10f)]
         [Tooltip("Configure How fast the Navmesh Agent is turning")]
-        public float navMeshAngularSpeedFactor = 5.0f;
+        [SerializeField] private float navMeshAngularSpeedFactor = 5.0f;
+        [Range(0f, 10f)]
+        [Tooltip("Configure Navmesh Agent's acceleration")]
+        [SerializeField] private float navMeshAcceleration = 2.0f;
         public EnemyModelAnimationEventEmitter animationEventEmitter;
+        public event Action OnEnemyDie;
 
         #region Animation
 
@@ -80,7 +83,7 @@ namespace Enemy
             animator = GetComponentInChildren<Animator>();
 
             navMeshAgent.angularSpeed = navMeshAngularSpeedFactor * navMeshAgent.angularSpeed;
-            navMeshAgent.acceleration = navMeshAgent.acceleration * 2;
+            navMeshAgent.acceleration = navMeshAgent.acceleration * navMeshAcceleration;
         }
 
         public void Update()
@@ -154,9 +157,8 @@ namespace Enemy
         public void Damage(float damageAmount, GameObject dealer)
         {
             if (!IsServer || !isActiveAndEnabled) return;
+            if (dealer.TryGetComponent<EnemyBase>(out EnemyBase enemy)) return; // Prevent Friendly fire
             currentHealth.Value -= damageAmount;
-            // Debug.Log("Enemy script: receive damage = " + damageAmount);
-            // Debug.Log("Current Health is: " + currentHealth.Value);
             SpawnDamageFloatingClientRpc(Mathf.Round(damageAmount).ToString());
             if (currentHealth.Value <= 0f)
             {
@@ -176,6 +178,7 @@ namespace Enemy
             if (!IsServer || !isActiveAndEnabled) return;
             if (dealer != null) dealer.GetComponent<PlayerLevel>()?.AddExp(100); // TODO: Change the EXP to be based on the level of enemy
             CleanUp();
+            OnEnemyDie?.Invoke();
             var enemyNetworkObject = GetComponent<NetworkObject>();
             enemyNetworkObject.Despawn();
             // NetworkObjectPool.Singleton.ReturnNetworkObject(enemyNetworkObject, gameObject);
@@ -274,7 +277,7 @@ namespace Enemy
         {
             if (targetPlayerRef.TryGet(out NetworkObject targetPlayerNetworkObj, NetworkManager.Singleton))
             {
-                Debug.Log(gameObject + " has new Target Player: " + targetPlayerNetworkObj);
+                // Debug.Log(gameObject + " has new Target Player: " + targetPlayerNetworkObj);
                 targetPlayer = targetPlayerNetworkObj.gameObject;
             }
             else

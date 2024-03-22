@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: EarthWaterReaction
   m_EditorClassIdentifier: 
   primary: 2
-  secondary: 0
   testString: CRYSTALIZED
+  secondary: 0
+  reactionOrbPrefab: {fileID: 1439638749425770896, guid: 1f4d84855cce09b41b6421cc63ac9c5f, type: 3}
