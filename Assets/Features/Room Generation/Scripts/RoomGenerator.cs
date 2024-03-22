@@ -55,7 +55,8 @@ namespace RoomGeneration
             // generate levels
             Clear();
             // StepAddRoom(1, RoomTag.CenterRoom, seed);
-            StepAddRoom();                                  // the first room
+            StepAddRoom();
+            // StepAddRoom();                                  // the first room
             StepAddRoom(20, RoomTag.NormalRoom, seed);      // normalRooms
             StepAddRoomBulk(5, RoomTag.MiniBossRoom, seed); // miniBossRooms
             StepAddRoom(20, RoomTag.NormalRoom, seed);
