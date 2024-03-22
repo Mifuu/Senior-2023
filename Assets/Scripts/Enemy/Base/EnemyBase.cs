@@ -157,9 +157,8 @@ namespace Enemy
         public void Damage(float damageAmount, GameObject dealer)
         {
             if (!IsServer || !isActiveAndEnabled) return;
+            if (dealer.TryGetComponent<EnemyBase>(out EnemyBase enemy)) return; // Prevent Friendly fire
             currentHealth.Value -= damageAmount;
-            // Debug.Log("Enemy script: receive damage = " + damageAmount);
-            // Debug.Log("Current Health is: " + currentHealth.Value);
             SpawnDamageFloatingClientRpc(Mathf.Round(damageAmount).ToString());
             if (currentHealth.Value <= 0f)
             {

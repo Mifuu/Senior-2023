@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: WaterFireReaction
   m_EditorClassIdentifier: 
   primary: 0
-  secondary: 1
   testString: VAPORIZED
+  secondary: 1
+  reactionOrbPrefab: {fileID: 1439638749425770896, guid: e627bb6ef5c98af459cf535f381c0c9b, type: 3}

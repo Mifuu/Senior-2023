@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: WindEarthReaction
   m_EditorClassIdentifier: 
   primary: 3
-  secondary: 2
   testString: BRUH
+  secondary: 2
+  reactionOrbPrefab: {fileID: 1439638749425770896, guid: 4953a8cb503b07247be52164c35c3654, type: 3}

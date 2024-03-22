@@ -16,6 +16,7 @@ namespace Enemy
         private List<List<Vector3>> positionList;
         [SerializeField] protected List<GameObject> enemyPrefabList;
         [SerializeField] private List<GameObject> SpawnGroupGameObject;
+        [SerializeField] private bool useObjectPool = true;
 
         [Tooltip("How many TYPE of enemy would be used in one spawn cycle")]
         [SerializeField] public int randomEnemyTypeAmount;
@@ -87,7 +88,12 @@ namespace Enemy
                 {
                     for (int i = 0; i < spawnGroupPosition.Count; i++)
                     {
-                        var spawnedEnemy = SpawnEnemyOntoNavmesh(enemyPrefabList[spawnGroupGameObjectIndex.Current], spawnGroupPosition[i]);
+                        EnemyBase spawnedEnemy;
+                        if (useObjectPool)
+                            spawnedEnemy = SpawnEnemyOntoNavmesh(enemyPrefabList[spawnGroupGameObjectIndex.Current], spawnGroupPosition[i]);
+                        else
+                            spawnedEnemy = SpawnEnemyOntoNavmeshInstantiate(enemyPrefabList[spawnGroupGameObjectIndex.Current], spawnGroupPosition[i]);
+
                         listOfSpawnEnemy.Add(spawnedEnemy);
                         spawnGroupGameObjectIndex.MoveNext();
                     }
@@ -96,7 +102,11 @@ namespace Enemy
                 {
                     for (int i = 0; i < spawnGroupPosition.Count; i++)
                     {
-                        var spawnedEnemy = SpawnEnemyOntoNavmesh(enemyPrefabList[spawnGroupGameObjectIndex.Current], spawnGroupPosition[i]);
+                        EnemyBase spawnedEnemy; 
+                        if (useObjectPool)
+                            spawnedEnemy = SpawnEnemyOntoNavmesh(enemyPrefabList[spawnGroupGameObjectIndex.Current], spawnGroupPosition[i]);
+                        else
+                            spawnedEnemy = SpawnEnemyOntoNavmeshInstantiate(enemyPrefabList[spawnGroupGameObjectIndex.Current], spawnGroupPosition[i]);
                         listOfSpawnEnemy.Add(spawnedEnemy);
                     }
                     spawnGroupGameObjectIndex.MoveNext();
@@ -128,6 +138,33 @@ namespace Enemy
                 }
 
                 enemy.Spawn();
+                return enemyBase;
+            }
+            return null;
+        }
+
+        private EnemyBase SpawnEnemyOntoNavmeshInstantiate(GameObject gameObject, Vector3 position)
+        {
+            if (!IsServer) return null;
+
+            NavMeshHit hit;
+            if (NavMesh.SamplePosition(position, out hit, 1000f, NavMesh.AllAreas))
+            {
+                var enemy = Instantiate(gameObject, hit.position, Quaternion.identity);
+
+                var navmeshagent = enemy.GetComponent<NavMeshAgent>();
+                navmeshagent.enabled = false;
+                navmeshagent.enabled = true;
+
+                EnemyBase enemyBase;
+                if (enemy.TryGetComponent<EnemyBase>(out enemyBase))
+                {
+                    enemyBase.OnEnemyDie += GenerateEnemyDieCallback(enemyBase);
+                    spawnedEnemyRef.Add(enemyBase);
+                    currentAliveEnemy.Value += 1;
+                }
+
+                enemy.GetComponent<NetworkObject>()?.Spawn();
                 return enemyBase;
             }
             return null;

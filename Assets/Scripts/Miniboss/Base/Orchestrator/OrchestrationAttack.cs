@@ -11,7 +11,6 @@ namespace Enemy
         private WeightedOrchestratorAttackStateSO controllerState;
         private int currentAttackControllerIndex;
 
-
         public override void Initialize(GameObject targetPlayer, GameObject enemyGameObject)
         {
             base.Initialize(targetPlayer, enemyGameObject);
