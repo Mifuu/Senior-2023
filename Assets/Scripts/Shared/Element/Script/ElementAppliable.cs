@@ -6,7 +6,7 @@ using UnityEngine.VFX;
 public class ElementAppliable : NetworkBehaviour
 {
     [SerializeField] private ElementalType defaultElement;
-    private readonly NetworkVariable<ElementalType> currentAppliedElement = new NetworkVariable<ElementalType>(ElementalType.None);
+    public readonly NetworkVariable<ElementalType> currentAppliedElement = new NetworkVariable<ElementalType>(ElementalType.None);
     private ElementalType candidateElement;
 
     [Header("Preset Configuration")]
@@ -59,51 +59,19 @@ public class ElementAppliable : NetworkBehaviour
 
     public override void OnNetworkSpawn()
     {
-        currentAppliedElement.OnValueChanged += ChangeVfxColorOfAppliedElement;
         if (!IsServer) return;
         currentAppliedElement.Value = defaultElement;
-    }
-
-    public override void OnNetworkDespawn()
-    {
-        currentAppliedElement.OnValueChanged -= ChangeVfxColorOfAppliedElement;
-    }
-
-    public void ChangeVfxColorOfAppliedElement(ElementalType prev, ElementalType current)
-    {
-        if (vfx == null) return;
-        Vector4 color = vfx.GetVector4("Color");
-
-        switch (currentAppliedElement.Value)
+        if (TryGetComponent<ElementAttachable>(out var attachable))
         {
-            case ElementalType.None:
-                color = new Vector4(147, 147, 147, 231);
-                break;
-            case ElementalType.Water:
-                color = new Vector4(7, 152, 191, 255);
-                break;
-            case ElementalType.Fire:
-                color = new Vector4(191, 63, 0, 231);
-                break;
-            case ElementalType.Earth:
-                color = new Vector4(191, 2, 0, 231);
-                break;
-            case ElementalType.Wind:
-                color = new Vector4(0, 191, 21, 231);
-                break;
+            currentAppliedElement.Value = attachable.element;
         }
-
-        vfx.SetVector4("Color", color);
     }
 
     public void TryApplyElement(GameObject applier, ElementalDamageParameter elementalDamageParameter, TemporaryGunType gunType)
     {
         int currentGunTypeWeight;
         if (!applyWeightDict.TryGetValue(gunType, out currentGunTypeWeight))
-        {
-            // Debug.LogWarning("Gun Elemental Apply Weight not found");
             currentGunTypeWeight = defaultWeaponApplyWeight;
-        }
 
         if (elementalDamageParameter.element != candidateElement)
         {
@@ -113,36 +81,28 @@ public class ElementAppliable : NetworkBehaviour
 
         elementApplyCount += currentGunTypeWeight;
         if (elementApplyCount <= maxCountToApply) return;
-
         if (!elementalDamageParameter.elementEntity.CheckCanApplyElement(elementalDamageParameter.element, true)) return;
-
+        
         if (currentAppliedElement.Value != ElementalType.None)
         {
             if (currentAppliedElement.Value == elementalDamageParameter.element) return;
-
             elementApplyCount = 0;
             Dictionary<ElementalType, ElementalReactionEffect> initialSearch;
-
             if (effectListDict.TryGetValue(elementalDamageParameter.element, out initialSearch))
             {
                 ElementalReactionEffect secondarySearch;
-
                 if (initialSearch.TryGetValue(currentAppliedElement.Value, out secondarySearch))
                 {
                     secondarySearch.DoEffect(applier, gameObject);
-                }
-                else
-                {
                     currentAppliedElement.Value = ElementalType.None;
                 }
+                // else
+                //     currentAppliedElement.Value = ElementalType.None;
             }
             else
-            {
                 currentAppliedElement.Value = ElementalType.None;
-            }
             return;
         }
-
         currentAppliedElement.Value = elementalDamageParameter.element;
     }
 }

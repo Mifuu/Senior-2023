@@ -699,7 +699,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isSpawning:
     m_InternalValue: 0
-  chooseEnemyToSpawn: {fileID: 5781375362114392876, guid: 3f29c21da1f9cc0419fb95387bf03654, type: 3}
+  chooseEnemyToSpawn: {fileID: 5759202222480714440, guid: 5af02b5c663274b46b8a198bcf495f0f, type: 3}
   spawnNumber: 1
 --- !u!1 &601879502
 GameObject:
