@@ -224,6 +224,52 @@ Transform:
   m_Children: []
   m_Father: {fileID: 8603962694594823687}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1592857076653192676
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2755378762539233262}
+  - component: {fileID: 8770553360503510121}
+  m_Layer: 0
+  m_Name: KeySpawnManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2755378762539233262
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1592857076653192676}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8603962694594823687}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8770553360503510121
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1592857076653192676}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41a6d1342e4f24547ab9351df5753b13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  keyPrefab: {fileID: 776408440454080079, guid: 8c55fec5e4b0ead498d017a87c32d426, type: 3}
+  enemy: {fileID: 5901889156636781570}
 --- !u!1 &2238500537783274330
 GameObject:
   m_ObjectHideFlags: 0
@@ -307,6 +353,7 @@ MonoBehaviour:
   - {fileID: 803292522723199623, guid: 69609a5642f26e24eb8e5eaeec1e8a0c, type: 3}
   - {fileID: 926711423020008025, guid: 0c984c0d1d5ef0241a50313e624ad1c2, type: 3}
   - {fileID: 4602575467541686599, guid: c7d6412f2c8296b4e916131ced8a0b7a, type: 3}
+  useObjectPool: 0
   randomEnemyTypeAmount: 1
   stratify: 0
   groupMaxRandom: 0
@@ -461,6 +508,7 @@ MonoBehaviour:
   SpawnGroupGameObject:
   - {fileID: 2058537944979775384, guid: 7152efed9ff3a194fa806e9fe8b1f890, type: 3}
   - {fileID: 6632564691288071378, guid: 9cd3beb3c8ae77b4288f268bb5d5b699, type: 3}
+  useObjectPool: 1
   randomEnemyTypeAmount: 2
   stratify: 1
   groupMaxRandom: 0
@@ -525,6 +573,7 @@ Transform:
   - {fileID: 5300554147439609805}
   - {fileID: 3927721404098255807}
   - {fileID: 1465931539783170763}
+  - {fileID: 2755378762539233262}
   - {fileID: 2374636620637632613}
   - {fileID: 1732957855339712061}
   m_Father: {fileID: 0}
@@ -653,6 +702,7 @@ MonoBehaviour:
   navMeshAcceleration: 2
   animationEventEmitter: {fileID: 1412392925760578712}
   animator: {fileID: 0}
+  damageFloatingSpawner: {fileID: 0}
 --- !u!114 &5575684663058277635
 MonoBehaviour:
   m_ObjectHideFlags: 0

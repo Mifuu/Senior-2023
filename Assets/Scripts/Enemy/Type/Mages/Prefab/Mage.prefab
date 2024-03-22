@@ -297,6 +297,8 @@ Transform:
   - {fileID: 718297363740148881}
   - {fileID: 6849216545427015361}
   - {fileID: 8450748503535980196}
+  - {fileID: 4531298442430434081}
+  - {fileID: 7177950255417823749}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &108573415500827680
@@ -420,8 +422,10 @@ MonoBehaviour:
   dealerPipeline: {fileID: 0}
   stat: {fileID: 0}
   navMeshAngularSpeedFactor: 5
+  navMeshAcceleration: 2
   animationEventEmitter: {fileID: 4007888533607387383}
   animator: {fileID: 0}
+  damageFloatingSpawner: {fileID: 0}
 --- !u!114 &-387585368819642466
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -600,7 +604,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d52bb18434f18b4391b8af7c7d25928, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  element: 0
+  element: 2
 --- !u!114 &-1952474762954063180
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -614,6 +618,83 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cooldownTime: 5
+--- !u!1 &6010822379646746094
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4531298442430434081}
+  m_Layer: 0
+  m_Name: ------Utility------
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &4531298442430434081
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6010822379646746094}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.19011489, y: 0.074048996, z: -0.5031955}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5204857466958612354}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &7315291836711772675
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7177950255417823749}
+  - component: {fileID: 602626706793422023}
+  m_Layer: 0
+  m_Name: ShardSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7177950255417823749
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7315291836711772675}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.19011487, y: 0.074048996, z: -0.5031955}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5204857466958612354}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &602626706793422023
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7315291836711772675}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f6bb22365a5a3947a56df055148361f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  element: {fileID: 7806393220172879936}
+  enemy: {fileID: 4411250078399549372}
 --- !u!1 &8102274038452369314
 GameObject:
   m_ObjectHideFlags: 0
