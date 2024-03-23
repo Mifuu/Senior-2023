@@ -129,9 +129,10 @@ namespace Enemy
                             });
                             break;
                         case EnemyStatsEnum.MaxHP:
+                            if (!IsServer) return;
                             Subject<float> temp = new Subject<float>(enemy.maxHealth);
                             reducer(temp, value);
-                            enemy.ChangeMaxHealthClientRpc(temp.Value);
+                            enemy.networkMaxHealth.Value = temp.Value;
                             break;
                     }
                 });
