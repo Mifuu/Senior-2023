@@ -20,7 +20,7 @@ public class PlayerLevel : NetworkBehaviour
     {
         if (Input.GetKeyDown(KeyCode.K))
         {
-            AddExp(50);
+            AddExp(500);
         }
     }
 

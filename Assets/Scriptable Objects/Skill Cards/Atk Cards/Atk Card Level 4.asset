@@ -15,4 +15,6 @@ MonoBehaviour:
   multiplier: 1.2
   level: 4
   nextLevelPrefab: {fileID: 7737883019265630326, guid: 4dbae041b46813044bad5deddcb89947, type: 3}
-  icon: {fileID: 0}
+  name: Atk Buff Lv.4
+  description: Increase attack by 20%
+  icon: {fileID: 21300000, guid: 82ee3b941105f3e46abc78f286cb4eef, type: 3}

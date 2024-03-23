@@ -15,4 +15,6 @@ MonoBehaviour:
   multiplier: 1.05
   level: 1
   nextLevelPrefab: {fileID: 7737883019265630326, guid: ecc23079d020c1d44bd40ab63295c30c, type: 3}
-  icon: {fileID: 0}
+  name: Def Buff Lv.1
+  description: Increase your defense by 5%
+  icon: {fileID: 21300000, guid: 5ba885a65039bfa4787040e3f3214af0, type: 3}

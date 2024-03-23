@@ -15,4 +15,6 @@ MonoBehaviour:
   multiplier: 1.15
   level: 3
   nextLevelPrefab: {fileID: 7737883019265630326, guid: 6c5d030c6fe1287418ce83005ae886c5, type: 3}
+  name: Crit Buff Lv.3
+  description: Increase your critical rate by 15%
   icon: {fileID: 0}

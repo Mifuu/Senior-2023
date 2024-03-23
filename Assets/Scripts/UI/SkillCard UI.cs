@@ -4,11 +4,12 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.Events;
+using GameplayUI;
 
 public class SkillCardUI : MonoBehaviour
 {
-    SkillCard[] skillCards = new SkillCard[8];
-    public CardSlotUI[] cardSlotUIs;
+    private GameplayUIController gameplayUIController;
+
     [System.Serializable]
     public class CardSlotUI
     {
@@ -18,6 +19,10 @@ public class SkillCardUI : MonoBehaviour
         public Button upgradeButton;
     }
 
+    public CardSlotUI[] cardSlotUIs;
+    public GameObject cardSlot_1;
+    public GameObject cardSlot_2;
+    public GameObject cardSlot_3;
     public static SkillCardUI Instance { get; private set; }
 
     void Awake()
@@ -28,11 +33,24 @@ public class SkillCardUI : MonoBehaviour
             Instance = this;
     }
 
-    public void SetCardSlotUI(int slotIndex, string name, string description, Sprite image, UnityAction call)
+    private void Start()
+    {
+        gameplayUIController = transform.parent.GetComponent<GameplayUIController>();
+    }
+
+    public void SetCardSlotUI(int slotIndex, string name, string description, Sprite image, UnityAction chooseCard, UnityAction removeAndApplyUpgrade)
     {
         cardSlotUIs[slotIndex].upgradeNameDisplay.text = name;
         cardSlotUIs[slotIndex].upgradeDescriptionDisplay.text = description;
-        cardSlotUIs[slotIndex].upgradeButton.onClick.AddListener(call);
+
+        void chooseAndClosePanel()
+        {
+            chooseCard.Invoke(); // Give the chosen card to the player
+            gameplayUIController.CloseSkillCardPanel(); // Close the panel
+            removeAndApplyUpgrade.Invoke(); // Random the 3 card to put in the panel ( for the next time player open the panel)
+
+        }
+        cardSlotUIs[slotIndex].upgradeButton.onClick.AddListener(chooseAndClosePanel);
         cardSlotUIs[slotIndex].upgradeIcon.sprite = image;
     }
 
