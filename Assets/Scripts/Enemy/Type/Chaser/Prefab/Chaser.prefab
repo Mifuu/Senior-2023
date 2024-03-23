@@ -422,7 +422,7 @@ MonoBehaviour:
   networkMaxHealth:
     m_InternalValue: 0
   <maxHealth>k__BackingField: 10
-  maxDistanceSquared: 300
+  maxDistanceSquared: 3000
   EnemyAttackBase: {fileID: 11400000, guid: 119f8ffc4f004f743a16244b716e722f, type: 2}
   EnemyIdleBase: {fileID: 11400000, guid: 2a218f252f47b884c8449a9d26ba4b34, type: 2}
   EnemyChaseBase: {fileID: 11400000, guid: 2087c5688259fc24985fddad8932c9ef, type: 2}

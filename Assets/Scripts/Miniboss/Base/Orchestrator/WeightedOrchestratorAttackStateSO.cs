@@ -20,31 +20,25 @@ namespace Enemy
         public override void Initialize(GameObject gameObject, EnemyBase enemy)
         {
             base.Initialize(gameObject, enemy);
-            int oCount = 0; // Debug Purpose Only
             foreach (var attack in weightedAttacks)
             {
                 if (attack.attack is OrchestrationAttack)
-                {
                     listOfOrchestrationAttack.Add(attack.attack as OrchestrationAttack);
-                    oCount++;
-                }
             }
 
             stateMachine = enemy.GetComponent<EnemyStateMachine>();
             var allSpawnManager = gameObject.GetComponentsInChildren<OrchestratedSpawnManager>();
             foreach (var manager in allSpawnManager)
             {
-                Debug.Log(manager.UniqueId);
                 if (manager.UniqueId == spawnManagerId)
                     spawnManager = manager;
             }
-
-            // Debug.Log($"There are {oCount} Orchestrated Attack");
 
             if (spawnManager != null)
             {
                 spawnManager.OnEnemySpawns += HijackAttackState;
                 spawnManager.OnEnemyDies += OnEnemyDiesTeardown;
+                spawnManager.OnAllEnemyDies += OnAllEnemyDiesTeardown;
                 return;
             }
 
@@ -53,7 +47,9 @@ namespace Enemy
 
         public void OnDestroy()
         {
+            spawnManager.OnEnemySpawns -= HijackAttackState;
             spawnManager.OnEnemyDies -= OnEnemyDiesTeardown;
+            spawnManager.OnAllEnemyDies -= OnAllEnemyDiesTeardown;
         }
 
         // Used with OnEnemySpawn from the Spawner
@@ -88,6 +84,11 @@ namespace Enemy
         {
             if (!aliveEnemyState.Remove(enemy.GetComponent<NetworkObject>().NetworkObjectId))
                 Debug.LogError("Can not find enemy by its network id");
+        }
+
+        private void OnAllEnemyDiesTeardown()
+        {
+            enemy.StateMachine.ChangeState(enemy.KnockbackState);
         }
 
         private EnemyAttackSOBase FormAttackState()
