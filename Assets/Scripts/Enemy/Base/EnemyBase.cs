@@ -5,6 +5,7 @@ using System;
 
 namespace Enemy
 {
+    [RequireComponent(typeof(EnemyStat))]
     public class EnemyBase : NetworkBehaviour, IDamageable
     {
         [Header("Preset Value")]
@@ -111,7 +112,7 @@ namespace Enemy
 
         private void ClientSetup()
         {
-            Debug.Log(gameObject + " Running Non Server Setup");
+            // Debug.Log(gameObject + " Running Non Server Setup");
             enabled = false;
             StateMachine.enabled = false;
             Destroy(navMeshAgent);
@@ -122,7 +123,7 @@ namespace Enemy
 
         private void ServerSetup()
         {
-            Debug.Log(gameObject + " Running Server Setup");
+            // Debug.Log(gameObject + " Running Server Setup");
             EnemyChaseBaseInstance = Instantiate(EnemyChaseBase);
             EnemyAttackBaseInstance = Instantiate(EnemyAttackBase);
             EnemyIdleBaseInstance = Instantiate(EnemyIdleBase);
@@ -176,12 +177,16 @@ namespace Enemy
         public void Die(GameObject dealer)
         {
             if (!IsServer || !isActiveAndEnabled) return;
-            if (dealer != null) dealer.GetComponent<PlayerLevel>()?.AddExp(100); // TODO: Change the EXP to be based on the level of enemy
+
+            Debug.Log("Giving Player: " + stat.BaseEXP.Value);
+
+            if (dealer != null) 
+                dealer.GetComponent<PlayerLevel>()?.AddExp(stat.BaseEXP.Value); 
+
             CleanUp();
             OnEnemyDie?.Invoke();
             var enemyNetworkObject = GetComponent<NetworkObject>();
             enemyNetworkObject.Despawn();
-            // NetworkObjectPool.Singleton.ReturnNetworkObject(enemyNetworkObject, gameObject);
         }
 
         private void CleanUp()
@@ -268,8 +273,8 @@ namespace Enemy
             ChangeTargetPlayerClientRpc(newTargetPlayer.GetComponent<NetworkObject>());
 
             // Setup target player, such as subscribe to player die event
-            var playerHealth = targetPlayer.GetComponent<PlayerHealth>();
-            playerHealth.OnPlayerDie += OnTargetPlayerRefindRequired;
+            if (targetPlayer.TryGetComponent<PlayerHealth>(out var playerHealth))
+                playerHealth.OnPlayerDie += OnTargetPlayerRefindRequired;
         }
 
         [ClientRpc]
