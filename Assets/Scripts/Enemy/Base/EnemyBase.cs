@@ -13,7 +13,7 @@ namespace Enemy
         public NetworkVariable<float> networkMaxHealth = new NetworkVariable<float>(0f);
         [field: SerializeField] public float maxHealth { get; set; }
         public NetworkVariable<float> currentHealth { get; set; } = new NetworkVariable<float>(0.0f); // NetworkVariable must be initialized
-        [SerializeField] private float maxDistanceSquared;
+        [SerializeField] private float maxDistanceSquared = 5000f;
 
         #region State ScriptableObject Variable
 
