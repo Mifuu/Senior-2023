@@ -14,6 +14,7 @@ public class LevelSystem
     private float exp;
     private float expToNextLevel;
     private float expToNextLevelScaleFactor;
+    private int skillCardPoint;
 
     public LevelSystem() 
     {
@@ -21,6 +22,7 @@ public class LevelSystem
         exp = 0f;
         expToNextLevel = 100f;
         expToNextLevelScaleFactor = 1.1f;
+        skillCardPoint = 0;
     }
 
     public void AddExp(float amount) 
@@ -35,6 +37,11 @@ public class LevelSystem
         OnExpChange?.Invoke(this, EventArgs.Empty);
     }
 
+    public void AddSkillCardPoint (int amount)
+    {
+        skillCardPoint += amount;
+    }
+
     public int GetLevel()
     {
         return level;
@@ -43,6 +50,11 @@ public class LevelSystem
     public float GetExpNormalized()
     {
         return (float)exp / expToNextLevel;
+    }
+
+    public int GetSkillCardPoint()
+    {
+        return skillCardPoint;
     }
 
     public void IncreaseExpToNextLevel()

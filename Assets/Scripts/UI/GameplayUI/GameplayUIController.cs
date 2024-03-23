@@ -13,6 +13,7 @@ namespace GameplayUI
 
         private PlayerInput playerInput;
         private PlayerInput.OnUIActions onUI;
+        private PlayerLevel playerLevel;
 
         void Awake()
         {
@@ -24,6 +25,8 @@ namespace GameplayUI
             onUI.SkillCard.performed += ctx => SkillCardInput();
 
             stack = manager.stack;
+
+            //playerLevel = PlayerManager.Instance.gameObject.GetComponent<PlayerLevel>();
         }
 
         private void OnEnable()
@@ -59,10 +62,25 @@ namespace GameplayUI
 
         public void SkillCardInput()
         {
-            if (stack.Peek() == PanelType.SkillCard)
-                stack.Pop();
+            Debug.Log("helloooooo");
+            if (stack.Peek() != PanelType.SkillCard)
+            {
+                playerLevel = PlayerManager.Instance.gameObject.GetComponent<PlayerLevel>();
+                if (playerLevel == null)
+                {
+                    return;
+                }
+                if (playerLevel.levelSystem.GetSkillCardPoint() != 0)
+                {
+                    stack.Push(PanelType.SkillCard);
+                }
+                else
+                {
+                    Debug.Log("Player does not have skill card point");
+                }
+            }
             else
-                stack.Push(PanelType.SkillCard);
+                stack.Pop();
         }
     }
 }
