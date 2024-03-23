@@ -15,4 +15,6 @@ MonoBehaviour:
   multiplier: 1.25
   level: 5
   nextLevelPrefab: {fileID: 0}
+  name: Skill Cooldown Reduciton Lv.5
+  description: Reduce skill cooldown by 25%
   icon: {fileID: 0}

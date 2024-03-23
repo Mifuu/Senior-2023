@@ -15,4 +15,6 @@ MonoBehaviour:
   multiplier: 1.6
   level: 5
   nextLevelPrefab: {fileID: 0}
+  name: Hp Buff Lv.5
+  description: Increase max HP by 60%
   icon: {fileID: 0}

@@ -6,15 +6,16 @@ using UnityEngine;
 public class PlayerSkillCard : NetworkBehaviour
 {
     PlayerInventory inventory;
+    PlayerLevel level;
     public int skillCardIndex;
     private GameObject SkillCard;
 
-    public GameObject firstSkillCardTest;
+    //public GameObject firstSkillCardTest;
     // Start is called before the first frame update
     void Start()
     {
         inventory = GetComponent<PlayerInventory>();
-        SpawnSkillCard(firstSkillCardTest);
+        level = GetComponent<PlayerLevel>();
     }
 
     
@@ -22,13 +23,18 @@ public class PlayerSkillCard : NetworkBehaviour
     {
         if (!IsOwner) return;
 
-        if (skillCardIndex >= inventory.skillCardSlots.Count - 1)
+        if (level.levelSystem.GetSkillCardPoint() > 0 )
         {
-            Debug.LogError("Skill card slots already full");
-            return;
+            if (skillCardIndex >= inventory.skillCardSlots.Count - 1)
+            {
+                Debug.LogError("Skill card slots already full");
+                return;
+            }
+            SkillCard = skillCard;
+            SpawnSkillCardServerRPC(transform.position, Quaternion.identity);
+            level.levelSystem.AddSkillCardPoint(-1);
         }
-        SkillCard = skillCard;
-        SpawnSkillCardServerRPC(transform.position, Quaternion.identity);
+        
         /*
         GameObject spawnedSkillCard = Instantiate(skillCard, transform.position, Quaternion.identity);
         spawnedSkillCard.transform.SetParent(transform);

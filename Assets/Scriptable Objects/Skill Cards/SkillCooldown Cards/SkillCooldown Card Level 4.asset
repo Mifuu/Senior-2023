@@ -15,6 +15,6 @@ MonoBehaviour:
   multiplier: 1.18
   level: 4
   nextLevelPrefab: {fileID: 7737883019265630326, guid: e5a51c608928d454fad865ca9a9e8c6d, type: 3}
-  name: 
-  description: 
+  name: Skill Cooldown Reduciton Lv.4
+  description: Reduce skill cooldown by 18%
   icon: {fileID: 0}

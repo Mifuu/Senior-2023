@@ -62,15 +62,11 @@ namespace GameplayUI
 
         public void SkillCardInput()
         {
-            Debug.Log("helloooooo");
             if (stack.Peek() != PanelType.SkillCard)
             {
-                playerLevel = PlayerManager.Instance.gameObject.GetComponent<PlayerLevel>();
-                if (playerLevel == null)
-                {
-                    return;
-                }
-                if (playerLevel.levelSystem.GetSkillCardPoint() != 0)
+                if (!PlayerManager.Instance.gameObject.TryGetComponent<PlayerLevel>(out playerLevel)) return;
+
+                if (playerLevel.levelSystem.GetSkillCardPoint() > 0)
                 {
                     stack.Push(PanelType.SkillCard);
                 }
@@ -80,6 +76,12 @@ namespace GameplayUI
                 }
             }
             else
+                stack.Pop();
+        }
+
+        public void CloseSkillCardPanel()
+        {
+            if (stack.Peek() == PanelType.SkillCard)
                 stack.Pop();
         }
     }
