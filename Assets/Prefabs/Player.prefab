@@ -382,7 +382,38 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   skillCardLevels: 0000000000000000000000000000000000000000000000000000000000000000
-  skillCardUISlots: []
+  skillCardUISlots:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  skillcardUpgradeOptions:
+  - initialSkillCard: {fileID: 7737883019265630326, guid: 4fa594172ef0f6e46af82f9e1eac68e8, type: 3}
+    skillCardData: {fileID: 11400000, guid: 3b8dd2bcae56c38438371b326a9727bb, type: 2}
+  - initialSkillCard: {fileID: 7737883019265630326, guid: d26ff200be67a1045a2ab37dd86e2b70, type: 3}
+    skillCardData: {fileID: 11400000, guid: 1bf2d0a44c9e38349afa882b21a92428, type: 2}
+  - initialSkillCard: {fileID: 7737883019265630326, guid: 9fd9b0f45b95ed14b83f37b301920c7d, type: 3}
+    skillCardData: {fileID: 11400000, guid: 159f22abdcc2c43488390fd83bcedfe6, type: 2}
+  - initialSkillCard: {fileID: 7737883019265630326, guid: 1256aea5aa55f2640ab64b31635c3d0a, type: 3}
+    skillCardData: {fileID: 11400000, guid: 825a36c8149e7dd44b2526b07da065f8, type: 2}
+  upgradeUIOptions:
+  - upgradeNameDisplay: {fileID: 0}
+    upgradeDescriptionDisplay: {fileID: 0}
+    upgradeIcon: {fileID: 0}
+    upgradeButton: {fileID: 0}
+  - upgradeNameDisplay: {fileID: 0}
+    upgradeDescriptionDisplay: {fileID: 0}
+    upgradeIcon: {fileID: 0}
+    upgradeButton: {fileID: 0}
+  - upgradeNameDisplay: {fileID: 0}
+    upgradeDescriptionDisplay: {fileID: 0}
+    upgradeIcon: {fileID: 0}
+    upgradeButton: {fileID: 0}
 --- !u!114 &1855286808091104082
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -504,13 +535,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35a4e28d86ac6ad4bb39a8b62e223e8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AtkBuffTotal: 1
-  DefBuffTotal: 1
-  HpBuffTotal: 1
-  CritBuffTotal: 0
-  JumpBuffTotal: 0
-  DashBuffTotal: 0
-  SkillCooldownBuffTotal: 1
 --- !u!114 &7995700460758469413
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -15,4 +15,6 @@ MonoBehaviour:
   multiplier: 1.1
   level: 1
   nextLevelPrefab: {fileID: 7737883019265630326, guid: 482f7e9ff3aea5148bf97d9740a6d186, type: 3}
+  name: Hp Card
+  description: Increase max HP by 10%
   icon: {fileID: 0}

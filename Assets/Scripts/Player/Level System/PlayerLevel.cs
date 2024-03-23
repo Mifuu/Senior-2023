@@ -40,6 +40,7 @@ public class PlayerLevel : NetworkBehaviour
     {
         Debug.Log("PlayerLevel Script: player is leveled up to lv " + levelSystem.GetLevel());
         levelSystem.IncreaseExpToNextLevel();
-        playerHealth.BaseMaxHealth.Value += 1;
+        levelSystem.AddSkillCardPoint(1);
+        playerHealth.BaseMaxHealth.Value += 2;
     }
 }

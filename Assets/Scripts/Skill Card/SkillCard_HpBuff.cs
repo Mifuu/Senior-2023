@@ -6,6 +6,6 @@ public class SkillCard_HpBuff : SkillCard
 {
     protected override void ApplyModifier()
     {
-        buffManager.HpBuff_SkillCard.Value = skillCard.Multiplier;
+        buffManager.HpBuff_SkillCard.Value = skillCardData.Multiplier;
     }
 }
