@@ -19,13 +19,21 @@ namespace Enemy
         [SerializeField] private int defaultManualDecrementAmount;
         public NetworkVariable<int> currentStamina = new NetworkVariable<int>();
 
+        private EnemyStateMachine stateMachine;
+
+        public void Awake()
+        {
+            stateMachine = GetComponent<EnemyStateMachine>();
+        }
+
         public override void OnNetworkSpawn()
         {
             base.OnNetworkSpawn();
             if (!IsServer) return;
             InvokeRepeating("RegenStamina", 0f, staminaRegenInterval);
             currentStamina.Value = MaxStamina;
-            currentStamina.OnValueChanged += DebugPrintStamina;
+            // currentStamina.OnValueChanged += DebugPrintStamina;
+            stateMachine.stateMachineState.OnValueChanged += CheckStateMachineState;
         }
 
         public override void OnNetworkDespawn()
@@ -33,7 +41,8 @@ namespace Enemy
             base.OnNetworkDespawn();
             if (!IsServer) return;
             CancelInvoke("RegenStamina");
-            currentStamina.OnValueChanged -= DebugPrintStamina;
+            // currentStamina.OnValueChanged -= DebugPrintStamina;
+            stateMachine.stateMachineState.OnValueChanged -= CheckStateMachineState;
         }
 
         public void DebugPrintStamina(int prev, int current)
@@ -82,5 +91,15 @@ namespace Enemy
 
         // This function returns negative value if current stamina is lower than the target
         public int compareStamina(int target) => target - currentStamina.Value;
+
+        public void CheckStateMachineState(EnemyStateMachine.AvailableStateMachineState prev, EnemyStateMachine.AvailableStateMachineState current)
+        {
+            if (!IsServer) return;
+            if (current == EnemyStateMachine.AvailableStateMachineState.Stopped || 
+                current == EnemyStateMachine.AvailableStateMachineState.NotStarted)
+            {
+                currentStamina.Value = MaxStamina;
+            }
+        }
     }
 }
