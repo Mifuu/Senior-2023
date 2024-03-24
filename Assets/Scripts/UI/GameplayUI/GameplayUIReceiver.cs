@@ -43,6 +43,11 @@ namespace GameplayUI
             playPanel.UpdatePromptText(text);
         }
 
+        public void UpdateUpgradeSkillCardText(int point)
+        {
+            playPanel.UpdateUpgradeSkillCardText(point);
+        }
+
         public void UpdateKeyText(int keyValue)
         {
             playPanel.UpdateKeyText(keyValue);

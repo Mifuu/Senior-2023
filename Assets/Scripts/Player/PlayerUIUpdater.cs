@@ -51,6 +51,21 @@ public class PlayerUIUpdater : MonoBehaviour
             playerInteract.OnPromptTextChanged += HandlePromptTextChanged =>
             gameplayUIReceiver.UpdatePromptText(playerInteract.promptText);
         }
+        else if (!gameplayUIReceiver)
+        {
+            Debug.LogWarning("GameplayUIReceiver is not found");
+        }
+
+        // Update Player Upgrade Skill Card Text
+        if (playerInteract.IsOwner && gameplayUIReceiver)
+        {
+            playerLevel.levelSystem.OnSkillCardPointChange += (sender, arg) =>
+            gameplayUIReceiver.UpdateUpgradeSkillCardText(playerLevel.levelSystem.GetSkillCardPoint());
+        }
+        else if (!gameplayUIReceiver)
+        {
+            Debug.LogWarning("GameplayUIReceiver is not found");
+        }
 
         // Update Player Inventory
         if (playerInventory != null && playerInventory.IsOwner && gameplayUIReceiver)
