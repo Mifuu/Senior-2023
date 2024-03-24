@@ -8,6 +8,7 @@ public class LevelSystem
 {
     public event EventHandler OnExpChange;
     public event EventHandler OnLevelChange;
+    public event EventHandler OnSkillCardPointChange;
 
 
     private int level;
@@ -40,6 +41,7 @@ public class LevelSystem
     public void AddSkillCardPoint (int amount)
     {
         skillCardPoint += amount;
+        OnSkillCardPointChange?.Invoke(this, EventArgs.Empty);
     }
 
     public int GetLevel()

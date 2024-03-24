@@ -20,6 +20,7 @@ namespace GameplayUI
         public TextMeshProUGUI fireShardText;
         public TextMeshProUGUI earthShardText;
         public TextMeshProUGUI windShardText;
+        public TextMeshProUGUI upgradeSkillCardText;
 
         public void UpdateHP(float health, float maxHealth)
         {
@@ -39,6 +40,14 @@ namespace GameplayUI
         public void UpdatePromptText(string text)
         {
             promptText.text = text;
+        }
+
+        public void UpdateUpgradeSkillCardText(int point)
+        {
+            if (point == 0)
+                upgradeSkillCardText.text = "";
+            else
+                upgradeSkillCardText.text = $"[T] Choose Skill Card({point})";
         }
 
         public void UpdateKeyText(int keyValue)
