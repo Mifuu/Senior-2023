@@ -426,6 +426,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 397d7bba781475749a7728e071c4b60c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  onlyCountPlayer: 0
 --- !u!1 &3830668734538714673
 GameObject:
   m_ObjectHideFlags: 0
@@ -539,6 +540,7 @@ GameObject:
   - component: {fileID: -4917748360305040873}
   - component: {fileID: 2040013773459935040}
   - component: {fileID: 3388744621044889110}
+  - component: {fileID: -3575387006805459007}
   m_Layer: 12
   m_Name: LustMiniboss
   m_TagString: Untagged
@@ -720,6 +722,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   networkEnemyState:
     m_InternalValue: 0
+  stateMachineState:
+    m_InternalValue: 0
+  startStateMachineOnInitialize: 0
 --- !u!114 &1328936819293529823
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -919,6 +924,26 @@ MonoBehaviour:
   defaultManualDecrementAmount: 1
   currentStamina:
     m_InternalValue: 0
+  stateMachine: {fileID: 0}
+--- !u!114 &-3575387006805459007
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5781375362114392876}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f30f056338171604eb8531f21f8ceaaf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enterFightTriggerCheck: {fileID: -4699935141230389741, guid: de96c83f172cd364c8ffccf4b85f3e4b, type: 3}
+  exitFightTriggerCheck: {fileID: -5342352873261032161, guid: 0a39d10c2c76e014284c6eba25caf800, type: 3}
+  spawnEnterCheckImmediate: 1
+  spawnExitCheckImmediate: 1
+  stateMachine: {fileID: 5575684663058277635}
+  locationMarkerPrefab: {fileID: 1142785295719313928, guid: 912d0bb35cee77548a66f7ef971eeb33, type: 3}
+  useLocationMarker: 1
 --- !u!1 &6373392179680075389
 GameObject:
   m_ObjectHideFlags: 0
