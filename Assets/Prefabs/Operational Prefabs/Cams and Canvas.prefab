@@ -502,7 +502,7 @@ GameObject:
   - component: {fileID: 8282647605466152091}
   - component: {fileID: 8871946642651934962}
   m_Layer: 5
-  m_Name: Card slot 1 (3)
+  m_Name: Card slot 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -552,7 +552,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Color: {r: 0.43529415, g: 0.43529415, b: 0.43529415, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1165,18 +1165,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardSlotUIs:
-  - upgradeNameDisplay: {fileID: 0}
-    upgradeDescriptionDisplay: {fileID: 0}
-    upgradeIcon: {fileID: 0}
-    upgradeButton: {fileID: 0}
-  - upgradeNameDisplay: {fileID: 0}
-    upgradeDescriptionDisplay: {fileID: 0}
-    upgradeIcon: {fileID: 0}
-    upgradeButton: {fileID: 0}
-  - upgradeNameDisplay: {fileID: 0}
-    upgradeDescriptionDisplay: {fileID: 0}
-    upgradeIcon: {fileID: 0}
-    upgradeButton: {fileID: 0}
+  - upgradeNameDisplay: {fileID: 2990356386584416941}
+    upgradeDescriptionDisplay: {fileID: 3974474263330517555}
+    upgradeIcon: {fileID: 7811056929845689947}
+    upgradeButton: {fileID: 3792824186847900471}
+  - upgradeNameDisplay: {fileID: 6287973968473207466}
+    upgradeDescriptionDisplay: {fileID: 4491756592060955}
+    upgradeIcon: {fileID: 7677705470593027605}
+    upgradeButton: {fileID: 1956976476234792080}
+  - upgradeNameDisplay: {fileID: 8062871480409897388}
+    upgradeDescriptionDisplay: {fileID: 2751200885995701819}
+    upgradeIcon: {fileID: 369199297262587499}
+    upgradeButton: {fileID: 4150785186761272726}
+  cardSlot_1: {fileID: 4101341557426330681}
+  cardSlot_2: {fileID: 3529103695284658988}
+  cardSlot_3: {fileID: 1861856864839228982}
 --- !u!1 &2915093872489500857
 GameObject:
   m_ObjectHideFlags: 0
@@ -1594,7 +1597,7 @@ GameObject:
   - component: {fileID: 2939531578179336915}
   - component: {fileID: 7898416843796665064}
   m_Layer: 5
-  m_Name: Card slot 1 (2)
+  m_Name: Card slot 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1644,7 +1647,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Color: {r: 0.43529415, g: 0.43529415, b: 0.43529415, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1673,7 +1676,7 @@ GameObject:
   - component: {fileID: 4834486183769921438}
   - component: {fileID: 700722166998889180}
   m_Layer: 5
-  m_Name: Card slot 1 (1)
+  m_Name: 'Card slot 1 '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1723,7 +1726,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Color: {r: 0.4339623, g: 0.4339623, b: 0.4339623, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
