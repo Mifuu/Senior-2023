@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   multiplier: 1
   level: 1
-  nextLevelPrefab: {fileID: 0}
+  nextLevelPrefab: {fileID: 4125798972409708939, guid: a118217f0075e864fa397da8d01453d7, type: 3}
   name: Double Dash
   description: You can Dash 1 more time
   icon: {fileID: 21300000, guid: 49843057201257c47921af36577a4772, type: 3}

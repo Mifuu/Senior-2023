@@ -17,4 +17,4 @@ MonoBehaviour:
   nextLevelPrefab: {fileID: 7737883019265630326, guid: 377625a239a419942beb43a4b6e66224, type: 3}
   name: Hp Buff Lv.4
   description: Increase max HP by 40%
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 8d4db585387883e4e848ab0ee9ddc8a5, type: 3}

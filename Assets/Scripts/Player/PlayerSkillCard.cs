@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
+using static PlayerInventory;
 
 public class PlayerSkillCard : NetworkBehaviour
 {
@@ -19,22 +20,27 @@ public class PlayerSkillCard : NetworkBehaviour
     }
 
     
-    public void SpawnSkillCard (GameObject skillCard)
+    public void SpawnSkillCard (GameObject skillCard, SkillCardUpgrade chosenSkillCard)
     {
         if (!IsOwner) return;
 
-        if (level.levelSystem.GetSkillCardPoint() > 0 )
+        if (skillCardIndex >= inventory.skillCardSlots.Count)
         {
-            if (skillCardIndex >= inventory.skillCardSlots.Count - 1)
-            {
-                Debug.LogError("Skill card slots already full");
-                return;
-            }
-            SkillCard = skillCard;
-            SpawnSkillCardServerRPC(transform.position, Quaternion.identity);
-            level.levelSystem.AddSkillCardPoint(-1);
+            Debug.LogError("Skill card slots already full");
+            return;
         }
-        
+        SkillCard = skillCard;
+        int indexInSkillCardUpgradeOptions = 0;
+        for (int i = 0; i < inventory.skillcardUpgradeOptions.Count; i++)
+        {
+            if (inventory.skillcardUpgradeOptions[i].skillCardData.name == chosenSkillCard.skillCardData.name)
+            {
+                indexInSkillCardUpgradeOptions = i;
+            }
+        }
+        SpawnSkillCardServerRPC(transform.position, Quaternion.identity, indexInSkillCardUpgradeOptions);
+        level.levelSystem.AddSkillCardPoint(-1);
+
         /*
         GameObject spawnedSkillCard = Instantiate(skillCard, transform.position, Quaternion.identity);
         spawnedSkillCard.transform.SetParent(transform);
@@ -44,7 +50,7 @@ public class PlayerSkillCard : NetworkBehaviour
     }
 
     [ServerRpc]
-    private void SpawnSkillCardServerRPC(Vector3 spawnPosition, Quaternion spawnRotation)
+    private void SpawnSkillCardServerRPC(Vector3 spawnPosition, Quaternion spawnRotation, int indexInSkillCardUpgradeOptions)
     {
         var skillCardObject = Instantiate(SkillCard, spawnPosition, spawnRotation);
 
@@ -53,5 +59,13 @@ public class PlayerSkillCard : NetworkBehaviour
         skillCardNetworkObj.transform.SetParent(transform);
         inventory.AddSkillCard(skillCardIndex, skillCardNetworkObj.GetComponent<SkillCard>());
         skillCardIndex++;
+        // If card is at full level, remove it from the skillcardUpgradeOptions
+        if (skillCardNetworkObj.GetComponent<SkillCard>().skillCardData.NextLevelPrefab.name == "SkillCard_FullLevel")
+        {
+            Debug.Log($"{inventory.skillcardUpgradeOptions[indexInSkillCardUpgradeOptions].skillCardData.name} has been removed from 3-card list because it's at full level");
+            inventory.skillcardUpgradeOptions.RemoveAt(indexInSkillCardUpgradeOptions);
+            inventory.RemoveAndApplyUpgrades();
+        }
+        inventory.RemoveAndApplyUpgrades();
     }
 }
