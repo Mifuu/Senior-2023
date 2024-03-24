@@ -70,6 +70,8 @@ GameObject:
   - component: {fileID: 1093752573501184549}
   - component: {fileID: 1855286808091104082}
   - component: {fileID: -934966325237789224}
+  - component: {fileID: 3372938233736518167}
+  - component: {fileID: 3917260383959487730}
   - component: {fileID: 7995700460758469413}
   - component: {fileID: 2748762815417405034}
   - component: {fileID: 1235742095557865747}
@@ -301,8 +303,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cam: {fileID: 5033622202274234613}
-  xSensitivity: 30
-  ySensitivity: 30
+  xSensitivity: 12
+  ySensitivity: 12
 --- !u!114 &5371998881082442535
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -331,9 +333,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc691504a8fcea44eadc9c07f0f17fb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dashSpeed: 45
-  dashTime: 0.2
-  dashCooldown: 1
+  dashSpeed: 18
+  dashTime: 0.3
+  dashCooldown: 5
 --- !u!114 &267396813232174775
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -346,7 +348,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e0b1b35cad3d15409e661a46899bd0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <maxHealth>k__BackingField: 10
 --- !u!114 &663060055944682856
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -371,6 +372,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2214e8418becf334289978f84f720ec3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  skillCardSlots:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  skillCardLevels: 0000000000000000000000000000000000000000000000000000000000000000
+  skillcardUpgradeOptions:
+  - skillCardUpgradeIndex: 0
+    initialSkillCard: {fileID: 7737883019265630326, guid: 4fa594172ef0f6e46af82f9e1eac68e8, type: 3}
+    skillCardData: {fileID: 11400000, guid: 3b8dd2bcae56c38438371b326a9727bb, type: 2}
+  - skillCardUpgradeIndex: 1
+    initialSkillCard: {fileID: 7737883019265630326, guid: d26ff200be67a1045a2ab37dd86e2b70, type: 3}
+    skillCardData: {fileID: 11400000, guid: 1bf2d0a44c9e38349afa882b21a92428, type: 2}
+  - skillCardUpgradeIndex: 2
+    initialSkillCard: {fileID: 7737883019265630326, guid: 9fd9b0f45b95ed14b83f37b301920c7d, type: 3}
+    skillCardData: {fileID: 11400000, guid: 159f22abdcc2c43488390fd83bcedfe6, type: 2}
+  - skillCardUpgradeIndex: 3
+    initialSkillCard: {fileID: 7737883019265630326, guid: 1256aea5aa55f2640ab64b31635c3d0a, type: 3}
+    skillCardData: {fileID: 11400000, guid: 825a36c8149e7dd44b2526b07da065f8, type: 2}
+  - skillCardUpgradeIndex: 4
+    initialSkillCard: {fileID: 7737883019265630326, guid: b6c5adda52bb8bb469010d493a26b4ac, type: 3}
+    skillCardData: {fileID: 11400000, guid: 87d7546eaafaeec488d3d4cedd66ada8, type: 2}
+  - skillCardUpgradeIndex: 5
+    initialSkillCard: {fileID: 7737883019265630326, guid: 6068e03d1b93e5c458ca084cc93bf7e7, type: 3}
+    skillCardData: {fileID: 11400000, guid: 27419e62efbd9ad4da0b6b30f5859e97, type: 2}
 --- !u!114 &1855286808091104082
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -466,6 +496,31 @@ MonoBehaviour:
     Amount: 0.01
     LevelLowerBoundInclusive: 11
     LevelUpperBoundExclusive: 20
+--- !u!114 &3372938233736518167
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1287504444611049030}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1cfe676ca350214b9de56b3d6d1e706, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skillCardIndex: 0
+--- !u!114 &3917260383959487730
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1287504444611049030}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35a4e28d86ac6ad4bb39a8b62e223e8a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &7995700460758469413
 MonoBehaviour:
   m_ObjectHideFlags: 0
