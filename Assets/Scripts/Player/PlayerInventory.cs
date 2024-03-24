@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Unity.Netcode;
 using Unity.Services.Relay.Models;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using static SkillCard;
@@ -51,10 +52,10 @@ public class PlayerInventory : NetworkBehaviour
 
     #endregion
 
+    #region skill card variables
     public List<SkillCard> skillCardSlots = new(8);
     public int[] skillCardLevels = new int[8];
     SkillCard _skillCard;
-    //public List<Image> skillCardUISlots = new(8);
     private PlayerSkillCard playerSkillCard;
     private PlayerLevel playerLevel;
 
@@ -67,6 +68,7 @@ public class PlayerInventory : NetworkBehaviour
     }
 
     public List<SkillCardUpgrade> skillcardUpgradeOptions = new();
+    #endregion
 
     private void Start()
     {
@@ -80,26 +82,16 @@ public class PlayerInventory : NetworkBehaviour
     {
         skillCardSlots[slotIndex] = skillCard;
         skillCardLevels[slotIndex] = skillCard.skillCardData.Level;
-        //skillCardUISlots[slotIndex].enabled = true; // Enable the image component
-        //skillCardUISlots[slotIndex].sprite = skillCard.skillCardData.Icon;
-        if (skillCard.skillCardData.Icon != null)
+        if (skillCard.skillCardData.Icon == null)
         {
-            //Debug.Log($"skillcard UI SLOT = {skillCardUISlots[slotIndex]}");
-            //Debug.Log($"skillcard icon = {skillCard.skillCardData.Icon}");
-
-            //skillCardUISlots[slotIndex].sprite = skillCard.skillCardData.Icon;
-        }
-        else
-        {
-            // maybe assign a blank image 
             Debug.LogError("skill card icon of '" + skillCard.skillCardData.name + "' does not exist");
         }
     }
 
-    public void LevelUpSkillCard (int slotIndex, int upgradeIndex)
+    public void LevelUpSkillCard (int slotIndex, SkillCardUpgrade chosenSkillCardUpgrade)
     {
         if (!IsOwner) return;
-
+        int indexInSkillCardUpgradeOptions = 0;
         if (playerLevel.levelSystem.GetSkillCardPoint() > 0)
         {
             if (skillCardSlots.Count > slotIndex)
@@ -110,7 +102,14 @@ public class PlayerInventory : NetworkBehaviour
                     Debug.LogError("No next level for " + _skillCard.name);
                     return;
                 }
-                UpgradeSkillCardServerRPC(slotIndex, transform.position, Quaternion.identity, upgradeIndex);
+                for (int i = 0; i < skillcardUpgradeOptions.Count; i++)
+                {
+                    if (skillcardUpgradeOptions[i].skillCardData.name == chosenSkillCardUpgrade.skillCardData.name) 
+                    {
+                        indexInSkillCardUpgradeOptions = i;
+                    }
+                }   
+                UpgradeSkillCardServerRPC(slotIndex, transform.position, Quaternion.identity, indexInSkillCardUpgradeOptions);
                 playerLevel.levelSystem.AddSkillCardPoint(-1);
             }
         }
@@ -122,58 +121,56 @@ public class PlayerInventory : NetworkBehaviour
 
         for (int i = 0; i < SkillCardUI.Instance.cardSlotUIs.Length; i++)
         {
-            if(availableSkillCardUpgrade.Count == 0) return;
-            
-            SkillCardUpgrade chosenSkillCardUpgrade = availableSkillCardUpgrade[UnityEngine.Random.Range(0, availableSkillCardUpgrade.Count)];
-            availableSkillCardUpgrade.Remove(chosenSkillCardUpgrade);
-
-            if (chosenSkillCardUpgrade != null) // spawn next level card and destroy the old one
+            if(availableSkillCardUpgrade.Count == 0)
             {
-                EnableUpgradeUI(i);
+                Debug.Log($"Disable Upgrade UI Slot {i} because there is no more card to upgrade");
+                DisableUpgradeUI(i);
+            }
+            else
+            {
+                SkillCardUpgrade chosenSkillCardUpgrade = availableSkillCardUpgrade[UnityEngine.Random.Range(0, availableSkillCardUpgrade.Count)];
+                availableSkillCardUpgrade.Remove(chosenSkillCardUpgrade);
 
-                bool newSkillCard = false;
-                for (int index = 0; index < skillCardSlots.Count; index++)
+                if (chosenSkillCardUpgrade != null) // spawn next level card and destroy the old one
                 {
-                    if (skillCardSlots[index] != null && skillCardSlots[index].skillCardData == chosenSkillCardUpgrade.skillCardData)
-                    {
-                        newSkillCard = false;
-                        if (!newSkillCard)
-                        {
-                            if (!chosenSkillCardUpgrade.skillCardData.NextLevelPrefab)
-                            {
-                                DisableUpgradeUI(i);
-                                break;
-                            }
-                            string name = chosenSkillCardUpgrade.skillCardData.NextLevelPrefab.GetComponent<SkillCard>().skillCardData.name;
-                            string description = chosenSkillCardUpgrade.skillCardData.NextLevelPrefab.GetComponent<SkillCard>().skillCardData.Description;
-                            Sprite sprite = chosenSkillCardUpgrade.skillCardData.Icon;
-                            SkillCardUI.Instance.SetCardSlotUI(i, name, description, sprite, () => LevelUpSkillCard(index, chosenSkillCardUpgrade.skillCardUpgradeIndex), () => RemoveAndApplyUpgrades());  
-                        }
-                        break;
-                    }
-                    else
-                    {
-                        newSkillCard = true;
-                    }
-                }
+                    EnableUpgradeUI(i);
 
-                if (newSkillCard) // Spawn a new skillCard
-                { 
-                    string name = chosenSkillCardUpgrade.skillCardData.name;
-                    string description = chosenSkillCardUpgrade.skillCardData.Description;
-                    Sprite sprite = chosenSkillCardUpgrade.skillCardData.Icon;
-                    SkillCardUI.Instance.SetCardSlotUI(i, name, description, sprite, () => playerSkillCard.SpawnSkillCard(chosenSkillCardUpgrade.initialSkillCard), () => RemoveAndApplyUpgrades());
+                    bool newSkillCard = false;
+                    for (int index = 0; index < skillCardSlots.Count; index++)
+                    {
+                        if (skillCardSlots[index] != null && skillCardSlots[index].skillCardData == chosenSkillCardUpgrade.skillCardData)
+                        {
+                            newSkillCard = false;
+                            if (!newSkillCard)
+                            {
+                                if (!chosenSkillCardUpgrade.skillCardData.NextLevelPrefab)
+                                {
+                                    DisableUpgradeUI(i);
+                                    break;
+                                }
+                                string name = chosenSkillCardUpgrade.skillCardData.NextLevelPrefab.GetComponent<SkillCard>().skillCardData.name;
+                                string description = chosenSkillCardUpgrade.skillCardData.NextLevelPrefab.GetComponent<SkillCard>().skillCardData.Description;
+                                Sprite sprite = chosenSkillCardUpgrade.skillCardData.Icon;
+                                SkillCardUI.Instance.SetCardSlotUI(i, name, description, sprite, () => LevelUpSkillCard(index, chosenSkillCardUpgrade));
+                            }
+                            break;
+                        }
+                        else
+                        {
+                            newSkillCard = true;
+                        }
+                    }
+
+                    if (newSkillCard) // Spawn a new skillCard
+                    {
+                        string name = chosenSkillCardUpgrade.skillCardData.name;
+                        string description = chosenSkillCardUpgrade.skillCardData.Description;
+                        Sprite sprite = chosenSkillCardUpgrade.skillCardData.Icon;
+                        SkillCardUI.Instance.SetCardSlotUI(i, name, description, sprite, () => playerSkillCard.SpawnSkillCard(chosenSkillCardUpgrade.initialSkillCard, chosenSkillCardUpgrade));
+                    }
                 }
             }
         }
-    }
-
-    void RemoveUpgradeOptions()
-    {
-        SkillCardUI.Instance.RemoveAllListeners();
-        DisableUpgradeUI(0); //upgradeoption
-        DisableUpgradeUI(1);
-        DisableUpgradeUI(2);
     }
 
     public void RemoveAndApplyUpgrades()
@@ -184,12 +181,19 @@ public class PlayerInventory : NetworkBehaviour
         ApplyUpgradeOptions();
     }
 
+    void RemoveUpgradeOptions()
+    {
+        SkillCardUI.Instance.RemoveAllListeners();
+        DisableUpgradeUI(0); 
+        DisableUpgradeUI(1);
+        DisableUpgradeUI(2);
+    }
+
     // Enable card slot in 3-card UI
     void EnableUpgradeUI(int i)
     {
         if (!IsOwner) return;
 
-        //Debug.Log("skill card ui length = " + SkillCardUI.Instance.cardSlotUIs.Length);
         switch (i)
         {
             case 0:
@@ -199,7 +203,7 @@ public class PlayerInventory : NetworkBehaviour
                 SkillCardUI.Instance.cardSlot_2.SetActive(true);
                 break;
             case 2:
-                SkillCardUI.Instance.cardSlot_1.SetActive(true);
+                SkillCardUI.Instance.cardSlot_3.SetActive(true);
                 break;
             default:
                 Debug.LogError($"Unhandled card slot UI what enabling the slot: slot {i}");
@@ -210,8 +214,6 @@ public class PlayerInventory : NetworkBehaviour
     // Disable card slot in 3-card UI
     void DisableUpgradeUI(int i)
     {
-        if (!IsOwner) return;
-
         switch (i)
         {
             case 0:
@@ -221,7 +223,7 @@ public class PlayerInventory : NetworkBehaviour
                 SkillCardUI.Instance.cardSlot_2.SetActive(false);
                 break;
             case 2:
-                SkillCardUI.Instance.cardSlot_1.SetActive(false);
+                SkillCardUI.Instance.cardSlot_3.SetActive(false);
                 break;
             default:
                 Debug.LogError($"Unhandled card slot UI when disabling the slot: slot {i}");
@@ -231,7 +233,7 @@ public class PlayerInventory : NetworkBehaviour
 
 
     [ServerRpc]
-    private void UpgradeSkillCardServerRPC(int slotIndex, Vector3 spawnPosition, Quaternion spawnRotation, int upgradeIndex)
+    private void UpgradeSkillCardServerRPC(int slotIndex, Vector3 spawnPosition, Quaternion spawnRotation, int indexInSkillCardUpgradeOptions)
     {
         var upgradedSkillCardObject = Instantiate(_skillCard.skillCardData.NextLevelPrefab, spawnPosition, spawnRotation);
         var upgradedSkillCardNetworkObj = upgradedSkillCardObject.GetComponent<NetworkObject>();
@@ -240,7 +242,20 @@ public class PlayerInventory : NetworkBehaviour
         AddSkillCard(slotIndex, upgradedSkillCardNetworkObj.GetComponent<SkillCard>());
         _skillCard.NetworkObject.Despawn(true);
         skillCardLevels[slotIndex] = upgradedSkillCardNetworkObj.GetComponent<SkillCard>().skillCardData.Level;
-        skillcardUpgradeOptions[upgradeIndex].skillCardData = upgradedSkillCardNetworkObj.GetComponent<SkillCard>().skillCardData;
+
+        // If card is at full level, remove it from the skillcardUpgradeOptions
+        if (upgradedSkillCardNetworkObj.GetComponent<SkillCard>().skillCardData.NextLevelPrefab.name == "SkillCard_FullLevel")
+        {
+            Debug.Log($"{skillcardUpgradeOptions[indexInSkillCardUpgradeOptions].skillCardData.name} has been removed from 3-card list because it's at full level");
+            skillcardUpgradeOptions.RemoveAt(indexInSkillCardUpgradeOptions);
+            RemoveAndApplyUpgrades();
+        }
+        //If card is not at full level, replace it's skillCardData in skillcardUpgradeOptions with its next level
+        else
+        {
+            skillcardUpgradeOptions[indexInSkillCardUpgradeOptions].skillCardData = upgradedSkillCardNetworkObj.GetComponent<SkillCard>().skillCardData;
+            RemoveAndApplyUpgrades();
+        }
     }
     #endregion
 }

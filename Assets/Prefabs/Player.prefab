@@ -382,16 +382,6 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   skillCardLevels: 0000000000000000000000000000000000000000000000000000000000000000
-  skillCardUISlots:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
   skillcardUpgradeOptions:
   - skillCardUpgradeIndex: 0
     initialSkillCard: {fileID: 7737883019265630326, guid: 4fa594172ef0f6e46af82f9e1eac68e8, type: 3}

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   multiplier: 1.6
   level: 5
-  nextLevelPrefab: {fileID: 0}
+  nextLevelPrefab: {fileID: 4125798972409708939, guid: 1312f4bdc1092294a985fa8cd80629bc, type: 3}
   name: Hp Buff Lv.5
   description: Increase max HP by 60%
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 8d4db585387883e4e848ab0ee9ddc8a5, type: 3}

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   multiplier: 1.25
   level: 5
-  nextLevelPrefab: {fileID: 0}
+  nextLevelPrefab: {fileID: 4125798972409708939, guid: 12548a0631f4a21499d8e9d3a33e08f7, type: 3}
   name: Skill Cooldown Reduciton Lv.5
   description: Reduce skill cooldown by 25%
   icon: {fileID: 0}

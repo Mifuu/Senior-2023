@@ -38,7 +38,7 @@ public class SkillCardUI : MonoBehaviour
         gameplayUIController = transform.parent.GetComponent<GameplayUIController>();
     }
 
-    public void SetCardSlotUI(int slotIndex, string name, string description, Sprite image, UnityAction chooseCard, UnityAction removeAndApplyUpgrade)
+    public void SetCardSlotUI(int slotIndex, string name, string description, Sprite image, UnityAction chooseCard)
     {
         cardSlotUIs[slotIndex].upgradeNameDisplay.text = name;
         cardSlotUIs[slotIndex].upgradeDescriptionDisplay.text = description;
@@ -47,8 +47,6 @@ public class SkillCardUI : MonoBehaviour
         {
             chooseCard.Invoke(); // Give the chosen card to the player
             gameplayUIController.CloseSkillCardPanel(); // Close the panel
-            removeAndApplyUpgrade.Invoke(); // Random the 3 card to put in the panel ( for the next time player open the panel)
-
         }
         cardSlotUIs[slotIndex].upgradeButton.onClick.AddListener(chooseAndClosePanel);
         cardSlotUIs[slotIndex].upgradeIcon.sprite = image;
