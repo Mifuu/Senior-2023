@@ -20,7 +20,7 @@ public class PlayerLevel : NetworkBehaviour
     {
         if (Input.GetKeyDown(KeyCode.K))
         {
-            AddExp(50);
+            AddExp(5000);
         }
     }
 
@@ -40,6 +40,7 @@ public class PlayerLevel : NetworkBehaviour
     {
         Debug.Log("PlayerLevel Script: player is leveled up to lv " + levelSystem.GetLevel());
         levelSystem.IncreaseExpToNextLevel();
-        playerHealth.maxHealth += 1;
+        levelSystem.AddSkillCardPoint(1);
+        playerHealth.BaseMaxHealth.Value += 2;
     }
 }
