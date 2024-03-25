@@ -4,6 +4,7 @@ namespace Enemy
 {
     public class OrchestratedSpawnManager : PersonalEnemySpawnManager
     {
+        [Header("Orchestrator")]
         [SerializeField] private bool spawnImmediately;
 
         public override void OnNetworkSpawn()

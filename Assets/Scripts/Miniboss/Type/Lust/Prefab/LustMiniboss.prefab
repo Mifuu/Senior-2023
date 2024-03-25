@@ -357,8 +357,11 @@ MonoBehaviour:
   randomEnemyTypeAmount: 1
   stratify: 0
   groupMaxRandom: 0
+  willSpawnAssociator: 1
+  associatorPrefab: {fileID: 3898924838770244129, guid: 08e2ab1f2e015654986cc31572073b07, type: 3}
   currentAliveEnemy:
     m_InternalValue: 0
+  enemy: {fileID: 5901889156636781570}
   spawnImmediately: 1
 --- !u!1 &3467643490510371262
 GameObject:
@@ -513,8 +516,11 @@ MonoBehaviour:
   randomEnemyTypeAmount: 2
   stratify: 1
   groupMaxRandom: 0
+  willSpawnAssociator: 0
+  associatorPrefab: {fileID: 0}
   currentAliveEnemy:
     m_InternalValue: 0
+  enemy: {fileID: 0}
 --- !u!1 &5781375362114392876
 GameObject:
   m_ObjectHideFlags: 0
@@ -924,7 +930,6 @@ MonoBehaviour:
   defaultManualDecrementAmount: 1
   currentStamina:
     m_InternalValue: 0
-  stateMachine: {fileID: 0}
 --- !u!114 &-3575387006805459007
 MonoBehaviour:
   m_ObjectHideFlags: 0

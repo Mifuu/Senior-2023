@@ -25,10 +25,15 @@ namespace Enemy
         [Tooltip("Completely randomize each group, ignore other setting")]
         [SerializeField] public bool groupMaxRandom;
 
+        [Header("Associator Spawn Config")]
+        [SerializeField] private bool willSpawnAssociator = false;
+        [SerializeField] private GameObject associatorPrefab;
+
         private List<EnemyBase> spawnedEnemyRef = new List<EnemyBase>();
         public NetworkVariable<int> currentAliveEnemy = new NetworkVariable<int>(0);
         private bool isInit = false;
         private Queue<Vector3> vacantSpot;
+        [SerializeField] private EnemyBase enemy;
 
         public event Action<List<EnemyBase>> OnEnemySpawns;
         public event Action<EnemyBase> OnEnemyDies;
@@ -38,6 +43,11 @@ namespace Enemy
         {
             if (UniqueId == "")
                 Debug.LogError("Please specify the ID for PersonalEnemySpawnManager Component");
+            if (associatorPrefab == null && willSpawnAssociator)
+            {
+                Debug.LogError("Spawn Associator is set to true but Associator Prefab is null, the associator will not spawn");
+                willSpawnAssociator = false;
+            }
         }
 
         public override void OnNetworkSpawn()
@@ -138,6 +148,9 @@ namespace Enemy
                 }
 
                 enemy.Spawn();
+
+                if (willSpawnAssociator)
+                    SpawnAssociator(enemy.transform.position);
                 return enemyBase;
             }
             return null;
@@ -165,6 +178,10 @@ namespace Enemy
                 }
 
                 enemy.GetComponent<NetworkObject>()?.Spawn();
+
+                if (willSpawnAssociator)
+                    SpawnAssociator(enemy.transform.position);
+
                 return enemyBase;
             }
             return null;
@@ -208,6 +225,15 @@ namespace Enemy
                 yield return currentNum++;
                 if (currentNum >= maxExclusive) currentNum = 0;
             }
+        }
+
+        private void SpawnAssociator(Vector3 leafEnemyPosition)
+        {
+            var centerLocation = Vector3.Lerp(enemy.transform.position, leafEnemyPosition, 0.5f);
+            var associatorInstance = Instantiate(associatorPrefab, centerLocation, Quaternion.identity);
+            if (associatorInstance.TryGetComponent<NetworkObject>(out var networkObject))
+                networkObject.Spawn();
+            associatorInstance.transform.LookAt(enemy.transform);
         }
     }
 }
