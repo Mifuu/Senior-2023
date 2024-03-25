@@ -107,5 +107,6 @@ namespace GameplayUI
         Pause,
         Gameover,
         Map,
+        SkillCard,
     }
 }
