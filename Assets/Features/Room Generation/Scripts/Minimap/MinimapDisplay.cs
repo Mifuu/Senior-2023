@@ -7,6 +7,20 @@ namespace RoomGeneration.Minimap
 {
     public class MinimapDisplay : MonoBehaviour
     {
+        public static MinimapDisplay instance;
+
+        private void Awake()
+        {
+            if (instance != null && instance != this)
+            {
+                Destroy(this.gameObject);
+            }
+            else
+            {
+                instance = this;
+            }
+        }
+
         [Header("Default Values")]
         public const int DEFAULT_GRID_SIZE = 40;
 
@@ -26,6 +40,11 @@ namespace RoomGeneration.Minimap
         Dictionary<Vector3Int, int> roomGrid = new Dictionary<Vector3Int, int>();
         int[,] indexGrid;
 
+        void Start()
+        {
+            // RoomGenNetworkManager.Instance.onGenerateLevel += Generate;
+        }
+
         public void Generate()
         {
             texture = MinimapGenerator.GenerateTexture(roomGenerator, settings);
@@ -37,6 +56,11 @@ namespace RoomGeneration.Minimap
             // Debug.Log("texture.width: " + texture.width + ", indexGrid.GetLength(1): " + indexGrid.GetLength(1) + ", gridSize: " + gridSize);
 
             minimapEntityDisplay.Init();
+        }
+
+        public void Test()
+        {
+            Debug.Log("test4");
         }
 
         public Vector2Int GetIndexGridSize()
