@@ -87,21 +87,21 @@ namespace Enemy
                 switch (response)
                 {
                     case EnemyWeightedAttackResponseMode.Proceed:
-                        // Debug.LogWarning("Weighted Attack Proceeding " + weightedAttacks[selectedAttackIndex]);
+                        Debug.LogWarning("Weighted Attack Proceeding " + weightedAttacks[selectedAttackIndex]);
                         SwitchAttack(selectedAttackIndex);
                         randomProcessSucceed = true;
                         break;
                     case EnemyWeightedAttackResponseMode.Hold:
-                        // Debug.LogWarning("Weighted Attack Holding " + weightedAttacks[selectedAttackIndex]);
+                        Debug.LogWarning("Weighted Attack Holding " + weightedAttacks[selectedAttackIndex]);
                         enemy.StartCoroutine(RequestStateHoldingCallback(selectedAttackIndex));
                         randomProcessSucceed = true;
                         break;
                     case EnemyWeightedAttackResponseMode.Repick:
-                        // Debug.LogWarning("Weighted Attack Repicking " + weightedAttacks[selectedAttackIndex]);
+                        Debug.LogWarning("Weighted Attack Repicking " + weightedAttacks[selectedAttackIndex]);
                         listOfAttackIndex = RemoveAttackFromRandomPool(listOfAttackIndex, selectedAttackIndex);
                         break;
                     case EnemyWeightedAttackResponseMode.Skip:
-                        // Debug.LogWarning("Weighted Attack Skipping " + weightedAttacks[selectedAttackIndex]);
+                        Debug.LogWarning("Weighted Attack Skipping " + weightedAttacks[selectedAttackIndex]);
                         enemy.StateMachine.ChangeState(enemy.IdleState);
                         randomProcessSucceed = true;
                         return;

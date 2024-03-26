@@ -8,6 +8,10 @@ public class DestroyOnExit : StateMachineBehaviour
         if (animator.TryGetComponent<NetworkObject>(out var networkObject))
         {
             networkObject.Despawn(true);
+            return;
         }
+
+        var parentNetwork = animator.GetComponentInParent<NetworkObject>();
+        if (parentNetwork != null) parentNetwork.Despawn(true);
     }
 }

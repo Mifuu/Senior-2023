@@ -14,7 +14,8 @@ namespace Enemy
             {
                 if (!enemy.TryGetComponent<EnemyStateHijackable>(out EnemyStateHijackable hijackable))
                 {
-                    enemyPrefabList.Remove(enemy);
+                    // enemyPrefabList.Remove(enemy); // BUG: List can not be modified while being iterated 
+                    Debug.LogError(enemy + "'s State can not be hijacked");
                 }
             }
 

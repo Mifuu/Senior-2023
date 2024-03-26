@@ -158,8 +158,11 @@ namespace Enemy
 
             StateMachine.Initialize(IdleState);
 
-            rigidBody.isKinematic = false;
-            rigidBody.useGravity = false;
+            if (rigidBody != null)
+            {
+                rigidBody.isKinematic = false;
+                rigidBody.useGravity = false;
+            }
 
             aggroDistanceTriggerCheck.OnHitboxTriggerEnter += ChangeTargetPlayerFromCollision;
         }
@@ -177,10 +180,11 @@ namespace Enemy
             // StateMachine.ChangeState(IdleState);
         }
 
-        public void Damage(float damageAmount, GameObject dealer)
+        public virtual void Damage(float damageAmount, GameObject dealer)
         {
             if (!IsServer || !isActiveAndEnabled) return;
-            if (dealer.TryGetComponent<EnemyBase>(out EnemyBase enemy)) return; // Prevent Friendly fire
+            if (dealer != null)
+                if (dealer.TryGetComponent<EnemyBase>(out EnemyBase enemy)) return; // Prevent Friendly fire
 
             currentHealth.Value -= damageAmount;
             SpawnDamageFloatingClientRpc(Mathf.Round(damageAmount).ToString());
@@ -190,7 +194,7 @@ namespace Enemy
         }
 
         [ClientRpc]
-        private void SpawnDamageFloatingClientRpc(string value)
+        protected void SpawnDamageFloatingClientRpc(string value)
         {
             if (damageFloatingSpawner != null)
                 damageFloatingSpawner.Spawn(value);
@@ -200,8 +204,8 @@ namespace Enemy
         {
             if (!IsServer || !isActiveAndEnabled) return;
 
-            if (dealer != null) 
-                dealer.GetComponent<PlayerLevel>()?.AddExp(stat.BaseEXP.Value); 
+            if (dealer != null)
+                dealer.GetComponent<PlayerLevel>()?.AddExp(stat.BaseEXP.Value);
 
             CleanUp();
             OnEnemyDie?.Invoke();
@@ -249,8 +253,11 @@ namespace Enemy
                     closestDistanceSqr = distanceSqr;
                 }
             }
-
-            if (closestDistanceSqr > maxDistanceSquared) return null; // Allow Enemy to search only to a certain distance
+            // Allow Enemy to search only to a certain distance
+            if (closestDistanceSqr > maxDistanceSquared)
+            {
+                return null;
+            }
             return closestPlayer;
         }
 
