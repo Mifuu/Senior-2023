@@ -12,3 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16e3c1c144e72ac41b68ae549e80d055, type: 3}
   m_Name: TestSkipIdle
   m_EditorClassIdentifier: 
+  cooldownTime: 3
