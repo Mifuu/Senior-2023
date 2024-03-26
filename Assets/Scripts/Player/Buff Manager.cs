@@ -19,10 +19,10 @@ public class BuffManager : NetworkBehaviour
     #endregion
 
     #region BuffTotal variables
-    public float AtkBuffTotal { get; private set; } = 1f;
+    public float AtkBuffTotal { get; private set; } = 1f; 
     public float DefBuffTotal { get; private set; } = 1f;
     public float HpBuffTotal { get; private set; } = 1f;
-    public float CritBuffTotal { get; private set; } = 0f;
+    public float CritBuffTotal { get; private set; } = 1f;
     public float JumpBuffTotal { get; private set; } = 0f;
     public float DashBuffTotal { get; private set; } = 0f;
     public float SkillCooldownBuffTotal { get; private set; } = 1f;
