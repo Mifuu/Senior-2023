@@ -17,7 +17,7 @@ public class PlayerDash : NetworkBehaviour
     public int maxDashCount = 1;
     public int currentDashCount;
     private bool isDashing = false;
-    private bool isOnCooldown = false;
+    private bool isRefreshing = false;
 
     void Start()
     {
@@ -32,10 +32,10 @@ public class PlayerDash : NetworkBehaviour
     private void RecalculateTotalDashCount()
     {
         maxDashCount = baseDashCount + DashBuffAddition.Value;
-        InitializedDashBuddAdditionChanged();
+        InitializedDashBuffAdditionChanged();
     }
 
-    private void InitializedDashBuddAdditionChanged()
+    private void InitializedDashBuffAdditionChanged()
     {
         int dashBuffAdditionDifference = DashBuffAddition.Value - dashBuffAdditionBefore;
         currentDashCount += dashBuffAdditionDifference;
@@ -47,7 +47,6 @@ public class PlayerDash : NetworkBehaviour
         Vector3 dashDirection = CalculateDashDirection(input);
         StartCoroutine(PerformDash(dashDirection));
         StartCoroutine(DashCooldown());
-        currentDashCount--;
     }
 
     // Use player input from PlayerMotor to calculate dash direction
@@ -74,13 +73,20 @@ public class PlayerDash : NetworkBehaviour
         isDashing = false;
     }
 
+    // Continuously refill the currentDashCount until it reached maxDashCount
     private IEnumerator DashCooldown()
     {
-        isOnCooldown = true;
-        yield return new WaitForSeconds(dashCooldown);
-        isOnCooldown = false;
-        currentDashCount++; // Increment the dash count after cooldown
-        if (currentDashCount > maxDashCount)
+        currentDashCount--;
+        if (isRefreshing) yield return 0;
+        isRefreshing = true;
+        while (currentDashCount < maxDashCount)
+        {
+            yield return new WaitForSeconds(dashCooldown);
+            currentDashCount++;
+        }
+        isRefreshing = false;
+  
+        if (currentDashCount > maxDashCount )
         {
             currentDashCount = maxDashCount; // Cap the dash count to the max dash count
         }
