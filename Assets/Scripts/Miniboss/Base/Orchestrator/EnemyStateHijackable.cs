@@ -81,6 +81,7 @@ namespace Enemy
         {
             this.attackBase = enemy.EnemyAttackBaseInstance;
             enemy.EnemyAttackBaseInstance = attackBase;
+            if (attackBase.allAttack.Count == 0) Debug.LogError("Detect that attack count equals 0, will cause index overflow problem");
             enemy.EnemyAttackBaseInstance.Initialize(enemyGameObject, enemy);
             foreach (var attacks in enemy.EnemyAttackBaseInstance.allAttack)
             {

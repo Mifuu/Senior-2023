@@ -355,6 +355,14 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3383374750858922397, guid: c5ed0991a46a34fd5b387bd213dbae02, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3383374750858922397, guid: c5ed0991a46a34fd5b387bd213dbae02, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3502321808821094250, guid: c5ed0991a46a34fd5b387bd213dbae02, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -382,6 +390,22 @@ PrefabInstance:
     - target: {fileID: 5039189072994058994, guid: c5ed0991a46a34fd5b387bd213dbae02, type: 3}
       propertyPath: m_AnchorMin.x
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5114119830435634816, guid: c5ed0991a46a34fd5b387bd213dbae02, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5114119830435634816, guid: c5ed0991a46a34fd5b387bd213dbae02, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5114119830435634816, guid: c5ed0991a46a34fd5b387bd213dbae02, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5114119830435634816, guid: c5ed0991a46a34fd5b387bd213dbae02, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5798213618569256344, guid: c5ed0991a46a34fd5b387bd213dbae02, type: 3}
       propertyPath: m_AnchorMax.x
@@ -417,6 +441,38 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6623789222597328449, guid: c5ed0991a46a34fd5b387bd213dbae02, type: 3}
       propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7129638752115352537, guid: c5ed0991a46a34fd5b387bd213dbae02, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7129638752115352537, guid: c5ed0991a46a34fd5b387bd213dbae02, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7129638752115352537, guid: c5ed0991a46a34fd5b387bd213dbae02, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7129638752115352537, guid: c5ed0991a46a34fd5b387bd213dbae02, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7221415978514259512, guid: c5ed0991a46a34fd5b387bd213dbae02, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7221415978514259512, guid: c5ed0991a46a34fd5b387bd213dbae02, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7221415978514259512, guid: c5ed0991a46a34fd5b387bd213dbae02, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7221415978514259512, guid: c5ed0991a46a34fd5b387bd213dbae02, type: 3}
+      propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7872154837740878928, guid: c5ed0991a46a34fd5b387bd213dbae02, type: 3}
@@ -699,8 +755,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isSpawning:
     m_InternalValue: 0
-  chooseEnemyToSpawn: {fileID: 5781375362114392876, guid: 3f29c21da1f9cc0419fb95387bf03654, type: 3}
+  chooseEnemyToSpawn: {fileID: 5781375362114392876, guid: 9c816a1b498eb9544a27532b47b71eaa, type: 3}
   spawnNumber: 1
+  selectedSpawnLocation: {fileID: 0}
 --- !u!1 &490195231
 GameObject:
   m_ObjectHideFlags: 0
@@ -1196,7 +1253,7 @@ MonoBehaviour:
     PrewarmCount: 5
   - Prefab: {fileID: 5498458629423864041, guid: d28aed5a908ce4e49b84e335d144e92f, type: 3}
     PrewarmCount: 5
-  - Prefab: {fileID: 5781375362114392876, guid: 3f29c21da1f9cc0419fb95387bf03654, type: 3}
+  - Prefab: {fileID: 5781375362114392876, guid: 9c816a1b498eb9544a27532b47b71eaa, type: 3}
     PrewarmCount: 5
   - Prefab: {fileID: 7423775656597082803, guid: a9d6a8d354ce5f04db13ecc3a0a44954, type: 3}
     PrewarmCount: 100
