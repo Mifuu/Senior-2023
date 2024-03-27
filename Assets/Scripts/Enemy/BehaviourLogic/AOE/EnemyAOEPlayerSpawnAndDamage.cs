@@ -11,7 +11,7 @@ namespace Enemy
             base.ActivateEffect();
             foreach (var players in areaOfEffectTrigger.PlayerWithinTrigger)
             {
-                var info = enemy.dealerPipeline.GetFinalDealthDamageInfo();
+                var info = component.GetFinalDealthDamageInfo();
                 info.dealer = enemy.gameObject;
 
                 // Push back

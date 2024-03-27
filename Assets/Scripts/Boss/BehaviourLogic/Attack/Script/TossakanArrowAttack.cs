@@ -10,9 +10,9 @@ namespace Enemy
         [Header("Arrow Attack Parameter")]
         [SerializeField] private GameObject arrowPrefab;
 
-        public override void Initialize(GameObject targetPlayer, GameObject enemyGameObject)
+        public override void Initialize(GameObject targetPlayer, GameObject enemyGameObject, DamageCalculationComponent component = null)
         {
-            base.Initialize(targetPlayer, enemyGameObject);
+            base.Initialize(targetPlayer, enemyGameObject, component);
             if (!(enemy is TossakanBossController))
             {
                 Debug.LogError("Only Tossakan is allowed to use this attack");

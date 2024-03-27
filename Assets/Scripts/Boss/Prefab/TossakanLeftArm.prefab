@@ -186,6 +186,7 @@ GameObject:
   - component: {fileID: 881150251174280113}
   - component: {fileID: 3707212310452526768}
   - component: {fileID: -8027252560784165259}
+  - component: {fileID: 4867343575290071746}
   m_Layer: 0
   m_Name: TossakanLeftArm
   m_TagString: Untagged
@@ -260,5 +261,18 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 18.836407, y: 122.57292, z: 20.49288}
-  m_Center: {x: 0.31193942, y: 47.633205, z: -0.39167628}
+  m_Size: {x: 18.836407, y: 125.44589, z: 20.49288}
+  m_Center: {x: 0.31193924, y: 85.19823, z: -0.39167595}
+--- !u!114 &4867343575290071746
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7031863893522680593}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0ddac8ca7987304d8e00c3581c06baf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  simpleDamageFactor: 1

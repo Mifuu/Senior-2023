@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4169533662162808176}
   - component: {fileID: 8230807663373428148}
   - component: {fileID: 6187432704467591241}
-  - component: {fileID: 3129514220446579569}
+  - component: {fileID: 2256836144997160256}
   m_Layer: 12
   m_Name: Limb
   m_TagString: Untagged
@@ -63,7 +63,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &3129514220446579569
+--- !u!114 &2256836144997160256
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -72,7 +72,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 200304554588508596}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6a1fa5baff5a8af4eb345fc1cc640ddd, type: 3}
+  m_Script: {fileID: 11500000, guid: a0ddac8ca7987304d8e00c3581c06baf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   simpleDamageFactor: 1
@@ -435,6 +435,7 @@ Transform:
   - {fileID: 3969407298884208032}
   - {fileID: 3332851396519691993}
   - {fileID: 3893338839003543484}
+  - {fileID: 7969571757920623717}
   - {fileID: 8726876725333427950}
   - {fileID: 4169533662162808176}
   - {fileID: 3841880077794715548}
@@ -874,6 +875,73 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f7af4aeb9c00a54f9b10b199302152b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &7008433306546975354
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7969571757920623717}
+  - component: {fileID: 8992462052742067478}
+  - component: {fileID: 7475805146871395978}
+  m_Layer: 12
+  m_Name: Weakpoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7969571757920623717
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7008433306546975354}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.27, z: 0}
+  m_LocalScale: {x: 0.301255, y: 0.5, z: 0.5}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8603962694594823687}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &8992462052742067478
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7008433306546975354}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.31352708, y: 0.17482117, z: 0.14135674}
+  m_Center: {x: -0.04213963, y: -0.80475736, z: 0.19638927}
+--- !u!114 &7475805146871395978
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7008433306546975354}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0ddac8ca7987304d8e00c3581c06baf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  simpleDamageFactor: 3
 --- !u!1 &8738934346604591299
 GameObject:
   m_ObjectHideFlags: 0
@@ -947,9 +1015,9 @@ GameObject:
   m_Component:
   - component: {fileID: 8726876725333427950}
   - component: {fileID: 6868474361251053574}
-  - component: {fileID: 8165908788054279981}
+  - component: {fileID: 733793526412924707}
   m_Layer: 12
-  m_Name: Weakpoint
+  m_Name: Head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -991,7 +1059,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 0.5, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &8165908788054279981
+--- !u!114 &733793526412924707
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1000,7 +1068,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 9150370894446551716}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6a1fa5baff5a8af4eb345fc1cc640ddd, type: 3}
+  m_Script: {fileID: 11500000, guid: a0ddac8ca7987304d8e00c3581c06baf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   simpleDamageFactor: 2
