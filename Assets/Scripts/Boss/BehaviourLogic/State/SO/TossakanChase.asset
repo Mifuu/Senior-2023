@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b32cdef8014b3a4ead28ad5d496d378, type: 3}
   m_Name: TossakanChase
   m_EditorClassIdentifier: 
-  phaseTeleportOdds: []
-  idleCooldownTime: 0
-  waitForTeleportTime: 0
-  postTeleportCooldown: 0
-  spawnFlame: {fileID: 0}
+  phaseTeleportOdds:
+  - 0.7
+  - 0.9
+  idleCooldownTime: 3
+  waitForTeleportTime: 3
+  postTeleportCooldown: 2
+  spawnFlame: {fileID: 3644354330285745761, guid: 12c337d4e2b99fa45a4dea07e9508ff2, type: 3}

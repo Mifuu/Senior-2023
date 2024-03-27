@@ -64,10 +64,10 @@ namespace Enemy
 
             tossakan.allTossakanPositionAnchor.GetComponent<TossakanAnchors>().ResetAnchorRotation();
             tossakan.tossakanPuppet.animationEventEmitter.OnChaseAnimationEnds += OnTeleportAttackEnds;
-            SpawnBlackFlameAtLocation(enemy.transform.position);
+            // SpawnBlackFlameAtLocation(enemy.transform.position);
             tossakan.tossakanPuppet.animator.SetTrigger(teleportAnimTrigger);
             yield return new WaitForSeconds(waitForTeleportTime);
-            SpawnBlackFlameAtLocation(spawnInfo.position);
+            // SpawnBlackFlameAtLocation(spawnInfo.position);
             tossakan.tossakanPuppet.transform.localPosition = Vector3.zero;
             tossakan.tossakanPuppet.transform.position = spawnInfo.position;
             tossakan.tossakanPuppet.transform.rotation = spawnInfo.rotation;

@@ -165,6 +165,8 @@ namespace Enemy
             if (NavMesh.SamplePosition(spawnerTransform.position, out hit, 1000f, NavMesh.AllAreas))
             {
                 Debug.Log("Personal Rotation: " + spawnerTransform.rotation);
+                Debug.Log("Personal Location: " + spawnerTransform.position);
+                Debug.Log("Personal hit Location: " + hit.position);
                 var enemy = Instantiate(gameObject, hit.position, spawnerTransform.rotation);
 
                 var navmeshagent = enemy.GetComponent<NavMeshAgent>();
