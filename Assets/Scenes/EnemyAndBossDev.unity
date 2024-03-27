@@ -758,6 +758,7 @@ MonoBehaviour:
   chooseEnemyToSpawn: {fileID: 5781375362114392876, guid: 9c816a1b498eb9544a27532b47b71eaa, type: 3}
   spawnNumber: 1
   selectedSpawnLocation: {fileID: 0}
+  bossRoom: {fileID: 0}
 --- !u!1 &490195231
 GameObject:
   m_ObjectHideFlags: 0

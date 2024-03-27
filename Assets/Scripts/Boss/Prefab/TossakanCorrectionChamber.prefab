@@ -1591,6 +1591,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8956372438392336844}
+  - component: {fileID: 5353271338394655035}
   m_Layer: 0
   m_Name: TossakanAnchorPoint
   m_TagString: Untagged
@@ -1608,7 +1609,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
+  m_LocalScale: {x: 0.12, y: 0.12, z: 0.12}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5944445151263856076}
@@ -1621,6 +1622,19 @@ Transform:
   - {fileID: 4775950729836285376}
   m_Father: {fileID: 589007497217071622}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5353271338394655035
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5452632096987136602}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 970a437fb91c19a4d9cbb441d38aa960, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemy: {fileID: 8538494373384188985}
 --- !u!1 &5690097602229510274
 GameObject:
   m_ObjectHideFlags: 0
@@ -1899,7 +1913,7 @@ MonoBehaviour:
   maxDistanceSquared: 5000
   EnemyAttackBase: {fileID: 11400000, guid: 70134ec6e7047e945bb890a8b0c1feca, type: 2}
   EnemyIdleBase: {fileID: 11400000, guid: 3a2b0b984dbb8ed469ee0993f50139f8, type: 2}
-  EnemyChaseBase: {fileID: 11400000, guid: f0de20db2f3463e48b7db5c836ced6d3, type: 2}
+  EnemyChaseBase: {fileID: 11400000, guid: 0ec7162b776832b4bb94b82cc95a2e43, type: 2}
   EnemyKnockbackBase: {fileID: 11400000, guid: 3999b70de71ed82438f2f9af437f2c2d, type: 2}
   targetPlayer: {fileID: 0}
   navMeshAgent: {fileID: 0}
@@ -1916,9 +1930,11 @@ MonoBehaviour:
   secondPhaseAttackState: {fileID: 0}
   secondPhaseStamina: 15
   tossakanSpawnerRef: {fileID: 2657033551320056746}
+  allTossakanPositionAnchor: {fileID: 5452632096987136602}
+  staminaManager: {fileID: 3877894262525668896}
+  tossakanPuppet: {fileID: 0}
   currentPhase:
     m_InternalValue: 1
-  staminaManager: {fileID: 3877894262525668896}
 --- !u!114 &4403002477980185349
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -18,6 +18,13 @@ namespace Enemy
         [Header("Tossakan Spawner Setup")]
         [SerializeField] private OrchestratedSpawnManager tossakanSpawnerRef;
 
+        [Header("Movement Setup")]
+        [SerializeField] public GameObject allTossakanPositionAnchor;
+
+        [Header("Stamina")]
+        [SerializeField] private BossStaminaManager staminaManager;
+
+        public EnemyBase tossakanPuppet;
         private EnemyAttackSOBase secondPhaseInstance;
 
         public NetworkVariable<int> currentPhase = new NetworkVariable<int>(1);
@@ -26,15 +33,19 @@ namespace Enemy
         private NetworkVariable<bool> isChangingPhase = new NetworkVariable<bool>(false);
 
         private float reportedMaxHealth = 0;
-        [SerializeField] private BossStaminaManager staminaManager;
 
         public override void OnNetworkSpawn()
         {
             base.OnNetworkSpawn();
+
             currentHealth.OnValueChanged += CheckHealthForPhaseChange;
             currentHealth.OnValueChanged += UpdateReportedHealth;
             currentHealth.OnValueChanged += DebugHealth;
+
             tossakanSpawnerRef.OnEnemySpawns += SetupTossakanDamageable;
+            tossakanSpawnerRef.OnEnemySpawns += SetupTossakanAnimationEventEmitter;
+            tossakanSpawnerRef.OnEnemySpawns += SetupTossakanPuppet;
+
             if (secondPhaseAttackState != null)
             {
                 var stateInstance = Instantiate(secondPhaseAttackState);
@@ -43,6 +54,11 @@ namespace Enemy
             }
             else
                 Debug.LogError("Phase two instance in null");
+
+            foreach (Transform t in allTossakanPositionAnchor.transform)
+            {
+                t.LookAt(targetPlayer.transform);
+            }
         }
 
         public override void OnNetworkDespawn()
@@ -51,6 +67,9 @@ namespace Enemy
             currentHealth.OnValueChanged -= CheckHealthForPhaseChange;
             currentHealth.OnValueChanged -= UpdateReportedHealth;
             currentHealth.OnValueChanged -= DebugHealth;
+            tossakanSpawnerRef.OnEnemySpawns -= SetupTossakanDamageable;
+            tossakanSpawnerRef.OnEnemySpawns -= SetupTossakanAnimationEventEmitter;
+            tossakanSpawnerRef.OnEnemySpawns -= SetupTossakanPuppet;
         }
 
         private void DebugHealth(float prev, float current)
@@ -112,10 +131,22 @@ namespace Enemy
             {
                 var hitboxList = enemy.GetComponentsInChildren<TossakanHitboxDamageable>();
                 foreach (var hitbox in hitboxList)
-                {
                     hitbox.Initialize(this, dealerPipeline);
-                }
             }
+        }
+
+        private void SetupTossakanAnimationEventEmitter(List<EnemyBase> enemyList)
+        {
+            if (enemyList.Count > 1) Debug.LogWarning("There should only be one enemy here (Tossakan) but there are " + enemyList.Count);
+            foreach (var enemy in enemyList)
+                animationEventEmitter = enemy.GetComponentInChildren<EnemyModelAnimationEventEmitter>();
+        }
+
+        private void SetupTossakanPuppet(List<EnemyBase> enemyList)
+        {
+            if (enemyList.Count > 1) Debug.LogWarning("There should only be one enemy here (Tossakan) but there are " + enemyList.Count);
+            foreach (var enemy in enemyList)
+                tossakanPuppet = enemy;
         }
     }
 }
