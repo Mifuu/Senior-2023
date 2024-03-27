@@ -17,6 +17,7 @@ namespace Enemy
 
         protected EnemyWithinTriggerCheck areaOfEffectTrigger;
         public event Action OnAOEPeriodEnd;
+        protected DamageCalculationComponent component;
 
         #region Animation
 
@@ -38,11 +39,15 @@ namespace Enemy
             }
         }
 
-        public virtual void InitializeAOE(GameObject PlayerTarget, EnemyBase enemy)
+        public virtual void InitializeAOE(GameObject PlayerTarget, EnemyBase enemy, DamageCalculationComponent component = null)
         {
             // Debug.Log("AOE Base Player Target: " + PlayerTarget);
             this.PlayerTarget = PlayerTarget;
             this.enemy = enemy;
+            if (component == null)
+                this.component = enemy.dealerPipeline;
+            else
+                this.component = component;
         }
 
         protected void EmitAOEEndsEvent()

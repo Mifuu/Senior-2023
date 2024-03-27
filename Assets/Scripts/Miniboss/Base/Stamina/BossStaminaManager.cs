@@ -101,5 +101,26 @@ namespace Enemy
                 currentStamina.Value = MaxStamina;
             }
         }
+
+        public void ResetStamina(bool useNewMaxStamina, int maxStamina = -1)
+        {
+            if (!IsServer) return;
+            if (useNewMaxStamina)
+            {
+                if (maxStamina == -1)
+                {
+                    Debug.LogError("Error: Please provide positive for max stamina if useMaxStamina is set to true");
+                    return;
+                }
+
+                MaxStamina = maxStamina;
+                ChangeMaxStaminaClientRpc(maxStamina);
+            }
+
+            currentStamina.Value = MaxStamina;
+        }
+
+        [ClientRpc]
+        private void ChangeMaxStaminaClientRpc(int newValue) => MaxStamina = newValue;
     }
 }

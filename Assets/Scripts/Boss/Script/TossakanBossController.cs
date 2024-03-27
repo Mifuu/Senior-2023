@@ -1,6 +1,6 @@
-using System.Collections;
 using UnityEngine;
 using Unity.Netcode;
+using System.Collections.Generic;
 
 namespace Enemy
 {
@@ -10,20 +10,39 @@ namespace Enemy
         [SerializeField] public Transform handSpawnSet;
         [SerializeField] public Transform arrowSpawnSet;
 
-        [Header("Phase Setup")]
+        [Header("Second Phase Setup")]
         [SerializeField] private float phaseTwoThreshold;
+        [SerializeField] private EnemyAttackSOBase secondPhaseAttackState;
+        [SerializeField] private int secondPhaseStamina;
+
+        [Header("Tossakan Spawner Setup")]
+        [SerializeField] private OrchestratedSpawnManager tossakanSpawnerRef;
+
+        private EnemyAttackSOBase secondPhaseInstance;
 
         public NetworkVariable<int> currentPhase = new NetworkVariable<int>(1);
         private NetworkVariable<float> reportedHealth = new NetworkVariable<float>(0); // Fake health to report to UI
         private NetworkVariable<bool> isInvincible = new NetworkVariable<bool>(false);
+        private NetworkVariable<bool> isChangingPhase = new NetworkVariable<bool>(false);
 
         private float reportedMaxHealth = 0;
+        [SerializeField] private BossStaminaManager staminaManager;
 
         public override void OnNetworkSpawn()
         {
             base.OnNetworkSpawn();
             currentHealth.OnValueChanged += CheckHealthForPhaseChange;
             currentHealth.OnValueChanged += UpdateReportedHealth;
+            currentHealth.OnValueChanged += DebugHealth;
+            tossakanSpawnerRef.OnEnemySpawns += SetupTossakanDamageable;
+            if (secondPhaseAttackState != null)
+            {
+                var stateInstance = Instantiate(secondPhaseAttackState);
+                stateInstance.Initialize(gameObject, this);
+                secondPhaseInstance = stateInstance;
+            }
+            else
+                Debug.LogError("Phase two instance in null");
         }
 
         public override void OnNetworkDespawn()
@@ -31,12 +50,18 @@ namespace Enemy
             base.OnNetworkDespawn();
             currentHealth.OnValueChanged -= CheckHealthForPhaseChange;
             currentHealth.OnValueChanged -= UpdateReportedHealth;
+            currentHealth.OnValueChanged -= DebugHealth;
+        }
+
+        private void DebugHealth(float prev, float current)
+        {
+            Debug.LogWarning("Current Health: " + current);
         }
 
         private void CheckHealthForPhaseChange(float prev, float current)
         {
             if (!IsServer || current >= phaseTwoThreshold) return;
-            StartCoroutine(EnterPhaseTwoCoroutine());
+            EnteringPhaseTwoSetup();
         }
 
         private void UpdateReportedHealth(float prev, float current)
@@ -52,28 +77,45 @@ namespace Enemy
             if (dealer.TryGetComponent<EnemyBase>(out EnemyBase enemy)) return; // Prevent Friendly fire
 
             if (isInvincible.Value) damageAmount = 0; // Boss can become invisible when changing phase
+            if (currentPhase.Value == 1) currentHealth.Value = Mathf.Clamp(currentHealth.Value - damageAmount, phaseTwoThreshold, maxHealth);
+            else currentHealth.Value -= damageAmount;
 
-            currentHealth.Value -= damageAmount;
             SpawnDamageFloatingClientRpc(Mathf.Round(damageAmount).ToString());
 
             if (currentHealth.Value <= 0f)
                 Die(dealer);
         }
 
-        private IEnumerator EnterPhaseTwoCoroutine()
+        private void EnteringPhaseTwoSetup()
         {
+            isChangingPhase.Value = true;
             isInvincible.Value = true;
+
             StateMachine.ChangeState(KnockbackState);
-            yield return null;
-            // Do Phase 2 Shift Logic here
-            // Enter Knockback State
-            // Make Boss Invincible
-            // Change the Attack State
-            // Reset Stamina
-            // Reset Health
-            // Change reported Max Health
-            // etc.
-            // Enter Idle State
+            EnemyAttackBaseInstance = secondPhaseInstance;
+            staminaManager.ResetStamina(true, secondPhaseStamina);
+        }
+
+        public void OnPhaseChangeAnimationFinished()
+        {
+            currentPhase.Value = 2;
+            isChangingPhase.Value = false;
+            isInvincible.Value = false;
+
+            UpdateReportedHealth(0, currentHealth.Value);
+            StateMachine.ChangeState(IdleState);
+        }
+
+        private void SetupTossakanDamageable(List<EnemyBase> enemyList)
+        {
+            foreach (var enemy in enemyList)
+            {
+                var hitboxList = enemy.GetComponentsInChildren<TossakanHitboxDamageable>();
+                foreach (var hitbox in hitboxList)
+                {
+                    hitbox.Initialize(this, dealerPipeline);
+                }
+            }
         }
     }
 }

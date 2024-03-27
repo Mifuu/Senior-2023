@@ -10,6 +10,7 @@ namespace Enemy
         [SerializeField] private float baseDamageAmount = 5.0f;
         private GameObject target;
         private GameObject bulletOwner;
+        private DamageCalculationComponent component;
         private Rigidbody rb;
 
         #region Damageable
@@ -36,13 +37,22 @@ namespace Enemy
             ResetValue();
         }
 
-        public void InitializeAndShoot(GameObject bulletOwner, GameObject target)
+        public void InitializeAndShoot(GameObject bulletOwner, GameObject target, DamageCalculationComponent component = null)
         {
             this.target = target;
             this.bulletOwner = bulletOwner;
 
+            Debug.Log("Component: " + component);
+
             var targetPlayer = target.GetComponent<PlayerHealth>();
             targetPlayer.OnPlayerDie += Die;
+
+            if (component == null) 
+                this.component = bulletOwner.GetComponent<DamageCalculationComponent>();
+            else
+                this.component = component;
+
+            Debug.Log("This component: " + this.component);
         }
 
         public void FixedUpdate()
@@ -61,8 +71,8 @@ namespace Enemy
                 return info;
             }
 
-            var pipe = bulletOwner.GetComponent<DamageCalculationComponent>();
-            info = pipe.GetFinalDealthDamageInfo();
+            // var pipe = bulletOwner.GetComponent<DamageCalculationComponent>();
+            info = component.GetFinalDealthDamageInfo();
             damagable.Damage(info);
 
             return info;

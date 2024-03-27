@@ -12,6 +12,7 @@ namespace Enemy
         [Header("Default Hijacked Attack State")]
         [SerializeField] private EnemyAttackSOBase attackState;
         [SerializeField] private string spawnManagerId;
+        [SerializeField] private bool hijackDamageComponent;
         private List<OrchestrationAttack> listOfOrchestrationAttack = new List<OrchestrationAttack>();
         private OrchestratedSpawnManager spawnManager;
         private EnemyStateMachine stateMachine;
@@ -69,7 +70,8 @@ namespace Enemy
                     try
                     {
                         var enemyId = enemy.GetComponent<NetworkObject>().NetworkObjectId;
-                        var returnedState = hijackable.HijackAttackStateInitializeOnly(FormAttackState());
+                        Debug.Log("Hijacking with " + (hijackDamageComponent ? this.enemy.dealerPipeline : null));
+                        var returnedState = hijackable.HijackAttackStateInitializeOnly(FormAttackState(), (hijackDamageComponent ? this.enemy.dealerPipeline : null));
                         aliveEnemyState.Add(enemyId, returnedState);
                     }
                     catch (Exception e)
@@ -103,7 +105,6 @@ namespace Enemy
 
                 var insAttack = Instantiate(insOrchestratedAtk.attack);
                 listOfInstantiatedAttacks.Add(insAttack);
-
                 atk.AssignOrchestrationController(this, i);
             }
 

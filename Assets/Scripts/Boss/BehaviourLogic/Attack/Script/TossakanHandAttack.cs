@@ -16,9 +16,9 @@ namespace Enemy
         [SerializeField] private float timeBetweenHands;
         [SerializeField] private GameObject[] handPrefab;
 
-        public override void Initialize(GameObject targetPlayer, GameObject enemyGameObject)
+        public override void Initialize(GameObject targetPlayer, GameObject enemyGameObject, DamageCalculationComponent component)
         {
-            base.Initialize(targetPlayer, enemyGameObject);
+            base.Initialize(targetPlayer, enemyGameObject, component);
             if (!(enemy is TossakanBossController))
             {
                 Debug.LogError("Only Tossakan is allowed to use this attack");
@@ -44,13 +44,14 @@ namespace Enemy
                 Transform[] spawnLocation = RandomSpawnPosition(attackSequence[i]);
                 for (int j = 0; j < spawnLocation.Length; j++)
                 {
-                    Debug.Log("Spawn Location: " + spawnLocation[j].position);
                     var handInstance = Instantiate(hand, spawnLocation[j].position, spawnLocation[j].rotation);
-                    Debug.Log(handInstance.transform.position);
                     handInstance.transform.LookAt(enemy.targetPlayer.transform);
 
                     if (handInstance.TryGetComponent<TossakanArmBased>(out var arm))
                         arm.Initialize(enemy.dealerPipeline);
+
+                    if (handInstance.TryGetComponent<TossakanHitboxDamageable>(out var damageable))
+                        damageable.Initialize(enemy, enemy.dealerPipeline);
 
                     if (handInstance.TryGetComponent<NetworkObject>(out var networkObject))
                         networkObject.Spawn();
