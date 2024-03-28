@@ -39,6 +39,7 @@ namespace Enemy
         public void ChangeState(EnemyState newState)
         {
             if (!IsServer) return;
+            // Debug.Log("New State: " + newState.stateId);
             networkEnemyState.Value = newState.stateId;
         }
 
@@ -61,7 +62,7 @@ namespace Enemy
             networkEnemyState.OnValueChanged -= SynchronizeState;
         }
 
-        private void SynchronizeState(AvailableEnemyState _, AvailableEnemyState current)
+        public void SynchronizeState(AvailableEnemyState _, AvailableEnemyState current)
         {
             EnemyState newState;
             switch (current)

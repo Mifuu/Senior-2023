@@ -7,13 +7,17 @@ public class PlayerManager : Singleton<PlayerManager>
 {
     private NetworkVariable<int> playersInGame = new NetworkVariable<int>();
 
+    public static PlayerManager thisClient;
+
     public override void OnNetworkSpawn()
     {
         base.OnNetworkSpawn();
         playersInGame.Value = 0;
 
-        if (TerrainManager.Instance != null && IsOwner && IsClient)
-            TerrainManager.Instance.SetViewer(transform);
+        if (IsOwner && IsClient)
+        {
+            thisClient = this;
+        }
     }
 
     public int PlayersInGame

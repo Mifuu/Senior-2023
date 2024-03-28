@@ -30,7 +30,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0.000000084042, y: 0.000000037402, z: -0.0000000083447}
-  m_LocalScale: {x: 0.020371757, y: 0.020371757, z: 0.020371757}
+  m_LocalScale: {x: 0.020371757, y: 0.011195707, z: 0.020371757}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5117675021699760723}
@@ -138,7 +138,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: f60f8d1a2516ea04db828100ddedd2cc, type: 3}
       propertyPath: m_LocalScale.z
-      value: 500
+      value: 900
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: f60f8d1a2516ea04db828100ddedd2cc, type: 3}
       propertyPath: m_LocalPosition.x
@@ -146,11 +146,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: f60f8d1a2516ea04db828100ddedd2cc, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.000199
+      value: 8.93
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: f60f8d1a2516ea04db828100ddedd2cc, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.2379
+      value: 0.24
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: f60f8d1a2516ea04db828100ddedd2cc, type: 3}
       propertyPath: m_LocalRotation.w
@@ -239,7 +239,7 @@ MonoBehaviour:
   preActivateMaterial: {fileID: 2100000, guid: e7c734e8a39aef446a50dc7147035c98, type: 2}
   timeTillActivate: 1
   timeTillDestroy: 3
-  baseDamageAmount: 5
+  pushBackForce: 10
 --- !u!114 &8207371979607444858
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -298,14 +298,14 @@ MonoBehaviour:
     Layer: 0
     OriginatingState: 1496785226
     DestinationState: 952107227
-    TransitionDuration: 0.25
+    TransitionDuration: 0
     TriggerNameHash: 267138845
     TransitionIndex: 0
   - IsCrossFadeExit: 0
     Layer: 0
     OriginatingState: 952107227
     DestinationState: -1000361026
-    TransitionDuration: 0.25
+    TransitionDuration: 0
     TriggerNameHash: 1255046934
     TransitionIndex: 0
   m_Animator: {fileID: 3547699661127956811}
