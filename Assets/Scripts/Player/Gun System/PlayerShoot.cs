@@ -4,27 +4,37 @@ using UnityEngine;
 
 public class PlayerShoot : NetworkBehaviour
 {
-    [SerializeField] private PlayerSwitchWeapon weaponSwitching;
+    private PlayerSwitchWeapon weaponSwitching;
 
     private Camera playerCam;
     public LayerMask aimColliderLayerMask;
 
     void Start()
     {
-        playerCam = GetComponent<PlayerLook>().cam;
+        playerCam = GetComponent<PlayerLook>().cam;   
+    }
+
+    public void InitializePlayerSwitchWeapon()
+    {
+        weaponSwitching = transform.GetComponentInChildren<PlayerSwitchWeapon>();
     }
 
     public void ShootBullet()
     {
-        if (IsClient && IsOwner)
+        if (!IsOwner) return;
+        if (weaponSwitching == null)
         {
-            int selectedWeaponIndex = weaponSwitching.selectedWeapon.Value;
-            GameObject selectedWeaponObject = weaponSwitching.transform.GetChild(selectedWeaponIndex).gameObject;
-            Gun selectedGun = selectedWeaponObject.GetComponent<Gun>();
-            if (selectedGun != null && selectedGun.CanShoot())
-            {
-                selectedGun.ShootBullet_(playerCam, aimColliderLayerMask);
-            }
+            Debug.LogError("Player Shoot: weaponSwitching is null");
+            return;
         }
+
+        int selectedWeaponIndex = weaponSwitching.selectedWeapon.Value;
+        GameObject selectedWeaponObject = weaponSwitching.transform.GetChild(selectedWeaponIndex).gameObject;
+        Gun selectedGun = selectedWeaponObject.GetComponent<Gun>();
+        if (selectedGun != null && selectedGun.CanShoot())
+        {
+            selectedGun.ShootBullet_(playerCam, aimColliderLayerMask);
+        }
+        
     }
 }

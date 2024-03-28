@@ -9,7 +9,6 @@ using System.ComponentModel;
 
 public class GunRaycast : Gun
 {
-    // need to make a base gun code and extend from it cuz player will find <gun> component then call gun.shootBullet to shoot
     protected override void Shoot(Camera playerCam, LayerMask aimColliderLayerMask, float raycastHitRange)
     {
         base.Shoot(playerCam, aimColliderLayerMask, raycastHitRange);

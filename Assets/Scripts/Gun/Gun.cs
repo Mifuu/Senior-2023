@@ -45,7 +45,8 @@ public class Gun : NetworkBehaviour
     private void Awake()
     {
         elementAttachable = GetComponent<ElementAttachable>();
-        playerObject = transform.parent.parent.gameObject;
+        playerObject = PlayerManager.Instance.gameObject;
+        //playerObject = transform.parent.parent.gameObject;
         playerEntity = playerObject.GetComponent<ElementalEntity>();
         playerDmgComponent = playerObject.GetComponent<DamageCalculationComponent>();
     }
