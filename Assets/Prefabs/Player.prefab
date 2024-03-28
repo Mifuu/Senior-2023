@@ -317,7 +317,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3fdbdf7971e4504e8399807b18e0f84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponSwitching: {fileID: 0}
   aimColliderLayerMask:
     serializedVersion: 2
     m_Bits: 20736
@@ -670,7 +669,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56887f96b6584da4eb8b9ec07ccaea94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gunHolder: {fileID: 6632847736769543070, guid: 15ab67c539698984594f82b9adf161c4, type: 3}
   player: {fileID: 1287504444611049030}
 --- !u!1 &4385491305047520268
 GameObject:
