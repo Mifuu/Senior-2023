@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
 using UnityEngine.Events;
-
+using System.Linq;
 
 public class PlayerSwitchWeapon : NetworkBehaviour
 {
@@ -35,7 +35,6 @@ public class PlayerSwitchWeapon : NetworkBehaviour
         gunToSpawn = initialGun_3;
         SpawnGunServerRpc(2);
         UpdateGunList();
-        //SelectWeapon();
     }
 
     public override void OnNetworkSpawn()
@@ -101,6 +100,15 @@ public class PlayerSwitchWeapon : NetworkBehaviour
         guns[selectedWeapon.Value].UpdateCanShoot(true);
     }
 
+    public bool IsFull()
+    {
+        for (int i = 0; i < guns.Length; i++)
+        {
+            if (guns[i] == null) return false;
+        }
+        return true;
+    }
+
     void SelectWeapon()
     {
         if (!IsOwner) return;
@@ -115,7 +123,6 @@ public class PlayerSwitchWeapon : NetworkBehaviour
             {
                 guns[i].gameObject.SetActive(false);
             }
-            //guns[i].gameObject.SetActive(i == selectedWeapon.Value);
         }
     }
 
