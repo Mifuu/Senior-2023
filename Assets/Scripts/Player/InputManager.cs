@@ -48,6 +48,15 @@ public class InputManager : MonoBehaviour
         hitbox.InitializePlayerId(playerId);
     }
 
+    public void InitializePlayerSwitchWeapon()
+    {
+        switchWeapon = transform.GetComponentInChildren<PlayerSwitchWeapon>();
+        onFoot.SwitchWeapon.performed += ctx => {
+            float value = ctx.action.ReadValue<float>();
+            switchWeapon.SwitchWeapon(value);
+        };
+    }
+
     void FixedUpdate()
     {
         motor.ProcessMove(onFoot.Movement.ReadValue<Vector2>());
