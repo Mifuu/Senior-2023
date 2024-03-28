@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b111af046b86fc946ada11e950dc7963, type: 3}
+  m_Name: LustMultipleAOE
+  m_EditorClassIdentifier: 
+  AOEGameObject: {fileID: 5498458629423864041, guid: d28aed5a908ce4e49b84e335d144e92f, type: 3}
+  waitForAOEToEnd: 0
+  timeBetweenAoe: 1
+  numberOfTime: 3
