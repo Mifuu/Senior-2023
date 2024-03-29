@@ -76,11 +76,12 @@ public class PlayerInteract : NetworkBehaviour
     public void DropHoldingGun()
     {
         if (!IsOwner) return;
-         
+        if (switchWeapon.guns.Length == 1) return; // make player can't drop if has only 1 gun
+
         int currentGunIndex = switchWeapon.currentGunIndex.Value;
         if (switchWeapon.guns[currentGunIndex] != null)
         {
-            if (switchWeapon.guns[currentGunIndex].CanShoot()) //switchWeapon.guns[currentGunIndex].IsOwned()
+            if (switchWeapon.guns[currentGunIndex].CanShoot()) 
             {
                 // calculate gun drop position
                 Vector3 spawnPosition = transform.position + transform.forward * 1;
