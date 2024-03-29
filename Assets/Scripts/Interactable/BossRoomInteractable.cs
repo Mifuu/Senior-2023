@@ -32,7 +32,7 @@ public class BossRoomInteractable : InteractableItem
         statusMessage.text = "You have " + newValue + " keys";
     }
 
-    protected override void Interact(ulong PlayerId)
+    protected override void Interact(GameObject PlayerObject)
     {
         Debug.Log("interacted with" + gameObject.name);
 
