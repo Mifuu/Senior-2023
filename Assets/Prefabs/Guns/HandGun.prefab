@@ -57,6 +57,7 @@ MonoBehaviour:
   playerEntity: {fileID: 0}
   gunInteractable: {fileID: -3230972854879084583, guid: 5c05915730c8898419b68b02d973c11a, type: 3}
   elementAttachable: {fileID: 0}
+  playerDmgComponent: {fileID: 0}
 --- !u!114 &-3425522162913698515
 MonoBehaviour:
   m_ObjectHideFlags: 0

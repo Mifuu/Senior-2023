@@ -56,6 +56,9 @@ public class SkillCardUI : MonoBehaviour
     {
         foreach (var slot in cardSlotUIs)
         {
+            Debug.Log("cardSlotUIs is: " + cardSlotUIs);
+            Debug.Log(slot.upgradeButton);
+            
             slot.upgradeButton.onClick.RemoveAllListeners();
         }
     }

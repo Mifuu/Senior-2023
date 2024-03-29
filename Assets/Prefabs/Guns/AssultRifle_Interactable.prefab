@@ -623,7 +623,11 @@ MonoBehaviour:
   bulletSpawnPosition: {fileID: 6483475509016348490}
   raycastHitRange: 999
   shootingDelay: 0.1
+  playerObject: {fileID: 0}
+  playerEntity: {fileID: 0}
   gunInteractable: {fileID: 0}
+  elementAttachable: {fileID: 0}
+  playerDmgComponent: {fileID: 0}
 --- !u!114 &2343801909853003337
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -649,5 +653,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a0e4832f4cd4cc4b8d3a0a662314ae2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  interactableItemPrefab: {fileID: 0}
   promptMessage: '[F] Pick up'
-  gunCounterpart: {fileID: 5927619281284109883, guid: e66a9aaed12910b4cacb107303a4c177, type: 3}
+  interactedPlayer: {fileID: 0}
+  gunCounterpart: {fileID: 7430242168604739017, guid: e66a9aaed12910b4cacb107303a4c177, type: 3}
