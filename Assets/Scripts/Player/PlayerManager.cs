@@ -54,4 +54,14 @@ public class PlayerManager : Singleton<PlayerManager>
             Debug.Log("PlayerManager: NetworkManager is null, Starting in offline mode.");
         }
     }
+
+    public void Teleport(Vector3 pos)
+    {
+        if (TryGetComponent<CharacterController>(out var cc))
+        {
+            cc.enabled = false;
+            transform.position = pos;
+            cc.enabled = true;
+        }
+    }
 }

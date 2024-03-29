@@ -14,6 +14,8 @@ public class MultiplayerGameManager : Singleton<MultiplayerGameManager>
     public RoomGeneration.RoomGenNetworkManager roomGenNetworkManager;
     public NetworkDebugManager networkDebugManager;
 
+    public List<PlayerManager> playerManagers = new List<PlayerManager>();
+
     void Update()
     {
         if (Input.GetKey(KeyCode.LeftControl) && Input.GetKey(KeyCode.G))
@@ -74,13 +76,18 @@ public class MultiplayerGameManager : Singleton<MultiplayerGameManager>
 
             // SpawnPlayerClientRpc(spawnPosition, id);
             GameObject player = Instantiate(playerPrefab, spawnPosition, Quaternion.identity);
+            Debug.Log("pos1 + " + spawnPosition.x + " " + spawnPosition.y + " " + spawnPosition.z);
             NetworkDebugManager.LogMessage("[MGM] Player spawned at " + spawnPosition);
             var n = player.GetComponent<NetworkObject>();
+            var p = player.GetComponent<PlayerManager>();
+
+            playerManagers.Add(p);
+
             n.SpawnWithOwnership(id);
-            // n.ChangeOwnership(OwnerClientId);
-            // n.transform.position = spawnPosition;
-            // n.ChangeOwnership(id);
-            // playerList.Add(player);
+            Debug.Log("pos2 + " + spawnPosition.x + " " + spawnPosition.y + " " + spawnPosition.z);
+
+            TeleportPlayerClientRpc(id, spawnPosition);
+            Debug.Log("pos3 + " + spawnPosition.x + " " + spawnPosition.y + " " + spawnPosition.z);
         }
     }
 
@@ -90,13 +97,12 @@ public class MultiplayerGameManager : Singleton<MultiplayerGameManager>
     }
 
     [ClientRpc]
-    void SpawnPlayerClientRpc(Vector3 position, ulong id)
+    void TeleportPlayerClientRpc(ulong id, Vector3 pos)
     {
+        NetworkManager.Singleton.LocalClient.PlayerObject = PlayerManager.thisClient.GetComponent<NetworkObject>();
         if (NetworkManager.Singleton.LocalClientId == id)
         {
-            GameObject player = Instantiate(playerPrefab, position, Quaternion.identity);
-            player.GetComponent<NetworkObject>().SpawnWithOwnership(id);
-            NetworkDebugManager.LogMessage("[MGM] Player spawned at " + position);
+            PlayerManager.thisClient.Teleport(pos);
         }
     }
 }
