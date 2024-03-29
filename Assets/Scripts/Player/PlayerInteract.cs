@@ -33,7 +33,6 @@ public class PlayerInteract : NetworkBehaviour
     private void Start()
     {
         cam = GetComponent<PlayerLook>().cam;
-        //switchWeapon = GetComponentInChildren<PlayerSwitchWeapon>();
         inputManager = GetComponent<InputManager>();
         promptText = string.Empty;
     }
@@ -60,19 +59,25 @@ public class PlayerInteract : NetworkBehaviour
                 promptText = interactable.promptMessage;
                 if (inputManager.onFoot.Interact.triggered)
                 {
-                    interactable.BaseInteract(NetworkManager.Singleton.LocalClientId);
+                    GameObject playerObject = transform.gameObject;
+                    if (playerObject != null)
+                    {
+                        interactable.BaseInteract(playerObject);
+                    }
+                    else
+                    {
+                        Debug.LogError("PlayerInteract Script: playerObject is null");
+                    }
                 }
-            }
-            
+            }  
         }
     }
-
 
     public void DropHoldingGun()
     {
         if (!IsOwner) return;
          
-        int currentGunIndex = switchWeapon.selectedWeapon.Value;
+        int currentGunIndex = switchWeapon.currentGunIndex.Value;
         if (switchWeapon.guns[currentGunIndex] != null)
         {
             if (switchWeapon.guns[currentGunIndex].CanShoot()) //switchWeapon.guns[currentGunIndex].IsOwned()
@@ -82,35 +87,19 @@ public class PlayerInteract : NetworkBehaviour
                 Vector3 aimDir = (cam.transform.forward).normalized;
                 Quaternion gunRotation = Quaternion.LookRotation(aimDir, Vector3.up);
                 DropHoldingGunServerRpc(spawnPosition, gunRotation);
-
-                // remove the gun from gun array
-                //Destroy(switchWeapon.guns[currentGunIndex].gameObject);
-                //switchWeapon.UpdateGunList();
-
-                /*
-                List<Gun> gunList = new(switchWeapon.guns);
-                gunList.RemoveAt(currentGunIndex);
-                switchWeapon.guns = gunList.ToArray();
-
-                // Optionally, update the current gun index if needed
-                if (currentGunIndex >= switchWeapon.guns.Length)
-                {
-                    currentGunIndex = Mathf.Max(0, switchWeapon.guns.Length - 1);
-                }
-                */
-
-                //switchWeapon.guns[currentGunIndex].gameObject.SetActive(false);
-                //switchWeapon.guns[currentGunIndex].UpdateIsOwned(false);
             }
         }
-        
+        else
+        {
+            Debug.LogError("PlayerInteract Script: switchWeapon.guns[currentGunIndex] is null");
+        }  
     }
 
     [ServerRpc]
     private void DropHoldingGunServerRpc(Vector3 playerPosition, Quaternion playerRotation)
     {
         // destroy the gun that player is holding
-        int currentGunIndex = switchWeapon.selectedWeapon.Value;
+        int currentGunIndex = switchWeapon.currentGunIndex.Value;
         NetworkObject gunToDestroy = switchWeapon.guns[currentGunIndex].NetworkObject;
         GameObject gunToDrop = switchWeapon.guns[currentGunIndex].gunInteractable.gameObject;
         gunToDestroy.transform.SetParent(null);

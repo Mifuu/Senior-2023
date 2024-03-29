@@ -655,4 +655,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactableItemPrefab: {fileID: 0}
   promptMessage: '[F] Pick up'
+  interactedPlayer: {fileID: 0}
   gunCounterpart: {fileID: 7430242168604739017, guid: e66a9aaed12910b4cacb107303a4c177, type: 3}

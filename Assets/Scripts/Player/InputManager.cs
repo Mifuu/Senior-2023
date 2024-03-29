@@ -33,10 +33,6 @@ public class InputManager : MonoBehaviour
         onFoot.Shoot.started += (ctx) => StartShooting();
         onFoot.Shoot.canceled += (ctx) => StopShooting();
         onFoot.Dash.performed += ctx => dash.Dash(onFoot.Movement.ReadValue<Vector2>());
-        onFoot.SwitchWeapon.performed += ctx => {
-            float value = ctx.action.ReadValue<float>();
-            switchWeapon.SwitchWeapon(value);
-        };
         onFoot.NormalSkill.performed += (ctx) =>  skillManager.ActivateNormalSkill();
         onFoot.UltimateSkill.performed += (ctx) => skillManager.ActivateUltimateSkill();
         onFoot.Drop.performed += (_) => interact.DropHoldingGun();
