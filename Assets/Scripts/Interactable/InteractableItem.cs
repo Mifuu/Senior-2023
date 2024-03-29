@@ -8,12 +8,12 @@ public abstract class InteractableItem : NetworkBehaviour
     [SerializeField] public GameObject interactableItemPrefab;
     public string promptMessage;
 
-    public void BaseInteract(ulong PlayerId)
+    public void BaseInteract(GameObject playerObject)
     {
-        Interact(PlayerId);
+        Interact(playerObject);
     }
 
-    protected virtual void Interact(ulong PlayerId)
+    protected virtual void Interact(GameObject playerObject)
     {
         
     }
@@ -29,12 +29,4 @@ public abstract class InteractableItem : NetworkBehaviour
             item.Spawn();
         }
     }
-
-    /*
-    [ServerRpc]
-    private void InteractServerRpc(ulong PlayerId)
-    {
-        Interact(PlayerId);
-    }
-    */
 }
