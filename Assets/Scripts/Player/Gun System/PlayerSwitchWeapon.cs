@@ -7,8 +7,9 @@ using System.Linq;
 
 public class PlayerSwitchWeapon : NetworkBehaviour
 {
-    public NetworkVariable<int> selectedWeapon = new NetworkVariable<int> (0);
+    public NetworkVariable<int> currentGunIndex = new NetworkVariable<int> (0);
     public Gun[] guns = new Gun[3];
+    public int maxGun = 3;
     public NetworkObject initialGun_1;
     public NetworkObject initialGun_2;
     public NetworkObject initialGun_3;
@@ -40,33 +41,14 @@ public class PlayerSwitchWeapon : NetworkBehaviour
     public override void OnNetworkSpawn()
     {
         base.OnNetworkSpawn();
-        selectedWeapon.OnValueChanged += UpdateWeapon;
+        currentGunIndex.OnValueChanged += UpdateWeapon;
     }
 
     public override void OnNetworkDespawn()
     {
         base.OnNetworkDespawn();
-        selectedWeapon.OnValueChanged -= UpdateWeapon;
+        currentGunIndex.OnValueChanged -= UpdateWeapon;
     }
-
-    /*
-    void SpawnGun(int index, NetworkObject gunToSpawn)
-    {
-        Debug.Log($"try to spawn gun {gunToSpawn.name}");
-        if (gunToSpawn == null)
-        {
-            Debug.LogError("PlayerSwitchWeapon Script: gunToSpawn is null");
-            return;
-        }
-
-        if (index <  guns.Length)
-        {
-            GameObject gunObject = Instantiate(gunToSpawn, transform.position, transform.rotation);
-            gunObject.transform.SetParent(transform); // Set the player as the parent of the gun
-            guns[index] = gunObject.GetComponent<Gun>();
-        }
-    }
-    */
 
     [ServerRpc]
     private void SpawnGunServerRpc(int index)
@@ -92,21 +74,34 @@ public class PlayerSwitchWeapon : NetworkBehaviour
         Gun[] _guns = new Gun[3];
         _guns = GetComponentsInChildren<Gun>(includeInactive: true);
         guns = _guns;
+        AdjustCurrentGunIndex();
         SelectWeapon();
     }
     public void UpdateWeapon(int previous, int current)
     {
+        AdjustCurrentGunIndex();
         SelectWeapon();
-        guns[selectedWeapon.Value].UpdateCanShoot(true);
+        guns[currentGunIndex.Value].UpdateCanShoot(true);
     }
 
+    private void AdjustCurrentGunIndex()
+    {
+        if (currentGunIndex.Value == guns.Length)
+        {
+            currentGunIndex.Value = (guns.Length - 1);
+            if (currentGunIndex.Value < 0)
+            {
+                currentGunIndex.Value = 0;
+            }
+        }
+    }
     public bool IsFull()
     {
-        for (int i = 0; i < guns.Length; i++)
+        if (guns.Length == maxGun)
         {
-            if (guns[i] == null) return false;
+            return true;
         }
-        return true;
+        return false;
     }
 
     void SelectWeapon()
@@ -115,7 +110,7 @@ public class PlayerSwitchWeapon : NetworkBehaviour
         
         for (int i = 0; i < guns.Length; i++)
         {
-            if( i == selectedWeapon.Value )
+            if( i == currentGunIndex.Value )
             {
                 guns[i].gameObject.SetActive(true);
             }
@@ -128,32 +123,25 @@ public class PlayerSwitchWeapon : NetworkBehaviour
 
     public void SwitchWeapon(float index)
     {
-        if (IsClient && IsOwner)
+        if (!IsOwner) return;
+        
+        Debug.Log("Player Script: Switch activate");
+        AdjustCurrentGunIndex();
+        int currentWeaponIndex = currentGunIndex.Value;
+        int newWeaponIndex = Mathf.FloorToInt(index - 1);
+        if (newWeaponIndex >= 0 && newWeaponIndex < guns.Length && guns[currentWeaponIndex].CanShoot())
         {
-            Debug.Log("Player Script: Switch activate");
-            int currentWeaponIndex = selectedWeapon.Value;
-            int newWeaponIndex = Mathf.FloorToInt(index - 1);
-            if (newWeaponIndex >= 0 && newWeaponIndex < guns.Length && guns[currentWeaponIndex].CanShoot())
-            {
-                /*
-                if (guns[currentWeaponIndex].IsOwned())
-                {
-                    Debug.Log($"Player Script: Switch to weapon {newWeaponIndex + 1}");
-                    selectedWeapon = newWeaponIndex;
-                    SelectWeapon();
-                    guns[selectedWeapon].UpdateCanShoot(true);
-                }
-                */
-
-                Debug.Log($"Player Script: Switch to weapon {newWeaponIndex + 1}");
-                ChangeSelectedWeaponServerRPC(newWeaponIndex);
-            }
+            Debug.Log($"Player Script: Switch to weapon {newWeaponIndex + 1}");
+            currentGunIndex.Value = newWeaponIndex;
+            //ChangeSelectedWeaponServerRPC(newWeaponIndex);
         }
     }
 
+    /*
     [ServerRpc]
     public void ChangeSelectedWeaponServerRPC(int index)
     {
-        selectedWeapon.Value = index;
+        currentGunIndex.Value = index;
     }
+    */
 }

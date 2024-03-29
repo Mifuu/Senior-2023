@@ -75,6 +75,7 @@ public class PlayerInventory : NetworkBehaviour
         playerSkillCard = GetComponent<PlayerSkillCard>();
         playerLevel = GetComponent<PlayerLevel>();
         RemoveAndApplyUpgrades();
+        ApplyUpgradeOptions();
     }
 
     #region Skill Card Functions
@@ -117,6 +118,8 @@ public class PlayerInventory : NetworkBehaviour
 
     void ApplyUpgradeOptions()
     {
+        if (!IsOwner) return;
+
         List<SkillCardUpgrade> availableSkillCardUpgrade = new(skillcardUpgradeOptions);
 
         for (int i = 0; i < SkillCardUI.Instance.cardSlotUIs.Length; i++)
@@ -176,7 +179,7 @@ public class PlayerInventory : NetworkBehaviour
     public void RemoveAndApplyUpgrades()
     {
         if (!IsOwner) return;
-
+        Debug.Log("removeAndApplyUpgrade is called");
         RemoveUpgradeOptions();
         ApplyUpgradeOptions();
     }
