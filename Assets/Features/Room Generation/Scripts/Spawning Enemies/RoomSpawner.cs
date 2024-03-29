@@ -71,8 +71,7 @@ namespace RoomGeneration
             {
                 // spawn enemies
                 // Debug.Log("Spawning enemies...");
-                SpawnEnemies();
-                timeSinceSpawn = 0.1f;
+                StartCoroutine(SpawnEnemiesCoroutine());
             }
         }
 
@@ -82,6 +81,16 @@ namespace RoomGeneration
             playerExitCount--;
             if (!HasPlayer)
                 timeSincePlayerExit = 0.1f;
+        }
+
+        IEnumerator SpawnEnemiesCoroutine()
+        {
+            yield return new WaitForSeconds(0.4f);
+            if (HasPlayer)
+            {
+                SpawnEnemies();
+                timeSinceSpawn = 0.1f;
+            }
         }
 
         public void SpawnEnemies()
