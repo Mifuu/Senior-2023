@@ -6,6 +6,7 @@ using Unity.Netcode;
 public class BuffManager : NetworkBehaviour
 {
     private PlayerHealth playerHealth;
+    private PlayerDash playerDash;
 
     #region SkillCard Network Variables
     public NetworkVariable<float> AtkBuff_SkillCard { get; set; } = new NetworkVariable<float>(1f);
@@ -18,10 +19,10 @@ public class BuffManager : NetworkBehaviour
     #endregion
 
     #region BuffTotal variables
-    public float AtkBuffTotal { get; private set; } = 1f;
+    public float AtkBuffTotal { get; private set; } = 1f; 
     public float DefBuffTotal { get; private set; } = 1f;
     public float HpBuffTotal { get; private set; } = 1f;
-    public float CritBuffTotal { get; private set; } = 0f;
+    public float CritBuffTotal { get; private set; } = 1f;
     public float JumpBuffTotal { get; private set; } = 0f;
     public float DashBuffTotal { get; private set; } = 0f;
     public float SkillCooldownBuffTotal { get; private set; } = 1f;
@@ -31,6 +32,7 @@ public class BuffManager : NetworkBehaviour
     void Start()
     {
         playerHealth = FindObjectOfType<PlayerHealth>();
+        playerDash = GetComponent<PlayerDash>();
 
         // Subscribe to the OnValueChanged event for each NetworkVariable
         AtkBuff_SkillCard.OnValueChanged += (prev, current) => RecalculateAtkBuffTotal();
@@ -88,10 +90,12 @@ public class BuffManager : NetworkBehaviour
         JumpBuffTotal = JumpBuff_SkillCard.Value;
     }
 
+    // Recalculate Total dash buff and change the buff variable of playerDash script
     private void RecalculateDashBuffTotal()
     {
         if (!IsOwner) return;
         DashBuffTotal = DashBuff_SkillCard.Value;
+        playerDash.DashBuffAddition.Value = ((int)DashBuffTotal);
     }
 
     private void RecalculateSkillCooldownBuffTotal()

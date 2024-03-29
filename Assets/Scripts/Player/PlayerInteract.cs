@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using Unity.Netcode;
 using UnityEngine;
@@ -32,9 +33,13 @@ public class PlayerInteract : NetworkBehaviour
     private void Start()
     {
         cam = GetComponent<PlayerLook>().cam;
-        switchWeapon = GetComponentInChildren<PlayerSwitchWeapon>();
         inputManager = GetComponent<InputManager>();
         promptText = string.Empty;
+    }
+
+    public void InitializePlayerSwitchWeapon()
+    {
+        switchWeapon = transform.GetComponentInChildren<PlayerSwitchWeapon>();
     }
 
     private void Update()
@@ -54,44 +59,58 @@ public class PlayerInteract : NetworkBehaviour
                 promptText = interactable.promptMessage;
                 if (inputManager.onFoot.Interact.triggered)
                 {
-                    interactable.BaseInteract(NetworkManager.Singleton.LocalClientId);
+                    GameObject playerObject = transform.gameObject;
+                    if (playerObject != null)
+                    {
+                        interactable.BaseInteract(playerObject);
+                    }
+                    else
+                    {
+                        Debug.LogError("PlayerInteract Script: playerObject is null");
+                    }
                 }
-            }
-            
+            }  
         }
     }
-
 
     public void DropHoldingGun()
     {
-        if (IsOwner && IsClient) 
-        { 
-            int currentGunIndex = switchWeapon.selectedWeapon.Value;
-            if (switchWeapon.guns[currentGunIndex] != null)
+        if (!IsOwner) return;
+         
+        int currentGunIndex = switchWeapon.currentGunIndex.Value;
+        if (switchWeapon.guns[currentGunIndex] != null)
+        {
+            if (switchWeapon.guns[currentGunIndex].CanShoot()) //switchWeapon.guns[currentGunIndex].IsOwned()
             {
-                if (switchWeapon.guns[currentGunIndex].CanShoot()) //switchWeapon.guns[currentGunIndex].IsOwned()
-                {
-                    Vector3 spawnPosition = transform.position + transform.forward * 1;
-                    Vector3 aimDir = (cam.transform.forward).normalized;
-                    Quaternion gunRotation = Quaternion.LookRotation(aimDir, Vector3.up);
-                    DropHoldingGuntServerRpc(spawnPosition, gunRotation);
-                    switchWeapon.guns[currentGunIndex].gameObject.SetActive(false);
-                    switchWeapon.guns[currentGunIndex].UpdateIsOwned(false);
-                }
+                // calculate gun drop position
+                Vector3 spawnPosition = transform.position + transform.forward * 1;
+                Vector3 aimDir = (cam.transform.forward).normalized;
+                Quaternion gunRotation = Quaternion.LookRotation(aimDir, Vector3.up);
+                DropHoldingGunServerRpc(spawnPosition, gunRotation);
             }
         }
+        else
+        {
+            Debug.LogError("PlayerInteract Script: switchWeapon.guns[currentGunIndex] is null");
+        }  
     }
 
-    
     [ServerRpc]
-    private void DropHoldingGuntServerRpc(Vector3 playerPosition, Quaternion playerRotation)
+    private void DropHoldingGunServerRpc(Vector3 playerPosition, Quaternion playerRotation)
     {
-        int currentGunIndex = switchWeapon.selectedWeapon.Value;
+        // destroy the gun that player is holding
+        int currentGunIndex = switchWeapon.currentGunIndex.Value;
+        NetworkObject gunToDestroy = switchWeapon.guns[currentGunIndex].NetworkObject;
         GameObject gunToDrop = switchWeapon.guns[currentGunIndex].gunInteractable.gameObject;
+        gunToDestroy.transform.SetParent(null);
+        gunToDestroy.Despawn(true);
+
+        // spawn the counterpart of the gun infront of the player
         var gunObject = Instantiate(gunToDrop.gameObject, playerPosition, playerRotation);
         var networkGunObject = gunObject.GetComponent<NetworkObject>();
         networkGunObject.Spawn();
-    }
-    
 
+        // update the gun list on player's gunHolder
+        switchWeapon.UpdateGunList();
+    }
 }

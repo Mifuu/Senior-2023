@@ -45,11 +45,13 @@ public class Gun : NetworkBehaviour
     private void Awake()
     {
         elementAttachable = GetComponent<ElementAttachable>();
-        playerObject = transform.parent.parent.gameObject;
+        playerObject = PlayerManager.thisClient.gameObject;
+        //playerObject = transform.parent.parent.gameObject;
         playerEntity = playerObject.GetComponent<ElementalEntity>();
         playerDmgComponent = playerObject.GetComponent<DamageCalculationComponent>();
     }
 
+    // This is the old code for shooting slow bullet 
     public void ShootBullet(Camera playerCam, LayerMask aimColliderLayerMask)
     {
         if (canShoot && IsClient && IsOwner)
@@ -76,9 +78,10 @@ public class Gun : NetworkBehaviour
         }
     }
 
+    // This is the new code for shooting with raycast
     public void ShootBullet_(Camera playerCam, LayerMask aimColliderLayerMask)
     {
-        if (canShoot && IsClient && IsOwner)
+        if (canShoot && IsOwner)
         {
             Vector3 aimDir;
             Ray ray = new(playerCam.transform.position, playerCam.transform.forward);
