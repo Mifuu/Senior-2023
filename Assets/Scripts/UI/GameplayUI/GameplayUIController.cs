@@ -23,6 +23,7 @@ namespace GameplayUI
             onUI.Back.performed += ctx => BackInput();
             onUI.Map.performed += ctx => MapInput();
             onUI.SkillCard.performed += ctx => SkillCardInput();
+            onUI.Inventory.performed += ctx => InventoryInput();
 
             stack = manager.stack;
 
@@ -85,6 +86,14 @@ namespace GameplayUI
         {
             if (stack.Peek() == PanelType.SkillCard)
                 stack.Pop();
+        }
+
+        public void InventoryInput()
+        {
+            if (stack.Peek() == PanelType.Inventory)
+                stack.Pop();
+            else
+                stack.Push(PanelType.Inventory);
         }
     }
 }

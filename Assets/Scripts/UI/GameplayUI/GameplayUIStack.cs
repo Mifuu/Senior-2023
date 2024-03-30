@@ -108,5 +108,6 @@ namespace GameplayUI
         Gameover,
         Map,
         SkillCard,
+        Inventory,
     }
 }

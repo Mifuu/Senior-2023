@@ -329,7 +329,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Gun Inventory"",
+                    ""name"": ""Inventory"",
                     ""type"": ""Button"",
                     ""id"": ""688a2941-aa6f-4d46-9ffa-75e8bec243f8"",
                     ""expectedControlType"": ""Button"",
@@ -379,7 +379,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Gun Inventory"",
+                    ""action"": ""Inventory"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -921,7 +921,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_OnUI_Back = m_OnUI.FindAction("Back", throwIfNotFound: true);
         m_OnUI_Map = m_OnUI.FindAction("Map", throwIfNotFound: true);
         m_OnUI_SkillCard = m_OnUI.FindAction("Skill Card", throwIfNotFound: true);
-        m_OnUI_GunInventory = m_OnUI.FindAction("Gun Inventory", throwIfNotFound: true);
+        m_OnUI_Inventory = m_OnUI.FindAction("Inventory", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1116,7 +1116,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_OnUI_Back;
     private readonly InputAction m_OnUI_Map;
     private readonly InputAction m_OnUI_SkillCard;
-    private readonly InputAction m_OnUI_GunInventory;
+    private readonly InputAction m_OnUI_Inventory;
     public struct OnUIActions
     {
         private @PlayerInput m_Wrapper;
@@ -1124,7 +1124,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         public InputAction @Back => m_Wrapper.m_OnUI_Back;
         public InputAction @Map => m_Wrapper.m_OnUI_Map;
         public InputAction @SkillCard => m_Wrapper.m_OnUI_SkillCard;
-        public InputAction @GunInventory => m_Wrapper.m_OnUI_GunInventory;
+        public InputAction @Inventory => m_Wrapper.m_OnUI_Inventory;
         public InputActionMap Get() { return m_Wrapper.m_OnUI; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1143,9 +1143,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @SkillCard.started += instance.OnSkillCard;
             @SkillCard.performed += instance.OnSkillCard;
             @SkillCard.canceled += instance.OnSkillCard;
-            @GunInventory.started += instance.OnGunInventory;
-            @GunInventory.performed += instance.OnGunInventory;
-            @GunInventory.canceled += instance.OnGunInventory;
+            @Inventory.started += instance.OnInventory;
+            @Inventory.performed += instance.OnInventory;
+            @Inventory.canceled += instance.OnInventory;
         }
 
         private void UnregisterCallbacks(IOnUIActions instance)
@@ -1159,9 +1159,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @SkillCard.started -= instance.OnSkillCard;
             @SkillCard.performed -= instance.OnSkillCard;
             @SkillCard.canceled -= instance.OnSkillCard;
-            @GunInventory.started -= instance.OnGunInventory;
-            @GunInventory.performed -= instance.OnGunInventory;
-            @GunInventory.canceled -= instance.OnGunInventory;
+            @Inventory.started -= instance.OnInventory;
+            @Inventory.performed -= instance.OnInventory;
+            @Inventory.canceled -= instance.OnInventory;
         }
 
         public void RemoveCallbacks(IOnUIActions instance)
@@ -1315,7 +1315,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         void OnBack(InputAction.CallbackContext context);
         void OnMap(InputAction.CallbackContext context);
         void OnSkillCard(InputAction.CallbackContext context);
-        void OnGunInventory(InputAction.CallbackContext context);
+        void OnInventory(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {
