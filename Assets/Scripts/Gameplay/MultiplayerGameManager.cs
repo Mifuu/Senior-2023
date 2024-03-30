@@ -76,7 +76,6 @@ public class MultiplayerGameManager : Singleton<MultiplayerGameManager>
 
             // SpawnPlayerClientRpc(spawnPosition, id);
             GameObject player = Instantiate(playerPrefab, spawnPosition, Quaternion.identity);
-            Debug.Log("pos1 + " + spawnPosition.x + " " + spawnPosition.y + " " + spawnPosition.z);
             NetworkDebugManager.LogMessage("[MGM] Player spawned at " + spawnPosition);
             var n = player.GetComponent<NetworkObject>();
             var p = player.GetComponent<PlayerManager>();
@@ -84,10 +83,10 @@ public class MultiplayerGameManager : Singleton<MultiplayerGameManager>
             playerManagers.Add(p);
 
             n.SpawnWithOwnership(id);
-            Debug.Log("pos2 + " + spawnPosition.x + " " + spawnPosition.y + " " + spawnPosition.z);
 
+            SetPlayerObjectClientRpc(id);
             TeleportPlayerClientRpc(id, spawnPosition);
-            Debug.Log("pos3 + " + spawnPosition.x + " " + spawnPosition.y + " " + spawnPosition.z);
+            SetPlayerSpawnPointClientRpc(id, spawnPosition);
         }
     }
 
@@ -97,12 +96,29 @@ public class MultiplayerGameManager : Singleton<MultiplayerGameManager>
     }
 
     [ClientRpc]
+    void SetPlayerObjectClientRpc(ulong id)
+    {
+        if (NetworkManager.Singleton.LocalClientId == id)
+        {
+            NetworkManager.Singleton.LocalClient.PlayerObject = PlayerManager.thisClient.GetComponent<NetworkObject>();
+        }
+    }
+
+    [ClientRpc]
     void TeleportPlayerClientRpc(ulong id, Vector3 pos)
     {
-        NetworkManager.Singleton.LocalClient.PlayerObject = PlayerManager.thisClient.GetComponent<NetworkObject>();
         if (NetworkManager.Singleton.LocalClientId == id)
         {
             PlayerManager.thisClient.Teleport(pos);
+        }
+    }
+
+    [ClientRpc]
+    void SetPlayerSpawnPointClientRpc(ulong id, Vector3 pos)
+    {
+        if (NetworkManager.Singleton.LocalClientId == id)
+        {
+            PlayerManager.thisClient.SetSpawnPoint(pos);
         }
     }
 }

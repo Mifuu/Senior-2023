@@ -9,6 +9,8 @@ public class PlayerManager : Singleton<PlayerManager>
 
     public static PlayerManager thisClient;
 
+    public Vector3 spawnPoint;
+
     public override void OnNetworkSpawn()
     {
         base.OnNetworkSpawn();
@@ -63,5 +65,15 @@ public class PlayerManager : Singleton<PlayerManager>
             transform.position = pos;
             cc.enabled = true;
         }
+    }
+
+    public void SetSpawnPoint(Vector3 pos)
+    {
+        spawnPoint = pos;
+    }
+
+    public void TeleportToSpawnPoint()
+    {
+        Teleport(spawnPoint);
     }
 }
