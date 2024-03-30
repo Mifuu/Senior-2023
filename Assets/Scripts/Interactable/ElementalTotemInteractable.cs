@@ -13,15 +13,19 @@ public class ElementalTotemInteractable : InteractableItem
     }
 
     public TotemType totemType;
-
     [SerializeField] private int requireShard;
-
-    private PlayerInventory playerInventory;
-    private PlayerSwitchWeapon gunHolder;
 
     protected override void Interact(GameObject playerObject)
     {
+        /*
+        PlayerSwitchWeapon playerSwitchWeapon = playerObject.GetComponentInChildren<PlayerSwitchWeapon>();
+        GameObject holdingGun = playerSwitchWeapon.GetHoldingGun();
+        ElementAttachable element= holdingGun.GetComponent<ElementAttachable>();
+        int waterShard = playerInventory.WaterShard.Value;
+        */
+
         Debug.Log("interacted with" + gameObject.name);
+        PlayerInventory playerInventory = playerObject.GetComponent<PlayerInventory>();
         ElementAttachable gunElement = playerObject.GetComponentInChildren<PlayerSwitchWeapon>().GetHoldingGun().GetComponent<ElementAttachable>();
 
         // reduce elemental shard of player by an amount of requireShard then change the elementalType of the player's holding gun to the corresponding element

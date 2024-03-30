@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2348444}
   - component: {fileID: 597403257718629794}
   - component: {fileID: 6090743330532357989}
+  - component: {fileID: 2576286254681026989}
   m_Layer: 0
   m_Name: pfb_AirTotem
   m_TagString: Untagged
@@ -98,7 +99,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e4d520d222ef1a4f95ee67961313745, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactableItemPrefab: {fileID: 0}
+  interactableItemPrefab: {fileID: 105756}
   promptMessage: Infuse gun with Wind element [ 20 wind shards ]
   totemType: 3
   requireShard: 1
@@ -122,6 +123,28 @@ MonoBehaviour:
   SpawnWithObservers: 1
   DontDestroyWithOwner: 0
   AutoObjectParentSync: 1
+--- !u!64 &2576286254681026989
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 105756}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4300000, guid: bdc96791136966f45bbfa4d77a71b69f, type: 3}
 --- !u!1 &109638
 GameObject:
   m_ObjectHideFlags: 0
