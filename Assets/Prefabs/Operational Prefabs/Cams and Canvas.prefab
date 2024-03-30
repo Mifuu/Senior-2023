@@ -4312,6 +4312,10 @@ PrefabInstance:
       propertyPath: playPanel
       value: 
       objectReference: {fileID: 1989781126433621242}
+    - target: {fileID: 1686046514052532916, guid: 28e0c44d4c6e1476f8f32266752d6f7e, type: 3}
+      propertyPath: inventoryPanel
+      value: 
+      objectReference: {fileID: 1873350715368655085}
     - target: {fileID: 2539575537212264123, guid: 28e0c44d4c6e1476f8f32266752d6f7e, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -433.00006
