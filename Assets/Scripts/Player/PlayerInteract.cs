@@ -60,14 +60,12 @@ public class PlayerInteract : NetworkBehaviour
                 if (inputManager.onFoot.Interact.triggered)
                 {
                     GameObject playerObject = transform.gameObject;
-                    if (playerObject != null)
-                    {
-                        interactable.BaseInteract(playerObject);
-                    }
-                    else
+                    if (playerObject == null)
                     {
                         Debug.LogError("PlayerInteract Script: playerObject is null");
+                        return;
                     }
+                    interactable.BaseInteract(playerObject);
                 }
             }  
         }
