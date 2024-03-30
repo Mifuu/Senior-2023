@@ -307,7 +307,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Gun Inventory",
+                    "name": "Inventory",
                     "type": "Button",
                     "id": "688a2941-aa6f-4d46-9ffa-75e8bec243f8",
                     "expectedControlType": "Button",
@@ -357,7 +357,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Gun Inventory",
+                    "action": "Inventory",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
