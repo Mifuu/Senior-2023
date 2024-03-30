@@ -11,7 +11,7 @@ public class PlayerHealth : NetworkBehaviour, IDamageable
     [SerializeField] public float maxHealth { get; set; }
     [SerializeField] public NetworkVariable<float> BaseMaxHealth { get; set; } = new NetworkVariable<float>(10.0f);
     [SerializeField] public NetworkVariable<float> HealthBuffMultiplier { get; set; } = new NetworkVariable<float>(1.0f);
-    
+
     private float _maxHealth;
     public NetworkVariable<float> currentHealth { get; set; } = new NetworkVariable<float>(0.0f);
     public event Action OnPlayerDie;
@@ -63,6 +63,10 @@ public class PlayerHealth : NetworkBehaviour, IDamageable
     private void Respawn()
     {
         currentHealth.Value = maxHealth;
-        //transform.position = Vector3.zero;
+
+        if (TryGetComponent<PlayerManager>(out var playerManager))
+        {
+            playerManager.TeleportToSpawnPoint();
+        }
     }
 }
