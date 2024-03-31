@@ -94,10 +94,23 @@ namespace RoomGeneration
         {
             if (roomDoorsParent == null)
             {
-                Debug.Log("RoomDataPlotter.AddRoomDoor(): roomDoorsParent is null, creating one...");
-                GameObject newParent = new GameObject("_Room Doors Parent");
-                newParent.transform.parent = transform;
-                roomDoorsParent = newParent.transform;
+                // try to find child with the matching name
+                foreach (Transform t in transform)
+                {
+                    if (t.name == "_Room Doors Parent")
+                    {
+                        roomDoorsParent = t;
+                        break;
+                    }
+                }
+
+                if (roomDoorsParent == null)
+                {
+                    Debug.Log("RoomDataPlotter.AddRoomDoor(): roomDoorsParent is null, creating one...");
+                    GameObject newParent = new GameObject("_Room Doors Parent");
+                    newParent.transform.parent = transform;
+                    roomDoorsParent = newParent.transform;
+                }
             }
 
             roomDoors = new List<GameObject>();
