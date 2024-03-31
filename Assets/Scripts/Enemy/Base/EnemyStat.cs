@@ -69,6 +69,7 @@ namespace Enemy
             }
         }
 
+        // BUG: If enemy level is skipped (ex. 5 => 10), the stat will not be upgraded correctly
         private void SetStatOnCurrentLevel(int prev, int current)
         {
             void StatsReducerFunction(List<EnemyStatsEnum> stats, float value, EnemyStatUpgradeRulesSO.EnemyStatUpgradeDetail.MethodEnums method)

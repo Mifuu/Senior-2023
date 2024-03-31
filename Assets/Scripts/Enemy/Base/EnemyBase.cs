@@ -124,6 +124,7 @@ namespace Enemy
 
         public override void OnDestroy()
         {
+            Debug.LogWarning(gameObject + " has been destroyed");
             if (IsServer) ServerDesetup();
         }
 
@@ -170,6 +171,7 @@ namespace Enemy
         private void ServerDesetup()
         {
             aggroDistanceTriggerCheck.OnHitboxTriggerEnter -= ChangeTargetPlayerFromCollision;
+            CleanUp();
         }
 
         private void OnEnemySpawn()
@@ -217,6 +219,7 @@ namespace Enemy
         private void CleanUp()
         {
             // Place for more clean up logic, animation etc.
+            Debug.Log(gameObject + " is performing clean up");
             DesetupTargetPlayer();
         }
 
@@ -254,10 +257,7 @@ namespace Enemy
                 }
             }
             // Allow Enemy to search only to a certain distance
-            if (closestDistanceSqr > maxDistanceSquared)
-            {
-                return null;
-            }
+            if (closestDistanceSqr > maxDistanceSquared) return null;
             return closestPlayer;
         }
 
@@ -294,7 +294,11 @@ namespace Enemy
         private void DesetupTargetPlayer()
         {
             if (targetPlayer != null && targetPlayer.TryGetComponent<PlayerHealth>(out var playerHealth))
+            {
+                Debug.Log(gameObject + " Unsub from OnPlayerDie");
                 playerHealth.OnPlayerDie -= OnTargetPlayerRefindRequired;
+            }
+
             targetPlayer = null;
         }
 

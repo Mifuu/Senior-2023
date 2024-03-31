@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 namespace Enemy
 {
@@ -10,19 +11,20 @@ namespace Enemy
         public override void OnNetworkSpawn()
         {
             base.OnNetworkSpawn();
+
+            List<GameObject> newEnemyPrefabList = new List<GameObject>();
             foreach (var enemy in enemyPrefabList)
             {
-                if (!enemy.TryGetComponent<EnemyStateHijackable>(out EnemyStateHijackable hijackable))
+                if (enemy.TryGetComponent<EnemyStateHijackable>(out EnemyStateHijackable hijackable))
                 {
-                    // enemyPrefabList.Remove(enemy); // BUG: List can not be modified while being iterated 
-                    Debug.LogError(enemy + "'s State can not be hijacked");
+                    newEnemyPrefabList.Add(enemy);
+                    continue;
                 }
+                Debug.LogError(enemy + "'s State can not be hijacked");
             }
 
-            if (spawnImmediately)
-            {
-                Spawn();
-            }
+            enemyPrefabList = newEnemyPrefabList;
+            if (spawnImmediately) Spawn();
         }
     }
 }

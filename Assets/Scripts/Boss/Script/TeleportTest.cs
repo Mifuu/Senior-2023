@@ -14,7 +14,6 @@ public class TeleportTest : NetworkBehaviour
             charController.enabled = false; // If it's not disabled, char controller will not allow position change.
             collider.transform.position = teleportExitLocation.position;
             charController.enabled = true;
-            Debug.Log("Hello World");
         }
         else
             Debug.LogError("Teleportation failed");

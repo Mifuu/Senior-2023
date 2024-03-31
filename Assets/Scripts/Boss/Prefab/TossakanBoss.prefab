@@ -61,8 +61,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 0.90590066, y: 1, z: 0.49534172}
+  m_Center: {x: -0.0070182714, y: 0, z: 0.0037645628}
 --- !u!114 &2256836144997160256
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -347,7 +347,7 @@ Transform:
   m_GameObject: {fileID: 4438683419487797004}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.756, z: 0.173}
+  m_LocalPosition: {x: 0, y: 0.756, z: 0.413}
   m_LocalScale: {x: 0.6165623, y: 1.4833055, z: 0.83157384}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1285,6 +1285,34 @@ MonoBehaviour:
     DestinationState: 1493229773
     TransitionDuration: 0.25
     TriggerNameHash: 569504987
+    TransitionIndex: 0
+  - IsCrossFadeExit: 0
+    Layer: 0
+    OriginatingState: 2128374967
+    DestinationState: -2041127802
+    TransitionDuration: 0.25
+    TriggerNameHash: 777593458
+    TransitionIndex: 1
+  - IsCrossFadeExit: 0
+    Layer: 0
+    OriginatingState: 2128374967
+    DestinationState: -1112784510
+    TransitionDuration: 0.25
+    TriggerNameHash: -1753673169
+    TransitionIndex: 2
+  - IsCrossFadeExit: 0
+    Layer: 0
+    OriginatingState: 2128374967
+    DestinationState: 1918296924
+    TransitionDuration: 0.25
+    TriggerNameHash: 351563141
+    TransitionIndex: 3
+  - IsCrossFadeExit: 0
+    Layer: 0
+    OriginatingState: 1918296924
+    DestinationState: 2128374967
+    TransitionDuration: 0.25
+    TriggerNameHash: -1658532208
     TransitionIndex: 0
   m_Animator: {fileID: 3683949834254883496}
 --- !u!4 &6472782783854089153 stripped

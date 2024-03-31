@@ -133,7 +133,7 @@ namespace Enemy
         {
             var attack = weightedAttacks[weightedAttackIndex];
             attack.DecrementStaminaOnAttackUsed();
-            attack.ApplyStaminaBonus(); // BUG: This line causes a stack overflow
+            attack.ApplyStaminaBonus(); 
             if (autoAdjustWeight) AdjustWeight(weightedAttackIndex);
 
             this.selectedNextAttack = attack.attack;
@@ -158,7 +158,6 @@ namespace Enemy
 
         private IEnumerator RequestStateHoldingCallback(int weightedAttackIndex)
         {
-            // BUG: This shit causes memory leak, Check ApplyStaminaBonus() function
             bool isHolding = true;
             void HandleHoldingCallback()
             {
