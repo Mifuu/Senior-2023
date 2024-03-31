@@ -16,6 +16,9 @@ namespace Enemy
         [SerializeField] private float timeBetweenHands;
         [SerializeField] private GameObject[] handPrefab;
 
+        private readonly int invincibleTrigger = Animator.StringToHash("Invinsible");
+        private readonly int vincibleTrigger = Animator.StringToHash("Vinsible");
+
         public override void Initialize(GameObject targetPlayer, GameObject enemyGameObject, DamageCalculationComponent component)
         {
             base.Initialize(targetPlayer, enemyGameObject, component);
@@ -32,6 +35,7 @@ namespace Enemy
 
         public override void PerformAttack()
         {
+            tossakan.tossakanPuppet.animator.SetTrigger(invincibleTrigger);
             tossakan.StartCoroutine(HandAttackSequence());
         }
 
@@ -61,6 +65,7 @@ namespace Enemy
                 yield return new WaitForSeconds(timeBetweenAttackSet);
             }
 
+            tossakan.tossakanPuppet.animator.SetTrigger(vincibleTrigger);
             EmitAttackEndsEvent();
         }
 

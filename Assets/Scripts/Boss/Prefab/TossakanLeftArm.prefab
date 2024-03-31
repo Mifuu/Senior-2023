@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8676829194391752597}
   - component: {fileID: 15446414172430453}
   - component: {fileID: 2872224367688616593}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Arm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -62,7 +62,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 1e04c9b415b40d44bbd3477e1b0c3b7a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -116,7 +116,7 @@ GameObject:
   - component: {fileID: 9196718024417298435}
   - component: {fileID: 8601602399690217447}
   - component: {fileID: 6415597459361304471}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: TossakanLeftArm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -187,7 +187,7 @@ GameObject:
   - component: {fileID: 3707212310452526768}
   - component: {fileID: -8027252560784165259}
   - component: {fileID: 4867343575290071746}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: TossakanLeftArm
   m_TagString: Untagged
   m_Icon: {fileID: 0}

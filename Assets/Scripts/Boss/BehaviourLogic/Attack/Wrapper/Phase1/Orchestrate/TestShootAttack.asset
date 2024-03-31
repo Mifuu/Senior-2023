@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: TestShootAttack
   m_EditorClassIdentifier: 
   attack: {fileID: 11400000, guid: b1b5fc3953ae56748b7b4b69a7891d2d, type: 2}
+  instantiateAttackForOrchestrator: 0
   timeBetweenAttacks: 0.5

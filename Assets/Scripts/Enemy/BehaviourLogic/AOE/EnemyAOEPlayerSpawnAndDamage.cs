@@ -9,6 +9,7 @@ namespace Enemy
         public override void ActivateEffect()
         {
             base.ActivateEffect();
+            // BUG: DAMAGE CALCULATION COMPONENT IS DESTROYED WTFFFFFFFFFFFFF
             foreach (var players in areaOfEffectTrigger.PlayerWithinTrigger)
             {
                 var info = component.GetFinalDealthDamageInfo();

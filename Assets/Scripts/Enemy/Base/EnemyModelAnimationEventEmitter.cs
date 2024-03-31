@@ -1,6 +1,5 @@
 using Unity.Netcode;
 using System;
-using UnityEngine;
 
 public class EnemyModelAnimationEventEmitter : NetworkBehaviour
 {
@@ -8,6 +7,7 @@ public class EnemyModelAnimationEventEmitter : NetworkBehaviour
     public event Action OnIdleAnimationEnds;
     public event Action OnKnockbackAnimationEnds;
     public event Action OnChaseAnimationEnds;
+    public event Action OnPhaseChangeAnimationEnds;
 
     public void TriggerAttackAnimationEnds()
     {
@@ -26,7 +26,11 @@ public class EnemyModelAnimationEventEmitter : NetworkBehaviour
 
     public void TriggerChaseAnimationEnds()
     {
-        Debug.LogWarning("Chase Animation ends");
         OnChaseAnimationEnds?.Invoke();
+    }
+
+    public void TriggerPhaseChangeAnimationEnds()
+    {
+        OnPhaseChangeAnimationEnds?.Invoke();
     }
 }

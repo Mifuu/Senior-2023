@@ -37,6 +37,7 @@ namespace Enemy
             {
                 var newBullet = NetworkObjectPool.Singleton.GetNetworkObject(bulletPrefab, bulletSpawn.transform.position, enemy.transform.rotation);
                 enemy.transform.LookAt(enemy.targetPlayer.transform);
+                enemy.transform.eulerAngles = new Vector3(0, enemy.transform.eulerAngles.y, 0);
                 newBullet.Spawn();
                 newBullet.gameObject.GetComponent<EnemyBullet>().InitializeAndShoot(enemy.gameObject, enemy.targetPlayer, damageComponent);
                 yield return new WaitForSeconds(bulletDelay);
