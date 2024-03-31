@@ -66,7 +66,14 @@ public class PlayerHealth : NetworkBehaviour, IDamageable
 
         if (TryGetComponent<PlayerManager>(out var playerManager))
         {
-            playerManager.TeleportToSpawnPoint();
+            if (MultiplayerGameManager.Instance)
+            {
+                MultiplayerGameManager.Instance.RespawnPlayerServerRpc(NetworkObject.OwnerClientId);
+            }
+            else
+            {
+                playerManager.TeleportToSpawnPoint();
+            }
         }
     }
 }

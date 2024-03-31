@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Unity.Netcode;
 
@@ -14,7 +15,14 @@ public class MultiplayerGameManager : Singleton<MultiplayerGameManager>
     public RoomGeneration.RoomGenNetworkManager roomGenNetworkManager;
     public NetworkDebugManager networkDebugManager;
 
-    public List<PlayerManager> playerManagers = new List<PlayerManager>();
+    [Space]
+    [SerializeField] public GameObject bossRoomPrefab;
+
+    [Header("Readonly")]
+    [ReadOnly] public List<PlayerManager> playerManagers = new List<PlayerManager>();
+    [ReadOnly] public List<ulong> playerIds = new List<ulong>();
+    [ReadOnly] public Vector3[] bossRoomCoords = { new Vector3(-4000, 0, -4000), new Vector3(4000, 0, -4000), new Vector3(-4000, 0, 4000), new Vector3(4000, 0, 4000) };
+    NetworkObject[] bossRooms = { null, null, null, null };
 
     void Update()
     {
@@ -81,6 +89,7 @@ public class MultiplayerGameManager : Singleton<MultiplayerGameManager>
             var p = player.GetComponent<PlayerManager>();
 
             playerManagers.Add(p);
+            playerIds.Add(id);
 
             n.SpawnWithOwnership(id);
 
@@ -120,5 +129,53 @@ public class MultiplayerGameManager : Singleton<MultiplayerGameManager>
         {
             PlayerManager.thisClient.SetSpawnPoint(pos);
         }
+    }
+
+    [ServerRpc]
+    public void RespawnPlayerServerRpc(ulong id)
+    {
+        RespawnPlayerClientRpc(id);
+
+        if (bossRooms[playerIds.IndexOf(id)] != null)
+        {
+            bossRooms[playerIds.IndexOf(id)].Despawn();
+            bossRooms[playerIds.IndexOf(id)] = null;
+        }
+    }
+
+    [ClientRpc]
+    public void RespawnPlayerClientRpc(ulong id)
+    {
+        if (NetworkManager.Singleton.LocalClientId == id)
+        {
+            PlayerManager.thisClient.TeleportToSpawnPoint();
+        }
+    }
+
+    [ServerRpc]
+    public void TeleportToBossRoomServerRpc(ulong id)
+    {
+        if (NetworkManager.Singleton.LocalClientId == id)
+        {
+            Debug.Log("Index: " + playerIds.IndexOf(id) + " Coords: " + bossRoomCoords[playerIds.IndexOf(id)]);
+            if (bossRooms[playerIds.IndexOf(id)] != null)
+            {
+                bossRooms[playerIds.IndexOf(id)].Despawn();
+                bossRooms[playerIds.IndexOf(id)] = null;
+            }
+
+            GameObject o = Instantiate(bossRoomPrefab, bossRoomCoords[playerIds.IndexOf(id)], Quaternion.identity);
+            NetworkObject n = o.GetComponent<NetworkObject>();
+            n.Spawn();
+            bossRooms[playerIds.IndexOf(id)] = n;
+            TeleportToBossRoomClientRpc(id, bossRoomCoords[playerIds.IndexOf(id)]);
+        }
+    }
+
+    [ClientRpc]
+    void TeleportToBossRoomClientRpc(ulong id, Vector3 coord)
+    {
+        if (NetworkManager.Singleton.LocalClientId == id)
+            PlayerManager.thisClient.Teleport(coord);
     }
 }
