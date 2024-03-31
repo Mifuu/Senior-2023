@@ -2263,10 +2263,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ramayana 1 Spawn 1
       objectReference: {fileID: 0}
-    - target: {fileID: 4497323378029832235, guid: c2449fd09b74b426a8b28b0c86bc038a, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7509450837360587924, guid: c2449fd09b74b426a8b28b0c86bc038a, type: 3}
       propertyPath: GlobalObjectIdHash
       value: 1841472960
@@ -2976,11 +2972,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7779705253381042148, guid: e97a1f9ed9d3444b29cb2729c7b8213c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -1.0300007
       objectReference: {fileID: 0}
     - target: {fileID: 7779705253381042148, guid: e97a1f9ed9d3444b29cb2729c7b8213c, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -0.000002861023
       objectReference: {fileID: 0}
     - target: {fileID: 7779705253381042148, guid: e97a1f9ed9d3444b29cb2729c7b8213c, type: 3}
       propertyPath: m_LocalRotation.w
@@ -3409,17 +3405,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4771627205078427283, guid: 944e92cf4deba48fe8e778dcb2472b6b, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8370552561504519156, guid: 944e92cf4deba48fe8e778dcb2472b6b, type: 3}
       propertyPath: m_Name
       value: Ramayana 1 Hall 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8370552561504519156, guid: 944e92cf4deba48fe8e778dcb2472b6b, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9170135659901140350, guid: 944e92cf4deba48fe8e778dcb2472b6b, type: 3}
       propertyPath: GlobalObjectIdHash
@@ -3487,9 +3475,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ramayana 1 Boss 1
       objectReference: {fileID: 0}
-    - target: {fileID: 4571835636477352207, guid: 6d89651133c26493a9511639a9dc55cd, type: 3}
-      propertyPath: m_IsActive
-      value: 0
+    - target: {fileID: 6887809550858803563, guid: 6d89651133c26493a9511639a9dc55cd, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 1699187049
       objectReference: {fileID: 0}
     - target: {fileID: 9151829199932971062, guid: 6d89651133c26493a9511639a9dc55cd, type: 3}
       propertyPath: GlobalObjectIdHash
