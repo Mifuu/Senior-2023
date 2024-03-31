@@ -36,9 +36,10 @@ public class BossRoomInteractable : InteractableItem
     {
         Debug.Log("interacted with" + gameObject.name);
 
-        if (playerInventory.Key.Value >= 3)
+        if (playerInventory.Key.Value >= 0)
         {
             Debug.Log("TODO: Teleport To Boss Room");
+            MultiplayerGameManager.Instance.TeleportToBossRoomServerRpc(NetworkManager.Singleton.LocalClientId);
         }
     }
 }
