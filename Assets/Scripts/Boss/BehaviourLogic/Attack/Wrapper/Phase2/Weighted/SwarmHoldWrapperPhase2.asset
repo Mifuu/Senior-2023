@@ -19,7 +19,7 @@ MonoBehaviour:
   minimumWeight: 0
   incrementWeightAmount: 0
   decrementWeightAmount: 0
-  requireAttackEnds: 0
+  requireAttackEnds: 1
   staminaBonus: 0
   currentWeight: 0
   controller: {fileID: 0}
