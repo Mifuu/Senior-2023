@@ -92,14 +92,6 @@ public class ModalController : MonoBehaviour
     {
         header.SetActive(header_Text != "");
         headerText.text = header_Text;
-
-        // if (header_Text == "")
-        //     header.SetActive(false);
-        // else
-        // {
-        //     header.SetActive(true);
-        //     headerText.text = header_Text;
-        // }
     }
 
     private void SetHorizontalContent(string content_Text, Sprite content_Image)
@@ -112,22 +104,6 @@ public class ModalController : MonoBehaviour
 
         horizontalImage.gameObject.SetActive(content_Image != null);
         horizontalImage.sprite = content_Image;
-
-        // if (content_Text != "")
-        // {
-        //     horizontalContentText.gameObject.SetActive(true);
-        //     horizontalContentText.text = content_Text;
-        // }
-        // else
-        //     horizontalContentText.gameObject.SetActive(false);
-        //
-        // if (content_Image != null)
-        // {
-        //     horizontalImage.gameObject.SetActive(true);
-        //     horizontalImage.sprite = content_Image;
-        // }
-        // else
-        //     horizontalImage.gameObject.SetActive(false);
     }
 
     private void SetVerticalContent(string content_Text, Sprite content_Image)
@@ -140,22 +116,6 @@ public class ModalController : MonoBehaviour
 
         verticalImage.gameObject.SetActive(content_Image != null);
         verticalImage.sprite = content_Image;
-
-        // if (content_Text != "")
-        // {
-        //     verticalContentText.gameObject.SetActive(true);
-        //     verticalContentText.text = content_Text;
-        // }
-        // else
-        //     verticalContentText.gameObject.SetActive(false);
-        //
-        // if (content_Image != null)
-        // {
-        //     verticalImage.gameObject.SetActive(true);
-        //     verticalImage.sprite = content_Image;
-        // }
-        // else
-        //     verticalImage.gameObject.SetActive(false);
     }
 
     private void SetFooter(
