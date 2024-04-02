@@ -15,7 +15,7 @@ MonoBehaviour:
   phaseTeleportOdds:
   - 0.7
   - 0.9
-  idleCooldownTime: 2
-  waitForTeleportTime: 2
-  postTeleportCooldown: 2
+  idleCooldownTime: 4
+  waitForTeleportTime: 4
+  postTeleportCooldown: 2.5
   spawnFlame: {fileID: 3644354330285745761, guid: 12c337d4e2b99fa45a4dea07e9508ff2, type: 3}
