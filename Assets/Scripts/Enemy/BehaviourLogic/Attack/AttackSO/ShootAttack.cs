@@ -13,13 +13,13 @@ namespace Enemy
         [SerializeField] private float bulletDelay = 0.1f;
         private Rigidbody bulletRB;
         private GameObject bulletSpawn;
-        private DamageCalculationComponent dealerPipeline;
 
-        public override void Initialize(GameObject targetPlayer, GameObject enemyGameObject)
+        public override void Initialize(GameObject targetPlayer, GameObject enemyGameObject, DamageCalculationComponent component = null)
         {
-            base.Initialize(targetPlayer, enemyGameObject);
+            base.Initialize(targetPlayer, enemyGameObject, component);
             bulletRB = bulletPrefab.GetComponent<Rigidbody>();
             bulletSpawn = enemy.transform.Find("BulletSpawn")?.gameObject;
+            Debug.Log("Instantiating Shoot Attack Component: " + component);
             if (bulletSpawn == null)
                 Debug.LogError("Bullet spawn is not found");
         }
@@ -37,8 +37,9 @@ namespace Enemy
             {
                 var newBullet = NetworkObjectPool.Singleton.GetNetworkObject(bulletPrefab, bulletSpawn.transform.position, enemy.transform.rotation);
                 enemy.transform.LookAt(enemy.targetPlayer.transform);
+                enemy.transform.eulerAngles = new Vector3(0, enemy.transform.eulerAngles.y, 0);
                 newBullet.Spawn();
-                newBullet.gameObject.GetComponent<EnemyBullet>().InitializeAndShoot(enemy.gameObject, enemy.targetPlayer);
+                newBullet.gameObject.GetComponent<EnemyBullet>().InitializeAndShoot(enemy.gameObject, enemy.targetPlayer, damageComponent);
                 yield return new WaitForSeconds(bulletDelay);
             }
             EmitAttackEndsEvent();

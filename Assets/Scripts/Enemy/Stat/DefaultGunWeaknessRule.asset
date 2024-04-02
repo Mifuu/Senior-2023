@@ -12,4 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 458372950430ff54fb1323f5f47bf656, type: 3}
   m_Name: DefaultGunWeaknessRule
   m_EditorClassIdentifier: 
-  gunWeaknessesList: []
+  gunWeaknessesList:
+  - gunType: 0
+    factor: 1.2
+  - gunType: 1
+    factor: 1
+  - gunType: 2
+    factor: 0.9
+  - gunType: 3
+    factor: 1
+  - gunType: 4
+    factor: 1

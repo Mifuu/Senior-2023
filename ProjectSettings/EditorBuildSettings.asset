@@ -53,4 +53,7 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/DemoScene 1.unity
     guid: d656f4683e32f374385a2249efb8d1bb
+  - enabled: 1
+    path: Assets/Scenes/TossakanDev.unity
+    guid: 7cfd5d1b920042d43bcc2f8b100ffe8a
   m_configObjects: {}

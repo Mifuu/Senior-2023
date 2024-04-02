@@ -9,7 +9,7 @@ namespace Enemy
 {
     public class EnemyStat : NetworkBehaviour
     {
-        public enum EnemyStatsEnum { MaxHP, BaseATK, BaseDEF, ElementDMG, ElementalRES }
+        public enum EnemyStatsEnum { MaxHP, BaseATK, BaseDEF, ElementDMG, ElementalRES, BaseEXP }
 
         [Header("Level Stats Detail")]
         [SerializeField] private EnemyStatUpgradeRulesSO upgradeDetail;
@@ -20,10 +20,12 @@ namespace Enemy
         [SerializeField] private float defaultBaseDMGReceiveFactor = 1.0f;
         [SerializeField] private float defaultElementalDmg = 1.0f;
         [SerializeField] private float defaultElementalRES = 1.0f;
+        [SerializeField] private float defaultBaseEXP = 20;
 
         [HideInInspector] public NetworkVariable<int> Level = new NetworkVariable<int>(1);
         public Subject<float> BaseDamage = new Subject<float>(5.0f);
         public Subject<float> DamageReceiveFactor = new Subject<float>(1.0f);
+        public Subject<float> BaseEXP = new Subject<float>(0);
         public List<Subject<float>> ListOfElementalDamageBonus = new List<Subject<float>>();
         public List<Subject<float>> ListOfElementalRES = new List<Subject<float>>();
 
@@ -33,6 +35,7 @@ namespace Enemy
         {
             BaseDamage.Value = defaultBaseDMG;
             DamageReceiveFactor.Value = defaultBaseDMGReceiveFactor;
+            BaseEXP.Value = defaultBaseEXP;
             for (int i = 0; i < Enum.GetNames(typeof(ElementalType)).Length; i++)
             {
                 ListOfElementalDamageBonus.Add(new Subject<float>(defaultElementalDmg));
@@ -66,6 +69,7 @@ namespace Enemy
             }
         }
 
+        // BUG: If enemy level is skipped (ex. 5 => 10), the stat will not be upgraded correctly
         private void SetStatOnCurrentLevel(int prev, int current)
         {
             void StatsReducerFunction(List<EnemyStatsEnum> stats, float value, EnemyStatUpgradeRulesSO.EnemyStatUpgradeDetail.MethodEnums method)
@@ -110,6 +114,9 @@ namespace Enemy
                         case EnemyStatsEnum.BaseDEF:
                             reducer(DamageReceiveFactor, value);
                             break;
+                        case EnemyStatsEnum.BaseEXP:
+                            reducer(BaseEXP, value);
+                            break;
                         case EnemyStatsEnum.ElementDMG:
                             ListOfElementalDamageBonus.ForEach((elementStat) =>
                             {
@@ -123,9 +130,10 @@ namespace Enemy
                             });
                             break;
                         case EnemyStatsEnum.MaxHP:
+                            if (!IsServer) return;
                             Subject<float> temp = new Subject<float>(enemy.maxHealth);
                             reducer(temp, value);
-                            enemy.ChangeMaxHealthClientRpc(temp.Value);
+                            enemy.networkMaxHealth.Value = temp.Value;
                             break;
                     }
                 });

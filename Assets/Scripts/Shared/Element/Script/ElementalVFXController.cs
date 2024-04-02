@@ -29,6 +29,8 @@ public class ElementalVFXController : NetworkBehaviour
     public override void OnNetworkSpawn()
     {
         base.OnNetworkSpawn();
+        for (int i = 0; i < vfxMaps.Length; i++)
+            vfxMaps[i].VFX.Stop();
         CheckAndApplyElementalVFX(ElementalType.None, appliable.currentAppliedElement.Value);
         appliable.currentAppliedElement.OnValueChanged += CheckAndApplyElementalVFX;
     }

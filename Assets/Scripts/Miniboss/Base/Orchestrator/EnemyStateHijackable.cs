@@ -77,14 +77,15 @@ namespace Enemy
             }
         }
 
-        public EnemyAttackSOBase HijackAttackStateInitializeOnly(EnemyAttackSOBase attackBase)
+        public EnemyAttackSOBase HijackAttackStateInitializeOnly(EnemyAttackSOBase attackBase, DamageCalculationComponent component = null)
         {
             this.attackBase = enemy.EnemyAttackBaseInstance;
             enemy.EnemyAttackBaseInstance = attackBase;
+            if (attackBase.allAttack.Count == 0) Debug.LogError("Detect that attack count equals 0, will cause index overflow problem");
             enemy.EnemyAttackBaseInstance.Initialize(enemyGameObject, enemy);
             foreach (var attacks in enemy.EnemyAttackBaseInstance.allAttack)
             {
-                attacks.Initialize(enemy.targetPlayer, gameObject);
+                attacks.Initialize(enemy.targetPlayer, gameObject, component);
             }
             isHijacked = true;
             return enemy.EnemyAttackBaseInstance;

@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b16da02726c1b448a92f42703d752c4, type: 3}
+  m_Name: HandAttackPhase 2
+  m_EditorClassIdentifier: 
+  attackSequence: 010000000100000001000000020000000200000003000000
+  timeBetweenAttackSet: 3
+  timeBetweenHands: 0.2
+  handPrefab:
+  - {fileID: 7031863893522680593, guid: 74afc3478f26e0b4db62e446ddb76c02, type: 3}

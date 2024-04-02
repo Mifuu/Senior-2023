@@ -13,6 +13,8 @@ namespace Enemy
         private List<GameObject> enemyPrefabList;
         [SerializeField] private GameObject chooseEnemyToSpawn;
         [SerializeField] private int spawnNumber = 1;
+        [SerializeField] private Transform selectedSpawnLocation;
+        [SerializeField] private GameObject bossRoom;
 
         public void Awake()
         {
@@ -59,7 +61,7 @@ namespace Enemy
         public void SpawnEnemy(GameObject enemyPrefab, Vector3 position)
         {
             NavMeshHit hit;
-            if (NavMesh.SamplePosition(enemyPrefab.transform.position, out hit, 1000f, NavMesh.AllAreas))
+            if (NavMesh.SamplePosition(enemyPrefab.transform.position, out hit, 1000f, NavMesh.AllAreas)) // ???? Why is this sampling at the enemy prefab location
             {
                 var enemy = NetworkObjectPool.Singleton.GetNetworkObject(enemyPrefab, hit.position, Quaternion.identity);
                 var navmeshagent = enemy.GetComponent<NavMeshAgent>();
@@ -67,6 +69,35 @@ namespace Enemy
                 navmeshagent.enabled = true;
                 enemy.Spawn();
             }
+        }
+
+        public void SpawnEnemyAtPosition(GameObject enemyPrefab, Vector3 position)
+        {
+            NavMeshHit hit;
+            if (NavMesh.SamplePosition(position, out hit, 1000f, NavMesh.AllAreas)) 
+            {
+                var enemy = NetworkObjectPool.Singleton.GetNetworkObject(enemyPrefab, hit.position, Quaternion.identity);
+                var navmeshagent = enemy.GetComponent<NavMeshAgent>();
+                navmeshagent.enabled = false;
+                navmeshagent.enabled = true;
+                enemy.Spawn();
+            }
+        }
+
+        [ContextMenu("Spawn Boss room")]
+        public void SpawnBossRoom()
+        {
+            var bossRoomInstance = Instantiate(bossRoom, Vector3.zero, Quaternion.identity);
+            if (bossRoomInstance.TryGetComponent<NetworkObject>(out var networkObject))
+            {
+                networkObject.Spawn();
+            }
+        }
+
+        [ContextMenu("Spawn Selected at location")]
+        public void SpawnSelectedEnemyAtSelectedLocation()
+        {
+            SpawnEnemyAtPosition(chooseEnemyToSpawn, selectedSpawnLocation.position);
         }
 
         public void SpawnRandomEnemy()
