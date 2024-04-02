@@ -5,14 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="65bc8107-be3d-4f4c-907b-d430cb2f1289" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/EnemyAndBossDev.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/EnemyAndBossDev.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemy/BehaviourLogic/Attack/AttackSO/SwarmAttack.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemy/BehaviourLogic/Attack/AttackSO/SwarmAttack.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Miniboss/Base/Orchestrator/OrchestrationAttack.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Miniboss/Base/Orchestrator/OrchestrationAttack.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Miniboss/Base/Orchestrator/WeightedOrchestratorAttackStateSO.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Miniboss/Base/Orchestrator/WeightedOrchestratorAttackStateSO.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Miniboss/Base/Weight/WeightAttackPoolAttackStateSO.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Miniboss/Base/Weight/WeightAttackPoolAttackStateSO.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Miniboss/Shared/TimedOrchestratedAttack.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Miniboss/Shared/TimedOrchestratedAttack.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Miniboss/Type/Lust/Prefab/LustMiniboss.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Miniboss/Type/Lust/Prefab/LustMiniboss.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Miniboss/WeightedWrapperConfig/SwarmWrapper.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Miniboss/WeightedWrapperConfig/SwarmWrapper.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Examples &amp; Extras/Resources/Fonts &amp; Materials/Anton SDF.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Examples &amp; Extras/Resources/Fonts &amp; Materials/Anton SDF.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Examples &amp; Extras/Resources/Fonts &amp; Materials/Bangers SDF.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Examples &amp; Extras/Resources/Fonts &amp; Materials/Bangers SDF.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Examples &amp; Extras/Resources/Fonts &amp; Materials/Electronic Highway Sign SDF.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Examples &amp; Extras/Resources/Fonts &amp; Materials/Electronic Highway Sign SDF.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Examples &amp; Extras/Resources/Fonts &amp; Materials/Oswald Bold SDF.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Examples &amp; Extras/Resources/Fonts &amp; Materials/Oswald Bold SDF.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Examples &amp; Extras/Resources/Fonts &amp; Materials/Roboto-Bold SDF.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Examples &amp; Extras/Resources/Fonts &amp; Materials/Roboto-Bold SDF.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF - Fallback.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF - Fallback.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Packages/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/manifest.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Packages/packages-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/packages-lock.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -150,6 +151,7 @@
       <workItem from="1710523792759" duration="2684000" />
       <workItem from="1710950479945" duration="199000" />
       <workItem from="1711897031823" duration="2000" />
+      <workItem from="1712070315729" duration="13000" />
     </task>
     <task id="LOCAL-00001" summary="Refactor Bad Code">
       <option name="closed" value="true" />
