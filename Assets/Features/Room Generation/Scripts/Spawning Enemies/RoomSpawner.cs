@@ -85,7 +85,7 @@ namespace RoomGeneration
 
         IEnumerator SpawnEnemiesCoroutine()
         {
-            yield return new WaitForSeconds(1.3f);
+            yield return new WaitForSeconds(130f);
             if (HasPlayer)
             {
                 SpawnEnemies();
