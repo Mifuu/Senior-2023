@@ -63,7 +63,8 @@ namespace RoomGeneration.Minimap
             entityIcons.Add(minimapEntity, icon);
 
             // anchor if needed
-            if (minimapEntity.isAnchor)
+            bool isPlayer = minimapEntity.gameObject.transform.parent.GetComponent<PlayerManager>() == PlayerManager.thisClient;
+            if (minimapEntity.isAnchor && isPlayer)
             {
                 minimapAnchorEntity.icon = icon;
             }

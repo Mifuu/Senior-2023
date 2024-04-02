@@ -54,10 +54,12 @@ namespace GameplayUI
 
         public void MapInput()
         {
+            /*
             if (stack.Peek() == PanelType.Map)
                 stack.Pop();
             else
                 stack.Push(PanelType.Map);
+            */
         }
 
         public void SkillCardInput()

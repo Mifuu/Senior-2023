@@ -10,20 +10,40 @@ public class PlayerDash : NetworkBehaviour
 
     [SerializeField] private float dashSpeed = 30f;
     [SerializeField] private float dashTime = 0.2f;
-    [SerializeField] private float dashCooldown = 1.0f;
-
+    [SerializeField] private float dashCooldown = 5.0f;
+    [SerializeField] private int baseDashCount = 1;
+    [SerializeField] public NetworkVariable<int> DashBuffAddition { get; set; } = new NetworkVariable<int>(0);
+    private int dashBuffAdditionBefore;
+    public int maxDashCount = 1;
+    public int currentDashCount;
     private bool isDashing = false;
-    private bool isOnCooldown = false;
+    private bool isRefreshing = false;
 
     void Start()
     {
         controller = GetComponent<CharacterController>();
         motor = GetComponent<PlayerMotor>();
+        RecalculateTotalDashCount();
+        dashBuffAdditionBefore = DashBuffAddition.Value;
+        currentDashCount = maxDashCount;
+        DashBuffAddition.OnValueChanged += (prev, current) => RecalculateTotalDashCount();
+    }
+
+    private void RecalculateTotalDashCount()
+    {
+        maxDashCount = baseDashCount + DashBuffAddition.Value;
+        InitializedDashBuffAdditionChanged();
+    }
+
+    private void InitializedDashBuffAdditionChanged()
+    {
+        int dashBuffAdditionDifference = DashBuffAddition.Value - dashBuffAdditionBefore;
+        currentDashCount += dashBuffAdditionDifference;
     }
 
     public void Dash(Vector2 input)
     {
-        if (isDashing || isOnCooldown || !IsOwner) return;
+        if (isDashing || currentDashCount == 0 || !IsOwner) return;
         Vector3 dashDirection = CalculateDashDirection(input);
         StartCoroutine(PerformDash(dashDirection));
         StartCoroutine(DashCooldown());
@@ -53,10 +73,23 @@ public class PlayerDash : NetworkBehaviour
         isDashing = false;
     }
 
+    // Continuously refill the currentDashCount until it reached maxDashCount
     private IEnumerator DashCooldown()
     {
-        isOnCooldown = true;
-        yield return new WaitForSeconds(dashCooldown);
-        isOnCooldown = false;
+        currentDashCount--;
+        if (isRefreshing) yield return 0;
+        isRefreshing = true;
+        while (currentDashCount < maxDashCount)
+        {
+            yield return new WaitForSeconds(dashCooldown);
+            currentDashCount++;
+        }
+        isRefreshing = false;
+  
+        if (currentDashCount > maxDashCount )
+        {
+            currentDashCount = maxDashCount; // Cap the dash count to the max dash count
+        }
     }
 }
+

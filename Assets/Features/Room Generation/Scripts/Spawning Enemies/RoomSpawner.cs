@@ -2,12 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
+using UnityEngine.AI;
 using Enemy;
 
 namespace RoomGeneration
 {
     public class RoomSpawner : MonoBehaviour
     {
+        // Debug
+        public static List<Vector3> checkPoses = new List<Vector3>();
+
         [Header("Requirements")]
         public RoomDataPlotter roomDataPlotter;
         RoomGenerator roomGenerator;
@@ -17,6 +21,9 @@ namespace RoomGeneration
         public float distanceFromRaycast = 2;
         public Vector2Int spawnCountRange = new Vector2Int(10, 10);
         public EnemyRandomPool enemyPrefabPool;
+
+        // playtime cache
+        List<RoomSpawnerCollider> roomSpawnerColliders = new List<RoomSpawnerCollider>();
 
         public bool HasPlayer { get => playerEnterCount > playerExitCount; }
         [ReadOnly]
@@ -36,6 +43,7 @@ namespace RoomGeneration
             {
                 RoomSpawnerCollider roomSpawnerCollider = box.AddComponent<RoomSpawnerCollider>();
                 roomSpawnerCollider.Init(this);
+                roomSpawnerColliders.Add(roomSpawnerCollider);
             }
         }
 
@@ -63,8 +71,7 @@ namespace RoomGeneration
             {
                 // spawn enemies
                 // Debug.Log("Spawning enemies...");
-                SpawnEnemies();
-                timeSinceSpawn = 0.1f;
+                StartCoroutine(SpawnEnemiesCoroutine());
             }
         }
 
@@ -74,6 +81,16 @@ namespace RoomGeneration
             playerExitCount--;
             if (!HasPlayer)
                 timeSincePlayerExit = 0.1f;
+        }
+
+        IEnumerator SpawnEnemiesCoroutine()
+        {
+            yield return new WaitForSeconds(1.3f);
+            if (HasPlayer)
+            {
+                SpawnEnemies();
+                timeSinceSpawn = 0.1f;
+            }
         }
 
         public void SpawnEnemies()
@@ -92,14 +109,21 @@ namespace RoomGeneration
                 {
                     // distance from raycast hit
                     // Vector3 spawnPosition = hit.point;
-                    // Vector3 spawnPosition = hit.point + hit.normal * distanceFromRaycast;
-                    Vector3 spawnPosition = transform.position;
+                    Vector3 spawnPosition = hit.point + hit.normal * distanceFromRaycast;
+                    checkPoses.Add(spawnPosition);
+                    // Vector3 spawnPosition = transform.position;
 
                     // spawn enemy
                     GameObject enemyPrefab = enemyPrefabPool.GetRandomPrefab();
-                    if (enemyPrefab != null)
+                    NavMeshHit navHit;
+                    if (enemyPrefab != null && NavMesh.SamplePosition(spawnPosition, out navHit, 1000f, NavMesh.AllAreas))
                     {
-                        var enemy = NetworkObjectPool.Singleton.GetNetworkObject(enemyPrefab, spawnPosition, Quaternion.identity);
+                        var enemy = NetworkObjectPool.Singleton.GetNetworkObject(enemyPrefab, navHit.position, Quaternion.identity);
+
+                        var navmeshagent = enemy.GetComponent<NavMeshAgent>();
+                        navmeshagent.enabled = false;
+                        navmeshagent.enabled = true;
+
                         enemy.Spawn();
                         enemy.transform.position = spawnPosition;
 
@@ -133,6 +157,15 @@ namespace RoomGeneration
             float z = Mathf.Sin(phi) * Mathf.Sin(theta);
 
             return new Vector3(x, y, z);
+        }
+
+        void OnDrawGizmos()
+        {
+            Gizmos.color = Color.red;
+            foreach (Vector3 pos in checkPoses)
+            {
+                Gizmos.DrawSphere(pos, 0.3f);
+            }
         }
     }
 }
