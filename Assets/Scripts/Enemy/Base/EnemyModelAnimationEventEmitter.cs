@@ -7,6 +7,7 @@ public class EnemyModelAnimationEventEmitter : NetworkBehaviour
     public event Action OnIdleAnimationEnds;
     public event Action OnKnockbackAnimationEnds;
     public event Action OnChaseAnimationEnds;
+    public event Action OnPhaseChangeAnimationEnds;
 
     public void TriggerAttackAnimationEnds()
     {
@@ -26,5 +27,10 @@ public class EnemyModelAnimationEventEmitter : NetworkBehaviour
     public void TriggerChaseAnimationEnds()
     {
         OnChaseAnimationEnds?.Invoke();
+    }
+
+    public void TriggerPhaseChangeAnimationEnds()
+    {
+        OnPhaseChangeAnimationEnds?.Invoke();
     }
 }

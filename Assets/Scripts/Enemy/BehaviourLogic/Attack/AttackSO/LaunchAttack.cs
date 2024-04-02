@@ -12,9 +12,9 @@ namespace Enemy
         [SerializeField] private float damagableTime = 1.0f;
         private bool canDamage = false;
 
-        public override void Initialize(GameObject targetPlayer, GameObject enemyGameObject)
+        public override void Initialize(GameObject targetPlayer, GameObject enemyGameObject, DamageCalculationComponent component = null)
         {
-            base.Initialize(targetPlayer, enemyGameObject);
+            base.Initialize(targetPlayer, enemyGameObject, component);
             // Make sure to recheck the name and check that the EnemyTriggerCheck is in there
             var hitbox = enemy.transform.Find("HitBox")?.gameObject.GetComponentInChildren<EnemyTriggerCheck>();
             if (hitbox == null)

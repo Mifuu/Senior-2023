@@ -16,9 +16,9 @@ namespace Enemy
 
         private EnemyWithinTriggerCheck hitbox;
 
-        public override void Initialize(GameObject targetPlayer, GameObject enemyGameObject)
+        public override void Initialize(GameObject targetPlayer, GameObject enemyGameObject, DamageCalculationComponent component = null)
         {
-            base.Initialize(targetPlayer, enemyGameObject);
+            base.Initialize(targetPlayer, enemyGameObject, component);
             hitbox = enemy.transform.Find("DamageBox")?.GetComponent<EnemyWithinTriggerCheck>();
             if (hitbox == null) Debug.LogError("Enemy has no Damagebox");
         }

@@ -30,3 +30,4 @@ MonoBehaviour:
   maximumTotalWeight: 40
   attackState: {fileID: 11400000, guid: 09fd4ae6f64a44843a49e9fc078c11ba, type: 2}
   spawnManagerId: StatueSpawner
+  hijackDamageComponent: 1

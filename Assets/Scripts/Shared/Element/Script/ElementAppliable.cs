@@ -69,6 +69,8 @@ public class ElementAppliable : NetworkBehaviour
 
     public void TryApplyElement(GameObject applier, ElementalDamageParameter elementalDamageParameter, TemporaryGunType gunType)
     {
+        if (elementalDamageParameter.elementEntity == null) return;
+
         int currentGunTypeWeight;
         if (!applyWeightDict.TryGetValue(gunType, out currentGunTypeWeight))
             currentGunTypeWeight = defaultWeaponApplyWeight;

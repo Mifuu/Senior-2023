@@ -8,9 +8,9 @@ namespace Enemy
         PersonalEnemySpawnManager spawnManager;
         [SerializeField] private string spawnManagerId;
 
-        public override void Initialize(GameObject targetPlayer, GameObject enemyGameObject)
+        public override void Initialize(GameObject targetPlayer, GameObject enemyGameObject, DamageCalculationComponent component = null)
         {
-            base.Initialize(targetPlayer, enemyGameObject);
+            base.Initialize(targetPlayer, enemyGameObject, component);
             var allSpawnManager = enemy.gameObject.GetComponentsInChildren<PersonalEnemySpawnManager>();
             foreach (var manager in allSpawnManager)
             {

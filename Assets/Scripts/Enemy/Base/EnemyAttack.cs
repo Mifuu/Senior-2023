@@ -17,11 +17,14 @@ namespace Enemy
         public event Action OnAttackEnds;
         public HashSet<IDamageCalculatable> processedDamagable;
 
-        public virtual void Initialize(GameObject targetPlayer, GameObject enemyGameObject)
+        public virtual void Initialize(GameObject targetPlayer, GameObject enemyGameObject, DamageCalculationComponent component = null)
         {
             this.enemy = enemyGameObject.GetComponent<EnemyBase>();
             this.enemyGameObject = enemyGameObject;
-            this.damageComponent = enemyGameObject.GetComponent<DamageCalculationComponent>();
+            if (component == null)
+                this.damageComponent = enemyGameObject.GetComponent<DamageCalculationComponent>();
+            else 
+                this.damageComponent = component;
             ResetProcessedDamageable();
         }
 
