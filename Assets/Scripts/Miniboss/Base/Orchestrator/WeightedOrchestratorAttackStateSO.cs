@@ -70,7 +70,7 @@ namespace Enemy
                     try
                     {
                         var enemyId = enemy.GetComponent<NetworkObject>().NetworkObjectId;
-                        Debug.Log("Hijacking with " + (hijackDamageComponent ? this.enemy.dealerPipeline : null));
+                        // Debug.Log("Hijacking with " + (hijackDamageComponent ? this.enemy.dealerPipeline : null));
                         var returnedState = hijackable.HijackAttackStateInitializeOnly(FormAttackState(), (hijackDamageComponent ? this.enemy.dealerPipeline : null));
                         aliveEnemyState.Add(enemyId, returnedState);
                     }
