@@ -42,7 +42,7 @@ namespace Enemy
             this.target = target;
             this.bulletOwner = bulletOwner;
 
-            Debug.Log("Component: " + component);
+            // Debug.Log("Component: " + component);
 
             var targetPlayer = target.GetComponent<PlayerHealth>();
             targetPlayer.OnPlayerDie += Die;
@@ -52,7 +52,7 @@ namespace Enemy
             else
                 this.component = component;
 
-            Debug.Log("This component: " + this.component);
+            // Debug.Log("This component: " + this.component);
         }
 
         public void FixedUpdate()

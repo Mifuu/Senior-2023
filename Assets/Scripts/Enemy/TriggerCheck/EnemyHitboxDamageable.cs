@@ -34,7 +34,7 @@ namespace Enemy
         {
             if (!IsServer) return;
             var trueDamageAmount = CalculateDamage(damageInfo);
-            DebugDamageInfo(damageInfo);
+            // DebugDamageInfo(damageInfo);
             enemy.Damage(trueDamageAmount, damageInfo.dealer);
             enemy.OnTargetPlayerChangeRequired(damageInfo.dealer);
         }

@@ -44,7 +44,7 @@ namespace Enemy
 
             currentHealth.OnValueChanged += CheckHealthForPhaseChange;
             currentHealth.OnValueChanged += UpdateReportedHealth;
-            currentHealth.OnValueChanged += DebugHealth;
+            // currentHealth.OnValueChanged += DebugHealth;
 
             tossakanSpawnerRef.OnEnemySpawns += SetupTossakanDamageable;
             tossakanSpawnerRef.OnEnemySpawns += SetupTossakanAnimationEventEmitter;
