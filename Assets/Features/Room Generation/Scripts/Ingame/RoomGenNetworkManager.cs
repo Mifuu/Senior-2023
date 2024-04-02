@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
+using RoomGeneration.Minimap;
 
 namespace RoomGeneration
 {
@@ -77,6 +78,7 @@ namespace RoomGeneration
             Debug.Log("Client ID: " + NetworkManager.Singleton.LocalClientId + " generated rooms in " + (Time.realtimeSinceStartup - startTime) + " seconds");
 
             onGenerateLevel?.Invoke();
+            MinimapDisplay.instance.Generate();
         }
 
         /*
