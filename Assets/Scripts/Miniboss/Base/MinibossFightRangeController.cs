@@ -18,13 +18,6 @@ namespace Enemy
         [Header("State Machine Set up")]
         [SerializeField] private EnemyStateMachine stateMachine;
 
-        [Header("Location Marker Setup")]
-        [SerializeField] private Animator locationMarkerPrefab;
-        [SerializeField] private bool useLocationMarker;
-        private Animator locationMarkerInstance;
-        public readonly int spawnAnimation = Animator.StringToHash("Spawn");
-        public readonly int despawnAnimation = Animator.StringToHash("Despawn");
-
         private EnemyWithinTriggerCheck enterFightCheckInstance;
         private EnemyWithinTriggerCheck exitFightCheckInstance;
         private NetworkVariable<bool> isFightActivated = new NetworkVariable<bool>(false);
@@ -50,8 +43,6 @@ namespace Enemy
                     networkObject.Spawn();
                 SetupExitTrigger(checkInstance);
             }
-
-            SpawnMarker();
         }
 
         public override void OnNetworkDespawn()
@@ -113,7 +104,6 @@ namespace Enemy
             {
                 isFightActivated.Value = true;
                 stateMachine.StartStateMachine();
-                DespawnMarker();
                 OnMinibossFightEnter?.Invoke();
             }
         }
@@ -125,26 +115,9 @@ namespace Enemy
                 isFightActivated.Value = false;
                 stateMachine.StopStateMachine();
                 stateMachine.ResetStateMachine();
-                SpawnMarker();
                 OnMinibossFightExit?.Invoke();
             }
         }
 
-        private void SpawnMarker()
-        {
-            if (!useLocationMarker) return;
-            var markerInstance = Instantiate(locationMarkerPrefab, transform.position, locationMarkerPrefab.transform.rotation);
-            if (markerInstance.TryGetComponent<NetworkObject>(out var networkObject))
-                networkObject.Spawn();
-            markerInstance.SetTrigger(spawnAnimation);
-            locationMarkerInstance = markerInstance;
-        }
-
-        private void DespawnMarker()
-        {
-            if (!useLocationMarker) return;
-            if (locationMarkerInstance == null) return;
-            locationMarkerInstance.SetTrigger(despawnAnimation);
-        }
     }
 }
