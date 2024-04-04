@@ -74,18 +74,19 @@ public class PlayerInteract : NetworkBehaviour
     public void DropHoldingGun()
     {
         if (!IsOwner) return;
-        if (switchWeapon.guns.Length == 1) return; // make player can't drop if has only 1 gun
+        if (switchWeapon.guns.Length == 1) return; // make player unable to drop if has only 1 gun
 
         int currentGunIndex = switchWeapon.currentGunIndex.Value;
         if (switchWeapon.guns[currentGunIndex] != null)
         {
             if (switchWeapon.guns[currentGunIndex].CanShoot()) 
             {
-                // calculate gun drop position
+                // calculate gun drop position & get gun element
                 Vector3 spawnPosition = transform.position + transform.forward * 1;
                 Vector3 aimDir = (cam.transform.forward).normalized;
                 Quaternion gunRotation = Quaternion.LookRotation(aimDir, Vector3.up);
-                DropHoldingGunServerRpc(spawnPosition, gunRotation);
+                ElementalType gunElement = switchWeapon.guns[currentGunIndex].GetComponent<ElementAttachable>().element;
+                DropHoldingGunServerRpc(spawnPosition, gunRotation, gunElement);
             }
         }
         else
@@ -95,7 +96,7 @@ public class PlayerInteract : NetworkBehaviour
     }
 
     [ServerRpc]
-    private void DropHoldingGunServerRpc(Vector3 playerPosition, Quaternion playerRotation)
+    private void DropHoldingGunServerRpc(Vector3 playerPosition, Quaternion playerRotation, ElementalType gunElement)
     {
         // destroy the gun that player is holding
         int currentGunIndex = switchWeapon.currentGunIndex.Value;
@@ -106,10 +107,11 @@ public class PlayerInteract : NetworkBehaviour
 
         // spawn the counterpart of the gun infront of the player
         var gunObject = Instantiate(gunToDrop.gameObject, playerPosition, playerRotation);
+        gunObject.GetComponent<ElementAttachable>().element = gunElement;
         var networkGunObject = gunObject.GetComponent<NetworkObject>();
         networkGunObject.Spawn();
 
-        // update the gun list on player's gunHolder
+        // update gun list on player's gunHolder
         switchWeapon.UpdateGunList();
     }
 }
