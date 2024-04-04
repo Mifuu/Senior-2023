@@ -380,7 +380,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   aggroDistanceTriggerCheck: {fileID: 7161197138267151029}
-  <maxHealth>k__BackingField: 2000
+  networkMaxHealth:
+    m_InternalValue: 0
+  <maxHealth>k__BackingField: 100
+  maxDistanceSquared: 3000
   EnemyAttackBase: {fileID: 11400000, guid: 630b896d110854841be2dffd8f01818b, type: 2}
   EnemyIdleBase: {fileID: 11400000, guid: 14134fe2c295e9544a5547525c22c16b, type: 2}
   EnemyChaseBase: {fileID: 11400000, guid: f0de20db2f3463e48b7db5c836ced6d3, type: 2}
@@ -539,6 +542,7 @@ MonoBehaviour:
   defaultBaseDMGReceiveFactor: 1
   defaultElementalDmg: 1
   defaultElementalRES: 1
+  defaultBaseEXP: 20
   Level:
     m_InternalValue: 1
 --- !u!114 &-8698348121100161140

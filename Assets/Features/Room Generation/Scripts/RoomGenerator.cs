@@ -113,6 +113,9 @@ namespace RoomGeneration
                 int rot90Factor = 0;
                 if (roomData.enableRot90Variant)
                     rot90Factor = Random.Range(0, 4);
+                Debug.Log($"roomData: {roomData == null}");
+                Debug.Log($"roomData.roomDoorData: {roomData.roomDoorData == null}");
+                Debug.Log($"roomData.roomDoorData.doorDatas: {roomData.roomDoorData.doorDatas == null}");
                 CandidateDoor firstDoor = new CandidateDoor(roomData.roomDoorData.doorDatas[0], rot90Factor);
 
                 // add room

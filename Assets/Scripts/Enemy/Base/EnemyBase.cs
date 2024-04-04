@@ -5,12 +5,15 @@ using System;
 
 namespace Enemy
 {
+    [RequireComponent(typeof(EnemyStat))]
     public class EnemyBase : NetworkBehaviour, IDamageable
     {
         [Header("Preset Value")]
         [SerializeField] private EnemyTriggerCheck aggroDistanceTriggerCheck;
+        public NetworkVariable<float> networkMaxHealth = new NetworkVariable<float>(0f);
         [field: SerializeField] public float maxHealth { get; set; }
         public NetworkVariable<float> currentHealth { get; set; } = new NetworkVariable<float>(0.0f); // NetworkVariable must be initialized
+        [SerializeField] private float maxDistanceSquared = 5000f;
 
         #region State ScriptableObject Variable
 
@@ -98,20 +101,36 @@ namespace Enemy
 
         public override void OnNetworkSpawn()
         {
+            base.OnNetworkSpawn();
             if (!initialSetupComplete)
             {
                 initialSetupComplete = true;
-
-                if (!IsServer) ClientSetup();
-                else ServerSetup();
+                if (IsServer) ServerSetup();
+                else ClientSetup();
             }
 
+            if (IsServer)
+                networkMaxHealth.Value = maxHealth;
+
+            networkMaxHealth.OnValueChanged += AdjustMaxHealth;
             OnEnemySpawn();
+        }
+
+        public override void OnNetworkDespawn()
+        {
+            base.OnNetworkDespawn();
+            networkMaxHealth.OnValueChanged -= AdjustMaxHealth;
+        }
+
+        public override void OnDestroy()
+        {
+            // Debug.LogWarning(gameObject + " has been destroyed");
+            if (IsServer) ServerDesetup();
         }
 
         private void ClientSetup()
         {
-            Debug.Log(gameObject + " Running Non Server Setup");
+            // Debug.Log(gameObject + " Running Non Server Setup");
             enabled = false;
             StateMachine.enabled = false;
             Destroy(navMeshAgent);
@@ -122,7 +141,7 @@ namespace Enemy
 
         private void ServerSetup()
         {
-            Debug.Log(gameObject + " Running Server Setup");
+            // Debug.Log(gameObject + " Running Server Setup");
             EnemyChaseBaseInstance = Instantiate(EnemyChaseBase);
             EnemyAttackBaseInstance = Instantiate(EnemyAttackBase);
             EnemyIdleBaseInstance = Instantiate(EnemyIdleBase);
@@ -140,10 +159,19 @@ namespace Enemy
 
             StateMachine.Initialize(IdleState);
 
-            rigidBody.isKinematic = false;
-            rigidBody.useGravity = false;
+            if (rigidBody != null)
+            {
+                rigidBody.isKinematic = false;
+                rigidBody.useGravity = false;
+            }
 
-            aggroDistanceTriggerCheck.OnHitboxTriggerEnter += (Collider other) => OnTargetPlayerChangeRequired(other.gameObject);
+            aggroDistanceTriggerCheck.OnHitboxTriggerEnter += ChangeTargetPlayerFromCollision;
+        }
+
+        private void ServerDesetup()
+        {
+            aggroDistanceTriggerCheck.OnHitboxTriggerEnter -= ChangeTargetPlayerFromCollision;
+            CleanUp();
         }
 
         private void OnEnemySpawn()
@@ -154,20 +182,21 @@ namespace Enemy
             // StateMachine.ChangeState(IdleState);
         }
 
-        public void Damage(float damageAmount, GameObject dealer)
+        public virtual void Damage(float damageAmount, GameObject dealer)
         {
             if (!IsServer || !isActiveAndEnabled) return;
-            if (dealer.TryGetComponent<EnemyBase>(out EnemyBase enemy)) return; // Prevent Friendly fire
+            if (dealer != null)
+                if (dealer.TryGetComponent<EnemyBase>(out EnemyBase enemy)) return; // Prevent Friendly fire
+
             currentHealth.Value -= damageAmount;
             SpawnDamageFloatingClientRpc(Mathf.Round(damageAmount).ToString());
+
             if (currentHealth.Value <= 0f)
-            {
                 Die(dealer);
-            }
         }
 
         [ClientRpc]
-        private void SpawnDamageFloatingClientRpc(string value)
+        protected void SpawnDamageFloatingClientRpc(string value)
         {
             if (damageFloatingSpawner != null)
                 damageFloatingSpawner.Spawn(value);
@@ -176,17 +205,21 @@ namespace Enemy
         public void Die(GameObject dealer)
         {
             if (!IsServer || !isActiveAndEnabled) return;
-            if (dealer != null) dealer.GetComponent<PlayerLevel>()?.AddExp(100); // TODO: Change the EXP to be based on the level of enemy
+
+            if (dealer != null)
+                dealer.GetComponent<PlayerLevel>()?.AddExp(stat.BaseEXP.Value);
+
             CleanUp();
             OnEnemyDie?.Invoke();
-            var enemyNetworkObject = GetComponent<NetworkObject>();
-            enemyNetworkObject.Despawn();
-            // NetworkObjectPool.Singleton.ReturnNetworkObject(enemyNetworkObject, gameObject);
+
+            if (TryGetComponent<NetworkObject>(out var enemyNetworkObject))
+                enemyNetworkObject.Despawn();
         }
 
         private void CleanUp()
         {
             // Place for more clean up logic, animation etc.
+            // Debug.Log(gameObject + " is performing clean up");
             DesetupTargetPlayer();
         }
 
@@ -201,6 +234,8 @@ namespace Enemy
         //     EnemyDamaged,
         //     PlayFootstepSounds
         // }
+
+        private void ChangeTargetPlayerFromCollision(Collider other) => OnTargetPlayerChangeRequired(other.gameObject);
 
         private bool CheckIsNewPlayer(GameObject objectToCheck) => objectToCheck.GetComponent<PlayerHealth>() != null && objectToCheck != targetPlayer;
 
@@ -221,7 +256,8 @@ namespace Enemy
                     closestDistanceSqr = distanceSqr;
                 }
             }
-
+            // Allow Enemy to search only to a certain distance
+            if (closestDistanceSqr > maxDistanceSquared) return null;
             return closestPlayer;
         }
 
@@ -257,8 +293,12 @@ namespace Enemy
 
         private void DesetupTargetPlayer()
         {
-            var playerHealth = targetPlayer.GetComponent<PlayerHealth>();
-            playerHealth.OnPlayerDie -= OnTargetPlayerRefindRequired;
+            if (targetPlayer != null && targetPlayer.TryGetComponent<PlayerHealth>(out var playerHealth))
+            {
+                // Debug.Log(gameObject + " Unsub from OnPlayerDie");
+                playerHealth.OnPlayerDie -= OnTargetPlayerRefindRequired;
+            }
+
             targetPlayer = null;
         }
 
@@ -268,16 +308,17 @@ namespace Enemy
             ChangeTargetPlayerClientRpc(newTargetPlayer.GetComponent<NetworkObject>());
 
             // Setup target player, such as subscribe to player die event
-            var playerHealth = targetPlayer.GetComponent<PlayerHealth>();
-            playerHealth.OnPlayerDie += OnTargetPlayerRefindRequired;
+            if (targetPlayer.TryGetComponent<PlayerHealth>(out var playerHealth))
+                playerHealth.OnPlayerDie += OnTargetPlayerRefindRequired;
         }
+
+        private void AdjustMaxHealth(float prev, float current) => maxHealth = current;
 
         [ClientRpc]
         private void ChangeTargetPlayerClientRpc(NetworkObjectReference targetPlayerRef)
         {
             if (targetPlayerRef.TryGet(out NetworkObject targetPlayerNetworkObj, NetworkManager.Singleton))
             {
-                // Debug.Log(gameObject + " has new Target Player: " + targetPlayerNetworkObj);
                 targetPlayer = targetPlayerNetworkObj.gameObject;
             }
             else
@@ -285,8 +326,5 @@ namespace Enemy
                 Debug.LogError("Target Player Not found");
             }
         }
-
-        [ClientRpc]
-        public void ChangeMaxHealthClientRpc(float newMaxHealth) => maxHealth = newMaxHealth;
     }
 }

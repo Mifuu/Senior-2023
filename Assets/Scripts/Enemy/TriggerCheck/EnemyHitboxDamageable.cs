@@ -5,12 +5,12 @@ namespace Enemy
 {
     public class EnemyHitboxDamageable : NetworkBehaviour, IDamageCalculatable
     {
-        private EnemyBase enemy;
-        private DamageCalculationComponent damageComponent;
+        protected EnemyBase enemy;
+        protected DamageCalculationComponent damageComponent;
 
         [SerializeField] private float simpleDamageFactor = 1.0f;
 
-        public void Start()
+        public virtual void Start()
         {
             enemy = GetComponentInParent<EnemyBase>(true);
             damageComponent = GetComponentInParent<DamageCalculationComponent>();
@@ -34,8 +34,20 @@ namespace Enemy
         {
             if (!IsServer) return;
             var trueDamageAmount = CalculateDamage(damageInfo);
+            // DebugDamageInfo(damageInfo);
             enemy.Damage(trueDamageAmount, damageInfo.dealer);
             enemy.OnTargetPlayerChangeRequired(damageInfo.dealer);
+        }
+
+        private void DebugDamageInfo(DamageInfo info)
+        {
+            Debug.Log("------------------");
+            Debug.Log("Dealer: " + info.dealer);
+            Debug.Log("Amount: " + info.amount);
+            Debug.Log("Element: " + info.elementalDamageParameter.element);
+            Debug.Log("Element Entity: " + info.elementalDamageParameter.elementEntity);
+            Debug.Log("Gun type" + info.gunType);
+            Debug.Log("------------------");
         }
 
         public float getCurrentHealth() => enemy.currentHealth.Value;

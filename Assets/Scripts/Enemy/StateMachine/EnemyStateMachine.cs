@@ -6,13 +6,19 @@ namespace Enemy
     public class EnemyStateMachine : NetworkBehaviour
     {
         public enum AvailableEnemyState { None, Idle, Chase, Attack, Knockback }
+        public enum AvailableStateMachineState { NotStarted, Running, Paused, Stopped }
+
         public EnemyState CurrentEnemyState { get; set; }
         public NetworkVariable<AvailableEnemyState> networkEnemyState = new NetworkVariable<AvailableEnemyState>(AvailableEnemyState.None);
+        public NetworkVariable<AvailableStateMachineState> stateMachineState
+            = new NetworkVariable<AvailableStateMachineState>(AvailableStateMachineState.NotStarted);
+
+        [SerializeField] private bool startStateMachineOnInitialize = true;
 
         private EnemyBase enemy;
         private EnemyState startingState;
         private bool isInitialized = false;
-        private bool isStateMachineRunning = false;
+        private AvailableEnemyState temporaryStateHolder = AvailableEnemyState.Idle;
 
         public void Awake()
         {
@@ -23,43 +29,100 @@ namespace Enemy
         {
             this.startingState = startingState;
             this.isInitialized = true;
-            if (!isStateMachineRunning) StartStateMachine();
+            if (startStateMachineOnInitialize) StartStateMachine();
         }
 
         public void StartStateMachine()
         {
-            if (!IsServer || isStateMachineRunning) return;
+            if (stateMachineState.Value != AvailableStateMachineState.NotStarted)
+            {
+                Debug.LogWarning("State Machine is already started");
+                return;
+            }
 
-            isStateMachineRunning = true;
-            networkEnemyState.Value = startingState.stateId;
+            if (!enemy.enabled) enemy.enabled = true;
+            if (!IsServer) return;
+
+            stateMachineState.Value = AvailableStateMachineState.Running;
+            // networkEnemyState.Value = startingState.stateId;
             CurrentEnemyState = startingState;
             CurrentEnemyState.EnterState();
         }
 
-        public void ChangeState(EnemyState newState)
+        public void ChangePauseStateMachine(bool isPause)
         {
             if (!IsServer) return;
-            // Debug.Log("New State: " + newState.stateId);
+
+            if (stateMachineState.Value == AvailableStateMachineState.Running && isPause)
+            {
+                temporaryStateHolder = networkEnemyState.Value;
+                stateMachineState.Value = AvailableStateMachineState.Paused;
+                networkEnemyState.Value = AvailableEnemyState.Idle;
+            }
+
+            if (stateMachineState.Value == AvailableStateMachineState.Paused && !isPause)
+            {
+                temporaryStateHolder = AvailableEnemyState.Idle;
+                stateMachineState.Value = AvailableStateMachineState.Running;
+                networkEnemyState.Value = temporaryStateHolder;
+            }
+        }
+
+        public void StopStateMachine()
+        {
+            if (!IsServer) return;
+
+            if (stateMachineState.Value != AvailableStateMachineState.Running)
+            {
+                Debug.LogWarning("Can not stop state machine at current state");
+                return;
+            }
+
+            CurrentEnemyState.ExitState();
+            stateMachineState.Value = AvailableStateMachineState.Stopped;
+            networkEnemyState.Value = AvailableEnemyState.Idle;
+        }
+
+        public void ResetStateMachine()
+        {
+            if (!IsServer) return;
+
+            if (stateMachineState.Value != AvailableStateMachineState.Stopped)
+            {
+                Debug.LogWarning("Can not reset state machine at current state");
+                return;
+            }
+
+            stateMachineState.Value = AvailableStateMachineState.NotStarted;
+            networkEnemyState.Value = startingState.stateId;
+        }
+
+        public void ChangeState(EnemyState newState)
+        {
+            if (!IsServer || stateMachineState.Value != AvailableStateMachineState.Running) return;
             networkEnemyState.Value = newState.stateId;
         }
 
         public override void OnNetworkSpawn()
         {
             base.OnNetworkSpawn();
-            if (!IsServer) return;
+            // if (!IsServer) return;
 
             networkEnemyState.OnValueChanged += SynchronizeState;
-            if (isInitialized && !isStateMachineRunning) StartStateMachine();
+            if (isInitialized && startStateMachineOnInitialize)
+                StartStateMachine();
+            else
+                enemy.enabled = false;
         }
 
         public override void OnNetworkDespawn()
         {
             base.OnNetworkDespawn();
-            if (!IsServer) return;
-
-            isStateMachineRunning = false;
-            networkEnemyState.Value = AvailableEnemyState.None;
             networkEnemyState.OnValueChanged -= SynchronizeState;
+
+            if (!IsServer) return;
+            networkEnemyState.Value = startingState.stateId;
+            stateMachineState.Value = AvailableStateMachineState.NotStarted;
         }
 
         public void SynchronizeState(AvailableEnemyState _, AvailableEnemyState current)
