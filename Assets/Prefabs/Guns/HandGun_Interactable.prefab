@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 4889911461758116537}
   - component: {fileID: -615457516996193254}
   - component: {fileID: -3230972854879084583}
+  - component: {fileID: -847715593604089077}
   m_Layer: 0
   m_Name: HandGun_Interactable
   m_TagString: Untagged
@@ -161,8 +162,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a0e4832f4cd4cc4b8d3a0a662314ae2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  interactableItemPrefab: {fileID: 0}
   promptMessage: '[F] Pick up'
   gunCounterpart: {fileID: 4122741058421460406, guid: d91f72630ba59bf4d93b9772eef74503, type: 3}
+--- !u!114 &-847715593604089077
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 624027110151489406}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d52bb18434f18b4391b8af7c7d25928, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  element: 0
 --- !u!1 &4919616838328120068
 GameObject:
   m_ObjectHideFlags: 0
