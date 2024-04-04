@@ -12,6 +12,8 @@ namespace GameplayUI
         public GameplayUIStack stack;
         public GameplayUIController controller;
         public GameplayUIPlayPanel playPanel;
+        public GameplayUIStats statsPanel;
+        public GameplayUIRespawn respawnPanel;
 
         void Awake()
         {
