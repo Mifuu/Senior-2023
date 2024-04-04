@@ -10,6 +10,11 @@ public abstract class InteractableItem : NetworkBehaviour
 
     public void BaseInteract(GameObject playerObject)
     {
+        if (playerObject == null)
+        {
+            Debug.LogError("Interactable Item Script: Game Object of the interacted player is null");
+            return;
+        }
         Interact(playerObject);
     }
 

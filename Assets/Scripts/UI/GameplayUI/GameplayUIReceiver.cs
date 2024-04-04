@@ -10,6 +10,7 @@ namespace GameplayUI
     {
         [SerializeField] private GameplayUIManager manager;
         [SerializeField] private GameplayUIPlayPanel playPanel;
+        [SerializeField] private GameplayUIInventoryPanel inventoryPanel;
 
         public static GameplayUIReceiver Instance { get; private set; }
 
@@ -48,6 +49,7 @@ namespace GameplayUI
             playPanel.UpdateUpgradeSkillCardText(point);
         }
 
+        /*
         public void UpdateKeyText(int keyValue)
         {
             playPanel.UpdateKeyText(keyValue);
@@ -69,6 +71,30 @@ namespace GameplayUI
         public void UpdateWindShardText(int Value)
         {
             playPanel.UpdateWindShardText(Value);
+        }
+        */
+
+        public void UpdateKeyText(int keyValue)
+        {
+            inventoryPanel.UpdateKeyText(keyValue);
+        }
+
+        public void UpdateWaterShardText(int Value)
+        {
+            inventoryPanel.UpdateWaterShardText(Value);
+        }
+
+        public void UpdateFireShardText(int Value)
+        {
+            inventoryPanel.UpdateFireShardText(Value);
+        }
+        public void UpdateEarthShardText(int Value)
+        {
+            inventoryPanel.UpdateEarthShardText(Value);
+        }
+        public void UpdateWindShardText(int Value)
+        {
+            inventoryPanel.UpdateWindShardText(Value);
         }
     }
 }
