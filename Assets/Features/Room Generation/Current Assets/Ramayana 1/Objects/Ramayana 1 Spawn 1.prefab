@@ -625,7 +625,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isWall: 0
   wallObject: {fileID: 1410617130918283260}
+  wallObjectInitPos: {x: 0, y: 0, z: 0}
   passageObject: {fileID: 5075269974290222455}
+  passageObjectInitPos: {x: 0, y: 0, z: 0}
 --- !u!1001 &172612867504542401
 PrefabInstance:
   m_ObjectHideFlags: 0

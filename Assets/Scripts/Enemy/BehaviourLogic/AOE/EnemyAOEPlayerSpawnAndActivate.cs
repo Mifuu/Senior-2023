@@ -18,7 +18,7 @@ namespace Enemy
             StartCoroutine(AttackCoroutine());
         }
 
-        private Vector3 GetSpawnPosition()
+        protected virtual Vector3 GetSpawnPosition()
         {
             NavMeshHit hit;
             if (NavMesh.SamplePosition(PlayerTarget.transform.position, out hit, 10f, NavMesh.AllAreas))

@@ -12,6 +12,7 @@ namespace Enemy
         [Header("Default Hijacked Attack State")]
         [SerializeField] private EnemyAttackSOBase attackState;
         [SerializeField] private string spawnManagerId;
+        [SerializeField] private bool hijackDamageComponent;
         private List<OrchestrationAttack> listOfOrchestrationAttack = new List<OrchestrationAttack>();
         private OrchestratedSpawnManager spawnManager;
         private EnemyStateMachine stateMachine;
@@ -20,31 +21,25 @@ namespace Enemy
         public override void Initialize(GameObject gameObject, EnemyBase enemy)
         {
             base.Initialize(gameObject, enemy);
-            int oCount = 0; // Debug Purpose Only
             foreach (var attack in weightedAttacks)
             {
                 if (attack.attack is OrchestrationAttack)
-                {
                     listOfOrchestrationAttack.Add(attack.attack as OrchestrationAttack);
-                    oCount++;
-                }
             }
 
             stateMachine = enemy.GetComponent<EnemyStateMachine>();
             var allSpawnManager = gameObject.GetComponentsInChildren<OrchestratedSpawnManager>();
             foreach (var manager in allSpawnManager)
             {
-                Debug.Log(manager.UniqueId);
                 if (manager.UniqueId == spawnManagerId)
                     spawnManager = manager;
             }
-
-            // Debug.Log($"There are {oCount} Orchestrated Attack");
 
             if (spawnManager != null)
             {
                 spawnManager.OnEnemySpawns += HijackAttackState;
                 spawnManager.OnEnemyDies += OnEnemyDiesTeardown;
+                spawnManager.OnAllEnemyDies += OnAllEnemyDiesTeardown;
                 return;
             }
 
@@ -53,7 +48,9 @@ namespace Enemy
 
         public void OnDestroy()
         {
+            spawnManager.OnEnemySpawns -= HijackAttackState;
             spawnManager.OnEnemyDies -= OnEnemyDiesTeardown;
+            spawnManager.OnAllEnemyDies -= OnAllEnemyDiesTeardown;
         }
 
         // Used with OnEnemySpawn from the Spawner
@@ -73,7 +70,8 @@ namespace Enemy
                     try
                     {
                         var enemyId = enemy.GetComponent<NetworkObject>().NetworkObjectId;
-                        var returnedState = hijackable.HijackAttackStateInitializeOnly(FormAttackState());
+                        // Debug.Log("Hijacking with " + (hijackDamageComponent ? this.enemy.dealerPipeline : null));
+                        var returnedState = hijackable.HijackAttackStateInitializeOnly(FormAttackState(), (hijackDamageComponent ? this.enemy.dealerPipeline : null));
                         aliveEnemyState.Add(enemyId, returnedState);
                     }
                     catch (Exception e)
@@ -90,6 +88,11 @@ namespace Enemy
                 Debug.LogError("Can not find enemy by its network id");
         }
 
+        private void OnAllEnemyDiesTeardown()
+        {
+            enemy.StateMachine.ChangeState(enemy.KnockbackState);
+        }
+
         private EnemyAttackSOBase FormAttackState()
         {
             var instantiatedAttackState = Instantiate(attackState);
@@ -102,7 +105,6 @@ namespace Enemy
 
                 var insAttack = Instantiate(insOrchestratedAtk.attack);
                 listOfInstantiatedAttacks.Add(insAttack);
-
                 atk.AssignOrchestrationController(this, i);
             }
 

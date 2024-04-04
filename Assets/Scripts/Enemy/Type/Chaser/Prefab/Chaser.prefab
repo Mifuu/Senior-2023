@@ -219,6 +219,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 397d7bba781475749a7728e071c4b60c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  onlyCountPlayer: 0
 --- !u!1 &3830668734538714673
 GameObject:
   m_ObjectHideFlags: 0
@@ -419,7 +420,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   aggroDistanceTriggerCheck: {fileID: 4152279539823919615}
+  networkMaxHealth:
+    m_InternalValue: 0
   <maxHealth>k__BackingField: 10
+  maxDistanceSquared: 3000
   EnemyAttackBase: {fileID: 11400000, guid: 119f8ffc4f004f743a16244b716e722f, type: 2}
   EnemyIdleBase: {fileID: 11400000, guid: 2a218f252f47b884c8449a9d26ba4b34, type: 2}
   EnemyChaseBase: {fileID: 11400000, guid: 2087c5688259fc24985fddad8932c9ef, type: 2}
@@ -447,6 +451,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   networkEnemyState:
     m_InternalValue: 0
+  stateMachineState:
+    m_InternalValue: 0
+  startStateMachineOnInitialize: 1
 --- !u!114 &1328936819293529823
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -578,6 +585,7 @@ MonoBehaviour:
   defaultBaseDMGReceiveFactor: 1
   defaultElementalDmg: 1
   defaultElementalRES: 1
+  defaultBaseEXP: 20
   Level:
     m_InternalValue: 1
 --- !u!114 &1313030825609507613

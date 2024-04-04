@@ -9,6 +9,8 @@ public class PlayerManager : Singleton<PlayerManager>
 
     public static PlayerManager thisClient;
 
+    public Vector3 spawnPoint;
+
     public override void OnNetworkSpawn()
     {
         base.OnNetworkSpawn();
@@ -53,5 +55,25 @@ public class PlayerManager : Singleton<PlayerManager>
         {
             Debug.Log("PlayerManager: NetworkManager is null, Starting in offline mode.");
         }
+    }
+
+    public void Teleport(Vector3 pos)
+    {
+        if (TryGetComponent<CharacterController>(out var cc))
+        {
+            cc.enabled = false;
+            transform.position = pos;
+            cc.enabled = true;
+        }
+    }
+
+    public void SetSpawnPoint(Vector3 pos)
+    {
+        spawnPoint = pos;
+    }
+
+    public void TeleportToSpawnPoint()
+    {
+        Teleport(spawnPoint);
     }
 }
