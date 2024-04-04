@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 4503419214687364055}
   - component: {fileID: -3609714218602023984}
   - component: {fileID: -8554396455691063704}
+  - component: {fileID: -1822905198731466549}
   m_Layer: 0
   m_Name: Shotgun_Interactable
   m_TagString: Untagged
@@ -165,8 +166,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a0e4832f4cd4cc4b8d3a0a662314ae2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  interactableItemPrefab: {fileID: 0}
   promptMessage: '[F] Pick up (shotgun is not working)'
   gunCounterpart: {fileID: -5754440858381666308, guid: 602f4ef2b0e013047ac7960a112126e8, type: 3}
+--- !u!114 &-1822905198731466549
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 409816967049611048}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d52bb18434f18b4391b8af7c7d25928, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  element: 0
 --- !u!1 &2298667622115717524
 GameObject:
   m_ObjectHideFlags: 0
