@@ -6605,9 +6605,13 @@ MonoBehaviour:
     m_Bits: 1
   distanceFromRaycast: 2
   spawnCountRange: {x: 7, y: 12}
+  maxFailAttempts: 32
   enemyPrefabPool: {fileID: 11400000, guid: f7d261def0500441cbc9b34566e2006f, type: 2}
   timeSincePlayerExit: -1
   timeSinceSpawn: -1
+  respawnTime: 60
+  facOfEnemiesLeftToRespawn: 0.2
+  enemies: []
 --- !u!1 &8869735068070056710
 GameObject:
   m_ObjectHideFlags: 0
@@ -8300,7 +8304,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4026683803992347752, guid: 43e1829b4f1664da699d9965009431fc, type: 3}
       propertyPath: m_LocalScale.y
-      value: 1
+      value: 1.3484
       objectReference: {fileID: 0}
     - target: {fileID: 4026683803992347752, guid: 43e1829b4f1664da699d9965009431fc, type: 3}
       propertyPath: m_LocalPosition.x
@@ -10788,7 +10792,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4026683803992347752, guid: 43e1829b4f1664da699d9965009431fc, type: 3}
       propertyPath: m_LocalScale.y
-      value: 1
+      value: 1.3484
       objectReference: {fileID: 0}
     - target: {fileID: 4026683803992347752, guid: 43e1829b4f1664da699d9965009431fc, type: 3}
       propertyPath: m_LocalPosition.x
@@ -11266,7 +11270,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4026683803992347752, guid: 43e1829b4f1664da699d9965009431fc, type: 3}
       propertyPath: m_LocalScale.y
-      value: 1
+      value: 1.3484
       objectReference: {fileID: 0}
     - target: {fileID: 4026683803992347752, guid: 43e1829b4f1664da699d9965009431fc, type: 3}
       propertyPath: m_LocalPosition.x
@@ -15254,7 +15258,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4026683803992347752, guid: 43e1829b4f1664da699d9965009431fc, type: 3}
       propertyPath: m_LocalScale.y
-      value: 1
+      value: 1.3484
       objectReference: {fileID: 0}
     - target: {fileID: 4026683803992347752, guid: 43e1829b4f1664da699d9965009431fc, type: 3}
       propertyPath: m_LocalPosition.x

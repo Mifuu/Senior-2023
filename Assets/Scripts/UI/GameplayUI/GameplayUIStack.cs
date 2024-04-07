@@ -35,6 +35,25 @@ namespace GameplayUI
             return popped;
         }
 
+        public PanelType PopUntil(PanelType panelType)
+        {
+            // check if stack got the panelType
+            if (!uiStack.Contains(panelType))
+            {
+                Debug.LogError($"PanelType {panelType} not found in uiStack", gameObject);
+                return Peek();
+            }
+
+            while (uiStack.Peek() != panelType)
+            {
+                Pop();
+            }
+
+            Pop();
+
+            return panelType;
+        }
+
         /// <summary>push new top and return its type</summary>
         public PanelType Push(PanelType panelType)
         {
@@ -108,5 +127,7 @@ namespace GameplayUI
         Gameover,
         Map,
         SkillCard,
+        Inventory,
+        Respawn
     }
 }

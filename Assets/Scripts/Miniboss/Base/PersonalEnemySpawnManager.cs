@@ -23,17 +23,13 @@ namespace Enemy
         [Tooltip("Try to have multiple types of enemies in one group")]
         [SerializeField] public bool stratify;
         [Tooltip("Completely randomize each group, ignore other setting")]
-        [SerializeField] public bool groupMaxRandom;
+        [SerializeField] public bool groupMaxRandom; // No implementation for this yet
 
-        [Header("Associator Spawn Config")]
-        [SerializeField] private bool willSpawnAssociator = false;
-        [SerializeField] private GameObject associatorPrefab;
-
-        private List<EnemyBase> spawnedEnemyRef = new List<EnemyBase>();
+        public List<EnemyBase> spawnedEnemyRef = new List<EnemyBase>();
         public NetworkVariable<int> currentAliveEnemy = new NetworkVariable<int>(0);
         private bool isInit = false;
         private Queue<Transform> vacantSpot;
-        [SerializeField] private EnemyBase enemy;
+        [SerializeField] protected EnemyBase enemy;
 
         public event Action<List<EnemyBase>> OnEnemySpawns;
         public event Action<EnemyBase> OnEnemyDies;
@@ -43,11 +39,6 @@ namespace Enemy
         {
             if (UniqueId == "")
                 Debug.LogError("Please specify the ID for PersonalEnemySpawnManager Component");
-            if (associatorPrefab == null && willSpawnAssociator)
-            {
-                Debug.LogError("Spawn Associator is set to true but Associator Prefab is null, the associator will not spawn");
-                willSpawnAssociator = false;
-            }
         }
 
         public override void OnNetworkSpawn()
@@ -133,7 +124,7 @@ namespace Enemy
             NavMeshHit hit;
             if (NavMesh.SamplePosition(spawnerTransform.position, out hit, 1000f, NavMesh.AllAreas))
             {
-                Debug.Log("Personal Rotation: " + spawnerTransform.rotation);
+                // Debug.Log("Personal Rotation: " + spawnerTransform.rotation);
                 var enemy = NetworkObjectPool.Singleton.GetNetworkObject(gameObject, hit.position, spawnerTransform.rotation);
 
                 var navmeshagent = enemy.GetComponent<NavMeshAgent>();
@@ -149,9 +140,6 @@ namespace Enemy
                 }
 
                 enemy.Spawn();
-
-                if (willSpawnAssociator)
-                    SpawnAssociator(enemy.transform.position);
                 return enemyBase;
             }
             return null;
@@ -164,9 +152,9 @@ namespace Enemy
             NavMeshHit hit;
             if (NavMesh.SamplePosition(spawnerTransform.position, out hit, 1000f, NavMesh.AllAreas))
             {
-                Debug.Log("Personal Rotation: " + spawnerTransform.rotation);
-                Debug.Log("Personal Location: " + spawnerTransform.position);
-                Debug.Log("Personal hit Location: " + hit.position);
+                // Debug.Log("Personal Rotation: " + spawnerTransform.rotation);
+                // Debug.Log("Personal Location: " + spawnerTransform.position);
+                // Debug.Log("Personal hit Location: " + hit.position);
                 var enemy = Instantiate(gameObject, hit.position, spawnerTransform.rotation);
 
                 var navmeshagent = enemy.GetComponent<NavMeshAgent>();
@@ -182,10 +170,6 @@ namespace Enemy
                 }
 
                 enemy.GetComponent<NetworkObject>()?.Spawn();
-
-                if (willSpawnAssociator)
-                    SpawnAssociator(enemy.transform.position);
-
                 return enemyBase;
             }
             return null;
@@ -229,15 +213,6 @@ namespace Enemy
                 yield return currentNum++;
                 if (currentNum >= maxExclusive) currentNum = 0;
             }
-        }
-
-        private void SpawnAssociator(Vector3 leafEnemyPosition)
-        {
-            var centerLocation = Vector3.Lerp(enemy.transform.position, leafEnemyPosition, 0.5f);
-            var associatorInstance = Instantiate(associatorPrefab, centerLocation, Quaternion.identity);
-            if (associatorInstance.TryGetComponent<NetworkObject>(out var networkObject))
-                networkObject.Spawn();
-            associatorInstance.transform.LookAt(enemy.transform);
         }
     }
 }

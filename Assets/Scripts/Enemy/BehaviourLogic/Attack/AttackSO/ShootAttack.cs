@@ -19,7 +19,7 @@ namespace Enemy
             base.Initialize(targetPlayer, enemyGameObject, component);
             bulletRB = bulletPrefab.GetComponent<Rigidbody>();
             bulletSpawn = enemy.transform.Find("BulletSpawn")?.gameObject;
-            Debug.Log("Instantiating Shoot Attack Component: " + component);
+            // Debug.Log("Instantiating Shoot Attack Component: " + component);
             if (bulletSpawn == null)
                 Debug.LogError("Bullet spawn is not found");
         }

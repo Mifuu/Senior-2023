@@ -5,14 +5,17 @@ using TMPro;
 using Unity.Netcode;
 using UnityEngine.Events;
 using System;
+using GameplayUI;
 
 public class PlayerHealth : NetworkBehaviour, IDamageable
 {
+    public static float respawnTime = 5.0f;
     [SerializeField] public float maxHealth { get; set; }
     [SerializeField] public NetworkVariable<float> BaseMaxHealth { get; set; } = new NetworkVariable<float>(10.0f);
     [SerializeField] public NetworkVariable<float> HealthBuffMultiplier { get; set; } = new NetworkVariable<float>(1.0f);
 
     private float _maxHealth;
+    private bool isDead = false;
     public NetworkVariable<float> currentHealth { get; set; } = new NetworkVariable<float>(0.0f);
     public event Action OnPlayerDie;
 
@@ -43,6 +46,8 @@ public class PlayerHealth : NetworkBehaviour, IDamageable
     {
         if (!IsServer) return;
 
+        if (isDead) return;
+
         currentHealth.Value -= damageAmount;
 
         if (currentHealth.Value <= 0f)
@@ -57,11 +62,19 @@ public class PlayerHealth : NetworkBehaviour, IDamageable
     {
         Debug.Log("Player Script: Player has died!");
         OnPlayerDie?.Invoke();
-        Respawn();
+        isDead = true;
+        StartCoroutine(RespawnCR());
     }
 
-    private void Respawn()
+    IEnumerator RespawnCR()
     {
+        // set panel
+        GameplayUIController.Instance.RespawnTrigger(respawnTime);
+
+        yield return new WaitForSeconds(respawnTime);
+
+        // respawn
+        isDead = false;
         currentHealth.Value = maxHealth;
 
         if (TryGetComponent<PlayerManager>(out var playerManager))
