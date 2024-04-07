@@ -7,7 +7,7 @@ using Enemy;
 
 namespace RoomGeneration
 {
-    public class RoomSpawner : MonoBehaviour
+    public class RoomSpawner : NetworkBehaviour
     {
         // Debug
         public static List<Vector3> checkPoses = new List<Vector3>();
@@ -20,6 +20,8 @@ namespace RoomGeneration
         public LayerMask raycastMask;
         public float distanceFromRaycast = 2;
         public Vector2Int spawnCountRange = new Vector2Int(10, 10);
+        public int maxFailAttempts = 32;
+        private int spawnCount = 0;
         public EnemyRandomPool enemyPrefabPool;
 
         // playtime cache
@@ -34,6 +36,15 @@ namespace RoomGeneration
         private int playerEnterCount;
         private int playerExitCount;
 
+        // enemy respawn
+        [Header("Enemy Respawn Settings")]
+        public float respawnTime = 10f;
+        public float facOfEnemiesLeftToRespawn = 0.2f;          // if enemies left is less than this fraction, respawn
+        Coroutine respawnCoroutine;
+
+        [Header("Debug")]
+        public List<EnemyBase> enemies = new List<EnemyBase>();
+
         void Start()
         {
             roomGenerator = RoomGenerator.Instance;
@@ -47,6 +58,14 @@ namespace RoomGeneration
             }
         }
 
+        public override void OnNetworkSpawn()
+        {
+            if (!IsServer)
+            {
+                enabled = false;
+            }
+        }
+
         private void Update()
         {
             if (timeSincePlayerExit >= 0)
@@ -57,6 +76,22 @@ namespace RoomGeneration
             if (timeSinceSpawn >= 0)
             {
                 timeSinceSpawn += Time.deltaTime;
+            }
+
+            if (enemies.Count > 0)
+            {
+                for (int i = enemies.Count - 1; i >= 0; i--)
+                {
+                    if (enemies[i] == null || enemies[i].gameObject.activeSelf == false)
+                    {
+                        enemies.RemoveAt(i);
+                    }
+                }
+
+                if (enemies.Count <= spawnCount * facOfEnemiesLeftToRespawn && respawnCoroutine == null)
+                {
+                    respawnCoroutine = StartCoroutine(WaitAndRespawn());
+                }
             }
         }
 
@@ -97,15 +132,16 @@ namespace RoomGeneration
         {
             // shoot raycast in the lower half of the room
             Vector3 raycastOrigin = transform.position;
-            int count = Random.Range(spawnCountRange.x, spawnCountRange.y);
+            spawnCount = Random.Range(spawnCountRange.x, spawnCountRange.y);
 
             RaycastHit hit = new RaycastHit();
-            for (int i = 0; i < count; i++)
+            int failAttempts = 0;
+            for (int i = 0; i < spawnCount; i++)
             {
                 Vector3 raycastDirection = RandomPointOnUnitHemisphere();
                 Physics.Raycast(raycastOrigin, raycastDirection, out hit, 100f, raycastMask);
 
-                if (hit.collider != null)
+                if (hit.collider != null && IsInRoomBoxes(hit.point))
                 {
                     // distance from raycast hit
                     // Vector3 spawnPosition = hit.point;
@@ -127,6 +163,8 @@ namespace RoomGeneration
                         enemy.Spawn();
                         enemy.transform.position = spawnPosition;
 
+                        enemies.Add(enemy.GetComponent<EnemyBase>());
+
                         // GameObject e = Instantiate(enemyPrefab, spawnPosition, Quaternion.identity);
                         // e.GetComponent<NetworkObject>().Spawn();
 
@@ -139,9 +177,29 @@ namespace RoomGeneration
                 }
                 else
                 {
+                    // retry
+                    failAttempts++;
+                    if (failAttempts >= maxFailAttempts)
+                    {
+                        Debug.LogError("Failed to spawn enemies in room " + gameObject.name + " after " + maxFailAttempts + " attempts.");
+                        break;
+                    }
+                    i--;
                     continue;
                 }
             }
+        }
+
+        private bool IsInRoomBoxes(Vector3 position)
+        {
+            foreach (RoomSpawnerCollider roomSpawnerCollider in roomSpawnerColliders)
+            {
+                if (roomSpawnerCollider.GetComponent<Collider>().bounds.Contains(position))
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         // Function to generate a random point on the unit hemisphere
@@ -157,6 +215,15 @@ namespace RoomGeneration
             float z = Mathf.Sin(phi) * Mathf.Sin(theta);
 
             return new Vector3(x, y, z);
+        }
+
+        IEnumerator WaitAndRespawn()
+        {
+            yield return new WaitForSeconds(respawnTime);
+            timeSinceSpawn = -1;
+
+            // will spawn if have player
+            StartCoroutine(SpawnEnemiesCoroutine());
         }
 
         void OnDrawGizmos()
