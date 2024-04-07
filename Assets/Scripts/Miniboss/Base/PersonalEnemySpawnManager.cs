@@ -29,7 +29,7 @@ namespace Enemy
         public NetworkVariable<int> currentAliveEnemy = new NetworkVariable<int>(0);
         private bool isInit = false;
         private Queue<Transform> vacantSpot;
-        [SerializeField] private EnemyBase enemy;
+        [SerializeField] protected EnemyBase enemy;
 
         public event Action<List<EnemyBase>> OnEnemySpawns;
         public event Action<EnemyBase> OnEnemyDies;

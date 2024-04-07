@@ -1,5 +1,6 @@
 using UnityEngine;
 using Unity.Netcode;
+using System.Collections;
 
 namespace Enemy
 {
@@ -8,10 +9,13 @@ namespace Enemy
         [SerializeField] private float bulletSpeed = 10f;
         [SerializeField] private bool isHomingCapable;
         [SerializeField] private float baseDamageAmount = 5.0f;
+
         private GameObject target;
         private GameObject bulletOwner;
         private DamageCalculationComponent component;
         private Rigidbody rb;
+        private readonly float bulletLifeSpan = 10f;
+        private IEnumerator bulletCountdownCoroutine;
 
         #region Damageable
 
@@ -29,6 +33,8 @@ namespace Enemy
                 return;
             }
             currentHealth.Value = maxHealth;
+            bulletCountdownCoroutine = BulletDespawnTimedCountdown();
+            StartCoroutine(bulletCountdownCoroutine);
         }
 
         public override void OnNetworkDespawn()
@@ -42,17 +48,13 @@ namespace Enemy
             this.target = target;
             this.bulletOwner = bulletOwner;
 
-            // Debug.Log("Component: " + component);
-
             var targetPlayer = target.GetComponent<PlayerHealth>();
-            targetPlayer.OnPlayerDie += Die;
+            targetPlayer.OnPlayerDie += OnTargetPlayerDie;
 
-            if (component == null) 
+            if (component == null)
                 this.component = bulletOwner.GetComponent<DamageCalculationComponent>();
             else
                 this.component = component;
-
-            // Debug.Log("This component: " + this.component);
         }
 
         public void FixedUpdate()
@@ -71,7 +73,6 @@ namespace Enemy
                 return info;
             }
 
-            // var pipe = bulletOwner.GetComponent<DamageCalculationComponent>();
             info = component.GetFinalDealthDamageInfo();
             damagable.Damage(info);
 
@@ -94,9 +95,7 @@ namespace Enemy
             if (!IsServer) return;
             currentHealth.Value -= damageAmount;
             if (currentHealth.Value <= 0)
-            {
                 Die(dealer);
-            }
         }
 
         public void Die()
@@ -110,16 +109,33 @@ namespace Enemy
             if (!IsServer) return;
             if (!isActiveAndEnabled) return;
 
-            var targetPlayer = this.target.GetComponent<PlayerHealth>();
-            targetPlayer.OnPlayerDie -= Die;
+            StopCoroutine(bulletCountdownCoroutine);
+
+            if (this.target != null && this.target.TryGetComponent<PlayerHealth>(out var targetPlayer))
+                targetPlayer.OnPlayerDie -= OnTargetPlayerDie;
 
             var networkObj = GetComponent<NetworkObject>();
             networkObj.Despawn();
         }
 
+        private void OnTargetPlayerDie()
+        {
+            target.GetComponent<PlayerHealth>().OnPlayerDie -= OnTargetPlayerDie;
+            isHomingCapable = false;
+            target = null;
+        }
+
+        private IEnumerator BulletDespawnTimedCountdown()
+        {
+            yield return new WaitForSeconds(bulletLifeSpan);
+            Die();
+        }
+
         private void ResetValue()
         {
             this.bulletOwner = null;
+            bulletCountdownCoroutine = null;
+            target = null;
         }
     }
 }
