@@ -58,7 +58,7 @@ namespace GlobalManager
         public void Start()
         {
 #if DEDICATED_SERVER
-            Loader.Load(Loader.Scene.Game);    
+            Loader.LoadGame();
 #endif
         }
 

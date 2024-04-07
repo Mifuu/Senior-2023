@@ -124,7 +124,7 @@ namespace Enemy
 
         public override void OnDestroy()
         {
-            Debug.LogWarning(gameObject + " has been destroyed");
+            // Debug.LogWarning(gameObject + " has been destroyed");
             if (IsServer) ServerDesetup();
         }
 
@@ -219,7 +219,7 @@ namespace Enemy
         private void CleanUp()
         {
             // Place for more clean up logic, animation etc.
-            Debug.Log(gameObject + " is performing clean up");
+            // Debug.Log(gameObject + " is performing clean up");
             DesetupTargetPlayer();
         }
 
@@ -295,7 +295,7 @@ namespace Enemy
         {
             if (targetPlayer != null && targetPlayer.TryGetComponent<PlayerHealth>(out var playerHealth))
             {
-                Debug.Log(gameObject + " Unsub from OnPlayerDie");
+                // Debug.Log(gameObject + " Unsub from OnPlayerDie");
                 playerHealth.OnPlayerDie -= OnTargetPlayerRefindRequired;
             }
 

@@ -8,6 +8,8 @@ namespace GameplayUI
     [RequireComponent(typeof(GameplayUIManager))]
     public class GameplayUIController : MonoBehaviour
     {
+        public static GameplayUIController Instance { get; private set; }
+
         public GameplayUIManager manager;
         GameplayUIStack stack;
 
@@ -17,12 +19,18 @@ namespace GameplayUI
 
         void Awake()
         {
+            if (Instance != null && Instance != this)
+                Destroy(gameObject);
+            else
+                Instance = this;
+
             playerInput = new PlayerInput();
             onUI = playerInput.OnUI;
 
             onUI.Back.performed += ctx => BackInput();
             onUI.Map.performed += ctx => MapInput();
             onUI.SkillCard.performed += ctx => SkillCardInput();
+            onUI.Inventory.performed += ctx => InventoryInput();
 
             stack = manager.stack;
 
@@ -85,6 +93,31 @@ namespace GameplayUI
         {
             if (stack.Peek() == PanelType.SkillCard)
                 stack.Pop();
+        }
+
+        public void InventoryInput()
+        {
+            if (stack.Peek() == PanelType.Inventory)
+                stack.Pop();
+            else
+                stack.Push(PanelType.Inventory);
+        }
+
+        public void RespawnTrigger(float respawnTime)
+        {
+            StartCoroutine(RespawnCR(respawnTime));
+        }
+
+        IEnumerator RespawnCR(float respawnTime)
+        {
+            if (stack.Peek() != PanelType.Respawn)
+                stack.Push(PanelType.Respawn);
+            manager.respawnPanel.OnDeath(respawnTime);
+
+            yield return new WaitForSeconds(respawnTime);
+
+            stack.PopUntil(PanelType.Respawn);
+            // stack.Pop();
         }
     }
 }

@@ -137,6 +137,17 @@ public class PlayerSwitchWeapon : NetworkBehaviour
         }
     }
 
+    public GameObject GetHoldingGun()
+    {
+        if (guns[currentGunIndex.Value].gameObject == null)
+        {
+            Debug.LogError("PlayerSwitchWeapon Script: GameObject of current gun is null");
+            return null;
+        }
+        GameObject currentGun = guns[currentGunIndex.Value].gameObject;
+        return currentGun;
+    }
+
     /*
     [ServerRpc]
     public void ChangeSelectedWeaponServerRPC(int index)
