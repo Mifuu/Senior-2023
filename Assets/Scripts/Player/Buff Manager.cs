@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
+using System;
 
 public class BuffManager : NetworkBehaviour
 {
@@ -27,6 +28,8 @@ public class BuffManager : NetworkBehaviour
     public float DashBuffTotal { get; private set; } = 0f;
     public float SkillCooldownBuffTotal { get; private set; } = 1f;
     #endregion
+
+    public event Action OnBuffChanged;
 
     // Start is called before the first frame update
     void Start()
@@ -63,12 +66,14 @@ public class BuffManager : NetworkBehaviour
     {
         if (!IsOwner) return;
         AtkBuffTotal = AtkBuff_SkillCard.Value;
+        OnBuffChanged?.Invoke();
     }
 
     private void RecalculateDefBuffTotal()
     {
         if (!IsOwner) return;
         DefBuffTotal = DefBuff_SkillCard.Value;
+        OnBuffChanged?.Invoke();
     }
 
     private void RecalculateHpBuffTotal()
@@ -76,18 +81,21 @@ public class BuffManager : NetworkBehaviour
         if (!IsOwner) return;
         HpBuffTotal = HpBuff_SkillCard.Value;
         playerHealth.HealthBuffMultiplier.Value = HpBuffTotal;
+        OnBuffChanged?.Invoke();
     }
 
     private void RecalculateCritBuffTotal()
     {
         if (!IsOwner) return;
         CritBuffTotal = CritBuff_SkillCard.Value;
+        OnBuffChanged?.Invoke();
     }
 
     private void RecalculateJumpBuffTotal()
     {
         if (!IsOwner) return;
         JumpBuffTotal = JumpBuff_SkillCard.Value;
+        OnBuffChanged?.Invoke();
     }
 
     // Recalculate Total dash buff and change the buff variable of playerDash script
@@ -96,12 +104,14 @@ public class BuffManager : NetworkBehaviour
         if (!IsOwner) return;
         DashBuffTotal = DashBuff_SkillCard.Value;
         playerDash.DashBuffAddition.Value = ((int)DashBuffTotal);
+        OnBuffChanged?.Invoke();
     }
 
     private void RecalculateSkillCooldownBuffTotal()
     {
         if (!IsOwner) return;
         SkillCooldownBuffTotal = SkillCooldownBuff_SkillCard.Value;
+        OnBuffChanged?.Invoke();
     }
     #endregion
 
