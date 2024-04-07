@@ -20,17 +20,20 @@ public struct DamageInfo
     public float amount;
     public ElementalDamageParameter elementalDamageParameter;
     public TemporaryGunType gunType;
+    public bool isCrit;
 
     public DamageInfo(
             GameObject dealer = null,
             float amount = 0f,
             ElementalDamageParameter elementalDamageParameter = new ElementalDamageParameter(),
-            TemporaryGunType gunType = TemporaryGunType.None)
+            TemporaryGunType gunType = TemporaryGunType.None,
+            bool isCrit = false)
     {
         this.dealer = dealer;
         this.amount = amount;
         this.elementalDamageParameter = elementalDamageParameter;
         this.gunType = gunType;
+        this.isCrit = isCrit;
     }
 }
 

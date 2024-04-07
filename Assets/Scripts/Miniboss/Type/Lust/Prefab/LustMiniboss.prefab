@@ -311,6 +311,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1465931539783170763}
   - component: {fileID: 2927601398987625331}
+  - component: {fileID: 849368796303863049}
   m_Layer: 0
   m_Name: StatueSpawner
   m_TagString: Untagged
@@ -357,12 +358,29 @@ MonoBehaviour:
   randomEnemyTypeAmount: 1
   stratify: 0
   groupMaxRandom: 0
-  willSpawnAssociator: 1
-  associatorPrefab: {fileID: 3898924838770244129, guid: 08e2ab1f2e015654986cc31572073b07, type: 3}
+  spawnedEnemyRef: []
   currentAliveEnemy:
     m_InternalValue: 0
   enemy: {fileID: 5901889156636781570}
   spawnImmediately: 1
+  killOnBaseDies: 0
+--- !u!114 &849368796303863049
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2813653450052949626}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 855bf97210a7749459114db69afc0d4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  associatorPrefab: {fileID: 8450010800814678212, guid: 08e2ab1f2e015654986cc31572073b07, type: 3}
+  enemy: {fileID: 5901889156636781570}
+  rangeController: {fileID: -3575387006805459007}
+  spawnManager: {fileID: 2927601398987625331}
+  yRaise: 1
 --- !u!1 &3467643490510371262
 GameObject:
   m_ObjectHideFlags: 0
@@ -516,8 +534,7 @@ MonoBehaviour:
   randomEnemyTypeAmount: 2
   stratify: 1
   groupMaxRandom: 0
-  willSpawnAssociator: 0
-  associatorPrefab: {fileID: 0}
+  spawnedEnemyRef: []
   currentAliveEnemy:
     m_InternalValue: 0
   enemy: {fileID: 0}
@@ -547,6 +564,7 @@ GameObject:
   - component: {fileID: 2040013773459935040}
   - component: {fileID: 3388744621044889110}
   - component: {fileID: -3575387006805459007}
+  - component: {fileID: -8716212994817364967}
   m_Layer: 12
   m_Name: LustMiniboss
   m_TagString: Untagged
@@ -947,8 +965,20 @@ MonoBehaviour:
   spawnEnterCheckImmediate: 1
   spawnExitCheckImmediate: 1
   stateMachine: {fileID: 5575684663058277635}
+--- !u!114 &-8716212994817364967
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5781375362114392876}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3578710840b739747a8b24afc044dd00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   locationMarkerPrefab: {fileID: 1142785295719313928, guid: 912d0bb35cee77548a66f7ef971eeb33, type: 3}
-  useLocationMarker: 1
+  rangeController: {fileID: -3575387006805459007}
 --- !u!1 &6373392179680075389
 GameObject:
   m_ObjectHideFlags: 0
@@ -1538,6 +1568,14 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 723662ca074d1184c9166da6731a0a2f, type: 3}
       propertyPath: m_Name
       value: Model
+      objectReference: {fileID: 0}
+    - target: {fileID: 3853268898807207900, guid: 723662ca074d1184c9166da6731a0a2f, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6148737315974723067, guid: 723662ca074d1184c9166da6731a0a2f, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

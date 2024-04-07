@@ -74,7 +74,7 @@ GameObject:
   - component: {fileID: 3917260383959487730}
   - component: {fileID: 7995700460758469413}
   - component: {fileID: 2748762815417405034}
-  - component: {fileID: 1235742095557865747}
+  - component: {fileID: -6081487787436899087}
   m_Layer: 14
   m_Name: Player
   m_TagString: Player
@@ -264,6 +264,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 293fc759a7e863047b4c6d0b5a5609cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawnPoint: {x: 0, y: 0, z: 0}
 --- !u!114 &993304627892263516
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -542,12 +543,15 @@ MonoBehaviour:
     - {fileID: 11400000, guid: df930b97c0fc1354db5acfcc5859d935, type: 2}
     NonStaticUnits:
     - {fileID: 11400000, guid: 5fe5b83ec80afa8468c50314f26946b8, type: 2}
+    - {fileID: 11400000, guid: 9304c13178043ea4a89ff0f7cf584a9f, type: 2}
     managerModule: {fileID: 0}
   ReceiverPipeline:
     disabledStaticUnit: 0
     disabledNonStaticUnit: 0
-    StaticUnits: []
-    NonStaticUnits: []
+    StaticUnits:
+    - {fileID: 11400000, guid: 0d479553f1f208b44b657ccd7b2839f5, type: 2}
+    NonStaticUnits:
+    - {fileID: 11400000, guid: 80c78466f421eaf43bfc1a117749e9c9, type: 2}
     managerModule: {fileID: 0}
 --- !u!114 &2748762815417405034
 MonoBehaviour:
@@ -562,7 +566,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cooldownTime: 5
---- !u!114 &1235742095557865747
+--- !u!114 &-6081487787436899087
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -571,16 +575,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1287504444611049030}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 48f1c086cbb862442b18553ebb43a9ad, type: 3}
+  m_Script: {fileID: 11500000, guid: 4d52bb18434f18b4391b8af7c7d25928, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultElement: 0
-  elementalReactionEffectPreset: {fileID: 0}
-  elementalApplyWeightPreset: {fileID: 0}
-  effectList: []
-  applyWeights: []
-  maxCountToApply: 20
-  defaultWeaponApplyWeight: 1
+  element: 4
 --- !u!1 &2159792468815808837
 GameObject:
   m_ObjectHideFlags: 0
