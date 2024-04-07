@@ -5,19 +5,21 @@ using System;
 
 public class ModalController : MonoBehaviour
 {
+    [Serializable]
     public struct ModalSetting
     {
         // Header
-        public string header_Text;
+        [SerializeField] public string header_Text;
         // Content
-        public bool content_IsVertical;
-        public string content_Text;
-        public Sprite content_Image;
+        [SerializeField] public bool content_IsVertical;
+        [TextArea(10, 20)]
+        [SerializeField] public string content_Text;
+        [SerializeField] public Sprite content_Image;
         // Footer
-        public bool footer_RemoveConfirmButton;
-        public bool footer_RemoveCancelButton;
-        public bool footer_RemoveAlternateButton;
-        public string footer_AlternateButtonText;
+        [SerializeField] public bool footer_RemoveConfirmButton;
+        [SerializeField] public bool footer_RemoveCancelButton;
+        [SerializeField] public bool footer_RemoveAlternateButton;
+        [SerializeField] public string footer_AlternateButtonText;
     }
 
     #region Setup
@@ -64,6 +66,26 @@ public class ModalController : MonoBehaviour
     }
 
     public ModalController ShowModal(ModalSetting setting)
+    {
+        SetHeader(setting.header_Text);
+        SetFooter(setting.footer_RemoveConfirmButton, setting.footer_RemoveCancelButton, setting.footer_RemoveAlternateButton, setting.footer_AlternateButtonText);
+
+        if (setting.content_Text == "" && setting.content_Image == null)
+            content.SetActive(false);
+        else
+        {
+            content.SetActive(true);
+            if (setting.content_IsVertical)
+                SetVerticalContent(setting.content_Text, setting.content_Image);
+            else
+                SetHorizontalContent(setting.content_Text, setting.content_Image);
+        }
+
+        gameObject.SetActive(true);
+        return this;
+    }
+
+    public ModalController ShowModal(ModalSettingSO setting)
     {
         SetHeader(setting.header_Text);
         SetFooter(setting.footer_RemoveConfirmButton, setting.footer_RemoveCancelButton, setting.footer_RemoveAlternateButton, setting.footer_AlternateButtonText);

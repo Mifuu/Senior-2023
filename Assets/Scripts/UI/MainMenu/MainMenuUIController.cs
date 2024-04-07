@@ -11,10 +11,17 @@ public class MainMenuUIController : MonoBehaviour
     [Header("Match Making")]
     [SerializeField] private Button findGameButton;
     [SerializeField] private Button quitGameButton;
+    [SerializeField] private Button achievementGameButton;
+    [SerializeField] private Button settingButton;
     [SerializeField] private GlobalManager.NetworkGameManager networkGameManager;
 
-    [Header("UI")]
+    [Header("UI Modal")]
     [SerializeField] private ModalController modal;
+    [SerializeField] private ModalSettingSO contentNotReadyModalSetting;
+
+    [Header("Test Tutorial Text")]
+    [SerializeField] private TutorialTextController tutorial;
+    [SerializeField] private TutorialTextSettingSO somethingWicked;
 
     public void Start()
     {
@@ -33,8 +40,15 @@ public class MainMenuUIController : MonoBehaviour
             return;
         }
 
-        if (findGameButton == null) return;
-        findGameButton.interactable = false;
+        if (findGameButton != null)
+            findGameButton.interactable = false;
+
+        if (achievementGameButton != null)
+            achievementGameButton.onClick.AddListener(ShowContentNotReadyModal);
+
+        if (settingButton != null)
+            settingButton.onClick.AddListener(ShowSomethingWicked);
+
         networkGameManager.isAuthenticated.OnValueChanged += ChangeFindGameButtonStatus;
     }
 
@@ -42,6 +56,8 @@ public class MainMenuUIController : MonoBehaviour
     {
         quitGameButton.onClick.RemoveAllListeners();
         findGameButton.onClick.RemoveAllListeners();
+        achievementGameButton.onClick.RemoveAllListeners();
+        settingButton.onClick.RemoveAllListeners();
         networkGameManager.isAuthenticated.OnValueChanged -= ChangeFindGameButtonStatus;
     }
 
@@ -56,15 +72,38 @@ public class MainMenuUIController : MonoBehaviour
 
         modal.ShowModal(setting);
         modal.OnConfirmButtonPressed += QuitGame;
-        modal.OnCancelButtonPressed += CloseModal;
+        modal.OnCancelButtonPressed += CloseQuitGameModal;
     }
 
-    private void CloseModal()
+    private void ShowInitializeModal()
+    {
+        ModalController.ModalSetting setting = new ModalController.ModalSetting();
+
+        setting.header_Text = "Initializing Services...";
+        setting.content_Text = "Please wait while the game services is initializing...";
+        setting.footer_RemoveAlternateButton = true;
+    }
+
+    private void ShowContentNotReadyModal()
+    {
+        modal.ShowModal(contentNotReadyModalSetting);
+        modal.OnConfirmButtonPressed += CloseContentNotReadyModal;
+    }
+
+    private void CloseQuitGameModal()
     {
         modal.HideModal();
-        modal.OnCancelButtonPressed -= CloseModal;
+        modal.OnCancelButtonPressed -= CloseQuitGameModal;
         modal.OnConfirmButtonPressed -= QuitGame;
     }
+
+    private void CloseContentNotReadyModal()
+    {
+        modal.HideModal();
+        modal.OnConfirmButtonPressed -= CloseContentNotReadyModal;
+    }
+
+    private void ShowSomethingWicked() => tutorial.ShowTutorialText(somethingWicked);
 
     private void QuitGame()
     {
