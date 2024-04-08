@@ -463,6 +463,9 @@ MonoBehaviour:
   animationEventEmitter: {fileID: 4028881116827335030}
   animator: {fileID: 0}
   damageFloatingSpawner: {fileID: 0}
+  soundListName: Shooter
+  soundSpawnName: Spawn
+  soundDeadName: Dead
 --- !u!114 &4962021350214988636
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -477,6 +480,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   networkEnemyState:
     m_InternalValue: 0
+  stateMachineState:
+    m_InternalValue: 0
+  startStateMachineOnInitialize: 1
 --- !u!114 &1774996526678373421
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -762,6 +768,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 397d7bba781475749a7728e071c4b60c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  onlyCountPlayer: 0
 --- !u!1 &7255901661130950399
 GameObject:
   m_ObjectHideFlags: 0

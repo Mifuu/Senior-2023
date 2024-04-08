@@ -76,6 +76,17 @@ namespace Enemy
 
         #endregion
 
+        #region Sound Controller Setup For Spawn and Dead Sound
+
+        [Header("Sound Controller Setup")]
+        [SerializeField] public string soundListName;
+        [SerializeField] public string soundSpawnName;
+        [SerializeField] public string soundDeadName;
+
+        public EnemyAudioControllerSingular audioController;
+
+        #endregion
+
         public void Awake()
         {
             rigidBody = GetComponent<Rigidbody>();
@@ -84,6 +95,10 @@ namespace Enemy
             dealerPipeline = GetComponent<DamageCalculationComponent>();
             stat = GetComponent<EnemyStat>();
             animator = GetComponentInChildren<Animator>();
+
+            if (rigidBody == null || navMeshAgent == null || StateMachine == null ||
+                    dealerPipeline == null || stat == null || animator == null)
+                Debug.LogError($"Check {gameObject} Config");
 
             navMeshAgent.angularSpeed = navMeshAngularSpeedFactor * navMeshAgent.angularSpeed;
             navMeshAgent.acceleration = navMeshAgent.acceleration * navMeshAcceleration;
@@ -102,6 +117,7 @@ namespace Enemy
         public override void OnNetworkSpawn()
         {
             base.OnNetworkSpawn();
+            audioController = EnemyAudioController.Singleton.Get(soundListName);
             if (!initialSetupComplete)
             {
                 initialSetupComplete = true;
@@ -124,13 +140,11 @@ namespace Enemy
 
         public override void OnDestroy()
         {
-            // Debug.LogWarning(gameObject + " has been destroyed");
             if (IsServer) ServerDesetup();
         }
 
         private void ClientSetup()
         {
-            // Debug.Log(gameObject + " Running Non Server Setup");
             enabled = false;
             StateMachine.enabled = false;
             Destroy(navMeshAgent);
@@ -177,6 +191,7 @@ namespace Enemy
         private void OnEnemySpawn()
         {
             if (!IsServer) return;
+            audioController.PlaySFXAtObject(soundSpawnName, transform.position);
             OnTargetPlayerRefindRequired();
             currentHealth.Value = maxHealth;
             // StateMachine.ChangeState(IdleState);
@@ -209,6 +224,7 @@ namespace Enemy
             if (dealer != null)
                 dealer.GetComponent<PlayerLevel>()?.AddExp(stat.BaseEXP.Value);
 
+            audioController.PlaySFXAtObject(soundDeadName, transform.position);
             CleanUp();
             OnEnemyDie?.Invoke();
 
@@ -219,7 +235,6 @@ namespace Enemy
         private void CleanUp()
         {
             // Place for more clean up logic, animation etc.
-            // Debug.Log(gameObject + " is performing clean up");
             DesetupTargetPlayer();
         }
 
@@ -227,13 +242,6 @@ namespace Enemy
         {
             StateMachine.CurrentEnemyState.AnimationTrigger(triggerType);
         }
-
-        // Test animation trigger type - May not really be used
-        // public enum AnimationTriggerType
-        // {
-        //     EnemyDamaged,
-        //     PlayFootstepSounds
-        // }
 
         private void ChangeTargetPlayerFromCollision(Collider other) => OnTargetPlayerChangeRequired(other.gameObject);
 
@@ -265,9 +273,7 @@ namespace Enemy
         {
             if (!IsServer || newTargetPlayer == null || !CheckIsNewPlayer(newTargetPlayer)) return;
             if (targetPlayer != null)
-            {
                 DesetupTargetPlayer();
-            }
 
             targetPlayer = newTargetPlayer;
             SetupNewTargetPlayer(targetPlayer);
@@ -277,9 +283,7 @@ namespace Enemy
         {
             if (!IsServer) return;
             if (targetPlayer != null)
-            {
                 DesetupTargetPlayer();
-            }
 
             var newPlayer = FindTargetPlayer();
             if (newPlayer == null)
@@ -294,10 +298,7 @@ namespace Enemy
         private void DesetupTargetPlayer()
         {
             if (targetPlayer != null && targetPlayer.TryGetComponent<PlayerHealth>(out var playerHealth))
-            {
-                // Debug.Log(gameObject + " Unsub from OnPlayerDie");
                 playerHealth.OnPlayerDie -= OnTargetPlayerRefindRequired;
-            }
 
             targetPlayer = null;
         }
@@ -318,13 +319,9 @@ namespace Enemy
         private void ChangeTargetPlayerClientRpc(NetworkObjectReference targetPlayerRef)
         {
             if (targetPlayerRef.TryGet(out NetworkObject targetPlayerNetworkObj, NetworkManager.Singleton))
-            {
                 targetPlayer = targetPlayerNetworkObj.gameObject;
-            }
             else
-            {
                 Debug.LogError("Target Player Not found");
-            }
         }
     }
 }
