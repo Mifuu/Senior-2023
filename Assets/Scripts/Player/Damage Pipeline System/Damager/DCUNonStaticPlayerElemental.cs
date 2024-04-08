@@ -1,9 +1,8 @@
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Player/Player Damage/Player Element")]
+[CreateAssetMenu(menuName = "Player/Player Damage/Damage/Player Element")]
 public class DCUNonStaticPlayerElemental : DamageCalculationUnitBase
 {
-    // TODO: Refactor the Damage calculation to use the buffcomponent multiplier
     ElementAttachable attachable;
     ElementalEntity entity;
     PlayerStat stat;
@@ -13,6 +12,9 @@ public class DCUNonStaticPlayerElemental : DamageCalculationUnitBase
         attachable = component.GetComponent<ElementAttachable>();
         entity = component.GetComponent<ElementalEntity>();
         stat = component.GetComponent<PlayerStat>();
+        Debug.Log("Attachable: " + attachable);
+        Debug.Log("Entity: " + entity);
+        Debug.Log("Stat: " + stat);
         Debug.LogWarning("Current Player Damage Calculation Still only use Pistol as gun type, change this later");
     }
 
@@ -20,7 +22,7 @@ public class DCUNonStaticPlayerElemental : DamageCalculationUnitBase
 
     public override DamageInfo CalculateActual(DamageCalculationComponent component, SubscriptionGetter getter, DamageInfo info)
     {
-        //info.elementalDamageParameter = new ElementalDamageParameter(attachable.element, entity);
+        info.elementalDamageParameter = new ElementalDamageParameter(attachable.element, entity);
         info.amount *= stat.GetElementDMGBonus(info.elementalDamageParameter.element);
         info.gunType = TemporaryGunType.Pistol; // Change this later
         return info;

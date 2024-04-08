@@ -11,6 +11,7 @@ namespace GlobalManager
         {
             MainMenu,
             Sprint7Showcase,
+            Game,
         }
 
         public static void Load(Scene scene) => SceneManager.LoadScene(scene.ToString());
