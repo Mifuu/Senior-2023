@@ -7,6 +7,9 @@ public class BuffManager : NetworkBehaviour
 {
     private PlayerHealth playerHealth;
     private PlayerDash playerDash;
+    private PlayerMotor playerMotor;
+    private PlayerStat playerStat;
+    private SkillManager skillManager;
 
     #region SkillCard Network Variables
     public NetworkVariable<float> AtkBuff_SkillCard { get; set; } = new NetworkVariable<float>(1f);
@@ -25,14 +28,46 @@ public class BuffManager : NetworkBehaviour
     public float CritBuffTotal { get; private set; } = 1f;
     public float JumpBuffTotal { get; private set; } = 0f;
     public float DashBuffTotal { get; private set; } = 0f;
-    public float SkillCooldownBuffTotal { get; private set; } = 1f;
+    public float SkillCooldownBuffTotal { get; private set; } = 0f;
     #endregion
+
+    public struct Stats
+    {
+        public float hp;
+        public float maxHP;
+        public float def;
+        public float atk;
+        public float cri;
+        public float spd;
+        public float skillCD;
+        public int dashNum;
+    }
+
+    public Stats GetStats()
+    {
+        Stats stats = new()
+        {
+            hp = playerHealth.GetCurrentHealth(),
+            maxHP = playerHealth.GetMaxHealth(),
+            def = playerStat.GetBaseDefense() * DefBuffTotal,
+            atk = playerStat.GetBaseAttack() * AtkBuffTotal,
+            cri = playerStat.GetCritRate() + CritBuffTotal,
+            spd = playerMotor.GetMovementSpeed(),
+            skillCD = skillManager.GetCooldownMultiplier(),
+            dashNum = playerDash.GetMaxDashCount(),
+        };
+
+        return stats;
+    }
 
     // Start is called before the first frame update
     void Start()
     {
         playerHealth = FindObjectOfType<PlayerHealth>();
         playerDash = GetComponent<PlayerDash>();
+        playerMotor = GetComponent<PlayerMotor>();
+        playerStat = GetComponent<PlayerStat>();
+        skillManager = transform.GetComponentInChildren<SkillManager>();
 
         // Subscribe to the OnValueChanged event for each NetworkVariable
         AtkBuff_SkillCard.OnValueChanged += (prev, current) => RecalculateAtkBuffTotal();
@@ -48,7 +83,7 @@ public class BuffManager : NetworkBehaviour
     }
 
     #region Recalculate Functions
-    private void RecalculateAllBuffTotals() // Recalculate all BuffTotals
+    private void RecalculateAllBuffTotals() // Recalculate all BuffTotal variables
     {
         RecalculateAtkBuffTotal();
         RecalculateDefBuffTotal();
@@ -102,6 +137,7 @@ public class BuffManager : NetworkBehaviour
     {
         if (!IsOwner) return;
         SkillCooldownBuffTotal = SkillCooldownBuff_SkillCard.Value;
+        skillManager.SetSkillCooldownMultiplier(SkillCooldownBuffTotal);
     }
     #endregion
 
