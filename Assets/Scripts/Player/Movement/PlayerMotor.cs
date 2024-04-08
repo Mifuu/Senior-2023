@@ -43,6 +43,11 @@ public class PlayerMotor : NetworkBehaviour
         }
     }
 
+    public float GetMovementSpeed()
+    {
+        return speed;
+    }
+
     public void ProcessMove(Vector2 input)
     {
         if (!IsOwner) return;

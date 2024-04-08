@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92111f096a2fd9b46a6ebbea3432e7b9, type: 3}
   m_Name: SkillCooldown Card Level 1
   m_EditorClassIdentifier: 
-  multiplier: 1.04
+  multiplier: -0.04
   level: 1
   nextLevelPrefab: {fileID: 7737883019265630326, guid: 528b418335306fd408269a1927256294, type: 3}
   name: Skill Cooldown Reduciton Lv.1
