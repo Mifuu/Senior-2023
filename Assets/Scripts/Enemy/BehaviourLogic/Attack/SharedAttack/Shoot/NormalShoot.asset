@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 7423775656597082803, guid: 84a3c7d641950ba4f92f91a582e4a667, type: 3}
   bulletAmount: 3
-  bulletSpeed: 100
+  preShootDelay: 1
   bulletDelay: 0.1
+  shootSound: {fileID: 8300000, guid: c80a24a5a802ae94b9badb5ea04e7385, type: 3}

@@ -11,6 +11,8 @@ namespace Enemy
         [SerializeField] private int bulletAmount = 1;
         [SerializeField] private float preShootDelay = 1.0f;
         [SerializeField] private float bulletDelay = 0.1f;
+        [SerializeField] private AudioClip shootSound;
+
         private Rigidbody bulletRB;
         private GameObject bulletSpawn;
 
@@ -35,6 +37,7 @@ namespace Enemy
             yield return new WaitForSeconds(preShootDelay);
             for (int i = 0; i < bulletAmount; i++)
             {
+                enemy.audioController.PlaySFXAtObject("Shoot", enemy.transform.position);
                 var newBullet = NetworkObjectPool.Singleton.GetNetworkObject(bulletPrefab, bulletSpawn.transform.position, enemy.transform.rotation);
                 enemy.transform.LookAt(enemy.targetPlayer.transform);
                 enemy.transform.eulerAngles = new Vector3(0, enemy.transform.eulerAngles.y, 0);
