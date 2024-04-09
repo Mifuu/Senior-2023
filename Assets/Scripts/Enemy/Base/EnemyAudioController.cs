@@ -51,24 +51,24 @@ namespace Enemy
 
         public EnemyAudioControllerSingular Get(string listName) => sfxListMap.GetValueOrDefault(listName);
 
-        public void PlaySFXOnObject(string listName, string audioName, Vector3 spawnTransform, bool localOnly = false)
+        public void PlaySFXOnObject(string listName, string audioName, Vector3 spawnPosition, bool localOnly = false)
         {
             if (localOnly)
             {
-                _PlaySFXOnObject(listName, audioName, spawnTransform);
+                _PlaySFXOnObject(listName, audioName, spawnPosition);
                 return;
             }
 
             if (IsClient)
             {
-                _PlaySFXOnObject(listName, audioName, spawnTransform);
-                PlaySFXOnAllClientClientRpc(listName, audioName, spawnTransform, NetworkManager.Singleton.LocalClientId);
+                _PlaySFXOnObject(listName, audioName, spawnPosition);
+                PlaySFXOnAllClientClientRpc(listName, audioName, spawnPosition, NetworkManager.Singleton.LocalClientId);
             }
             else
-                PlaySFXOnAllClientServerRpc(listName, audioName, spawnTransform);
+                PlaySFXOnAllClientServerRpc(listName, audioName, spawnPosition);
         }
 
-        private void _PlaySFXOnObject(string listName, string audioName, Vector3 spawnTransform)
+        private void _PlaySFXOnObject(string listName, string audioName, Vector3 spawnPosition)
         {
             if (!sfxSoundMap.TryGetValue(listName, out var soundMap))
             {
@@ -82,7 +82,7 @@ namespace Enemy
                 return;
             }
 
-            AudioSource audioSource = Instantiate(SFXObject, spawnTransform, Quaternion.identity);
+            AudioSource audioSource = Instantiate(SFXObject, spawnPosition, Quaternion.identity);
             if (audio.audioMixerGroup != null) // Null check can be expensive na ja
                 audioSource.outputAudioMixerGroup = audio.audioMixerGroup;
 
@@ -90,22 +90,24 @@ namespace Enemy
             audioSource.volume = audio.volume;
             audioSource.minDistance = 0f;
             audioSource.maxDistance = 30f;
+            audioSource.rolloffMode = AudioRolloffMode.Linear;
+            audioSource.spatialBlend = 1f;
             audioSource.Play();
             float clipLength = audioSource.clip.length;
             Destroy(audioSource.gameObject, clipLength);
         }
 
         [ClientRpc]
-        private void PlaySFXOnAllClientClientRpc(NetworkString listName, NetworkString soundName, Vector3 transform, ulong exceptClient)
+        private void PlaySFXOnAllClientClientRpc(NetworkString listName, NetworkString soundName, Vector3 position, ulong exceptClient)
         {
             if (exceptClient == NetworkManager.Singleton.LocalClientId) return;
-            _PlaySFXOnObject(listName, soundName, transform);
+            _PlaySFXOnObject(listName, soundName, position);
         }
 
         [ServerRpc]
-        private void PlaySFXOnAllClientServerRpc(NetworkString listName, NetworkString soundName, Vector3 transform)
+        private void PlaySFXOnAllClientServerRpc(NetworkString listName, NetworkString soundName, Vector3 position)
         {
-            PlaySFXOnAllClientClientRpc(listName, soundName, transform, NetworkManager.Singleton.LocalClientId);
+            PlaySFXOnAllClientClientRpc(listName, soundName, position, NetworkManager.Singleton.LocalClientId);
         }
     }
 
@@ -117,6 +119,6 @@ namespace Enemy
         }
 
         public string _name;
-        public void PlaySFXAtObject(string name, Vector3 transform) => EnemyAudioController.Singleton.PlaySFXOnObject(_name, name, transform);
+        public void PlaySFXAtObject(string name, Vector3 position) => EnemyAudioController.Singleton.PlaySFXOnObject(_name, name, position);
     }
 }
