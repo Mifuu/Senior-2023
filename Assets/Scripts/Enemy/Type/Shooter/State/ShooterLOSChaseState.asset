@@ -13,3 +13,8 @@ MonoBehaviour:
   m_Name: ShooterLOSChaseState
   m_EditorClassIdentifier: 
   checkCooldownTime: 1
+  chaseSpeed: 6
+  listOfChaseSoundName:
+  - Running_1
+  - Running_2
+  timeBetweenSteps: 0.3

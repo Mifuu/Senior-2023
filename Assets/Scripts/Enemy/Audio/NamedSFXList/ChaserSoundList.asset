@@ -22,3 +22,11 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 6a5eb723924f9374ba31f34f5886e4c7, type: 3}
     volume: 0.5
     audioMixerGroup: {fileID: -1851613114899645372, guid: b93faed963c14442e9c825c6c1b5fd94, type: 2}
+  - name: Running_1
+    clip: {fileID: 8300000, guid: af3ef0d0babf82045ba1eeb4632839a8, type: 3}
+    volume: 0.2
+    audioMixerGroup: {fileID: -1851613114899645372, guid: b93faed963c14442e9c825c6c1b5fd94, type: 2}
+  - name: Running_2
+    clip: {fileID: 8300000, guid: c673a530699ca1e40ba05cab0477c848, type: 3}
+    volume: 0.2
+    audioMixerGroup: {fileID: -1851613114899645372, guid: b93faed963c14442e9c825c6c1b5fd94, type: 2}
