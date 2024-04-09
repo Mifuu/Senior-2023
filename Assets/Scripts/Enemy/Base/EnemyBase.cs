@@ -191,7 +191,7 @@ namespace Enemy
         private void OnEnemySpawn()
         {
             if (!IsServer) return;
-            audioController.PlaySFXAtObject(soundSpawnName, transform.position);
+            audioController?.PlaySFXAtObject(soundSpawnName, transform.position);
             OnTargetPlayerRefindRequired();
             currentHealth.Value = maxHealth;
             // StateMachine.ChangeState(IdleState);
@@ -224,7 +224,7 @@ namespace Enemy
             if (dealer != null)
                 dealer.GetComponent<PlayerLevel>()?.AddExp(stat.BaseEXP.Value);
 
-            audioController.PlaySFXAtObject(soundDeadName, transform.position);
+            audioController?.PlaySFXAtObject(soundDeadName, transform.position);
             CleanUp();
             OnEnemyDie?.Invoke();
 

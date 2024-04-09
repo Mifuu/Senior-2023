@@ -398,8 +398,9 @@ MonoBehaviour:
   animationEventEmitter: {fileID: 4007888533607387383}
   animator: {fileID: 0}
   damageFloatingSpawner: {fileID: 0}
-  spawnSound: {fileID: 8300000, guid: 6a5eb723924f9374ba31f34f5886e4c7, type: 3}
-  deadSound: {fileID: 8300000, guid: 6a5eb723924f9374ba31f34f5886e4c7, type: 3}
+  soundListName: Mage
+  soundSpawnName: Spawn
+  soundDeadName: Dead
 --- !u!114 &-387585368819642466
 MonoBehaviour:
   m_ObjectHideFlags: 0

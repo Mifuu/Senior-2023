@@ -437,6 +437,9 @@ MonoBehaviour:
   animationEventEmitter: {fileID: 1412392925760578712}
   animator: {fileID: 0}
   damageFloatingSpawner: {fileID: 0}
+  soundListName: Chaser
+  soundSpawnName: Spawn
+  soundDeadName: Dead
 --- !u!114 &5575684663058277635
 MonoBehaviour:
   m_ObjectHideFlags: 0
