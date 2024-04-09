@@ -47,9 +47,8 @@ namespace Enemy
             {
                 selectedNextAttack.PerformAttack();
                 yield return new WaitForSeconds(afterAttackCoolDownTime);
-                if (!lineOfSightCheck.IsPlayerInLineOfSight(enemy.targetPlayer))
+                if (!lineOfSightCheck.IsTargetPlayerInLineOfSight())
                 {
-                    Debug.Log("Shooter checking LOS, State: Attack");
                     isContinueAttacking = false;
                     enemy.animator.SetTrigger(enemy.finishedAttackingAnimationTrigger);
                     enemy.StateMachine.ChangeState(enemy.ChaseState);
