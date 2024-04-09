@@ -21,7 +21,7 @@ namespace Enemy
                 Destroy(this);
 
             if (namedSFXList == null)
-                Debug.LogError("[ERROR] SFXManager: SFXList is null, please add one to the SFXManager");
+                Debug.LogError("[AWAKE ERROR] EnemyAudioController: NamedSFXList is null, please add one to the SFXManager");
 
             ConvertToDictionary();
         }
@@ -33,7 +33,7 @@ namespace Enemy
                 var current = namedSFXList[i];
                 if (sfxListMap.ContainsKey(current._name) || sfxSoundMap.ContainsKey(current._name))
                 {
-                    Debug.LogWarning($"Sound list named {current._name} has not been added since there's already a sound list with that name");
+                    Debug.LogWarning($"[SETUP ERROR] EnemyAudioController: Sound list named \"{current._name}\" has a duplicate");
                     continue;
                 }
 
@@ -43,13 +43,23 @@ namespace Enemy
                 {
                     var currentSFX = current.sounds[j];
                     if (!SFXDict.TryAdd(currentSFX.name, currentSFX))
-                        Debug.LogWarning($"Sound named {currentSFX.name} has not been added since it has a duplicate in list named {current._name}");
+                        Debug.LogWarning($"[SETUP ERROR] EnemyAudioController: Sound named \"{currentSFX.name}\" has a duplicate in list named \"{current._name}\"");
                 }
                 sfxSoundMap.Add(current._name, SFXDict);
             }
         }
 
-        public EnemyAudioControllerSingular Get(string listName) => sfxListMap.GetValueOrDefault(listName);
+        public EnemyAudioControllerSingular Get(string listName) 
+        {
+            EnemyAudioControllerSingular controllerSingular;
+            if (sfxListMap.TryGetValue(listName, out controllerSingular))  
+                return controllerSingular;
+            else
+            {
+                Debug.LogError($"[GET ERROR] EnemyAudioController: Cant find list with name \"{listName}\"");
+                return null;
+            }
+        }
 
         public void PlaySFXOnObject(string listName, string audioName, Vector3 spawnPosition, bool localOnly = false)
         {
@@ -72,13 +82,13 @@ namespace Enemy
         {
             if (!sfxSoundMap.TryGetValue(listName, out var soundMap))
             {
-                Debug.LogError("Sound Namespace Not found in the list");
+                Debug.LogError($"[PLAY ERROR] EnemyAudioController: Sound List name \"{listName}\" can not be found");
                 return;
             }
 
             if (!soundMap.TryGetValue(audioName, out var audio))
             {
-                Debug.LogError("Sound Not found in list name " + listName);
+                Debug.LogError($"[PLAY ERROR] EnemyAudioController: Sound \"{audioName}\"not found in list named \"{listName}\"");
                 return;
             }
 
