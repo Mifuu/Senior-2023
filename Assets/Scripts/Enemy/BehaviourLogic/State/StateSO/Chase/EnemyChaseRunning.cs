@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System.Linq;
 
 namespace Enemy
 {
@@ -10,6 +11,10 @@ namespace Enemy
         [SerializeField] private float targetCheckInterval = 1f;
         private EnemyWithinTriggerCheck strikingDistanceCheck;
         private bool isMoving = false;
+
+        [Header("Chase Audio")]
+        [SerializeField] private string[] listOfChaseSoundName;
+        [SerializeField] private float timeBetweenSteps;
 
         public override void Initialize(GameObject gameObject, EnemyBase enemy)
         {
@@ -27,6 +32,13 @@ namespace Enemy
             isMoving = true;
             enemy.navMeshAgent.speed = chaseSpeed;
             enemy.StartCoroutine(Move());
+            enemy.StartCoroutine(GenerateChaseSound());
+        }
+
+        public override void DoExitLogic()
+        {
+            base.DoExitLogic();
+            isMoving = false;
         }
 
         public override void DoFrameUpdateLogic()
@@ -42,18 +54,36 @@ namespace Enemy
             }
         }
 
-        public override void DoExitLogic()
-        {
-            base.DoExitLogic();
-            enemy.StopCoroutine(Move());
-        }
-
         public IEnumerator Move()
         {
             while (isMoving)
             {
                 enemy.navMeshAgent?.SetDestination(enemy.targetPlayer.transform.position);
                 yield return new WaitForSeconds(targetCheckInterval);
+            }
+        }
+
+        public IEnumerator GenerateChaseSound()
+        {
+            for (int i = 0; i < listOfChaseSoundName.Length; i++)
+            {
+                if (!enemy.audioController.CheckIsSoundAvailable(listOfChaseSoundName[i]))
+                {
+                    Debug.LogError("Check Sound Name in Chase Running State: " + enemy);
+                    yield break;
+                }
+            }
+
+            System.Random rnd = new System.Random();
+            var chosenSound = listOfChaseSoundName.OrderBy(x => rnd.Next()).Take(2).ToList();
+
+            int counter = 0;
+            while (isMoving)
+            {
+                var sound = chosenSound[counter];
+                enemy.audioController.PlaySFXAtObject(sound, enemy.transform.position);
+                if (++counter > 1) counter = 0;
+                yield return new WaitForSeconds(timeBetweenSteps);
             }
         }
     }
