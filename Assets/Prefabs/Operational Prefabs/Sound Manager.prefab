@@ -96,9 +96,9 @@ MonoBehaviour:
     volume: 0.2
     audioMixerGroup: {fileID: -4956898690137888572, guid: b93faed963c14442e9c825c6c1b5fd94, type: 2}
   bossMusic:
-    clip: {fileID: 0}
-    volume: 1
-    audioMixerGroup: {fileID: 0}
+    clip: {fileID: 8300000, guid: b4e13a878f7feda43ab868d94d4b3f5b, type: 3}
+    volume: 0.4
+    audioMixerGroup: {fileID: -4956898690137888572, guid: b93faed963c14442e9c825c6c1b5fd94, type: 2}
 --- !u!82 &4264110477051710645
 AudioSource:
   m_ObjectHideFlags: 0
@@ -108,7 +108,7 @@ AudioSource:
   m_GameObject: {fileID: 4936366506001255834}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -4956898690137888572, guid: b93faed963c14442e9c825c6c1b5fd94, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
