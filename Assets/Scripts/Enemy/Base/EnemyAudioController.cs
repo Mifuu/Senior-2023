@@ -61,7 +61,12 @@ namespace Enemy
             }
         }
 
-        public void PlaySFXOnObject(string listName, string audioName, Vector3 spawnPosition, bool localOnly = false)
+        public bool CheckIsSoundAvailable(string listName, string audioName)
+        {
+            return sfxSoundMap.TryGetValue(listName, out var innerSoundDict) && innerSoundDict.TryGetValue(audioName, out var _);
+        }
+
+        public void PlaySFXAtObject(string listName, string audioName, Vector3 spawnPosition, bool localOnly = false)
         {
             if (localOnly)
             {
@@ -129,6 +134,7 @@ namespace Enemy
         }
 
         public string _name;
-        public void PlaySFXAtObject(string name, Vector3 position) => EnemyAudioController.Singleton.PlaySFXOnObject(_name, name, position);
+        public void PlaySFXAtObject(string name, Vector3 position) => EnemyAudioController.Singleton.PlaySFXAtObject(_name, name, position);
+        public bool CheckIsSoundAvailable(string audioName) => EnemyAudioController.Singleton.CheckIsSoundAvailable(_name, audioName);
     }
 }
