@@ -276,5 +276,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletSpeed: 8
   isHomingCapable: 0
-  baseDamageAmount: 5
   <maxHealth>k__BackingField: 3

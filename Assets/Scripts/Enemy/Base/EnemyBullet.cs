@@ -8,7 +8,6 @@ namespace Enemy
     {
         [SerializeField] private float bulletSpeed = 10f;
         [SerializeField] private bool isHomingCapable;
-        [SerializeField] private float baseDamageAmount = 5.0f;
 
         private GameObject target;
         private GameObject bulletOwner;

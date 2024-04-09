@@ -22,7 +22,7 @@ namespace Enemy
             float def;
             if (getter.GetFloat("BaseDef", out def))
             {
-                return def;
+                return 1/def;
             }
             return defaultEmergencyBaseDef;
         }
