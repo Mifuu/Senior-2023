@@ -581,7 +581,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   upgradeDetail: {fileID: 11400000, guid: 641307a09eec1f447aac8900e3027ea2, type: 2}
   gunWeakness: {fileID: 11400000, guid: cfe138e0ad3b6f54ab4a8d67ae97c250, type: 2}
-  defaultBaseDMG: 10
+  defaultBaseDMG: 1
   defaultBaseDMGReceiveFactor: 1
   defaultElementalDmg: 1
   defaultElementalRES: 1
@@ -1159,6 +1159,13 @@ MonoBehaviour:
     TransitionIndex: 0
   - IsCrossFadeExit: 0
     Layer: 0
+    OriginatingState: 2081823275
+    DestinationState: 688179516
+    TransitionDuration: 0.25
+    TriggerNameHash: -1785494092
+    TransitionIndex: 1
+  - IsCrossFadeExit: 0
+    Layer: 0
     OriginatingState: 518045809
     DestinationState: 2081823275
     TransitionDuration: 0.25
@@ -1170,6 +1177,13 @@ MonoBehaviour:
     DestinationState: 2081823275
     TransitionDuration: 0.25
     TriggerNameHash: 1121857527
+    TransitionIndex: 0
+  - IsCrossFadeExit: 0
+    Layer: 0
+    OriginatingState: 688179516
+    DestinationState: 518045809
+    TransitionDuration: 0.25
+    TriggerNameHash: 1080829965
     TransitionIndex: 0
   m_Animator: {fileID: 759057338812789487}
 --- !u!4 &7684488887174349147 stripped

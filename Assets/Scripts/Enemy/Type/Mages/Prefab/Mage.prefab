@@ -545,7 +545,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   upgradeDetail: {fileID: 11400000, guid: 641307a09eec1f447aac8900e3027ea2, type: 2}
   gunWeakness: {fileID: 11400000, guid: cfe138e0ad3b6f54ab4a8d67ae97c250, type: 2}
-  defaultBaseDMG: 10
+  defaultBaseDMG: 1
   defaultBaseDMGReceiveFactor: 1
   defaultElementalDmg: 1
   defaultElementalRES: 1
