@@ -76,6 +76,7 @@ namespace Enemy
 
         private void SpawnAssociator(EnemyBase leafEnemy)
         {
+            if (vfxMap.ContainsKey(leafEnemy)) return; 
             var centerLocation = Vector3.Lerp(enemy.transform.position, leafEnemy.transform.position, 0.5f);
             centerLocation.y += yRaise;
             var associatorInstance = Instantiate(associatorPrefab, centerLocation, Quaternion.identity);
@@ -86,6 +87,5 @@ namespace Enemy
 
             vfxMap.Add(leafEnemy, associatorInstance);
         }
-
     }
 }

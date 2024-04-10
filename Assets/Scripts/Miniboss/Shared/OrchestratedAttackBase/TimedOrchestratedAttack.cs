@@ -10,6 +10,7 @@ namespace Enemy
 
         public override void PerformAttack()
         {
+            base.PerformAttack();
             enemy.StartCoroutine(AttackSequence());
         }
 

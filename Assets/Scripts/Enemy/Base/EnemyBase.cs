@@ -61,11 +61,6 @@ namespace Enemy
         #region Animation
 
         [HideInInspector] public Animator animator;
-        public readonly int startChasingAnimationTrigger = Animator.StringToHash("StartChasing");
-        public readonly int knockedbackAnimationTrigger = Animator.StringToHash("KnockedBack");
-        public readonly int attackAnimationTrigger = Animator.StringToHash("Attack");
-        public readonly int finishedAttackingAnimationTrigger = Animator.StringToHash("FinishedAttacking");
-        public readonly int finishedKnockbackAnimationTrigger = Animator.StringToHash("FinishedKnockback");
 
         #endregion
 
