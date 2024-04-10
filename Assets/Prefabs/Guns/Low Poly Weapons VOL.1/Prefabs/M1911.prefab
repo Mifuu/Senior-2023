@@ -226,7 +226,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.345461, y: 1.345461, z: 1.345461}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4314784194266678}
@@ -284,7 +284,7 @@ MonoBehaviour:
   shootingDelay: 0.1
   playerObject: {fileID: 0}
   playerEntity: {fileID: 0}
-  gunInteractable: {fileID: 0}
+  gunInteractable: {fileID: 715342614847693155, guid: 1713a19e8ac8a504f9cb7eb18ac803b7, type: 3}
   elementAttachable: {fileID: 0}
   playerDmgComponent: {fileID: 0}
 --- !u!1 &1748277932983872
