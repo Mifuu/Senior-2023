@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   setPerformAttack: 0
   performAttackTriggerName: 
-  AOEGameObject: {fileID: 0}
+  AOEGameObject: {fileID: 5498458629423864041, guid: 124a6bc4080dee3469c212cec1aa7b39, type: 3}
   waitForAOEToEnd: 0

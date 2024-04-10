@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   setPerformAttack: 0
   performAttackTriggerName: 
-  attack: {fileID: 0}
+  attack: {fileID: 11400000, guid: 8e7d5a547c088c449b86a8ad2019e9ed, type: 2}
   instantiateAttackForOrchestrator: 0
-  timeBetweenAttacks: 0
+  timeBetweenAttacks: 3

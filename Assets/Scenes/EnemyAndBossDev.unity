@@ -919,7 +919,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isSpawning:
     m_InternalValue: 0
-  chooseEnemyToSpawn: {fileID: 5446555976368360068, guid: d1017491dbc8233409c7b0a923e2e466, type: 3}
+  chooseEnemyToSpawn: {fileID: 5781375362114392876, guid: 9c816a1b498eb9544a27532b47b71eaa, type: 3}
   spawnNumber: 1
   selectedSpawnLocation: {fileID: 0}
   bossRoom: {fileID: 0}
@@ -1431,6 +1431,8 @@ MonoBehaviour:
     PrewarmCount: 5
   - Prefab: {fileID: 5446555976368360068, guid: 994fef0af8a6afd4b9155b738832ecd2, type: 3}
     PrewarmCount: 5
+  - Prefab: {fileID: 5498458629423864041, guid: 124a6bc4080dee3469c212cec1aa7b39, type: 3}
+    PrewarmCount: 20
   - Prefab: {fileID: 1439638749425770896, guid: 1f4d84855cce09b41b6421cc63ac9c5f, type: 3}
     PrewarmCount: 50
   - Prefab: {fileID: 1439638749425770896, guid: 4953a8cb503b07247be52164c35c3654, type: 3}
@@ -1808,6 +1810,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 1aae1ce4d32b7c34e8089cd648804161, type: 2}
   - {fileID: 11400000, guid: 68cb8519b32f1b14381a2a02622bac4d, type: 2}
   - {fileID: 11400000, guid: c95f998ba51c4524fbf02aac480260c8, type: 2}
+  - {fileID: 11400000, guid: 2b9fa81a6c93cc94da3d8368d3dcc0a0, type: 2}
+  - {fileID: 11400000, guid: d8715054006c78346bdeea137549b1b7, type: 2}
   SFXObject: {fileID: 3227387743889306162, guid: 81cf689f9a41cdb4aafa6ae2497e25ac, type: 3}
 --- !u!4 &718819718
 Transform:
