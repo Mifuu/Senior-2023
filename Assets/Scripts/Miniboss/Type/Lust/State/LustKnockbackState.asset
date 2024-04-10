@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d1213f606fa642489955935dda305bf, type: 3}
   m_Name: LustKnockbackState
   m_EditorClassIdentifier: 
-  setEnterTrigger: 0
-  enterTriggerName: 
-  setExitTrigger: 0
-  exitTriggerName: 
-  cooldownTime: 5
+  setEnterTrigger: 1
+  enterTriggerName: OnKnockback
+  setExitTrigger: 1
+  exitTriggerName: OnKnockbackOver
+  cooldownTime: 8

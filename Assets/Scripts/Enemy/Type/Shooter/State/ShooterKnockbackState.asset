@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d1213f606fa642489955935dda305bf, type: 3}
   m_Name: ShooterKnockbackState
   m_EditorClassIdentifier: 
-  setEnterTrigger: 0
-  enterTriggerName: 
-  setExitTrigger: 0
-  exitTriggerName: 
+  setEnterTrigger: 1
+  enterTriggerName: KnockedBack
+  setExitTrigger: 1
+  exitTriggerName: FinishedKnockback
   cooldownTime: 5

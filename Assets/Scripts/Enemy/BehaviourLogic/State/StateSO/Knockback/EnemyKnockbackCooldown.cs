@@ -19,12 +19,6 @@ namespace Enemy
             enemy.StartCoroutine(Cooldown());
         }
 
-        public override void DoExitLogic()
-        {
-            base.DoExitLogic();
-            enemy.StopCoroutine(Cooldown());
-        }
-
         public IEnumerator Cooldown()
         {
             yield return new WaitForSeconds(cooldownTime);

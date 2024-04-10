@@ -82,6 +82,7 @@ namespace Enemy
             var associatorInstance = Instantiate(associatorPrefab, centerLocation, Quaternion.identity);
             if (associatorInstance.TryGetComponent<NetworkObject>(out var networkObject))
                 networkObject.Spawn();
+            if (rangeController.isFightActivated.Value) associatorInstance.Stop();
             associatorInstance.transform.LookAt(enemy.transform);
             associatorInstance.transform.eulerAngles = new Vector3(0, associatorInstance.transform.eulerAngles.y, associatorInstance.transform.eulerAngles.z);
 

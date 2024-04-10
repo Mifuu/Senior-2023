@@ -14,5 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   allAttack:
   - {fileID: 11400000, guid: 28b6463b155ae5741b984012657fb3e6, type: 2}
+  setEnterTrigger: 1
+  enterTriggerName: Attack
+  setExitTrigger: 1
+  exitTriggerName: FinishedAttacking
   timeBeforeExitState: 3
   timeBeforeAttackBegin: 2

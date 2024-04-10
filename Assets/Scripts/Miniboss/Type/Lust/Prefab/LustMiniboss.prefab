@@ -269,7 +269,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   keyPrefab: {fileID: 776408440454080079, guid: 8c55fec5e4b0ead498d017a87c32d426, type: 3}
-  enemy: {fileID: 5901889156636781570}
+  enemy: {fileID: -2060598507472959485}
 --- !u!1 &2238500537783274330
 GameObject:
   m_ObjectHideFlags: 0
@@ -361,7 +361,7 @@ MonoBehaviour:
   spawnedEnemyRef: []
   currentAliveEnemy:
     m_InternalValue: 0
-  enemy: {fileID: 5901889156636781570}
+  enemy: {fileID: -2060598507472959485}
   spawnImmediately: 1
   killOnBaseDies: 0
 --- !u!114 &849368796303863049
@@ -377,7 +377,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   associatorPrefab: {fileID: 8450010800814678212, guid: 08e2ab1f2e015654986cc31572073b07, type: 3}
-  enemy: {fileID: 5901889156636781570}
+  enemy: {fileID: -2060598507472959485}
   rangeController: {fileID: -3575387006805459007}
   spawnManager: {fileID: 2927601398987625331}
   yRaise: 1
@@ -537,7 +537,7 @@ MonoBehaviour:
   spawnedEnemyRef: []
   currentAliveEnemy:
     m_InternalValue: 0
-  enemy: {fileID: 0}
+  enemy: {fileID: -2060598507472959485}
 --- !u!1 &5781375362114392876
 GameObject:
   m_ObjectHideFlags: 0
@@ -551,7 +551,6 @@ GameObject:
   - component: {fileID: 2071626017103048908}
   - component: {fileID: 6954536221748962922}
   - component: {fileID: 666750218236914706}
-  - component: {fileID: 5901889156636781570}
   - component: {fileID: 5575684663058277635}
   - component: {fileID: 1328936819293529823}
   - component: {fileID: 1403371354826126111}
@@ -564,7 +563,8 @@ GameObject:
   - component: {fileID: 2040013773459935040}
   - component: {fileID: 3388744621044889110}
   - component: {fileID: -3575387006805459007}
-  - component: {fileID: -8716212994817364967}
+  - component: {fileID: -2060598507472959485}
+  - component: {fileID: 7071283646040040747}
   m_Layer: 12
   m_Name: LustMiniboss
   m_TagString: Untagged
@@ -702,39 +702,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 94
   m_CollisionDetection: 1
---- !u!114 &5901889156636781570
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5781375362114392876}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ddead72d729e01543b7bc746f68d462d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  aggroDistanceTriggerCheck: {fileID: 4152279539823919615}
-  networkMaxHealth:
-    m_InternalValue: 0
-  <maxHealth>k__BackingField: 200
-  maxDistanceSquared: 3000
-  EnemyAttackBase: {fileID: 11400000, guid: 78a62da7a255bd04ea3b9dd799b473d3, type: 2}
-  EnemyIdleBase: {fileID: 11400000, guid: 2a218f252f47b884c8449a9d26ba4b34, type: 2}
-  EnemyChaseBase: {fileID: 11400000, guid: f0de20db2f3463e48b7db5c836ced6d3, type: 2}
-  EnemyKnockbackBase: {fileID: 11400000, guid: 3999b70de71ed82438f2f9af437f2c2d, type: 2}
-  targetPlayer: {fileID: 0}
-  navMeshAgent: {fileID: 0}
-  dealerPipeline: {fileID: 0}
-  stat: {fileID: 0}
-  navMeshAngularSpeedFactor: 10
-  navMeshAcceleration: 2
-  animationEventEmitter: {fileID: 0}
-  animator: {fileID: 0}
-  damageFloatingSpawner: {fileID: 0}
-  soundListName: Lust
-  soundSpawnName: Spawn
-  soundDeadName: Dead
 --- !u!114 &5575684663058277635
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -967,8 +934,42 @@ MonoBehaviour:
   exitFightTriggerCheck: {fileID: -5342352873261032161, guid: 0a39d10c2c76e014284c6eba25caf800, type: 3}
   spawnEnterCheckImmediate: 1
   spawnExitCheckImmediate: 1
-  stateMachine: {fileID: 5575684663058277635}
---- !u!114 &-8716212994817364967
+--- !u!114 &-2060598507472959485
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5781375362114392876}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 462f53c74d6d5144786ec08f3bfc77ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  aggroDistanceTriggerCheck: {fileID: 4152279539823919615}
+  networkMaxHealth:
+    m_InternalValue: 0
+  <maxHealth>k__BackingField: 200
+  maxDistanceSquared: 3000
+  EnemyAttackBase: {fileID: 11400000, guid: 78a62da7a255bd04ea3b9dd799b473d3, type: 2}
+  EnemyIdleBase: {fileID: 11400000, guid: 2a2debfc8327e0845ba7996b49c3c2f8, type: 2}
+  EnemyChaseBase: {fileID: 11400000, guid: bd7d6423e24c21e4ebfc5b73b2f651de, type: 2}
+  EnemyKnockbackBase: {fileID: 11400000, guid: 213248a3f2eccbb4b811d8baee53fc02, type: 2}
+  targetPlayer: {fileID: 0}
+  navMeshAgent: {fileID: 0}
+  dealerPipeline: {fileID: 0}
+  stat: {fileID: 0}
+  navMeshAngularSpeedFactor: 5
+  navMeshAcceleration: 2
+  animationEventEmitter: {fileID: 2344455149232642434}
+  animator: {fileID: 0}
+  damageFloatingSpawner: {fileID: 0}
+  soundListName: Lust
+  soundSpawnName: Spawn
+  soundDeadName: Dead
+  rangeController: {fileID: -3575387006805459007}
+  statueSpawnManager: {fileID: 2927601398987625331}
+--- !u!114 &7071283646040040747
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1543,7 +1544,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe844ce035442c44faa98ae2f046299d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemy: {fileID: 5901889156636781570}
+  enemy: {fileID: -2060598507472959485}
 --- !u!1001 &1572424152706942293
 PrefabInstance:
   m_ObjectHideFlags: 0
