@@ -12,5 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53809728483161840b9514ffe69a5e34, type: 3}
   m_Name: LustSoundList
   m_EditorClassIdentifier: 
-  _name: 
-  sounds: []
+  _name: Lust
+  sounds:
+  - name: Spawn
+    clip: {fileID: 8300000, guid: 6a5eb723924f9374ba31f34f5886e4c7, type: 3}
+    volume: 0.5
+    audioMixerGroup: {fileID: -1851613114899645372, guid: b93faed963c14442e9c825c6c1b5fd94, type: 2}
+  - name: Dead
+    clip: {fileID: 8300000, guid: 6a5eb723924f9374ba31f34f5886e4c7, type: 3}
+    volume: 0.5
+    audioMixerGroup: {fileID: -1851613114899645372, guid: b93faed963c14442e9c825c6c1b5fd94, type: 2}

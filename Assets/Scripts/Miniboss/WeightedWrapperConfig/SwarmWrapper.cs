@@ -3,8 +3,8 @@ using System.Collections.Generic;
 
 namespace Enemy
 {
-    [CreateAssetMenu(fileName = "SwarmHold", menuName = "Miniboss/Weighted Attack Wrapper/Swarm")]
-    public class SwarmWrapper : WrapperStaminaHold
+    [CreateAssetMenu(fileName = "Swarm", menuName = "Miniboss/Weighted Attack Wrapper/Swarm")]
+    public class SwarmWrapper : WrapperStaminaRepick
     {
         [Header("Spawn Manager Setting")]
         [SerializeField] private string spawnManagerId;
@@ -45,7 +45,7 @@ namespace Enemy
             {
                 if (IsReady)
                     return EnemyWeightedAttackResponseMode.Proceed;
-                return EnemyWeightedAttackResponseMode.Hold;
+                return EnemyWeightedAttackResponseMode.Repick;
             }
             return staminaCheck;
         }

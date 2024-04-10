@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3bdb2f896dc65f44a82b4390596f9bc, type: 3}
   m_Name: LustIdleState
   m_EditorClassIdentifier: 
-  setEnterTrigger: 0
-  enterTriggerName: 
+  setEnterTrigger: 1
+  enterTriggerName: OnIdle
   setExitTrigger: 0
   exitTriggerName: 
   cooldownTime: 3
