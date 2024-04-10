@@ -13,6 +13,7 @@ namespace Enemy
 
         public override void PerformAttack()
         {
+            base.PerformAttack();
             if (!enemy.IsServer) return;
             var aoe = NetworkObjectPool.Singleton.GetNetworkObject(AOEGameObject, enemy.transform.position, AOEGameObject.transform.rotation);
             aoeBase = aoe.gameObject.GetComponent<EnemyAOEBase>();

@@ -9,14 +9,12 @@ namespace Enemy
         {
             base.DoEnterLogic();
             selectedNextAttack.PerformAttack();
-            enemy.animator.SetTrigger(enemy.attackAnimationTrigger);
             selectedNextAttack.OnAttackEnds += OnAttackEnds;
         }
 
         public override void DoExitLogic()
         {
             base.DoExitLogic();
-            enemy.animator.SetTrigger(enemy.finishedAttackingAnimationTrigger);
             selectedNextAttack.OnAttackEnds -= OnAttackEnds;
         }
 

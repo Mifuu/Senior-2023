@@ -613,6 +613,9 @@ MonoBehaviour:
   animationEventEmitter: {fileID: 4028881116827335030}
   animator: {fileID: 0}
   damageFloatingSpawner: {fileID: 0}
+  soundListName: LustStatues
+  soundSpawnName: Spawn
+  soundDeadName: Dead
 --- !u!114 &4962021350214988636
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1218,6 +1221,13 @@ MonoBehaviour:
     TransitionIndex: 0
   - IsCrossFadeExit: 0
     Layer: 0
+    OriginatingState: 2081823275
+    DestinationState: 688179516
+    TransitionDuration: 0.25
+    TriggerNameHash: -1785494092
+    TransitionIndex: 1
+  - IsCrossFadeExit: 0
+    Layer: 0
     OriginatingState: 518045809
     DestinationState: 2081823275
     TransitionDuration: 0.25
@@ -1229,6 +1239,13 @@ MonoBehaviour:
     DestinationState: 2081823275
     TransitionDuration: 0.25
     TriggerNameHash: 1121857527
+    TransitionIndex: 0
+  - IsCrossFadeExit: 0
+    Layer: 0
+    OriginatingState: 688179516
+    DestinationState: 518045809
+    TransitionDuration: 0.25
+    TriggerNameHash: 1080829965
     TransitionIndex: 0
   m_Animator: {fileID: 759057338812789487}
 --- !u!4 &7684488887174349147 stripped
