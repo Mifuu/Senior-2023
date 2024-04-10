@@ -45,15 +45,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d927edee2eb59a34e98fe9d9a3609381, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectedWeapon:
+  currentGunIndex:
     m_InternalValue: 0
   guns:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  initialGun_1: {fileID: -6010178688952039741, guid: e66a9aaed12910b4cacb107303a4c177, type: 3}
-  initialGun_2: {fileID: -3425522162913698515, guid: d91f72630ba59bf4d93b9772eef74503, type: 3}
-  initialGun_3: {fileID: -5800418474134001730, guid: 602f4ef2b0e013047ac7960a112126e8, type: 3}
+  maxGun: 3
+  initialGun_1: {fileID: -6031280413653013561, guid: ee329c3cd08e58645834d20702d7f6c6, type: 3}
+  initialGun_2: {fileID: -2742173230579723089, guid: 6f1a7354265853f44b0ed5e2e43676ad, type: 3}
+  initialGun_3: {fileID: 116192828306151380, guid: 8b0b86b42def11849a8eba21f4a6a684, type: 3}
 --- !u!114 &3166920851695160663
 MonoBehaviour:
   m_ObjectHideFlags: 0
