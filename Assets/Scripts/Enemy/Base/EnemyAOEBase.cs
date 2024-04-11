@@ -34,9 +34,7 @@ namespace Enemy
             animator.keepAnimatorStateOnDisable = false;
 
             if (areaOfEffectTrigger == null)
-            {
                 Debug.LogError("AOE have no trigger check (Hitbox)");
-            }
         }
 
         public virtual void InitializeAOE(GameObject PlayerTarget, EnemyBase enemy, DamageCalculationComponent component = null)
@@ -53,11 +51,6 @@ namespace Enemy
         protected void EmitAOEEndsEvent()
         {
             OnAOEPeriodEnd?.Invoke();
-        }
-
-        public override void OnNetworkSpawn()
-        {
-            base.OnNetworkSpawn();
         }
 
         public override void OnNetworkDespawn()

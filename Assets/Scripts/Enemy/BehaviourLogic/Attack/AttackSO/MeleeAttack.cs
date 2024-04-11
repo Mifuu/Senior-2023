@@ -25,6 +25,7 @@ namespace Enemy
 
         public override void PerformAttack()
         {
+            base.PerformAttack();
             if (!enemy.IsServer) return;
             enemy.StartCoroutine(PerformAttackCoroutine());
         }

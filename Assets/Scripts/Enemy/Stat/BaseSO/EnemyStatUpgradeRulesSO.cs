@@ -12,7 +12,7 @@ namespace Enemy
         [Serializable]
         public struct EnemyStatUpgradeDetail
         {
-            public enum MethodEnums { Overwrite, LevelBasePolynomial, LevelBaseExponential, LevelBaseSigmoid }
+            public enum MethodEnums { Overwrite, Additive, Multiplicative }
             [SerializeField] public MethodEnums Method;
             [SerializeField] public List<EnemyStat.EnemyStatsEnum> Stats;
             [SerializeField] public float Amount;

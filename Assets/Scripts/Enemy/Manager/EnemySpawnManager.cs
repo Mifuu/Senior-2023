@@ -15,6 +15,7 @@ namespace Enemy
         [SerializeField] private int spawnNumber = 1;
         [SerializeField] private Transform selectedSpawnLocation;
         [SerializeField] private GameObject bossRoom;
+        [SerializeField] private List<GameObject> listOfNormalEnemy;
 
         public void Awake()
         {
@@ -122,6 +123,13 @@ namespace Enemy
                 SpawnEnemy(chooseEnemyToSpawn);
                 spawnCount++;
             }
+        }
+
+        [ContextMenu("Spawn All Normal Enemy")]
+        public void SpawnNormalEnemy()
+        {
+            foreach (var norm in listOfNormalEnemy)
+                SpawnEnemy(norm);
         }
 
         private Vector3 GetRandomPosition()

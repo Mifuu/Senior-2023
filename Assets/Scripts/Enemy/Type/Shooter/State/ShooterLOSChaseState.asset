@@ -12,4 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e41585fefac8c445935c71d50b76239, type: 3}
   m_Name: ShooterLOSChaseState
   m_EditorClassIdentifier: 
+  setEnterTrigger: 1
+  enterTriggerName: StartChasing
+  setExitTrigger: 0
+  exitTriggerName: 
   checkCooldownTime: 1
+  chaseSpeed: 6
+  listOfChaseSoundName:
+  - Running_1
+  - Running_2
+  timeBetweenSteps: 0.3

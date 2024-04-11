@@ -25,7 +25,7 @@ public class PlayerHitboxDamageable : NetworkBehaviour, IDamageCalculatable
 
     protected virtual float CalculateDamage(DamageInfo damageInfo)
     {
-        return damageCalculationComponent.GetFinalDealthDamageAmount(damageInfo) * simpleDamageFactor;
+        return damageCalculationComponent.GetFinalReceivedDamageAmount(damageInfo) * simpleDamageFactor;
     }
 
     public void Damage(DamageInfo damageInfo)

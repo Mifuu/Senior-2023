@@ -12,5 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0317676637c6f94e8f9be6c192339a6, type: 3}
   m_Name: LustStatueLeerAttack
   m_EditorClassIdentifier: 
+  setPerformAttack: 1
+  performAttackTriggerName: Attack3
   attack: {fileID: 11400000, guid: 0178544458cf9e64e81535416086df94, type: 2}
+  instantiateAttackForOrchestrator: 0
   withSelf: 1

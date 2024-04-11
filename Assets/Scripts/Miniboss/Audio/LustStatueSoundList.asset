@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53809728483161840b9514ffe69a5e34, type: 3}
+  m_Name: LustStatueSoundList
+  m_EditorClassIdentifier: 
+  _name: LustStatues
+  sounds:
+  - name: Spawn
+    clip: {fileID: 8300000, guid: 6a5eb723924f9374ba31f34f5886e4c7, type: 3}
+    volume: 0.5
+    audioMixerGroup: {fileID: -1851613114899645372, guid: b93faed963c14442e9c825c6c1b5fd94, type: 2}
+  - name: Dead
+    clip: {fileID: 8300000, guid: 6a5eb723924f9374ba31f34f5886e4c7, type: 3}
+    volume: 0.5
+    audioMixerGroup: {fileID: -1851613114899645372, guid: b93faed963c14442e9c825c6c1b5fd94, type: 2}
+  - name: Shoot
+    clip: {fileID: 8300000, guid: c80a24a5a802ae94b9badb5ea04e7385, type: 3}
+    volume: 0.5
+    audioMixerGroup: {fileID: -1851613114899645372, guid: b93faed963c14442e9c825c6c1b5fd94, type: 2}
