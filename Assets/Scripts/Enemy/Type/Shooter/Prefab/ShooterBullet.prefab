@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2219224135985861657}
   - component: {fileID: 144070901574321144}
   - component: {fileID: 799554890371253623}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: HitBox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -79,7 +79,7 @@ GameObject:
   - component: {fileID: -1229946047466396078}
   - component: {fileID: 6731968627222363848}
   - component: {fileID: 8411239978672411146}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: ShooterBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
