@@ -23,6 +23,7 @@ namespace RoomGeneration
         public int maxFailAttempts = 32;
         private int spawnCount = 0;
         public EnemyRandomPool enemyPrefabPool;
+        public bool spawnAtCenter;
 
         // playtime cache
         List<RoomSpawnerCollider> roomSpawnerColliders = new List<RoomSpawnerCollider>();
@@ -138,7 +139,7 @@ namespace RoomGeneration
             int failAttempts = 0;
             for (int i = 0; i < spawnCount; i++)
             {
-                Vector3 raycastDirection = RandomPointOnUnitHemisphere();
+                Vector3 raycastDirection = spawnAtCenter ? Vector3.down : RandomPointOnUnitHemisphere();
                 Physics.Raycast(raycastOrigin, raycastDirection, out hit, 100f, raycastMask);
 
                 if (hit.collider != null && IsInRoomBoxes(hit.point))
