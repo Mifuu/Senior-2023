@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8052466302382386517}
   - component: {fileID: 394500212642006640}
-  - component: {fileID: 118020830261803701}
   m_Layer: 0
   m_Name: EnemySFXManager
   m_TagString: Untagged
@@ -53,23 +52,3 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 2b9fa81a6c93cc94da3d8368d3dcc0a0, type: 2}
   - {fileID: 11400000, guid: d8715054006c78346bdeea137549b1b7, type: 2}
   SFXObject: {fileID: 3227387743889306162, guid: 81cf689f9a41cdb4aafa6ae2497e25ac, type: 3}
---- !u!114 &118020830261803701
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8208794213069185037}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 951099334
-  AlwaysReplicateAsRoot: 0
-  SynchronizeTransform: 1
-  ActiveSceneSynchronization: 0
-  SceneMigrationSynchronization: 1
-  SpawnWithObservers: 1
-  DontDestroyWithOwner: 0
-  AutoObjectParentSync: 1
