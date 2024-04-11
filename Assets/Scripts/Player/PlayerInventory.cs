@@ -59,7 +59,7 @@ public class PlayerInventory : NetworkBehaviour
     private PlayerSkillCard playerSkillCard;
     private PlayerLevel playerLevel;
 
-    [System.Serializable] 
+    [System.Serializable]
     public class SkillCardUpgrade
     {
         public int skillCardUpgradeIndex;
@@ -75,7 +75,6 @@ public class PlayerInventory : NetworkBehaviour
         playerSkillCard = GetComponent<PlayerSkillCard>();
         playerLevel = GetComponent<PlayerLevel>();
         RemoveAndApplyUpgrades();
-        ApplyUpgradeOptions();
     }
 
     #region Skill Card Functions
@@ -89,7 +88,7 @@ public class PlayerInventory : NetworkBehaviour
         }
     }
 
-    public void LevelUpSkillCard (int slotIndex, SkillCardUpgrade chosenSkillCardUpgrade)
+    public void LevelUpSkillCard(int slotIndex, SkillCardUpgrade chosenSkillCardUpgrade)
     {
         if (!IsOwner) return;
         int indexInSkillCardUpgradeOptions = 0;
@@ -105,11 +104,11 @@ public class PlayerInventory : NetworkBehaviour
                 }
                 for (int i = 0; i < skillcardUpgradeOptions.Count; i++)
                 {
-                    if (skillcardUpgradeOptions[i].skillCardData.name == chosenSkillCardUpgrade.skillCardData.name) 
+                    if (skillcardUpgradeOptions[i].skillCardData.name == chosenSkillCardUpgrade.skillCardData.name)
                     {
                         indexInSkillCardUpgradeOptions = i;
                     }
-                }   
+                }
                 UpgradeSkillCardServerRPC(slotIndex, transform.position, Quaternion.identity, indexInSkillCardUpgradeOptions);
                 playerLevel.levelSystem.AddSkillCardPoint(-1);
             }
@@ -124,7 +123,7 @@ public class PlayerInventory : NetworkBehaviour
 
         for (int i = 0; i < SkillCardUI.Instance.cardSlotUIs.Length; i++)
         {
-            if(availableSkillCardUpgrade.Count == 0)
+            if (availableSkillCardUpgrade.Count == 0)
             {
                 Debug.Log($"Disable Upgrade UI Slot {i} because there is no more card to upgrade");
                 DisableUpgradeUI(i);
@@ -187,7 +186,7 @@ public class PlayerInventory : NetworkBehaviour
     void RemoveUpgradeOptions()
     {
         SkillCardUI.Instance.RemoveAllListeners();
-        DisableUpgradeUI(0); 
+        DisableUpgradeUI(0);
         DisableUpgradeUI(1);
         DisableUpgradeUI(2);
     }
