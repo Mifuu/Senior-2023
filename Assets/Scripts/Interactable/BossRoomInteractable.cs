@@ -15,10 +15,25 @@ public class BossRoomInteractable : InteractableItem
 
     void Start()
     {
-        playerManager = PlayerManager.Instance;
-        playerInventory = playerManager.gameObject.GetComponent<PlayerInventory>();
-        playerInventory.Key.OnValueChanged += OnPlayerKeyUpdate;
-        OnPlayerKeyUpdate(0, 0);
+
+    }
+
+    void Update()
+    {
+        AttemptGetPlayerManager();
+    }
+
+    void AttemptGetPlayerManager()
+    {
+        if (!playerManager)
+        {
+            if (PlayerManager.thisClient == null)
+                return;
+            playerManager = PlayerManager.thisClient;
+            playerInventory = playerManager.gameObject.GetComponent<PlayerInventory>();
+            playerInventory.Key.OnValueChanged += OnPlayerKeyUpdate;
+            OnPlayerKeyUpdate(0, 0);
+        }
     }
 
     void FixedUpdate()
