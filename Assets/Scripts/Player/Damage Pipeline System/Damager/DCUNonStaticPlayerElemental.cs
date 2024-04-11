@@ -12,9 +12,6 @@ public class DCUNonStaticPlayerElemental : DamageCalculationUnitBase
         attachable = component.GetComponent<ElementAttachable>();
         entity = component.GetComponent<ElementalEntity>();
         stat = component.GetComponent<PlayerStat>();
-        Debug.Log("Attachable: " + attachable);
-        Debug.Log("Entity: " + entity);
-        Debug.Log("Stat: " + stat);
         Debug.LogWarning("Current Player Damage Calculation Still only use Pistol as gun type, change this later");
     }
 

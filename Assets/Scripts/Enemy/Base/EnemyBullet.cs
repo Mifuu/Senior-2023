@@ -8,7 +8,6 @@ namespace Enemy
     {
         [SerializeField] private float bulletSpeed = 10f;
         [SerializeField] private bool isHomingCapable;
-        [SerializeField] private float baseDamageAmount = 5.0f;
 
         private GameObject target;
         private GameObject bulletOwner;
@@ -83,10 +82,9 @@ namespace Enemy
         {
             if (!IsServer) return;
 
-            IDamageCalculatable damager;
-            if (!collider.TryGetComponent<IDamageCalculatable>(out damager)) return;
+            if (collider.TryGetComponent<IDamageCalculatable>(out var damager)) 
+                DamageDamageable(damager);
 
-            DamageDamageable(damager);
             Die(null);
         }
 

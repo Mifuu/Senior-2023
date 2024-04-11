@@ -137,6 +137,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 397d7bba781475749a7728e071c4b60c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  onlyCountPlayer: 0
 --- !u!1 &5299882667135827414
 GameObject:
   m_ObjectHideFlags: 0
@@ -387,7 +388,7 @@ MonoBehaviour:
   EnemyAttackBase: {fileID: 11400000, guid: 630b896d110854841be2dffd8f01818b, type: 2}
   EnemyIdleBase: {fileID: 11400000, guid: 14134fe2c295e9544a5547525c22c16b, type: 2}
   EnemyChaseBase: {fileID: 11400000, guid: f0de20db2f3463e48b7db5c836ced6d3, type: 2}
-  EnemyKnockbackBase: {fileID: 11400000, guid: 3999b70de71ed82438f2f9af437f2c2d, type: 2}
+  EnemyKnockbackBase: {fileID: 11400000, guid: 44f48bd3b233d9c4f86b4411eda65eee, type: 2}
   targetPlayer: {fileID: 0}
   navMeshAgent: {fileID: 0}
   dealerPipeline: {fileID: 0}
@@ -397,6 +398,9 @@ MonoBehaviour:
   animationEventEmitter: {fileID: 4007888533607387383}
   animator: {fileID: 0}
   damageFloatingSpawner: {fileID: 0}
+  soundListName: Mage
+  soundSpawnName: Spawn
+  soundDeadName: Dead
 --- !u!114 &-387585368819642466
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -411,6 +415,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   networkEnemyState:
     m_InternalValue: 0
+  stateMachineState:
+    m_InternalValue: 0
+  startStateMachineOnInitialize: 1
 --- !u!114 &6403244955190301084
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -538,7 +545,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   upgradeDetail: {fileID: 11400000, guid: 641307a09eec1f447aac8900e3027ea2, type: 2}
   gunWeakness: {fileID: 11400000, guid: cfe138e0ad3b6f54ab4a8d67ae97c250, type: 2}
-  defaultBaseDMG: 10
+  defaultBaseDMG: 1
   defaultBaseDMGReceiveFactor: 1
   defaultElementalDmg: 1
   defaultElementalRES: 1

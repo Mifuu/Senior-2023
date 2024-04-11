@@ -30,7 +30,7 @@ namespace Enemy
 
         private IEnumerator PerformFlyChase()
         {
-            while (!lineOfSightCheck.IsPlayerInLineOfSight(enemy.targetPlayer))
+            while (!lineOfSightCheck.IsTargetPlayerInLineOfSight())
             {
                 // Set the destination to the player (Navmesh Agent)
                 yield return new WaitForSeconds(chaseCooldownInterval);

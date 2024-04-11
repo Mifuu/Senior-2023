@@ -26,6 +26,7 @@ namespace Enemy
 
         public override void PerformAttack()
         {
+            base.PerformAttack();
             for (int i = 0; i < spawnAmount; i++)
             {
                 spawnManager.SpawnRandomEnemyIntoVacantPosition();

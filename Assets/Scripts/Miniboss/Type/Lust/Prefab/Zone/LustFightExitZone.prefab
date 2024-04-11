@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2622315165334986875}
   - component: {fileID: -5342352873261032161}
   - component: {fileID: -9002366758112414923}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: LustFightExitZone
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -12,4 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2aa45ccefabf40149a2edaeb36d01e87, type: 3}
   m_Name: LustSwarmAttack
   m_EditorClassIdentifier: 
+  setPerformAttack: 1
+  performAttackTriggerName: Attack2
   spawnManagerId: SwarmSpawnManager

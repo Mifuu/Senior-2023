@@ -25,18 +25,14 @@ namespace Enemy
             }
 
             enemyPrefabList = newEnemyPrefabList;
-            if (killOnBaseDies) enemy.OnEnemyDie += KillAllOnOrchestratorDies;
+            if (killOnBaseDies) enemy.OnEnemyDie += KillAllSpawnedEnemy;
             if (spawnImmediately) Spawn();
         }
 
-        private void KillAllOnOrchestratorDies()
+        public override void OnNetworkDespawn()
         {
-            enemy.OnEnemyDie -= KillAllOnOrchestratorDies;
-            foreach (var controlled in enemyPrefabList) 
-            {
-                if (controlled.TryGetComponent<EnemyBase>(out var controlledEnemy))
-                    controlledEnemy.Die(null);
-            }
+            base.OnNetworkDespawn();
+            if (killOnBaseDies) enemy.OnEnemyDie -= KillAllSpawnedEnemy;
         }
     }
 }
