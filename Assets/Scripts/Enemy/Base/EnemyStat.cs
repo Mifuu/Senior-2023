@@ -30,6 +30,7 @@ namespace Enemy
         public List<Subject<float>> ListOfElementalRES = new List<Subject<float>>();
 
         private EnemyBase enemy;
+        public event Action OnStatChanged;
 
         public void Awake()
         {
@@ -49,12 +50,15 @@ namespace Enemy
         {
             base.OnNetworkSpawn();
             Level.OnValueChanged += SetStatOnCurrentLevel;
+            // OnStatChanged += OnStatChangeDebug;
         }
 
         public override void OnNetworkDespawn()
         {
             base.OnNetworkDespawn();
             Level.OnValueChanged -= SetStatOnCurrentLevel;
+            Level.Value = 1;
+            // OnStatChanged -= OnStatChangeDebug;
             ResetStat();
         }
 
@@ -69,82 +73,79 @@ namespace Enemy
             }
         }
 
-        // BUG: If enemy level is skipped (ex. 5 => 10), the stat will not be upgraded correctly
+        private void OnStatChangeDebug()
+        {
+            Debug.Log($"BaseATK: {BaseDamage.Value}");
+            Debug.Log($"BaseDef: {DamageReceiveFactor.Value}");
+            Debug.Log($"BaseEXP: {BaseEXP.Value}");
+            Debug.Log($"MaxHP: {enemy.networkMaxHealth.Value}");
+        }
+
         private void SetStatOnCurrentLevel(int prev, int current)
         {
-            void StatsReducerFunction(List<EnemyStatsEnum> stats, float value, EnemyStatUpgradeRulesSO.EnemyStatUpgradeDetail.MethodEnums method)
+            if (prev > current) 
             {
-                Action<Subject<float>, float> Reducer(EnemyStatUpgradeRulesSO.EnemyStatUpgradeDetail.MethodEnums method)
+                Debug.LogError("Does not support downgrading, Aborting...");
+                return;                
+            }
+
+            foreach (var detail in upgradeDetail.upgradeDetails)
+            {
+                if (prev > detail.LevelUpperBoundExclusive || current < detail.LevelLowerBoundInclusive)
+                    continue;
+
+                int lower = prev, upper = current;
+                if (detail.LevelLowerBoundInclusive > prev)
+                    lower = detail.LevelLowerBoundInclusive;
+                if (detail.LevelUpperBoundExclusive < current)
+                    upper = detail.LevelUpperBoundExclusive;
+
+                int upgradeLevel = upper - lower;
+
+                float UpgradeStatValueReducer(float initialValue)
                 {
-                    switch (method)
+                    switch (detail.Method)
                     {
-                        case EnemyStatUpgradeRulesSO.EnemyStatUpgradeDetail.MethodEnums.LevelBasePolynomial:
-                            return (Subject<float> subject, float value) =>
-                            {
-                                subject.Value = subject.Value + (value * current);
-                            };
-                        case EnemyStatUpgradeRulesSO.EnemyStatUpgradeDetail.MethodEnums.LevelBaseExponential:
-                            return (Subject<float> subject, float value) =>
-                            {
-                                subject.Value = subject.Value * (float)Math.Pow(value, current);
-                            };
-                        case EnemyStatUpgradeRulesSO.EnemyStatUpgradeDetail.MethodEnums.LevelBaseSigmoid:
-                            return (Subject<float> subject, float value) =>
-                            {
-                                subject.Value = subject.Value / (1.0f + (float)Math.Exp(-subject.Value));
-                            };
                         case EnemyStatUpgradeRulesSO.EnemyStatUpgradeDetail.MethodEnums.Overwrite:
-                            return (Subject<float> subject, float value) =>
-                            {
-                                subject.Value = value;
-                            };
+                            return detail.Amount;
+                        case EnemyStatUpgradeRulesSO.EnemyStatUpgradeDetail.MethodEnums.Additive:
+                            return initialValue + (detail.Amount * upgradeLevel);
+                        case EnemyStatUpgradeRulesSO.EnemyStatUpgradeDetail.MethodEnums.Multiplicative:
+                            return initialValue * ((float)Math.Pow(detail.Amount, upgradeLevel));
                         default:
-                            return (Subject<float> subject, float value) => { };
+                            throw new System.InvalidOperationException("Enemy Upgrade Method Not Allowed");
                     }
                 }
 
-                var reducer = Reducer(method);
-                stats.ForEach((stat) =>
+                foreach (var stat in detail.Stats)
                 {
                     switch (stat)
                     {
+                        case EnemyStatsEnum.MaxHP:
+                            enemy.networkMaxHealth.Value = UpgradeStatValueReducer(enemy.networkMaxHealth.Value);
+                            break;
                         case EnemyStatsEnum.BaseATK:
-                            reducer(BaseDamage, value);
+                            BaseDamage.Value = UpgradeStatValueReducer(BaseDamage.Value);
                             break;
                         case EnemyStatsEnum.BaseDEF:
-                            reducer(DamageReceiveFactor, value);
+                            DamageReceiveFactor.Value = UpgradeStatValueReducer(DamageReceiveFactor.Value);
                             break;
                         case EnemyStatsEnum.BaseEXP:
-                            reducer(BaseEXP, value);
+                            BaseEXP.Value = UpgradeStatValueReducer(BaseEXP.Value);
                             break;
                         case EnemyStatsEnum.ElementDMG:
-                            ListOfElementalDamageBonus.ForEach((elementStat) =>
-                            {
-                                reducer(elementStat, value);
-                            });
+                            foreach (var el in ListOfElementalDamageBonus)
+                                el.Value = UpgradeStatValueReducer(el.Value);
                             break;
                         case EnemyStatsEnum.ElementalRES:
-                            ListOfElementalRES.ForEach((elementStat) =>
-                            {
-                                reducer(elementStat, value);
-                            });
-                            break;
-                        case EnemyStatsEnum.MaxHP:
-                            if (!IsServer) return;
-                            Subject<float> temp = new Subject<float>(enemy.maxHealth);
-                            reducer(temp, value);
-                            enemy.networkMaxHealth.Value = temp.Value;
+                            foreach (var el in ListOfElementalRES)
+                                el.Value = UpgradeStatValueReducer(el.Value);
                             break;
                     }
-                });
+                }
             }
 
-            upgradeDetail.upgradeDetails
-                .FindAll((detail) => current >= detail.LevelLowerBoundInclusive
-                        && current < detail.LevelUpperBoundExclusive).ForEach((detail) =>
-                            {
-                                StatsReducerFunction(detail.Stats, detail.Amount, detail.Method);
-                            });
+            OnStatChanged?.Invoke();
         }
 
         public void SetEnemyLevel(int level)

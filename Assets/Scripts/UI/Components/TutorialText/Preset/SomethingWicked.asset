@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: SomethingWicked
   m_EditorClassIdentifier: 
   lifeSpan: 5
-  text: Something <color="red">Wicked</color> this way come
+  text: '<color="red">Lorem ipsum dolor sit amet, </color> consectetur adipiscing
+    elit. Suspendisse varius vel ligula at commodo. '
   usePreferredSize: 0

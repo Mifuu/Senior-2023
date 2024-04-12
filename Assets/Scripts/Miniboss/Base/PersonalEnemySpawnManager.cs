@@ -103,7 +103,7 @@ namespace Enemy
                 {
                     for (int i = 0; i < spawnGroupPosition.Count; i++)
                     {
-                        EnemyBase spawnedEnemy; 
+                        EnemyBase spawnedEnemy;
                         if (useObjectPool)
                             spawnedEnemy = SpawnEnemyOntoNavmesh(enemyPrefabList[spawnGroupGameObjectIndex.Current], spawnGroupPosition[i]);
                         else
@@ -175,12 +175,25 @@ namespace Enemy
             return null;
         }
 
+        public void KillAllSpawnedEnemy()
+        {
+            foreach (var controlled in enemyPrefabList)
+            {
+                if (controlled.TryGetComponent<EnemyBase>(out var controlledEnemy))
+                    controlledEnemy.Die(null);
+            }
+        }
+
         private GameObject GetRandomEnemyPrefab() => enemyPrefabList[UnityEngine.Random.Range(0, enemyPrefabList.Count)];
 
         public EnemyBase SpawnRandomEnemyIntoVacantPosition()
         {
             if (vacantSpot.Count == 0) return null;
-            var spawnedEnemy = SpawnEnemyOntoNavmesh(GetRandomEnemyPrefab(), vacantSpot.Dequeue());
+            EnemyBase spawnedEnemy;
+            if (useObjectPool)
+                spawnedEnemy = SpawnEnemyOntoNavmesh(GetRandomEnemyPrefab(), vacantSpot.Dequeue());
+            else
+                spawnedEnemy = SpawnEnemyOntoNavmeshInstantiate(GetRandomEnemyPrefab(), vacantSpot.Dequeue());
             OnEnemySpawns?.Invoke(new List<EnemyBase>() { spawnedEnemy });
             return spawnedEnemy;
         }

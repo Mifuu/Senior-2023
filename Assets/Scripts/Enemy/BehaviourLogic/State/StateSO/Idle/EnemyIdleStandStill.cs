@@ -9,6 +9,11 @@ namespace Enemy
         [Header("Stand Still Time")]
         [SerializeField] private float cooldownTime = 3.0f;
 
+        public override void Initialize(GameObject gameObject, EnemyBase enemy)
+        {
+            base.Initialize(gameObject, enemy);
+        }
+
         public override void DoEnterLogic()
         {
             base.DoEnterLogic();

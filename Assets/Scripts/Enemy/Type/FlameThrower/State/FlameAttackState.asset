@@ -14,5 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   allAttack:
   - {fileID: 11400000, guid: a1072ba6978b068468308d1b7535ed9b, type: 2}
-  cooldownTime: 10
+  setEnterTrigger: 1
+  enterTriggerName: Attack
+  setExitTrigger: 1
+  exitTriggerName: FinishedAttacking
   chaseSpeed: 10

@@ -7,6 +7,7 @@ namespace Enemy
     {
         public override void PerformAttack() 
         {
+            base.PerformAttack();
             EmitAttackEndsEvent();
         }
     }

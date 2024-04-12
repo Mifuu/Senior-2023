@@ -17,6 +17,11 @@ namespace Enemy
         public event Action OnAttackEnds;
         public HashSet<IDamageCalculatable> processedDamagable;
 
+        [Header("Animation")]
+        [SerializeField] private bool setPerformAttack;
+        [SerializeField] private string performAttackTriggerName;
+        private int performAttackTrigger;
+
         public virtual void Initialize(GameObject targetPlayer, GameObject enemyGameObject, DamageCalculationComponent component = null)
         {
             this.enemy = enemyGameObject.GetComponent<EnemyBase>();
@@ -26,6 +31,7 @@ namespace Enemy
             else 
                 this.damageComponent = component;
             ResetProcessedDamageable();
+            performAttackTrigger = Animator.StringToHash(performAttackTriggerName);
         }
 
         public DamageInfo Damage(IDamageCalculatable damageable)
@@ -52,7 +58,12 @@ namespace Enemy
             processedDamagable = new HashSet<IDamageCalculatable>();
         }
 
-        public abstract void PerformAttack();
+        public virtual void PerformAttack()
+        {
+            if (setPerformAttack)
+                enemy.animator.SetTrigger(performAttackTrigger);
+        }
+
         public virtual void DoFrameUpdateLogic() { }
         public virtual void DoPhysicsUpdateLogic() { }
     }

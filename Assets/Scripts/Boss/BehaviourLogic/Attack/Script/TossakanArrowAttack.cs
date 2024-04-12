@@ -25,6 +25,7 @@ namespace Enemy
 
         public override void PerformAttack()
         {
+            base.PerformAttack();
             foreach (Transform t in tossakan.arrowSpawnSet)
             {
                 var arrowInstance = Instantiate(arrowPrefab, t.position, t.rotation);

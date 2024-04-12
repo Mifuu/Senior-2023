@@ -8,10 +8,10 @@ public class PlayerMotor : NetworkBehaviour
 {
     private CharacterController controller;
     private Vector3 playerVelocity;
-    private float speed = 8f;
+    private float speed = 14f;
     private float gravity = -24f;
     private bool isGrounded;
-    private float jumpHeight = 1.2f;
+    private float jumpHeight = 1.5f;
 
     [SerializeField] private Vector2 defaultPositionRange = new Vector2(-4, -4);
 
