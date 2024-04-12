@@ -7,15 +7,17 @@ using UnityEngine.Serialization;
 
 public class Gun : NetworkBehaviour
 {
-    [SerializeField] private Transform bullet;
-    [SerializeField] private Transform bulletSpawnPosition;
     [SerializeField] private float raycastHitRange = 999f;
     [SerializeField] private float shootingDelay = 0.1f;
-    public GameObject playerObject;
-    public ElementalEntity playerEntity;
-    public GunInteractable gunInteractable;
-    public ElementAttachable elementAttachable;
-    public DamageCalculationComponent playerDmgComponent;
+    [SerializeField] private Transform bullet;
+    [SerializeField] private Transform bulletSpawnPosition;
+    [SerializeField] public GunInteractable gunInteractable;
+    [SerializeField] private MuzzleFlash muzzleFlash;
+
+    [HideInInspector] public GameObject playerObject;
+    [HideInInspector] public ElementalEntity playerEntity;
+    [HideInInspector] public ElementAttachable elementAttachable;
+    [HideInInspector] public DamageCalculationComponent playerDmgComponent;
 
     private bool canShoot = true;
     private bool isOwned = true;
@@ -95,6 +97,7 @@ public class Gun : NetworkBehaviour
                 aimDir = (playerCam.transform.forward).normalized;
             }
             Quaternion bulletRotation = Quaternion.LookRotation(aimDir, Vector3.up);
+            muzzleFlash.PlayVFX();
             Shoot(playerCam, aimColliderLayerMask, raycastHitRange);
             SpawnFastBulletServerRpc(bulletSpawnPosition.position, bulletRotation);
             StartCoroutine(ShootingDelay());
