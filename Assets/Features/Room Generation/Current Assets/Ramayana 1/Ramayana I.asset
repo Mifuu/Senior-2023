@@ -22,6 +22,8 @@ MonoBehaviour:
     mask: 2
   - roomData: {fileID: 11400000, guid: edb22c2d5e29f433bb0512d2a5a78a6f, type: 2}
     mask: 8
+  - roomData: {fileID: 11400000, guid: 88347dad22a014b648e3fa9cb47e5104, type: 2}
+    mask: 1
   roomDataPath: Assets/Features/Room Generation/Current Assets/Ramayana 1/Objects
   connectMatrix: {fileID: 11400000, guid: 3e33ee070301640f9b0454946934b3b1, type: 2}
   minPlayerSpawnRoomDistance: 11

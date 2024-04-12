@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d22f73cc5bbf48bababa2f3f1b0eb3f, type: 3}
+  m_Name: ERP Miniboss 1
+  m_EditorClassIdentifier: 
+  poolItems:
+  - prefab: {fileID: 5781375362114392876, guid: 9c816a1b498eb9544a27532b47b71eaa, type: 3}
+    weight: 5
