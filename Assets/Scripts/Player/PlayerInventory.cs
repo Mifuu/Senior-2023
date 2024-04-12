@@ -75,7 +75,6 @@ public class PlayerInventory : NetworkBehaviour
         playerSkillCard = GetComponent<PlayerSkillCard>();
         playerLevel = GetComponent<PlayerLevel>();
         RemoveAndApplyUpgrades();
-        ApplyUpgradeOptions();
     }
 
     #region Skill Card Functions

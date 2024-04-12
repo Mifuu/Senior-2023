@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 3331503849068509425}
   - component: {fileID: 6034536375142003305}
   - component: {fileID: 3157500723001449500}
+  - component: {fileID: -5666950543331655381}
   m_Layer: 0
   m_Name: Bennelli_M4_Interactable
   m_TagString: Untagged
@@ -136,9 +137,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a0e4832f4cd4cc4b8d3a0a662314ae2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactableItemPrefab: {fileID: 0}
-  promptMessage: 
-  gunCounterpart: {fileID: 0}
+  interactableItemPrefab: {fileID: 1236257789494122}
+  promptMessage: '[F] Pick up'
+  gunCounterpart: {fileID: 4547626967705360146, guid: 8b0b86b42def11849a8eba21f4a6a684, type: 3}
 --- !u!54 &3331503849068509425
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -208,6 +209,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6c0be61502bb534f922ebb746851216, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!64 &-5666950543331655381
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1236257789494122}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 1
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4300000, guid: bf2593fe0c804b84688e307cfb1ddfae, type: 3}
 --- !u!1 &1326079549577358
 GameObject:
   m_ObjectHideFlags: 0
