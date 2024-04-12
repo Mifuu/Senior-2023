@@ -4277,21 +4277,9 @@ PrefabInstance:
       value: Gameplay Canvas
       objectReference: {fileID: 0}
     - target: {fileID: 583373957301618469, guid: 28e0c44d4c6e1476f8f32266752d6f7e, type: 3}
-      propertyPath: uiPanels.Array.size
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 583373957301618469, guid: 28e0c44d4c6e1476f8f32266752d6f7e, type: 3}
-      propertyPath: uiPanels.Array.data[3].panelType
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 583373957301618469, guid: 28e0c44d4c6e1476f8f32266752d6f7e, type: 3}
-      propertyPath: uiPanels.Array.data[4].panelType
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 583373957301618469, guid: 28e0c44d4c6e1476f8f32266752d6f7e, type: 3}
-      propertyPath: uiPanels.Array.data[3].panelObject
+      propertyPath: uiPanels.Array.data[2].panelObject
       value: 
-      objectReference: {fileID: 2877986311169012786}
+      objectReference: {fileID: 0}
     - target: {fileID: 583373957301618469, guid: 28e0c44d4c6e1476f8f32266752d6f7e, type: 3}
       propertyPath: uiPanels.Array.data[4].panelObject
       value: 

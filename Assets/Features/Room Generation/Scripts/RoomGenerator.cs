@@ -275,6 +275,18 @@ namespace RoomGeneration
 
             // filter vacantDoors
             List<GeneratedDoorData> playerSpawnVacantDoors = new List<GeneratedDoorData>(vacantDoorDatas);
+
+            // filter by tags
+            RoomTag[] matchingRoomTags = roomSet.GetPreviousRoomTagsByRoomTag(RoomTag.PlayerSpawnRoom);
+            for (int i = playerSpawnVacantDoors.Count - 1; i >= 0; i--)
+            {
+                if (!playerSpawnVacantDoors[i].generatedRoomData.roomTags.Intersect(matchingRoomTags).Any())
+                {
+                    playerSpawnVacantDoors.RemoveAt(i);
+                    Debug.Log("Remove Vacant");
+                }
+            }
+
             // filter by distance
             for (int i = playerSpawnVacantDoors.Count - 1; i >= 0; i--)
             {

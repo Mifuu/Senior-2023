@@ -24,6 +24,7 @@ namespace Enemy
 
         public override void PerformAttack()
         {
+            base.PerformAttack();
             spawnManager.Spawn();
             spawnManager.OnAllEnemyDies += EndAttack;
         }

@@ -2689,7 +2689,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6378543283384714723, guid: afa37adbe1c708e4aab419a00e1ea675, type: 3}
       propertyPath: m_text
-      value: If you think you are bad at this game, then you have skill issue
+      value: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
+        varius vel ligula at commodo.
       objectReference: {fileID: 0}
     - target: {fileID: 6520095511245820926, guid: afa37adbe1c708e4aab419a00e1ea675, type: 3}
       propertyPath: m_Enabled

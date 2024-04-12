@@ -35,6 +35,7 @@ namespace Enemy
 
         public override void PerformAttack()
         {
+            base.PerformAttack();
             tossakan.tossakanPuppet.animator.SetTrigger(invincibleTrigger);
             tossakan.StartCoroutine(HandAttackSequence());
         }

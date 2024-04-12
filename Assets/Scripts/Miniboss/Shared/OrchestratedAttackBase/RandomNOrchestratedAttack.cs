@@ -13,6 +13,7 @@ namespace Enemy
 
         public override void PerformAttack()
         {
+            base.PerformAttack();
             if (withSelf && instantiatedAttack != null)
             {
                 instantiatedAttack.PerformAttack();

@@ -26,5 +26,5 @@ MonoBehaviour:
   spawnManagerId: StatueSpawner
   strictEqual: 0
   isMorethan: 0
-  equalTo: 1
-  targetValue: 2
+  equalTo: 0
+  targetValue: 4

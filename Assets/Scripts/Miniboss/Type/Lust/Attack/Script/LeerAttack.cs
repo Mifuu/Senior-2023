@@ -15,6 +15,7 @@ namespace Enemy
 
         public override void PerformAttack()
         {
+            base.PerformAttack();
             if (!enemy.IsServer) return;    
             var eye = NetworkObjectPool.Singleton
                 .GetNetworkObject(eyeGameObject, GetSpawnPosition(), eyeGameObject.transform.rotation);

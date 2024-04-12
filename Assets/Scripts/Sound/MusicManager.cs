@@ -1,17 +1,26 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 
-public class MusicManager : Singleton<MusicManager>
+public class MusicManager : MonoBehaviour
 {
-    public AudioSource audioSource;
+    public static MusicManager Instance;
 
+    public AudioSource audioSource;
     public Music backgroundMusic;
     public Music bossMusic;
 
+    public void Awake()
+    {
+        if (Instance == null)
+            Instance = this;
+        else
+            Destroy(this);
+    }
+
     void Start()
     {
+        audioSource.spatialBlend = 0f;
         Play(backgroundMusic);
     }
 
@@ -27,7 +36,7 @@ public class MusicManager : Singleton<MusicManager>
     {
         if (Instance == null)
         {
-            Debug.Log("[Error no singleton instance for MusicManager");
+            Debug.Log("[Error] No singleton instance for MusicManager");
             return;
         }
         Instance.Play(Instance.backgroundMusic);
@@ -37,10 +46,54 @@ public class MusicManager : Singleton<MusicManager>
     {
         if (Instance == null)
         {
-            Debug.Log("[Error no singleton instance for MusicManager");
+            Debug.Log("[Error] No singleton instance for MusicManager");
             return;
         }
         Instance.Play(Instance.bossMusic);
+    }
+
+    public static void Stop(bool fade = false, float fadeTime = 4f)
+    {
+        if (!fade)
+        {
+            Instance.audioSource.Stop();
+            return;
+        }
+
+        Instance.StartCoroutine(FadeAudioSource(0, fadeTime));
+    }
+
+    public static IEnumerator FadeAudioSource(float targetVolume, float duration)
+    {
+        if (Instance == null)
+        {
+            Debug.Log("[Error] No singleton instance for MusicManager");
+            yield break;
+        }
+
+        if (duration < 0.01f)
+        {
+            Instance.audioSource.Stop();
+            yield break;
+        }
+
+        float startVolume = Instance.audioSource.volume;
+        float timer = 0;
+        bool fadeIn = targetVolume > startVolume;
+
+        while ((fadeIn && Instance.audioSource.volume <= targetVolume) || (!fadeIn && Instance.audioSource.volume >= targetVolume))
+        {
+            timer += Time.unscaledDeltaTime;
+            Instance.audioSource.volume = Mathf.Lerp(startVolume, targetVolume, timer / duration);
+
+            if (!fadeIn && Instance.audioSource.volume <= 0)
+            {
+                Instance.audioSource.Stop();
+                yield break;
+            }
+
+            yield return null;
+        }
     }
 
     void OnValidate()

@@ -14,8 +14,23 @@ namespace Enemy
             _enemyTransform = _enemy.transform;
         }
 
-        // Method has to be called periodically rather than always checking
-        public bool IsPlayerInLineOfSight(GameObject targetPLayer) => IsGameObjectInLineOfSight(targetPLayer);
-        public bool IsGameObjectInLineOfSight(GameObject targetObject) => Physics.Raycast(_enemyTransform.position, targetObject.transform.position, out RaycastHit hit, float.PositiveInfinity);
+        private bool RaycastToPlayersDirection(GameObject targetObject, out RaycastHit hit)
+        {
+            var direction = (targetObject.transform.position - _enemyTransform.position).normalized;
+            return Physics.Raycast(_enemyTransform.position, direction, out hit, float.PositiveInfinity);
+        }
+
+        public bool IsTargetPlayerInLineOfSight()
+        {
+            if (!RaycastToPlayersDirection(_enemy.targetPlayer, out var hit)) return false;
+            var health = hit.collider.GetComponentInParent<PlayerHealth>();
+            return health != null && health.gameObject == _enemy.targetPlayer;
+        }
+
+        public bool IsGameObjectInLineOfSight(GameObject targetObject)
+        {
+            if (!RaycastToPlayersDirection(targetObject, out var hit)) return false;
+            return hit.collider.gameObject == targetObject;
+        }
     }
 }
