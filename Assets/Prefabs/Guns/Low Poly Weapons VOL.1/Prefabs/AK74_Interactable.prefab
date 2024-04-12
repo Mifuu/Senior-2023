@@ -183,6 +183,7 @@ GameObject:
   - component: {fileID: -3006758849890491747}
   - component: {fileID: 5582101349336787327}
   - component: {fileID: 1930848063713986779}
+  - component: {fileID: 9092275814751960384}
   m_Layer: 0
   m_Name: AK74_Interactable
   m_TagString: Untagged
@@ -270,9 +271,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a0e4832f4cd4cc4b8d3a0a662314ae2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactableItemPrefab: {fileID: 0}
-  promptMessage: 
-  gunCounterpart: {fileID: 0}
+  interactableItemPrefab: {fileID: 1487774384131766}
+  promptMessage: '[F] Pick up'
+  gunCounterpart: {fileID: -1479189985387134789, guid: ee329c3cd08e58645834d20702d7f6c6, type: 3}
 --- !u!114 &-4853065464830816987
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -324,9 +325,9 @@ MonoBehaviour:
   SyncRotAngleX: 1
   SyncRotAngleY: 1
   SyncRotAngleZ: 1
-  SyncScaleX: 1
-  SyncScaleY: 1
-  SyncScaleZ: 1
+  SyncScaleX: 0
+  SyncScaleY: 0
+  SyncScaleZ: 0
   PositionThreshold: 0.001
   RotAngleThreshold: 0.01
   ScaleThreshold: 0.01
@@ -375,6 +376,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6c0be61502bb534f922ebb746851216, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!64 &9092275814751960384
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1487774384131766}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 1
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4300000, guid: 6f966b9a7c817ed49973b4a8762cbbdf, type: 3}
 --- !u!1 &1927369336514790
 GameObject:
   m_ObjectHideFlags: 0

@@ -24,20 +24,6 @@ public class GunInteractable : InteractableItem
             this.playerObject = playerObject;
             if (gunCounterpart != null)
             {
-                /*
-                Gun[] playerGuns = playerObject.GetComponentsInChildren<Gun>(true);
-                foreach (Gun playerGun in playerGuns)
-                {
-                    if (playerGun.name == gunCounterpart.name)
-                    {
-                        Debug.Log("Found and matched Gun counterpart: " + playerGun.name);
-                        playerGun.gameObject.SetActive(true);
-                        SelfDespawnServerRpc();
-                        NetworkObject.Despawn(true);
-                        break;
-                    }
-                }
-                */
                 SpawnGunCounterpartServerRpc();
             }
             else

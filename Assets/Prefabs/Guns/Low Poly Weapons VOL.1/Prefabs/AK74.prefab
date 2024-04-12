@@ -310,6 +310,8 @@ MonoBehaviour:
   gunInteractable: {fileID: -7255339448930106897, guid: da90e67f08bdef44f82f61ffe3a3d2d4, type: 3}
   elementAttachable: {fileID: 0}
   playerDmgComponent: {fileID: 0}
+  muzzleFlash: {fileID: 0}
+  muzzleFlashPrefab: {fileID: 0}
 --- !u!1 &1927369336514790
 GameObject:
   m_ObjectHideFlags: 0

@@ -101,6 +101,7 @@ public class Gun : NetworkBehaviour
         }
     }
 
+    
     protected virtual void Shoot(Camera playerCam, LayerMask aimColliderLayerMask, float raycastHitRange)
     {
 
