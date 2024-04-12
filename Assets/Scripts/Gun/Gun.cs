@@ -4,15 +4,16 @@ using UnityEngine.InputSystem;
 using Unity.Netcode;
 using Unity.Netcode.Components;
 using UnityEngine.Serialization;
+using Unity.Services.Matchmaker.Models;
 
 public class Gun : NetworkBehaviour
 {
     [SerializeField] private float raycastHitRange = 999f;
     [SerializeField] private float shootingDelay = 0.1f;
-    [SerializeField] private Transform bullet;
-    [SerializeField] private Transform bulletSpawnPosition;
+    [SerializeField] public Transform bullet;
+    [SerializeField] public Transform bulletSpawnPosition;
     [SerializeField] public GunInteractable gunInteractable;
-    [SerializeField] private MuzzleFlash muzzleFlash;
+    [SerializeField] public MuzzleFlash muzzleFlash;
 
     [HideInInspector] public GameObject playerObject;
     [HideInInspector] public ElementalEntity playerEntity;
@@ -85,32 +86,32 @@ public class Gun : NetworkBehaviour
     {
         if (canShoot && IsOwner)
         {
-            Vector3 aimDir;
-            Ray ray = new(playerCam.transform.position, playerCam.transform.forward);
-            if (Physics.Raycast(ray, out RaycastHit raycastHit, raycastHitRange, aimColliderLayerMask))
-            {
-                Vector3 mouseWorldPosition = raycastHit.point;
-                aimDir = (mouseWorldPosition - bulletSpawnPosition.position).normalized;
-            }
-            else
-            {
-                aimDir = (playerCam.transform.forward).normalized;
-            }
-            Quaternion bulletRotation = Quaternion.LookRotation(aimDir, Vector3.up);
-            muzzleFlash.PlayVFX();
             Shoot(playerCam, aimColliderLayerMask, raycastHitRange);
-            SpawnFastBulletServerRpc(bulletSpawnPosition.position, bulletRotation);
-            StartCoroutine(ShootingDelay());
         }
     }
 
     
     protected virtual void Shoot(Camera playerCam, LayerMask aimColliderLayerMask, float raycastHitRange)
     {
-
+        Vector3 aimDir;
+        Ray ray = new(playerCam.transform.position, playerCam.transform.forward);
+        if (Physics.Raycast(ray, out RaycastHit raycastHit, raycastHitRange, aimColliderLayerMask))
+        {
+            Vector3 mouseWorldPosition = raycastHit.point;
+            aimDir = (mouseWorldPosition - bulletSpawnPosition.position).normalized;
+        }
+        else
+        {
+            aimDir = (playerCam.transform.forward).normalized;
+        }
+        Quaternion bulletRotation = Quaternion.LookRotation(aimDir, Vector3.up);
+        muzzleFlash.PlayVFX();
+        SpawnFastBulletServerRpc(NetworkManager.Singleton.LocalClientId, bulletSpawnPosition.position, bulletRotation);
+        SFXManager.Instance.PlaySFX("SFX_Pistol_01", gameObject);
+        StartCoroutine(ShootingDelay());
     }
 
-    private IEnumerator ShootingDelay()
+    public IEnumerator ShootingDelay()
     {
         UpdateCanShoot(false);
         yield return new WaitForSeconds(shootingDelay);
@@ -118,9 +119,12 @@ public class Gun : NetworkBehaviour
     }
 
     [ServerRpc]
-    private void SpawnFastBulletServerRpc(Vector3 bulletSpawnPosition, Quaternion bulletRotation)
+    public void SpawnFastBulletServerRpc(ulong playerId, Vector3 bulletSpawnPosition, Quaternion bulletRotation)
     {
+        Debug.Log("Spawn fast bullet");
         var bulletObj = Instantiate(bullet, bulletSpawnPosition, bulletRotation);
+        var bulletComponent = bulletObj.GetComponent<BulletProjectileEffect>();
+        bulletComponent.PlayerId = playerId; // Pass the player's network object ID
         var networkBulletObj = bulletObj.GetComponent<NetworkObject>();
         networkBulletObj.Spawn();
     }

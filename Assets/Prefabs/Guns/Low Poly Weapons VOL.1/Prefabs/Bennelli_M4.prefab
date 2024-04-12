@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 23904141403194016}
   - component: {fileID: -8177742205873071513}
   - component: {fileID: 116192828306151380}
-  - component: {fileID: 4547626967705360146}
-  m_Layer: 0
+  - component: {fileID: -3041809701793811146}
+  m_Layer: 7
   m_Name: Bennelli_M4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -123,7 +123,7 @@ MonoBehaviour:
   SpawnWithObservers: 1
   DontDestroyWithOwner: 0
   AutoObjectParentSync: 1
---- !u!114 &4547626967705360146
+--- !u!114 &-3041809701793811146
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -132,7 +132,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1236257789494122}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e886e4a97c9a344186fd7218d6d6323, type: 3}
+  m_Script: {fileID: 11500000, guid: 17451fc5f3d554d44b0b441b68708ac5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   raycastHitRange: 999
@@ -145,6 +145,8 @@ MonoBehaviour:
   playerEntity: {fileID: 0}
   elementAttachable: {fileID: 0}
   playerDmgComponent: {fileID: 0}
+  pelletCount: 8
+  spreadAngle: 20
 --- !u!1 &1326079549577358
 GameObject:
   m_ObjectHideFlags: 0
@@ -156,7 +158,7 @@ GameObject:
   - component: {fileID: 4819501579468060}
   - component: {fileID: 33459726747464850}
   - component: {fileID: 23948481808093384}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Pump
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -239,7 +241,7 @@ GameObject:
   - component: {fileID: 4996469487512398}
   - component: {fileID: 33227245936506880}
   - component: {fileID: 23722440624247890}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Trigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -336,7 +338,7 @@ Transform:
   m_GameObject: {fileID: 5890099780637754455}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.0001, y: -0.0013000001, z: -0.4814}
+  m_LocalPosition: {x: -0.0001, y: -0.0013000001, z: -0.4889}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -390,6 +392,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1570947729390449609, guid: 78b3ec6cb53fb8a41b4556fa554f3a23, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 1826756980261136113, guid: 78b3ec6cb53fb8a41b4556fa554f3a23, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.4078
@@ -402,9 +408,17 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.4078
       objectReference: {fileID: 0}
+    - target: {fileID: 4044574614499602663, guid: 78b3ec6cb53fb8a41b4556fa554f3a23, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 6745373266682451062, guid: 78b3ec6cb53fb8a41b4556fa554f3a23, type: 3}
       propertyPath: m_Name
       value: vfx_MuzzleFlash 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6745373266682451062, guid: 78b3ec6cb53fb8a41b4556fa554f3a23, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 7330485805452938492, guid: 78b3ec6cb53fb8a41b4556fa554f3a23, type: 3}
       propertyPath: m_LocalScale.x

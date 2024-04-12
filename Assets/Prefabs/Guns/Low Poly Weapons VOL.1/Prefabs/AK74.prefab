@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4628190596468080}
   - component: {fileID: 33974513469355770}
   - component: {fileID: 23269604117648666}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Trigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 4871155855958596}
   - component: {fileID: 33621225348611210}
   - component: {fileID: 23032416416855840}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Bolt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -180,7 +180,7 @@ GameObject:
   - component: {fileID: -4898735189294992123}
   - component: {fileID: -6031280413653013561}
   - component: {fileID: -1479189985387134789}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: AK74
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -323,7 +323,7 @@ GameObject:
   - component: {fileID: 4977263084664720}
   - component: {fileID: 33803936345550136}
   - component: {fileID: 23124041486323528}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Mag
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -474,6 +474,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1570947729390449609, guid: 78b3ec6cb53fb8a41b4556fa554f3a23, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 1826756980261136113, guid: 78b3ec6cb53fb8a41b4556fa554f3a23, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.18390322
@@ -486,9 +490,17 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.18390322
       objectReference: {fileID: 0}
+    - target: {fileID: 4044574614499602663, guid: 78b3ec6cb53fb8a41b4556fa554f3a23, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 6745373266682451062, guid: 78b3ec6cb53fb8a41b4556fa554f3a23, type: 3}
       propertyPath: m_Name
       value: vfx_MuzzleFlash 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6745373266682451062, guid: 78b3ec6cb53fb8a41b4556fa554f3a23, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 7330485805452938492, guid: 78b3ec6cb53fb8a41b4556fa554f3a23, type: 3}
       propertyPath: m_LocalScale.x

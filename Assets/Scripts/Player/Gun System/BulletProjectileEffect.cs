@@ -36,6 +36,9 @@ public class BulletProjectileEffect : NetworkBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        PlayerHitboxDamageable playerHitbox = other.GetComponentInChildren<PlayerHitboxDamageable>();
+        if (playerHitbox != null && playerHitbox.HasMatchingPlayerId(PlayerId)) return; // return if collide with shooter
+        Debug.Log("bullet collided with " + other.name);
         NetworkObject.Despawn(true);
     }
 }
