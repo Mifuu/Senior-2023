@@ -274,8 +274,8 @@ MonoBehaviour:
   stack: {fileID: 583373957301618469}
   controller: {fileID: 6923450004750128941}
   playPanel: {fileID: 865136683829883245}
-  statsPanel: {fileID: 0}
-  respawnPanel: {fileID: 0}
+  statsPanel: {fileID: 6958048323511002167}
+  respawnPanel: {fileID: 1091769821599178197}
 --- !u!114 &583373957301618469
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -294,8 +294,12 @@ MonoBehaviour:
     panelType: 0
   - panelObject: {fileID: 6191765497770761471}
     panelType: 1
-  - panelObject: {fileID: 7192712679050460960}
-    panelType: 3
+  - panelObject: {fileID: 0}
+    panelType: 4
+  - panelObject: {fileID: 5289537598426166797}
+    panelType: 6
+  - panelObject: {fileID: 0}
+    panelType: 5
 --- !u!114 &6923450004750128941
 MonoBehaviour:
   m_ObjectHideFlags: 0
