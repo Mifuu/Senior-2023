@@ -29,6 +29,11 @@ public class PlayerDash : NetworkBehaviour
         DashBuffAddition.OnValueChanged += (prev, current) => RecalculateTotalDashCount();
     }
 
+    public int GetMaxDashCount()
+    {
+        return maxDashCount;
+    }
+
     private void RecalculateTotalDashCount()
     {
         maxDashCount = baseDashCount + DashBuffAddition.Value;

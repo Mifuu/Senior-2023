@@ -71,6 +71,29 @@ public class PlayerStat : NetworkBehaviour
 
     #endregion
 
+    #region Get Stats
+
+    public float GetBaseAttack()
+    {
+        return BaseATK;
+    }
+
+    public float GetBaseDefense()
+    {
+        return BaseDEF;
+    }
+    public float GetCritDamage()
+    {
+        return CritDMG;
+    }
+
+    public float GetCritRate()
+    {
+        return CritRate;
+    }
+
+    #endregion
+
     // NOTE: In Level Changed - Stats Upgrade Event, 
     // OnStatsChanged will be called ONCE even if multiple stats are changed
     public event Action OnStatsChanged;
