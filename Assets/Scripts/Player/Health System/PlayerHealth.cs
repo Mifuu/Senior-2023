@@ -89,4 +89,14 @@ public class PlayerHealth : NetworkBehaviour, IDamageable
             }
         }
     }
+
+    public float GetCurrentHealth()
+    {
+        return currentHealth.Value;
+    }
+
+    public float GetMaxHealth()
+    {
+        return maxHealth;
+    }
 }

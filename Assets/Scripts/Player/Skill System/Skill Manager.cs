@@ -18,6 +18,28 @@ public class SkillManager : MonoBehaviour
         ultimateSkill = ultimateTransform.GetComponent<Skill>();
         //Debug.Log(normalSkill.name);
     }
+
+    public void SetSkillCooldownMultiplier(float multiplier)
+    {
+        SetNormalSkillCooldownMultiplier(multiplier);
+        SetUltimateSkillCooldownMultiplier(multiplier);
+    }
+
+    public void SetNormalSkillCooldownMultiplier(float multiplier)
+    {
+        normalSkill.SetCooldownMultiplier(multiplier);
+    }
+
+    public void SetUltimateSkillCooldownMultiplier(float multiplier)
+    {
+        ultimateSkill.SetCooldownMultiplier(multiplier);
+    }
+
+    public float GetCooldownMultiplier()
+    {
+        return normalSkill.GetCooldownMultiplier();
+    }
+
     public void ActivateNormalSkill()
     {
         //Debug.Log("SkillManaget: Try to activate Normal skill");
