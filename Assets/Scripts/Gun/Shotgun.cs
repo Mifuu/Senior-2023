@@ -2,10 +2,9 @@ using System.Collections;
 using UnityEngine;
 using Unity.Netcode;
 
-
 public class Shotgun : Gun
 {
-    public int pelletCount = 8; // Number of pellets (bullets) in one shotgun shot
+    public int pelletCount = 6; // Number of pellets (bullets) in one shotgun shot
     public float spreadAngle = 5f; // Spread angle for the shotgun pellets (in degrees)
 
     protected override void Shoot(Camera playerCam, LayerMask aimColliderLayerMask, float raycastHitRange)
@@ -13,13 +12,11 @@ public class Shotgun : Gun
         StartCoroutine(ShootingDelay());
         for (int i = 0; i < pelletCount; i++)
         {
-            Debug.Log("Shotgun bullet " + i);
             Vector3 shotDirection = CalculateShotDirection(playerCam.transform.forward, spreadAngle);
             Ray ray = new Ray(playerCam.transform.position, shotDirection);
 
             if (Physics.Raycast(ray, out RaycastHit raycastHit, raycastHitRange, aimColliderLayerMask))
             {
-                Debug.Log("Spawn bullet");
                 Vector3 aimDir = (raycastHit.point - bulletSpawnPosition.position).normalized;
                 Quaternion bulletRotation = Quaternion.LookRotation(aimDir, Vector3.up);
                 SpawnFastBulletServerRpc(NetworkManager.Singleton.LocalClientId, bulletSpawnPosition.position, bulletRotation);
@@ -37,10 +34,15 @@ public class Shotgun : Gun
                     Debug.Log("Damage dealt to " + raycastHit.collider.gameObject.name + ": " + damageInfo.amount);
                 }
             }
+            else
+            {
+                // If the raycast doesn't hit, spawn a bullet in the default forward direction
+                Quaternion bulletRotation = Quaternion.LookRotation(shotDirection, Vector3.up);
+                SpawnFastBulletServerRpc(NetworkManager.Singleton.LocalClientId, bulletSpawnPosition.position, bulletRotation);
+            }
 
-            // Play muzzle flash and sound effect
             muzzleFlash.PlayVFX();
-            SFXManager.Instance.PlaySFX("SFX_Pistol_01", gameObject); 
+            SFXManager.Instance.PlaySFX("SFX_Pistol_01", gameObject);
         }
     }
 

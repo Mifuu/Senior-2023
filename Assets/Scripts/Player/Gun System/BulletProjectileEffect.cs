@@ -36,8 +36,14 @@ public class BulletProjectileEffect : NetworkBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        // Ignore collisions with bullet owner
         PlayerHitboxDamageable playerHitbox = other.GetComponentInChildren<PlayerHitboxDamageable>();
-        if (playerHitbox != null && playerHitbox.HasMatchingPlayerId(PlayerId)) return; // return if collide with shooter
+        if (playerHitbox != null && playerHitbox.HasMatchingPlayerId(PlayerId)) return; 
+
+        // Ignore collisions with other bullets from the same shooter
+        BulletProjectileEffect otherBullet = other.GetComponent<BulletProjectileEffect>();
+        if (otherBullet != null && otherBullet.PlayerId == PlayerId) return;
+
         Debug.Log("bullet collided with " + other.name);
         NetworkObject.Despawn(true);
     }

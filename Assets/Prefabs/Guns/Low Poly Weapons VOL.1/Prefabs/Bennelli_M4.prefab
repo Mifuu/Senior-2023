@@ -145,8 +145,8 @@ MonoBehaviour:
   playerEntity: {fileID: 0}
   elementAttachable: {fileID: 0}
   playerDmgComponent: {fileID: 0}
-  pelletCount: 8
-  spreadAngle: 20
+  pelletCount: 6
+  spreadAngle: 5
 --- !u!1 &1326079549577358
 GameObject:
   m_ObjectHideFlags: 0
