@@ -212,6 +212,9 @@ namespace RoomGeneration
                     vacantDoors.RemoveAt(i);
             }
 
+            // order by distance from origin
+            vacantDoors = vacantDoors.OrderBy(d => Vector3.Distance(d.worldCoord, Vector3.zero)).ToList();
+
             // check number of vacant doors
             if (vacantDoors.Count < bulkAmount)
             {
@@ -223,7 +226,8 @@ namespace RoomGeneration
             {
                 // random vacant door
                 // random door data
-                GeneratedDoorData targetDoor = GetRandom(vacantDoors);
+                // GeneratedDoorData targetDoor = GetRandom(vacantDoors);\
+                GeneratedDoorData targetDoor = vacantDoors[0];
                 latestTargetDoorPos = V3Multiply(targetDoor.worldCoord, roomSet.snapValue.value);
 
                 // get possible connection
