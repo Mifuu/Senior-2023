@@ -25,7 +25,7 @@ namespace RoomGeneration.Minimap
         }
 
         [Header("Default Values")]
-        public const int DEFAULT_GRID_SIZE = 100;
+        public const int DEFAULT_GRID_SIZE = 150;
 
         [Header("Requirements")]
         public RoomGenerator roomGenerator;
