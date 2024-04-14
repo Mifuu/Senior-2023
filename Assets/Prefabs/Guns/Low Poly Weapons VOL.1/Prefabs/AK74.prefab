@@ -308,6 +308,7 @@ MonoBehaviour:
   bulletSpawnPosition: {fileID: 2786804827794260450}
   gunInteractable: {fileID: -7255339448930106897, guid: da90e67f08bdef44f82f61ffe3a3d2d4, type: 3}
   muzzleFlash: {fileID: 388149886903555670}
+  gunSprite: {fileID: 21300000, guid: 48beadbf21352424dbc7835b15c01180, type: 3}
   playerObject: {fileID: 0}
   playerEntity: {fileID: 0}
   elementAttachable: {fileID: 0}

@@ -4,6 +4,7 @@ using UnityEngine;
 using Unity.Netcode;
 using UnityEngine.Events;
 using System.Linq;
+using Microsoft.Unity.VisualStudio.Editor;
 
 public class PlayerSwitchWeapon : NetworkBehaviour
 {
@@ -17,6 +18,7 @@ public class PlayerSwitchWeapon : NetworkBehaviour
     private PlayerShoot playerShoot;
     private InputManager inputManager;
     private PlayerInteract playerInteract;
+    private PlayerUIUpdater playerUIUpdater;
     private NetworkObject gunToSpawn;
 
     void Start()
@@ -25,9 +27,11 @@ public class PlayerSwitchWeapon : NetworkBehaviour
         playerShoot = player.GetComponent<PlayerShoot>();
         inputManager = player.GetComponent<InputManager>();
         playerInteract = player.GetComponent<PlayerInteract>();
+        playerUIUpdater = player.GetComponentInChildren<PlayerUIUpdater>();
         playerShoot.InitializePlayerSwitchWeapon();
         inputManager.InitializePlayerSwitchWeapon();
         playerInteract.InitializePlayerSwitchWeapon();
+        playerUIUpdater.InitializePlayerSwitchWeapon();
 
         gunToSpawn = initialGun_1;
         SpawnGunServerRpc(0);
@@ -76,6 +80,7 @@ public class PlayerSwitchWeapon : NetworkBehaviour
         guns = _guns;
         AdjustCurrentGunIndex();
         SelectWeapon();
+        playerUIUpdater.UpdateGunSprite(guns[0].gunSprite, guns[1].gunSprite, guns[2].gunSprite);
     }
     public void UpdateWeapon(int previous, int current)
     {
@@ -134,6 +139,8 @@ public class PlayerSwitchWeapon : NetworkBehaviour
             Debug.Log($"Player Script: Switch to weapon {newWeaponIndex + 1}");
             currentGunIndex.Value = newWeaponIndex;
             //ChangeSelectedWeaponServerRPC(newWeaponIndex);
+            playerUIUpdater.UpdateGunSprite(guns[0].gunSprite, guns[1].gunSprite, guns[2].gunSprite);
+
         }
     }
 

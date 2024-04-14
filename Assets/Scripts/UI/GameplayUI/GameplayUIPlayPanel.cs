@@ -16,6 +16,9 @@ namespace GameplayUI
         public TMP_Text levelText;
         public TextMeshProUGUI promptText;
         public TextMeshProUGUI upgradeSkillCardText;
+        public Image gunSlotImage_1;
+        public Image gunSlotImage_2;
+        public Image gunSlotImage_3;
 
         public void UpdateHP(float health, float maxHealth)
         {
@@ -43,6 +46,14 @@ namespace GameplayUI
                 upgradeSkillCardText.text = "";
             else
                 upgradeSkillCardText.text = $"[T] Choose Skill Card({point})";
+        }
+
+        public void UpdateGunSlot(Sprite gunImage_1, Sprite gunImage_2, Sprite gunImage_3)
+        {
+            Debug.Log("GameplayUI: Update Gun Slot");
+            gunSlotImage_1.sprite = gunImage_1;
+            gunSlotImage_2.sprite = gunImage_2;
+            gunSlotImage_3.sprite = gunImage_3;
         }
     }
 }
