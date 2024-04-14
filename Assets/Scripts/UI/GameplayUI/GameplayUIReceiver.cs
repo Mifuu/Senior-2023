@@ -96,5 +96,11 @@ namespace GameplayUI
         {
             inventoryPanel.UpdateWindShardText(Value);
         }
+
+        public void UpdateGunSlotImage(Sprite gunSprite_1, Sprite gunSprite_2, Sprite GunSprite_3)
+        {
+            Debug.Log("GameplayUIReceiver: Update");
+            playPanel.UpdateGunSlot(gunSprite_1, gunSprite_2, GunSprite_3);
+        }
     }
 }

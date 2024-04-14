@@ -14,6 +14,8 @@ public class Gun : NetworkBehaviour
     [SerializeField] public Transform bulletSpawnPosition;
     [SerializeField] public GunInteractable gunInteractable;
     [SerializeField] public MuzzleFlash muzzleFlash;
+    [SerializeField] public Sprite gunSprite;
+
 
     [HideInInspector] public GameObject playerObject;
     [HideInInspector] public ElementalEntity playerEntity;
