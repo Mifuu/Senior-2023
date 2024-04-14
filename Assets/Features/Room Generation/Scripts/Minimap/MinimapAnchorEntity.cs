@@ -16,14 +16,14 @@ namespace RoomGeneration.Minimap
 
         public void Awake()
         {
-            initialPosition = image.rectTransform.position;
+            initialPosition = image.transform.position;
         }
 
         public void LateUpdate()
         {
             if (icon != null)
             {
-                Vector3 delta = icon.transform.localPosition;
+                Vector3 delta = icon.transform.localPosition * image.transform.lossyScale.x;
                 image.rectTransform.position = initialPosition - delta;
             }
         }
