@@ -13,7 +13,7 @@ public class NetworkDebugManager : NetworkBehaviour
     [ServerRpc(RequireOwnership = false)]
     private void LogMessageServerRpc(string message, ServerRpcParams rpcParams = default)
     {
-        Debug.Log(message);
+        Debug.Log("[NetworkDebugManager:Server]: " + message);
 
         // Forward the message to all clients
         LogMessageClientRpc(message);
@@ -23,7 +23,7 @@ public class NetworkDebugManager : NetworkBehaviour
     private void LogMessageClientRpc(string message)
     {
         // Log the message on all clients
-        Debug.Log(message);
+        Debug.Log("[NetworkDebugManager:Client]: " + message);
     }
 
     public static void LogMessage(string message)
@@ -34,6 +34,16 @@ public class NetworkDebugManager : NetworkBehaviour
             GameObject o = new GameObject("NetworkDebugManager");
             instance = o.AddComponent<NetworkDebugManager>();
         }
-        instance.LogMessageServerRpc(message);
+        if (NetworkManager.Singleton.IsServer)
+        {
+            // Log the message on the server
+            Debug.Log("[NetworkDebugManager:Server]: " + message);
+            instance.LogMessageClientRpc(message);
+        }
+        else
+        {
+            // Log the message on the client
+            instance.LogMessageServerRpc(message);
+        }
     }
 }
