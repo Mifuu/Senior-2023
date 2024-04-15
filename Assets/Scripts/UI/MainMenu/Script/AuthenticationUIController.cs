@@ -10,6 +10,7 @@ public class AuthenticationUIController : MonoBehaviour
     private string confirmPassword = "";
     private Subject<bool> isOnLogin = new Subject<bool>(true);
 
+#if !DEDICATED_SERVER
     public void OnUsernameChanged(string value) => username = value;
     public void OnPasswordChange(string value) => password = value;
     public void OnConfirmPasswordChange(string value) => confirmPassword = value;
@@ -18,22 +19,29 @@ public class AuthenticationUIController : MonoBehaviour
     [SerializeField] private Button confirmButton;
     [SerializeField] private GameObject confirmPasswordGroup;
     [SerializeField] private RectTransform rectTransform;
+#endif
 
     public void Start()
     {
+#if !DEDICATED_SERVER
         SwitchPage(false, true);
         isOnLogin.OnValueChanged += SwitchPage;
         switchButton.onClick.AddListener(OnSwitchButtonPressed);
         confirmButton.onClick.AddListener(OnConfirmButtonPressed);
+#endif
     }
 
     public void OnDestroy()
     {
+#if !DEDICATED_SERVER
         isOnLogin.OnValueChanged -= SwitchPage;
         switchButton.onClick.RemoveAllListeners();
         confirmButton.onClick.RemoveAllListeners();
+#endif
     }
 
+
+#if !DEDICATED_SERVER
     public void OnSwitchButtonPressed() => isOnLogin.Value = !isOnLogin.Value;
 
     public void OnConfirmButtonPressed()
@@ -61,4 +69,5 @@ public class AuthenticationUIController : MonoBehaviour
             rectTransform.sizeDelta = new Vector2(1000, 800);
         }
     }
+#endif
 }
