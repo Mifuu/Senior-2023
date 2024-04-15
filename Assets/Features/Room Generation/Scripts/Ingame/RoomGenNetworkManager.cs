@@ -53,15 +53,15 @@ namespace RoomGeneration
         {
             if (!IsServer)
             {
-                Debug.Log("Not server or client, no permissions to generate rooms");
+                Debug.Log("Not server, no permissions to generate rooms");
                 return;
             }
 
-            GenerateServerRpc();
+            // GenerateServerRpc();
+            Generate();
         }
 
-        [ServerRpc]
-        public void GenerateServerRpc()
+        public void Generate()
         {
             // preparing settings and seeds
             seed.Value = Random.Range(int.MinValue, int.MaxValue);

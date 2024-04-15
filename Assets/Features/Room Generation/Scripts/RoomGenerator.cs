@@ -57,9 +57,9 @@ namespace RoomGeneration
             // StepAddRoom(1, RoomTag.CenterRoom, seed);
             StepAddRoom();
             // StepAddRoom();                                  // the first room
-            StepAddRoom(20, RoomTag.NormalRoom, seed);      // normalRooms
-            StepAddRoomBulk(5, RoomTag.MiniBossRoom, seed); // miniBossRooms
-            StepAddRoom(20, RoomTag.NormalRoom, seed);
+            StepAddRoom(40, RoomTag.NormalRoom, seed);      // normalRooms
+            StepAddRoomBulk(6, RoomTag.MiniBossRoom, seed); // miniBossRooms
+            StepAddRoom(40, RoomTag.NormalRoom, seed);
 
             // generate player spawn rooms
             AddPlayerSpawnRooms(playerSpawnRoomCount);
