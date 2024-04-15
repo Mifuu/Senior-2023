@@ -2,10 +2,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using Unity.Services.Core;
 using Unity.Services.Matchmaker;
+using Unity.Services.Matchmaker.Models;
+using Unity.Services.Multiplay;
 using Unity.Netcode;
 using System.Threading.Tasks;
 using System;
-using Unity.Services.Matchmaker.Models;
 using Unity.Netcode.Transports.UTP;
 using ObserverPattern;
 
@@ -56,11 +57,11 @@ namespace CloudService
 
         public void Start()
         {
-            GlobalManager.Loader.LoadGame();
 #if DEDICATED_SERVER
             ServerLogger = CloudLogger.Singleton.Get("Server MatchMaker");
-#endif
-#if !DEDICATED_SERVER
+            GlobalManager.Loader.LoadGame();
+            ServerLogger.Log("Loading Game Scene");
+#else
             ClientLogger = CloudLogger.Singleton.Get("Client MatchMaker");
 #endif
         }
@@ -72,9 +73,8 @@ namespace CloudService
         }
 #endif
 
-        public async Task InitializeService(bool prev, bool current)
+        public async Task Initialize()
         {
-            if (!current) return;
             if (UnityServices.State != ServicesInitializationState.Initialized)
             {
 #if DEDICATED_SERVER
@@ -107,14 +107,14 @@ namespace CloudService
             }
         }
 
+#if !DEDICATED_SERVER
         public async void BeginFindingMatch()
         {
             if (UnityServices.State == ServicesInitializationState.Initialized)
             {
-#if !DEDICATED_SERVER
                 var players = new List<Unity.Services.Matchmaker.Models.Player>()
                 {
-                    new Unity.Services.Matchmaker.Models.Player("Player1", new Dictionary<string, object>())
+                    new Unity.Services.Matchmaker.Models.Player(CloudService.AuthenticationService.Singleton.playerName, new Dictionary<string, object>())
                 };
 
                 var options = new CreateTicketOptions(DefaultQueueName, new Dictionary<string, object>());
@@ -164,9 +164,9 @@ namespace CloudService
                 while (isSearching.Value);
                 if (matchingSuccess)
                     ClientConnectToMultiplayServer(assignment);
-#endif
             }
         }
+#endif
 
 
 #if DEDICATED_SERVER
@@ -214,13 +214,14 @@ namespace CloudService
         {
             NetworkManager.Singleton.StartServer();
             NetworkManager.Singleton.OnClientConnectedCallback += DedicatedServer_ClientConnectCallback;
-            NetworkManager.Singleton.OnClientDisconnectedCallback += DedicatedServer_ClientDisconnectCallback;
+            NetworkManager.Singleton.OnClientDisconnectCallback += DedicatedServer_ClientDisconnectCallback;
+            MultiplayerGameManager.Instance.StartGame();
         }
 
         private void StopServer()
         {
             NetworkManager.Singleton.OnClientConnectedCallback -= DedicatedServer_ClientConnectCallback;
-            NetworkManager.Singleton.OnClientDisconnectedCallback -= DedicatedServer_ClientDisconnectCallback;
+            NetworkManager.Singleton.OnClientDisconnectCallback -= DedicatedServer_ClientDisconnectCallback;
         }
 
         private void DedicatedServer_ClientConnectCallback(ulong id)

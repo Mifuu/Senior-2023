@@ -5,6 +5,7 @@ using ObserverPattern;
 
 public class MainMenuUIController : MonoBehaviour
 {
+#if !DEDICATED_SERVER
     public static MainMenuUIController Singleton;
 
     [Header("Dev Mode")]
@@ -66,12 +67,15 @@ public class MainMenuUIController : MonoBehaviour
             Debug.LogError("NetworkGameManager is not found");
             return;
         }
-        
+
         if (quitGameButton != null)
             quitGameButton.onClick.AddListener(ShowQuitGameModal);
 
         if (findGameButton != null)
+        {
             findGameButton.interactable = false;
+            findGameButton.onClick.AddListener(CloudService.MatchMakingService.Singleton.BeginFindingMatch);
+        }
 
         if (achievementGameButton != null)
             achievementGameButton.onClick.AddListener(() => menuState.Value = MainMenuState.Achievement);
@@ -151,7 +155,7 @@ public class MainMenuUIController : MonoBehaviour
 
         currentModalCleanup = () =>
         {
-            modal.OnCancelButtonPressed -= QuitGame;            
+            modal.OnCancelButtonPressed -= QuitGame;
             modal.OnCancelButtonPressed -= CloseModal;
         };
 
@@ -184,4 +188,5 @@ public class MainMenuUIController : MonoBehaviour
         Application.Quit(0);
 #endif
     }
+#endif
 }

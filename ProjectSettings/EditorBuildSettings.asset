@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: abe0ef91b8328454cb49e88ae1c0318a
+  - enabled: 1
     path: Assets/Scenes/Sprint7Showcase.unity
     guid: b9fb887058847430faf8acd0c598f37e
   - enabled: 0
@@ -35,7 +38,7 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/DemoScene.unity
     guid: c02eb4ba98e49204181d4eca81e7658c
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/EnemyAndBossDev.unity
     guid: e764d537a1228694182435d8f942d885
   - enabled: 0
@@ -53,7 +56,7 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/DemoScene 1.unity
     guid: d656f4683e32f374385a2249efb8d1bb
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/TossakanDev.unity
     guid: 7cfd5d1b920042d43bcc2f8b100ffe8a
   m_configObjects: {}
