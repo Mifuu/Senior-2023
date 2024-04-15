@@ -15,6 +15,7 @@ public class TutorialTextController : MonoBehaviour
         [SerializeField] public float lifeSpan;
         [TextArea(10, 20)]
         [SerializeField] public string text;
+        [Tooltip("")]
         [SerializeField] public bool usePreferredSize;
     }
 
