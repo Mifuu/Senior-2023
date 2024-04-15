@@ -80,7 +80,7 @@ public class PlayerSwitchWeapon : NetworkBehaviour
         guns = _guns;
         AdjustCurrentGunIndex();
         SelectWeapon();
-        playerUIUpdater.UpdateGunSprite(guns[0].gunSprite, guns[1].gunSprite, guns[2].gunSprite);
+        playerUIUpdater.UpdateGunSprite(guns.Length > 0 ? guns[0].gunSprite : null, guns.Length > 1 ? guns[1].gunSprite : null, guns.Length > 2 ? guns[2].gunSprite : null);
     }
     public void UpdateWeapon(int previous, int current)
     {
@@ -118,6 +118,7 @@ public class PlayerSwitchWeapon : NetworkBehaviour
             if( i == currentGunIndex.Value )
             {
                 guns[i].gameObject.SetActive(true);
+                playerUIUpdater.UpdateSelectedGunSlotColor(i);
             }
             else
             {
@@ -139,7 +140,7 @@ public class PlayerSwitchWeapon : NetworkBehaviour
             Debug.Log($"Player Script: Switch to weapon {newWeaponIndex + 1}");
             currentGunIndex.Value = newWeaponIndex;
             //ChangeSelectedWeaponServerRPC(newWeaponIndex);
-            playerUIUpdater.UpdateGunSprite(guns[0].gunSprite, guns[1].gunSprite, guns[2].gunSprite);
+            playerUIUpdater.UpdateGunSprite(guns.Length > 0 ? guns[0].gunSprite : null, guns.Length > 1 ? guns[1].gunSprite : null, guns.Length > 2 ? guns[2].gunSprite : null);
 
         }
     }

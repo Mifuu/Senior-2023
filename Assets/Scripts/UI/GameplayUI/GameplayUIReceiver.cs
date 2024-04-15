@@ -102,5 +102,11 @@ namespace GameplayUI
             Debug.Log("GameplayUIReceiver: Update");
             playPanel.UpdateGunSlot(gunSprite_1, gunSprite_2, GunSprite_3);
         }
+
+        public void UpdateSelectedGunSlotImage(int selectedGunIndex)
+        {
+            Debug.Log("GameplayUIReceiver: Update selected gun slot image");
+            playPanel.UpdateGunSelectedSlot(selectedGunIndex);
+        }
     }
 }
