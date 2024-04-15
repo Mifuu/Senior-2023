@@ -19,6 +19,7 @@ namespace GameplayUI
         public Image gunSlotImage_1;
         public Image gunSlotImage_2;
         public Image gunSlotImage_3;
+        public GunSlotPanel gunSlotPanel;
 
         public void UpdateHP(float health, float maxHealth)
         {
@@ -54,6 +55,11 @@ namespace GameplayUI
             gunSlotImage_1.sprite = gunImage_1;
             gunSlotImage_2.sprite = gunImage_2;
             gunSlotImage_3.sprite = gunImage_3;
+        }
+
+        public void UpdateGunSelectedSlot(int selectedGunIndex)
+        {
+            gunSlotPanel.HighlightSelectGun(selectedGunIndex);
         }
     }
 }

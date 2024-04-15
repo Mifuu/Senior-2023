@@ -12,7 +12,7 @@ public class PlayerUIUpdater : MonoBehaviour
     [SerializeField] private PlayerInteract playerInteract;
     [SerializeField] private PlayerInventory playerInventory;
     private PlayerSwitchWeapon gunHolder;
-
+    
     GameplayUIReceiver gameplayUIReceiver;
 
     public void InitializePlayerSwitchWeapon()
@@ -113,5 +113,10 @@ public class PlayerUIUpdater : MonoBehaviour
         {
             Debug.LogWarning("GunHolder is not found");
         }
+    }
+
+    public void UpdateSelectedGunSlotColor(int selectedGunIndex)
+    {
+        gameplayUIReceiver.UpdateSelectedGunSlotImage(selectedGunIndex);
     }
 }
