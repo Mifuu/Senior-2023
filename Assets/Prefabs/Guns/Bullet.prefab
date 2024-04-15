@@ -267,7 +267,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   vfxHit: {fileID: 0}
-  speed: 1000
+  speed: 800
   lifetime: 5
 --- !u!1 &6127754639014077554
 GameObject:
