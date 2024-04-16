@@ -11,8 +11,14 @@ public class PlayerUIUpdater : MonoBehaviour
     [SerializeField] private PlayerLevel playerLevel;
     [SerializeField] private PlayerInteract playerInteract;
     [SerializeField] private PlayerInventory playerInventory;
-
+    private PlayerSwitchWeapon gunHolder;
+    
     GameplayUIReceiver gameplayUIReceiver;
+
+    public void InitializePlayerSwitchWeapon()
+    {
+        gunHolder = transform.parent.GetComponentInChildren<PlayerSwitchWeapon>();
+    }
 
     void Start()
     {
@@ -89,5 +95,28 @@ public class PlayerUIUpdater : MonoBehaviour
         {
             Debug.LogWarning("GameplayUIReceiver is not found");
         }
+    }
+
+    public void UpdateGunSprite(Sprite sprite_1, Sprite sprite_2, Sprite sprite_3)
+    {
+        Debug.Log("PlayerUIUpdater: Update");
+        if (gunHolder != null && gunHolder.IsOwner && gameplayUIReceiver)
+        {
+            Debug.Log("PlayerUIUpdater: Update in IF");
+            gameplayUIReceiver.UpdateGunSlotImage(sprite_1, sprite_2, sprite_3);
+        }
+        else if (!gameplayUIReceiver)
+        {
+            Debug.LogWarning("GameplayUIReceiver is not found");
+        }
+        else if (!gunHolder)
+        {
+            Debug.LogWarning("GunHolder is not found");
+        }
+    }
+
+    public void UpdateSelectedGunSlotColor(int selectedGunIndex)
+    {
+        gameplayUIReceiver.UpdateSelectedGunSlotImage(selectedGunIndex);
     }
 }

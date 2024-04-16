@@ -26,7 +26,6 @@ public class GunRaycast : Gun
                 damageInfo = playerDmgComponent.GetFinalDealthDamageInfo(damageInfo);
                 damageable.Damage(damageInfo);
                 Debug.Log("Damage dealt to " + raycastHit.collider.gameObject.name + ": " + damageInfo.amount);
-
             }
         }
     }
