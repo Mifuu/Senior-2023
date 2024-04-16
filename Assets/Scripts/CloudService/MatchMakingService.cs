@@ -17,9 +17,9 @@ namespace CloudService
         public static MatchMakingService Singleton;
         private Subject<bool> _ready = new Subject<bool>(false);
         public Subject<bool> isServiceReady { get => _ready; set { throw new InvalidOperationException(); }}
+        public CloudLogger.CloudLoggerSingular Logger; 
 
 #if !DEDICATED_SERVER
-        public CloudLogger.CloudLoggerSingular ClientLogger;
         public Subject<bool> isSearching = new Subject<bool>(false);
         public Action<Unity.Services.Matchmaker.Models.MultiplayAssignment.StatusOptions> OnMatchingStatusUpdate;
         [SerializeField] public string DefaultQueueName = "";
@@ -37,7 +37,6 @@ namespace CloudService
         private string defaultMap = "DefaultMap";
         private int currentPlayerNumbers = 0;
         private bool hasPlayerConnected = false;
-        public CloudLogger.CloudLoggerSingular ServerLogger; 
 #endif
 
         public void Awake()
@@ -57,13 +56,7 @@ namespace CloudService
 
         public void Start()
         {
-#if DEDICATED_SERVER
-            ServerLogger = CloudLogger.Singleton.Get("Server MatchMaker");
-            GlobalManager.Loader.LoadGame();
-            ServerLogger.Log("Loading Game Scene");
-#else
-            ClientLogger = CloudLogger.Singleton.Get("Client MatchMaker");
-#endif
+            Logger = CloudLogger.Singleton.Get("MatchMaker");
         }
 
 #if DEDICATED_SERVER
@@ -78,7 +71,7 @@ namespace CloudService
             if (UnityServices.State != ServicesInitializationState.Initialized)
             {
 #if DEDICATED_SERVER
-                ServerLogger.Log("INITIALIZATION");
+                Logger.Log("INITIALIZATION");
                 MultiplayEventCallbacks multiplayEventCallbacks = new MultiplayEventCallbacks();
                 multiplayEventCallbacks.Allocate += MultiplayEventCallbacks_Allocate;
                 multiplayEventCallbacks.Deallocate += MultiplayEventCallbacks_Deallocate;
@@ -120,7 +113,7 @@ namespace CloudService
                 var options = new CreateTicketOptions(DefaultQueueName, new Dictionary<string, object>());
                 var ticketResponse = await MatchmakerService.Instance.CreateTicketAsync(players, options);
                 matchMakerTicketId = ticketResponse.Id;
-                ClientLogger.Log("CLIENT: Ticket ID = " + ticketResponse.Id);
+                Logger.Log("CLIENT: Ticket ID = " + ticketResponse.Id);
 
                 MultiplayAssignment assignment = null;
                 bool matchingSuccess = false; // Is the matching successful? (The game can proceed)
@@ -137,7 +130,7 @@ namespace CloudService
                     if (ticketStatus.Type == typeof(MultiplayAssignment))
                     {
                         assignment = ticketStatus.Value as MultiplayAssignment;
-                        ClientLogger.Log("MULTIPLAY ASSIGNMENT STATUS: " + assignment.Status.ToString());
+                        Logger.Log("MULTIPLAY ASSIGNMENT STATUS: " + assignment.Status.ToString());
                     }
 
                     OnMatchingStatusUpdate?.Invoke(assignment.Status);
@@ -151,12 +144,12 @@ namespace CloudService
                             continue;
                         case MultiplayAssignment.StatusOptions.Failed:
                             isSearching.Value = false;
-                            ClientLogger.LogError("FAILED TO GET TICKET STATUS, " + assignment.Message);
+                            Logger.LogError("FAILED TO GET TICKET STATUS, " + assignment.Message);
                             break;
                         case MultiplayAssignment.StatusOptions.Timeout:
                             isSearching.Value = false;
-                            ClientLogger.LogError("FAILED TO GET TICKET STATUS, TICKET TIMEOUT");
-                            break;
+                            Logger.LogError("FAILED TO GET TICKET STATUS, TICKET TIMEOUT");
+                            break
                         default:
                             throw new InvalidOperationException();
                     }
@@ -172,21 +165,21 @@ namespace CloudService
 #if DEDICATED_SERVER
         private void MultiplayEventCallbacks_Allocate(MultiplayAllocation allocation)
         {
-            ServerLogger.Log("MultiplayEventCallbacks_Allocate");
+            Logger.Log("MultiplayEventCallbacks_Allocate");
             if (alreadyAllocated)
             {
-                ServerLogger.Log("Already Allocated");
+                Logger.Log("Already Allocated");
                 return;
             }
 
             alreadyAllocated = true;
              
             var serverConfig = MultiplayService.Instance.ServerConfig;
-            ServerLogger.Log($"Server ID - {serverConfig.ServerId}");
-            ServerLogger.Log($"Allocation ID - {serverConfig.AllocationId}");
-            ServerLogger.Log($"Port - {serverConfig.Port}");
-            ServerLogger.Log($"Query Port - {serverConfig.QueryPort}");
-            ServerLogger.Log($"Log Directory - {serverConfig.ServerLogDirectory}");
+            Logger.Log($"Server ID - {serverConfig.ServerId}");
+            Logger.Log($"Allocation ID - {serverConfig.AllocationId}");
+            Logger.Log($"Port - {serverConfig.Port}");
+            Logger.Log($"Query Port - {serverConfig.QueryPort}");
+            Logger.Log($"Log Directory - {serverConfig.ServerLogDirectory}");
 
             string ipv4addr = "0.0.0.0";
             ushort port = serverConfig.Port;
@@ -196,18 +189,18 @@ namespace CloudService
 
         private void MultiplayEventCallbacks_Deallocate(MultiplayDeallocation deallocation)
         {
-            ServerLogger.Log("MultiplayEventCallbacks_Deallocate");
+            Logger.Log("MultiplayEventCallbacks_Deallocate");
             enabled = false;
         }
 
         private void MultiplayEventCallbacks_Error(MultiplayError error)
         {
-            ServerLogger.Log("MultiplayEventCallbacks_Error");
+            Logger.Log("MultiplayEventCallbacks_Error");
         }
 
         private void MultiplayEventCallbacks_SubscriptionStateChanged(MultiplayServerSubscriptionState state)
         {
-            ServerLogger.Log("MultiplayEventCallbacks_SubscriptionStateChanged");
+            Logger.Log("MultiplayEventCallbacks_SubscriptionStateChanged");
         }
 
         private void StartServer()
@@ -228,7 +221,7 @@ namespace CloudService
         {
             currentPlayerNumbers++; 
             if (!hasPlayerConnected) hasPlayerConnected = true;
-            ServerLogger.Log("Player has connected, current count: " + currentPlayerNumbers);
+            Logger.Log("Player has connected, current count: " + currentPlayerNumbers);
         }
 
         private void DedicatedServer_ClientDisconnectCallback(ulong id)
@@ -236,10 +229,10 @@ namespace CloudService
             currentPlayerNumbers--;
             if (hasPlayerConnected && currentPlayerNumbers == 0) 
             {
-                ServerLogger.Log("All Players has disconnected, exiting");
+                Logger.Log("All Players has disconnected, exiting");
                 Application.Quit(0);
             }
-            ServerLogger.Log("Player has disconnected, current count: " + currentPlayerNumbers);
+            Logger.Log("Player has disconnected, current count: " + currentPlayerNumbers);
         }
 
 #endif
@@ -247,7 +240,7 @@ namespace CloudService
 #if !DEDICATED_SERVER
         private void ClientConnectToMultiplayServer(MultiplayAssignment assignment)
         {
-            ClientLogger.Log("CONNECTING TO MULTIPLAY SERVER");
+            Logger.Log("CONNECTING TO MULTIPLAY SERVER");
 
             GlobalManager.Loader.LoadGame();
             string ipv4addr = assignment.Ip;

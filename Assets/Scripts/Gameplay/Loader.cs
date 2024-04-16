@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 namespace GlobalManager
 {
-    public class Loader : NetworkBehaviour
+    public class Loader 
     {
         public enum Scene
         {
@@ -27,11 +27,11 @@ namespace GlobalManager
 
         #region Game Load
 
-        [SerializeField] private static Scene DefaultGameScene;
+        private static Scene DefaultGameScene = Scene.Sprint7Showcase;
 
         public static void LoadGame() => Load(DefaultGameScene);
-        public static AsyncOperation _LoadGameAsync => _LoadAsync(DefaultGameScene);
-        public static IEnumerator LoadGameAsync => LoadAsync(DefaultGameScene);
+        public static AsyncOperation _LoadGameAsync() => _LoadAsync(DefaultGameScene);
+        public static IEnumerator LoadGameAsync() => LoadAsync(DefaultGameScene);
 
         #endregion
     }
