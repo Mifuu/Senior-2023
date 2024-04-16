@@ -34,8 +34,9 @@ namespace CloudService
         private string defaultGameType = "DefaultGameType";
         private string defaultBuildId = "DefaultBuildId";
         private string defaultMap = "DefaultMap";
-        private int currentPlayerNumbers = 0;
+        private Subject<int> currentPlayerNumbers = new Subject<int>(0);
         private bool hasPlayerConnected = false;
+        private int totalPlayerInCurrentMatch;
 #endif
 
         public void Awake()
@@ -71,21 +72,27 @@ namespace CloudService
             if (Logger == null) Logger = CloudLogger.Singleton.Get("Matchmaker");
             /* if (UnityServices.State != ServicesInitializationState.Initialized) */
             /* { */
-                Logger.Log("initialize service not initialized");
-                MultiplayEventCallbacks multiplayEventCallbacks = new MultiplayEventCallbacks();
-                multiplayEventCallbacks.Allocate += MultiplayEventCallbacks_Allocate;
-                multiplayEventCallbacks.Deallocate += MultiplayEventCallbacks_Deallocate;
-                multiplayEventCallbacks.Error += MultiplayEventCallbacks_Error;
-                multiplayEventCallbacks.SubscriptionStateChanged += MultiplayEventCallbacks_SubscriptionStateChanged;
-                IServerEvents serverEvents = await MultiplayService.Instance.SubscribeToServerEventsAsync(multiplayEventCallbacks);
+            Logger.Log("initialize service not initialized");
+            MultiplayEventCallbacks multiplayEventCallbacks = new MultiplayEventCallbacks();
+            multiplayEventCallbacks.Allocate += MultiplayEventCallbacks_Allocate;
+            multiplayEventCallbacks.Deallocate += MultiplayEventCallbacks_Deallocate;
+            multiplayEventCallbacks.Error += MultiplayEventCallbacks_Error;
+            multiplayEventCallbacks.SubscriptionStateChanged += MultiplayEventCallbacks_SubscriptionStateChanged;
+            IServerEvents serverEvents = await MultiplayService.Instance.SubscribeToServerEventsAsync(multiplayEventCallbacks);
 
-                serverQueryHandler = await MultiplayService.Instance.StartServerQueryHandlerAsync(
-                        defaultMaxPlayer, defaultServerName, defaultGameType, defaultBuildId, defaultMap);
+            serverQueryHandler = await MultiplayService.Instance.StartServerQueryHandlerAsync(
+                    defaultMaxPlayer, defaultServerName, defaultGameType, defaultBuildId, defaultMap);
 
-                var serverConfig = MultiplayService.Instance.ServerConfig;
-                if (serverConfig.AllocationId != "")
-                    // Already Allocated
-                    MultiplayEventCallbacks_Allocate(new MultiplayAllocation("", serverConfig.ServerId, serverConfig.AllocationId));
+            var serverConfig = MultiplayService.Instance.ServerConfig;
+            if (serverConfig.AllocationId != "")
+            {
+                // Already Allocated
+                var payloadAllocation = await MultiplayService.Instance.GetPayloadAllocationFromJsonAs<MatchmakingResults>();
+                totalPlayerInCurrentMatch = payloadAllocation.MatchProperties.Players.Count;
+                Logger.Log($"Players in Match - {totalPlayerInCurrentMatch}");
+                MultiplayEventCallbacks_Allocate(new MultiplayAllocation("", serverConfig.ServerId, serverConfig.AllocationId));
+            }
+
             /* } */
             /* else */
             /* { */
@@ -203,12 +210,36 @@ namespace CloudService
             Logger.Log("MultiplayEventCallbacks_SubscriptionStateChanged");
         }
 
+        private void DedicatedServer_ClientConnectCallback(ulong id)
+        {
+            currentPlayerNumbers.Value++;
+            if (!hasPlayerConnected) hasPlayerConnected = true;
+            Logger.Log("Player has connected, current count: " + currentPlayerNumbers.Value);
+
+            if (currentPlayerNumbers.Value == totalPlayerInCurrentMatch)
+            {
+                Logger.Log("All player has connected, loading scene");
+                NetworkManager.Singleton.SceneManager.OnSceneEvent += NetworkSceneManager_OnSceneEvent;
+                GlobalManager.Loader.LoadGameNetwork();
+            }
+        }
+
+        private void DedicatedServer_ClientDisconnectCallback(ulong id)
+        {
+            currentPlayerNumbers.Value --;
+            if (hasPlayerConnected && currentPlayerNumbers.Value == 0)
+            {
+                Logger.Log("All Players has disconnected, exiting");
+                Application.Quit(0);
+            }
+            Logger.Log("Player has disconnected, current count: " + currentPlayerNumbers.Value);
+        }
+
         private void StartServer()
         {
             NetworkManager.Singleton.StartServer();
             NetworkManager.Singleton.OnClientConnectedCallback += DedicatedServer_ClientConnectCallback;
             NetworkManager.Singleton.OnClientDisconnectCallback += DedicatedServer_ClientDisconnectCallback;
-            MultiplayerGameManager.Instance.StartGame();
         }
 
         private void StopServer()
@@ -217,24 +248,17 @@ namespace CloudService
             NetworkManager.Singleton.OnClientDisconnectCallback -= DedicatedServer_ClientDisconnectCallback;
         }
 
-        private void DedicatedServer_ClientConnectCallback(ulong id)
+        private void NetworkSceneManager_OnSceneEvent(SceneEvent sceneEvent)
         {
-            currentPlayerNumbers++;
-            if (!hasPlayerConnected) hasPlayerConnected = true;
-            Logger.Log("Player has connected, current count: " + currentPlayerNumbers);
-        }
-
-        private void DedicatedServer_ClientDisconnectCallback(ulong id)
-        {
-            currentPlayerNumbers--;
-            if (hasPlayerConnected && currentPlayerNumbers == 0)
+            Logger.Log("scene event - " + sceneEvent.ToString());
+            switch (sceneEvent.SceneEventType)
             {
-                Logger.Log("All Players has disconnected, exiting");
-                Application.Quit(0);
+                case SceneEventType.LoadComplete:
+                    Logger.Log("Loading completed, starting game");
+                    MultiplayerGameManager.Instance.StartGame();
+                    break;
             }
-            Logger.Log("Player has disconnected, current count: " + currentPlayerNumbers);
         }
-
 #endif
 
 #if !DEDICATED_SERVER
@@ -242,7 +266,7 @@ namespace CloudService
         {
             Logger.Log("CONNECTING TO MULTIPLAY SERVER");
 
-            yield return StartCoroutine(GlobalManager.Loader.LoadGameAsync());
+            yield return StartCoroutine(GlobalManager.Loader.LoadLoadingAsync());
             string ipv4addr = assignment.Ip;
             ushort port = (ushort)assignment.Port;
             Logger.Log("networkManager.Singleton: " + NetworkManager.Singleton);

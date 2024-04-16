@@ -64,7 +64,7 @@ namespace CloudService
         {
             Logger.Log($"Matchmaker: {MatchMakingService.Singleton != null}");
             Logger.Log($"StatService: {StatService.Singleton != null}");
-            Loader.LoadGame();
+            Loader.LoadLoading();
             Logger.Log("Game Scene Loaded");
 
             var initializer = new List<Task>()
