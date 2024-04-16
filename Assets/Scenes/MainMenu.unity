@@ -186,6 +186,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aff2117a69aeb3e41a71e7a4a69b3fec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DefaultQueueName: 
 --- !u!114 &8333708
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5340,6 +5341,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6408dd49220965e48b2cf721bc15b1b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  devMode: 0
+  devModeInclude: []
+  selectedScene: 1
+  findGameButton: {fileID: 1233138102}
+  quitGameButton: {fileID: 1640010012}
+  achievementGameButton: {fileID: 1082125164}
+  creditButton: {fileID: 363812000}
+  shopButton: {fileID: 40358831}
+  settingButton: {fileID: 33716767}
+  modal: {fileID: 1883724880}
+  authPanel: {fileID: 1198585930}
+  mainMenuPanel: {fileID: 536505351}
+  settingPanel: {fileID: 395317801}
+  creditPanel: {fileID: 2101951604}
+  achievementPanel: {fileID: 1817974731}
+  shopPanel: {fileID: 1001204052}
 --- !u!4 &1160895717
 Transform:
   m_ObjectHideFlags: 0
@@ -5647,6 +5664,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51e4cef4fd89915468fd1d34398fcf32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  switchButton: {fileID: 397563558}
+  confirmButton: {fileID: 1697317614}
+  confirmPasswordGroup: {fileID: 1919322780}
+  rectTransform: {fileID: 456660118}
 --- !u!1 &1233138100
 GameObject:
   m_ObjectHideFlags: 0
@@ -7068,6 +7089,17 @@ MonoBehaviour:
   achievementGridObject: {fileID: 7221185585061621922, guid: 218404ee0bb5e544faa772e5dc4f3597, type: 3}
   achievementGridLayoutParent: {fileID: 328816869}
   backButton: {fileID: 154736595}
+--- !u!114 &1883724880 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: -4908868891769382280, guid: 49347240b9c2c6b4bafc5c0874500f43, type: 3}
+  m_PrefabInstance: {fileID: 1989077543}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d871a2ae4146c8d4e8683b425a5e5001, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1918845259
 GameObject:
   m_ObjectHideFlags: 0

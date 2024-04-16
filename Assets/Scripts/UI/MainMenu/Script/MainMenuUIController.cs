@@ -5,7 +5,6 @@ using ObserverPattern;
 
 public class MainMenuUIController : MonoBehaviour
 {
-#if !DEDICATED_SERVER
     public static MainMenuUIController Singleton;
 
     [Header("Dev Mode")]
@@ -20,11 +19,9 @@ public class MainMenuUIController : MonoBehaviour
     [SerializeField] private Button creditButton;
     [SerializeField] private Button shopButton;
     [SerializeField] private Button settingButton;
-    [SerializeField] private GlobalManager.NetworkGameManager networkGameManager;
 
     [Header("Modal")]
     [SerializeField] private ModalController modal;
-    [SerializeField] private ModalSettingSO contentNotReadyModalSetting;
     private Action currentModalCleanup;
 
     [Header("Panel")]
@@ -48,6 +45,9 @@ public class MainMenuUIController : MonoBehaviour
 
     public void Awake()
     {
+#if DEDICATED_SERVER
+        Destroy(gameObject);
+#endif
         if (Singleton == null)
             Singleton = this;
         else
@@ -56,16 +56,11 @@ public class MainMenuUIController : MonoBehaviour
 
     public void Start()
     {
+#if !DEDICATED_SERVER
         if (!devMode)
         {
             foreach (Button button in devModeInclude)
                 button.gameObject.SetActive(false);
-        }
-
-        if (networkGameManager == null)
-        {
-            Debug.LogError("NetworkGameManager is not found");
-            return;
         }
 
         if (quitGameButton != null)
@@ -74,7 +69,7 @@ public class MainMenuUIController : MonoBehaviour
         if (findGameButton != null)
         {
             findGameButton.interactable = false;
-            findGameButton.onClick.AddListener(CloudService.MatchMakingService.Singleton.BeginFindingMatch);
+            findGameButton.onClick.AddListener(FindMatch);
         }
 
         if (achievementGameButton != null)
@@ -92,6 +87,7 @@ public class MainMenuUIController : MonoBehaviour
         CloudService.AuthenticationService.Singleton.isAuthenticated.OnValueChanged += ChangeFindGameButtonStatus;
         menuState.OnValueChanged += ChangeMenu;
         menuState.Value = MainMenuState.Authentication;
+#endif 
     }
 
     public void OnDestroy()
@@ -144,6 +140,8 @@ public class MainMenuUIController : MonoBehaviour
     }
 
     private void ChangeFindGameButtonStatus(bool prev, bool current) => findGameButton.interactable = current;
+    
+    private void FindMatch() => CloudService.MatchMakingService.Singleton.BeginFindingMatch();
 
     private void ShowQuitGameModal()
     {
@@ -188,5 +186,4 @@ public class MainMenuUIController : MonoBehaviour
         Application.Quit(0);
 #endif
     }
-#endif
 }

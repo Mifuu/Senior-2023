@@ -24,10 +24,10 @@ namespace CloudService
         private async Task InitializeUnityService()
         {
             if (UnityServices.State == ServicesInitializationState.Initialized) return;
-            Logger.Log("initializing unity service");
+            Logger.Log("initialize unity service");
             InitializationOptions initializationOptions = new InitializationOptions();
             await UnityServices.InitializeAsync(initializationOptions);
-            Logger.Log("initialization complete");
+            Logger.Log("initialize unity service complete");
             isServiceReady.Value = true;
         }
 
@@ -35,7 +35,7 @@ namespace CloudService
         {
             await InitializeUnityService();
 
-            Logger.Log("step - initialize authentication service");
+            Logger.Log("initialize service");
 #if !DEDICATED_SERVER
             try
             {
@@ -47,16 +47,16 @@ namespace CloudService
             }
             AuthenticationService.Singleton.isAuthenticated.OnValueChanged += OnAuthStatusChange;
 #else
-            try
-            {
-                await InitializeServerComponent();
-            }
-            catch (Exception e)
-            {
-                Logger.LogError(e.Message, true);
-            }
+            /* try */
+            /* { */
+            await InitializeServerComponent();
+            /* } */
+            /* catch (Exception e) */
+            /* { */
+            /*     Logger.LogError(e.Message, true); */
+            /* } */
 #endif
-            Logger.Log("step - initialize authentication service (complete)");
+            Logger.Log("initialize service - complete");
         }
 
 #if DEDICATED_SERVER
@@ -69,10 +69,9 @@ namespace CloudService
 
             var initializer = new List<Task>()
             {
-                MatchMakingService.Singleton.Initialize(),
                 StatService.Singleton.Initialize(),
+                MatchMakingService.Singleton.Initialize(),
             };
-
             await Task.WhenAll(initializer);
         }
 #endif

@@ -10,7 +10,6 @@ public class AuthenticationUIController : MonoBehaviour
     private string confirmPassword = "";
     private Subject<bool> isOnLogin = new Subject<bool>(true);
 
-#if !DEDICATED_SERVER
     public void OnUsernameChanged(string value) => username = value;
     public void OnPasswordChange(string value) => password = value;
     public void OnConfirmPasswordChange(string value) => confirmPassword = value;
@@ -19,7 +18,6 @@ public class AuthenticationUIController : MonoBehaviour
     [SerializeField] private Button confirmButton;
     [SerializeField] private GameObject confirmPasswordGroup;
     [SerializeField] private RectTransform rectTransform;
-#endif
 
     public void Start()
     {
