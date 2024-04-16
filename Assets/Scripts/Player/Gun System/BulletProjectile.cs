@@ -49,8 +49,8 @@ public class BulletProjectile : NetworkBehaviour
     {
         if (!IsServer) return;
         
-        PlayerHitboxDamageable playerHitbox = other.GetComponentInChildren<PlayerHitboxDamageable>(); // return if collide with dealer
-        if (playerHitbox != null && playerHitbox.HasMatchingPlayerId(PlayerId)) return; 
+        PlayerHitboxDamageable playerHitbox = other.GetComponentInChildren<PlayerHitboxDamageable>(); 
+        if (playerHitbox != null && playerHitbox.HasMatchingPlayerId(PlayerId)) return; // return if collide with shooter
 
         Debug.Log("bullet collide with: " + other.name);
         IDamageCalculatable damageable = other.GetComponentInChildren<IDamageCalculatable>();

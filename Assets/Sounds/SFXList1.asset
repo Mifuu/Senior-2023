@@ -21,3 +21,7 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 80a04f4eb8c56a24c82b1f4314f0ba78, type: 3}
     volume: 1
     audioMixerGroup: {fileID: -1851613114899645372, guid: b93faed963c14442e9c825c6c1b5fd94, type: 2}
+  - name: SFX_Pistol_01
+    clip: {fileID: 8300000, guid: 0bff5bb3d3501894a93cd25cc0d11cb3, type: 3}
+    volume: 1
+    audioMixerGroup: {fileID: -1851613114899645372, guid: b93faed963c14442e9c825c6c1b5fd94, type: 2}
