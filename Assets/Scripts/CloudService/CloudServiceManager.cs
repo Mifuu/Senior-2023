@@ -2,6 +2,8 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using System;
 using Unity.Services.Core;
+using GlobalManager;
+using System.Collections;
 
 namespace CloudService
 {
@@ -60,6 +62,11 @@ namespace CloudService
 #if DEDICATED_SERVER
         private async Task InitializeServerComponent()
         {
+            Logger.Log($"Matchmaker: {MatchMakingService.Singleton != null}");
+            Logger.Log($"StatService: {StatService.Singleton != null}");
+            Loader.LoadGame();
+            Logger.Log("Game Scene Loaded");
+
             var initializer = new List<Task>()
             {
                 MatchMakingService.Singleton.Initialize(),
