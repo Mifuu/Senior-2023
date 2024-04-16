@@ -69,13 +69,19 @@ namespace CloudService
             if (useDebugLog)
                 Debug.LogError(finalText);
             OnLogError?.Invoke();
+#if !DEDICATED_SERVER
             if (informPlayer)
                 ShowErrorModal(moduleName, text);
+#endif
         }
 
         private string FormText(string moduleName, string text)
         {
+#if DEDICATED_SERVER
+            var finalText = "[SERVER] " + moduleName + ": " + text;
+#else
             var finalText = moduleName + ": " + text;
+#endif
             if (useUppercase) return finalText.ToUpper();
             return finalText;
         }
@@ -84,10 +90,12 @@ namespace CloudService
         {
             var extramodal = Instantiate(modalPanelPrefab);
             extramodal.transform.SetParent(canvas);
+            extramodal.transform.localScale = new Vector3(1, 1, 1);
             ModalController.ModalSetting setting = new ModalController.ModalSetting();
             setting.header_Text = "Error: " + moduleName;
             setting.content_Text = text;
             setting.footer_RemoveCancelButton = true;
+            setting.footer_RemoveAlternateButton = true;
             modalPanelPrefab.ShowModal(setting);
 
             void CloseModal()

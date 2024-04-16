@@ -21,19 +21,25 @@ public class AuthenticationUIController : MonoBehaviour
 
     public void Start()
     {
+#if !DEDICATED_SERVER
         SwitchPage(false, true);
         isOnLogin.OnValueChanged += SwitchPage;
         switchButton.onClick.AddListener(OnSwitchButtonPressed);
         confirmButton.onClick.AddListener(OnConfirmButtonPressed);
+#endif
     }
 
     public void OnDestroy()
     {
+#if !DEDICATED_SERVER
         isOnLogin.OnValueChanged -= SwitchPage;
         switchButton.onClick.RemoveAllListeners();
         confirmButton.onClick.RemoveAllListeners();
+#endif
     }
 
+
+#if !DEDICATED_SERVER
     public void OnSwitchButtonPressed() => isOnLogin.Value = !isOnLogin.Value;
 
     public void OnConfirmButtonPressed()
@@ -61,4 +67,5 @@ public class AuthenticationUIController : MonoBehaviour
             rectTransform.sizeDelta = new Vector2(1000, 800);
         }
     }
+#endif
 }

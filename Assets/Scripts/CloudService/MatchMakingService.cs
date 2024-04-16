@@ -2,12 +2,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using Unity.Services.Core;
 using Unity.Services.Matchmaker;
+using Unity.Services.Matchmaker.Models;
+using Unity.Services.Multiplay;
 using Unity.Netcode;
 using System.Threading.Tasks;
 using System;
-using Unity.Services.Matchmaker.Models;
 using Unity.Netcode.Transports.UTP;
 using ObserverPattern;
+using System.Collections;
 
 namespace CloudService
 {
@@ -15,15 +17,13 @@ namespace CloudService
     {
         public static MatchMakingService Singleton;
         private Subject<bool> _ready = new Subject<bool>(false);
-        public Subject<bool> isServiceReady { get => _ready; set { throw new InvalidOperationException(); }}
+        public Subject<bool> isServiceReady { get => _ready; set { throw new InvalidOperationException(); } }
+        public CloudLogger.CloudLoggerSingular Logger;
 
-#if !DEDICATED_SERVER
-        public CloudLogger.CloudLoggerSingular ClientLogger;
         public Subject<bool> isSearching = new Subject<bool>(false);
         public Action<Unity.Services.Matchmaker.Models.MultiplayAssignment.StatusOptions> OnMatchingStatusUpdate;
         [SerializeField] public string DefaultQueueName = "";
         private string matchMakerTicketId = "";
-#endif
 
 #if DEDICATED_SERVER
         // private float autoAllocateTimer = 9999999f;
@@ -34,9 +34,9 @@ namespace CloudService
         private string defaultGameType = "DefaultGameType";
         private string defaultBuildId = "DefaultBuildId";
         private string defaultMap = "DefaultMap";
-        private int currentPlayerNumbers = 0;
+        private Subject<int> currentPlayerNumbers = new Subject<int>(0);
         private bool hasPlayerConnected = false;
-        public CloudLogger.CloudLoggerSingular ServerLogger; 
+        private int totalPlayerInCurrentMatch = -1;
 #endif
 
         public void Awake()
@@ -56,71 +56,53 @@ namespace CloudService
 
         public void Start()
         {
-            GlobalManager.Loader.LoadGame();
-#if DEDICATED_SERVER
-            ServerLogger = CloudLogger.Singleton.Get("Server MatchMaker");
-#endif
-#if !DEDICATED_SERVER
-            ClientLogger = CloudLogger.Singleton.Get("Client MatchMaker");
-#endif
+            Logger = CloudLogger.Singleton.Get("MatchMaker");
         }
 
 #if DEDICATED_SERVER
         public void Update()
         {
-            serverQueryHandler.UpdateServerCheck(); 
+            serverQueryHandler.UpdateServerCheck();
         }
 #endif
 
-        public async Task InitializeService(bool prev, bool current)
+        public async Task Initialize()
         {
-            if (!current) return;
-            if (UnityServices.State != ServicesInitializationState.Initialized)
-            {
 #if DEDICATED_SERVER
-                ServerLogger.Log("INITIALIZATION");
-                MultiplayEventCallbacks multiplayEventCallbacks = new MultiplayEventCallbacks();
-                multiplayEventCallbacks.Allocate += MultiplayEventCallbacks_Allocate;
-                multiplayEventCallbacks.Deallocate += MultiplayEventCallbacks_Deallocate;
-                multiplayEventCallbacks.Error += MultiplayEventCallbacks_Error;
-                multiplayEventCallbacks.SubscriptionStateChanged += MultiplayEventCallbacks_SubscriptionStateChanged;
-                IServerEvents serverEvents = await MultiplayService.Instance.SubscribeToServerEventsAsync(multiplayEventCallbacks);
+            if (Logger == null) Logger = CloudLogger.Singleton.Get("Matchmaker");
+            Logger.Log("initialize service");
 
-                serverQueryHandler = await MultiplayService.Instance.StartServerQueryHandlerAsync(
-                        defaultMaxPlayer, defaultServerName, defaultGameType, defaultBuildId, defaultMap);
-                enabled = true;
+            MultiplayEventCallbacks multiplayEventCallbacks = new MultiplayEventCallbacks();
+            multiplayEventCallbacks.Allocate += MultiplayEventCallbacks_Allocate;
+            multiplayEventCallbacks.Deallocate += MultiplayEventCallbacks_Deallocate;
+            multiplayEventCallbacks.Error += MultiplayEventCallbacks_Error;
+            multiplayEventCallbacks.SubscriptionStateChanged += MultiplayEventCallbacks_SubscriptionStateChanged;
+            IServerEvents serverEvents = await MultiplayService.Instance.SubscribeToServerEventsAsync(multiplayEventCallbacks);
 
-                var serverConfig = MultiplayService.Instance.ServerConfig;
-                if (serverConfig.AllocationId != "")
-                    // Already Allocated
-                    MultiplayEventCallbacks_Allocate(new MultiplayAllocation("", serverConfig.ServerId, serverConfig.AllocationId));
+            serverQueryHandler = await MultiplayService.Instance.StartServerQueryHandlerAsync(
+                    defaultMaxPlayer, defaultServerName, defaultGameType, defaultBuildId, defaultMap);
+
+            var serverConfig = MultiplayService.Instance.ServerConfig;
+            if (serverConfig.AllocationId != "")
+                // Already Allocated
+                MultiplayEventCallbacks_Allocate(new MultiplayAllocation("", serverConfig.ServerId, serverConfig.AllocationId));
 #endif
-            }
-            else
-            {
-#if DEDICATED_SERVER
-                var serverConfig = MultiplayService.Instance.ServerConfig;
-                if (serverConfig.AllocationId != "")
-                    // Already Allocated
-                    MultiplayEventCallbacks_Allocate(new MultiplayAllocation("", serverConfig.ServerId, serverConfig.AllocationId));
-#endif
-            }
         }
 
-        public async void BeginFindingMatch()
+#if !DEDICATED_SERVER
+        public async Task BeginFindingMatch()
         {
             if (UnityServices.State == ServicesInitializationState.Initialized)
             {
-#if !DEDICATED_SERVER
                 var players = new List<Unity.Services.Matchmaker.Models.Player>()
                 {
-                    new Unity.Services.Matchmaker.Models.Player("Player1", new Dictionary<string, object>())
+                    new Unity.Services.Matchmaker.Models.Player(CloudService.AuthenticationService.Singleton.playerName, new Dictionary<string, object>())
                 };
 
                 var options = new CreateTicketOptions(DefaultQueueName, new Dictionary<string, object>());
                 var ticketResponse = await MatchmakerService.Instance.CreateTicketAsync(players, options);
                 matchMakerTicketId = ticketResponse.Id;
-                ClientLogger.Log("CLIENT: Ticket ID = " + ticketResponse.Id);
+                Logger.Log("CLIENT: Ticket ID = " + ticketResponse.Id);
 
                 MultiplayAssignment assignment = null;
                 bool matchingSuccess = false; // Is the matching successful? (The game can proceed)
@@ -137,7 +119,7 @@ namespace CloudService
                     if (ticketStatus.Type == typeof(MultiplayAssignment))
                     {
                         assignment = ticketStatus.Value as MultiplayAssignment;
-                        ClientLogger.Log("MULTIPLAY ASSIGNMENT STATUS: " + assignment.Status.ToString());
+                        Logger.Log("MULTIPLAY ASSIGNMENT STATUS: " + assignment.Status.ToString());
                     }
 
                     OnMatchingStatusUpdate?.Invoke(assignment.Status);
@@ -151,11 +133,11 @@ namespace CloudService
                             continue;
                         case MultiplayAssignment.StatusOptions.Failed:
                             isSearching.Value = false;
-                            ClientLogger.LogError("FAILED TO GET TICKET STATUS, " + assignment.Message);
+                            Logger.LogError("FAILED TO GET TICKET STATUS, " + assignment.Message);
                             break;
                         case MultiplayAssignment.StatusOptions.Timeout:
                             isSearching.Value = false;
-                            ClientLogger.LogError("FAILED TO GET TICKET STATUS, TICKET TIMEOUT");
+                            Logger.LogError("FAILED TO GET TICKET STATUS, TICKET TIMEOUT");
                             break;
                         default:
                             throw new InvalidOperationException();
@@ -163,30 +145,37 @@ namespace CloudService
                 }
                 while (isSearching.Value);
                 if (matchingSuccess)
-                    ClientConnectToMultiplayServer(assignment);
-#endif
+                    StartCoroutine(ClientConnectToMultiplayServer(assignment));
             }
         }
+#endif
 
 
 #if DEDICATED_SERVER
-        private void MultiplayEventCallbacks_Allocate(MultiplayAllocation allocation)
+        private void MultiplayEventCallbacks_Allocate(MultiplayAllocation allocation) => MultiplayEventCallbacks_AllocateAsync();
+
+        private async Task MultiplayEventCallbacks_AllocateAsync()
         {
-            ServerLogger.Log("MultiplayEventCallbacks_Allocate");
+            Logger.Log("MultiplayEventCallbacks_Allocate");
             if (alreadyAllocated)
             {
-                ServerLogger.Log("Already Allocated");
+                Logger.Log("Already Allocated");
                 return;
             }
 
             alreadyAllocated = true;
-             
+            enabled = true;
+
+            var payloadAllocation = await MultiplayService.Instance.GetPayloadAllocationFromJsonAs<MatchmakingResults>();
+            totalPlayerInCurrentMatch = payloadAllocation.MatchProperties.Players.Count;
+            Logger.Log($"Players in Match - {totalPlayerInCurrentMatch}");
+
             var serverConfig = MultiplayService.Instance.ServerConfig;
-            ServerLogger.Log($"Server ID - {serverConfig.ServerId}");
-            ServerLogger.Log($"Allocation ID - {serverConfig.AllocationId}");
-            ServerLogger.Log($"Port - {serverConfig.Port}");
-            ServerLogger.Log($"Query Port - {serverConfig.QueryPort}");
-            ServerLogger.Log($"Log Directory - {serverConfig.ServerLogDirectory}");
+            Logger.Log($"Server ID - {serverConfig.ServerId}");
+            Logger.Log($"Allocation ID - {serverConfig.AllocationId}");
+            Logger.Log($"Port - {serverConfig.Port}");
+            Logger.Log($"Query Port - {serverConfig.QueryPort}");
+            Logger.Log($"Log Directory - {serverConfig.ServerLogDirectory}");
 
             string ipv4addr = "0.0.0.0";
             ushort port = serverConfig.Port;
@@ -196,61 +185,81 @@ namespace CloudService
 
         private void MultiplayEventCallbacks_Deallocate(MultiplayDeallocation deallocation)
         {
-            ServerLogger.Log("MultiplayEventCallbacks_Deallocate");
+            Logger.Log("MultiplayEventCallbacks_Deallocate");
             enabled = false;
         }
 
         private void MultiplayEventCallbacks_Error(MultiplayError error)
         {
-            ServerLogger.Log("MultiplayEventCallbacks_Error");
+            Logger.Log("MultiplayEventCallbacks_Error");
         }
 
         private void MultiplayEventCallbacks_SubscriptionStateChanged(MultiplayServerSubscriptionState state)
         {
-            ServerLogger.Log("MultiplayEventCallbacks_SubscriptionStateChanged");
+            Logger.Log("MultiplayEventCallbacks_SubscriptionStateChanged");
+        }
+
+        private void DedicatedServer_ClientConnectCallback(ulong id)
+        {
+            currentPlayerNumbers.Value++;
+            if (!hasPlayerConnected) hasPlayerConnected = true;
+            Logger.Log("Player has connected, current count: " + currentPlayerNumbers.Value);
+
+            if (currentPlayerNumbers.Value == totalPlayerInCurrentMatch)
+            {
+                Logger.Log("All player has connected, loading scene");
+                NetworkManager.Singleton.SceneManager.OnSceneEvent += NetworkSceneManager_OnSceneEvent;
+                GlobalManager.Loader.LoadGameNetwork();
+            }
+        }
+
+        private void DedicatedServer_ClientDisconnectCallback(ulong id)
+        {
+            currentPlayerNumbers.Value--;
+            if (hasPlayerConnected && currentPlayerNumbers.Value == 0)
+            {
+                Logger.Log("All Players has disconnected, exiting");
+                Application.Quit(0);
+            }
+            Logger.Log("Player has disconnected, current count: " + currentPlayerNumbers.Value);
         }
 
         private void StartServer()
         {
             NetworkManager.Singleton.StartServer();
             NetworkManager.Singleton.OnClientConnectedCallback += DedicatedServer_ClientConnectCallback;
-            NetworkManager.Singleton.OnClientDisconnectedCallback += DedicatedServer_ClientDisconnectCallback;
+            NetworkManager.Singleton.OnClientDisconnectCallback += DedicatedServer_ClientDisconnectCallback;
         }
 
         private void StopServer()
         {
             NetworkManager.Singleton.OnClientConnectedCallback -= DedicatedServer_ClientConnectCallback;
-            NetworkManager.Singleton.OnClientDisconnectedCallback -= DedicatedServer_ClientDisconnectCallback;
+            NetworkManager.Singleton.OnClientDisconnectCallback -= DedicatedServer_ClientDisconnectCallback;
         }
 
-        private void DedicatedServer_ClientConnectCallback(ulong id)
+        private void NetworkSceneManager_OnSceneEvent(SceneEvent sceneEvent)
         {
-            currentPlayerNumbers++; 
-            if (!hasPlayerConnected) hasPlayerConnected = true;
-            ServerLogger.Log("Player has connected, current count: " + currentPlayerNumbers);
-        }
-
-        private void DedicatedServer_ClientDisconnectCallback(ulong id)
-        {
-            currentPlayerNumbers--;
-            if (hasPlayerConnected && currentPlayerNumbers == 0) 
+            Logger.Log("scene event - " + sceneEvent.ToString());
+            switch (sceneEvent.SceneEventType)
             {
-                ServerLogger.Log("All Players has disconnected, exiting");
-                Application.Quit(0);
+                case SceneEventType.LoadComplete:
+                    Logger.Log("Loading completed, starting game");
+                    MultiplayerGameManager.Instance.StartGame();
+                    break;
             }
-            ServerLogger.Log("Player has disconnected, current count: " + currentPlayerNumbers);
         }
-
 #endif
 
 #if !DEDICATED_SERVER
-        private void ClientConnectToMultiplayServer(MultiplayAssignment assignment)
+        private IEnumerator ClientConnectToMultiplayServer(MultiplayAssignment assignment)
         {
-            ClientLogger.Log("CONNECTING TO MULTIPLAY SERVER");
+            Logger.Log("CONNECTING TO MULTIPLAY SERVER");
 
-            GlobalManager.Loader.LoadGame();
+            yield return StartCoroutine(GlobalManager.Loader.LoadLoadingAsync());
             string ipv4addr = assignment.Ip;
             ushort port = (ushort)assignment.Port;
+            Logger.Log("networkManager.Singleton: " + NetworkManager.Singleton);
+            Logger.Log("unity transport: " + NetworkManager.Singleton.GetComponent<UnityTransport>());
             NetworkManager.Singleton.GetComponent<UnityTransport>().SetConnectionData(ipv4addr, port);
             NetworkManager.Singleton.StartClient();
         }

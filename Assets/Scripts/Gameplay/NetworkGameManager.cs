@@ -13,7 +13,7 @@ using CloudService;
 
 namespace GlobalManager
 {
-    public class NetworkGameManager : NetworkBehaviour
+    public class NetworkGameManager : MonoBehaviour
     {
         public void Start()
         {
