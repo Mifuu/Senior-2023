@@ -21,6 +21,11 @@ public class BossRoomInteractable : InteractableItem
     void Update()
     {
         AttemptGetPlayerManager();
+
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            Interact(PlayerManager.thisClient.gameObject);
+        }
     }
 
     void AttemptGetPlayerManager()

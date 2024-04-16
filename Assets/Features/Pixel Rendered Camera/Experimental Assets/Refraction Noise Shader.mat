@@ -37,12 +37,12 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _NoiseScale: 23.96
+    - _NoiseScale: 209.8
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _Strength: 0.17
+    - _Strength: 0.1
     m_Colors:
-    - _Tint: {r: 1, g: 1, b: 1, a: 0}
+    - _Tint: {r: 1, g: 1, b: 1, a: 0.46666667}
   m_BuildTextureStacks: []
 --- !u!114 &3511815577675704794
 MonoBehaviour:
