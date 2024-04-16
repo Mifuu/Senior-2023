@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System;
 using Unity.Netcode.Transports.UTP;
 using ObserverPattern;
+using System.Collections;
 
 namespace CloudService
 {
@@ -16,15 +17,13 @@ namespace CloudService
     {
         public static MatchMakingService Singleton;
         private Subject<bool> _ready = new Subject<bool>(false);
-        public Subject<bool> isServiceReady { get => _ready; set { throw new InvalidOperationException(); }}
-        public CloudLogger.CloudLoggerSingular Logger; 
+        public Subject<bool> isServiceReady { get => _ready; set { throw new InvalidOperationException(); } }
+        public CloudLogger.CloudLoggerSingular Logger;
 
-#if !DEDICATED_SERVER
         public Subject<bool> isSearching = new Subject<bool>(false);
         public Action<Unity.Services.Matchmaker.Models.MultiplayAssignment.StatusOptions> OnMatchingStatusUpdate;
         [SerializeField] public string DefaultQueueName = "";
         private string matchMakerTicketId = "";
-#endif
 
 #if DEDICATED_SERVER
         // private float autoAllocateTimer = 9999999f;
@@ -62,16 +61,17 @@ namespace CloudService
 #if DEDICATED_SERVER
         public void Update()
         {
-            serverQueryHandler.UpdateServerCheck(); 
+            serverQueryHandler.UpdateServerCheck();
         }
 #endif
 
         public async Task Initialize()
         {
-            if (UnityServices.State != ServicesInitializationState.Initialized)
-            {
 #if DEDICATED_SERVER
-                Logger.Log("INITIALIZATION");
+            if (Logger == null) Logger = CloudLogger.Singleton.Get("Matchmaker");
+            /* if (UnityServices.State != ServicesInitializationState.Initialized) */
+            /* { */
+                Logger.Log("initialize service not initialized");
                 MultiplayEventCallbacks multiplayEventCallbacks = new MultiplayEventCallbacks();
                 multiplayEventCallbacks.Allocate += MultiplayEventCallbacks_Allocate;
                 multiplayEventCallbacks.Deallocate += MultiplayEventCallbacks_Deallocate;
@@ -81,27 +81,26 @@ namespace CloudService
 
                 serverQueryHandler = await MultiplayService.Instance.StartServerQueryHandlerAsync(
                         defaultMaxPlayer, defaultServerName, defaultGameType, defaultBuildId, defaultMap);
-                enabled = true;
 
                 var serverConfig = MultiplayService.Instance.ServerConfig;
                 if (serverConfig.AllocationId != "")
                     // Already Allocated
                     MultiplayEventCallbacks_Allocate(new MultiplayAllocation("", serverConfig.ServerId, serverConfig.AllocationId));
+            /* } */
+            /* else */
+            /* { */
+                /* Logger.Log("initialize service already initialize"); */
+                /* enabled = true; */
+                /* var serverConfig = MultiplayService.Instance.ServerConfig; */
+                /* if (serverConfig.AllocationId != "") */
+                /*     // Already Allocated */
+                /*     MultiplayEventCallbacks_Allocate(new MultiplayAllocation("", serverConfig.ServerId, serverConfig.AllocationId)); */
+            /* } */
 #endif
-            }
-            else
-            {
-#if DEDICATED_SERVER
-                var serverConfig = MultiplayService.Instance.ServerConfig;
-                if (serverConfig.AllocationId != "")
-                    // Already Allocated
-                    MultiplayEventCallbacks_Allocate(new MultiplayAllocation("", serverConfig.ServerId, serverConfig.AllocationId));
-#endif
-            }
         }
 
 #if !DEDICATED_SERVER
-        public async void BeginFindingMatch()
+        public async Task BeginFindingMatch()
         {
             if (UnityServices.State == ServicesInitializationState.Initialized)
             {
@@ -149,14 +148,14 @@ namespace CloudService
                         case MultiplayAssignment.StatusOptions.Timeout:
                             isSearching.Value = false;
                             Logger.LogError("FAILED TO GET TICKET STATUS, TICKET TIMEOUT");
-                            break
+                            break;
                         default:
                             throw new InvalidOperationException();
                     }
                 }
                 while (isSearching.Value);
                 if (matchingSuccess)
-                    ClientConnectToMultiplayServer(assignment);
+                    StartCoroutine(ClientConnectToMultiplayServer(assignment));
             }
         }
 #endif
@@ -173,7 +172,8 @@ namespace CloudService
             }
 
             alreadyAllocated = true;
-             
+            enabled = true;
+
             var serverConfig = MultiplayService.Instance.ServerConfig;
             Logger.Log($"Server ID - {serverConfig.ServerId}");
             Logger.Log($"Allocation ID - {serverConfig.AllocationId}");
@@ -219,7 +219,7 @@ namespace CloudService
 
         private void DedicatedServer_ClientConnectCallback(ulong id)
         {
-            currentPlayerNumbers++; 
+            currentPlayerNumbers++;
             if (!hasPlayerConnected) hasPlayerConnected = true;
             Logger.Log("Player has connected, current count: " + currentPlayerNumbers);
         }
@@ -227,7 +227,7 @@ namespace CloudService
         private void DedicatedServer_ClientDisconnectCallback(ulong id)
         {
             currentPlayerNumbers--;
-            if (hasPlayerConnected && currentPlayerNumbers == 0) 
+            if (hasPlayerConnected && currentPlayerNumbers == 0)
             {
                 Logger.Log("All Players has disconnected, exiting");
                 Application.Quit(0);
@@ -238,13 +238,15 @@ namespace CloudService
 #endif
 
 #if !DEDICATED_SERVER
-        private void ClientConnectToMultiplayServer(MultiplayAssignment assignment)
+        private IEnumerator ClientConnectToMultiplayServer(MultiplayAssignment assignment)
         {
             Logger.Log("CONNECTING TO MULTIPLAY SERVER");
 
-            GlobalManager.Loader.LoadGame();
+            yield return StartCoroutine(GlobalManager.Loader.LoadGameAsync());
             string ipv4addr = assignment.Ip;
             ushort port = (ushort)assignment.Port;
+            Logger.Log("networkManager.Singleton: " + NetworkManager.Singleton);
+            Logger.Log("unity transport: " + NetworkManager.Singleton.GetComponent<UnityTransport>());
             NetworkManager.Singleton.GetComponent<UnityTransport>().SetConnectionData(ipv4addr, port);
             NetworkManager.Singleton.StartClient();
         }
