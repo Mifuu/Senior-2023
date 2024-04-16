@@ -5,13 +5,14 @@ using UnityEngine.SceneManagement;
 
 namespace GlobalManager
 {
-    public class Loader : NetworkBehaviour
+    public class Loader
     {
         public enum Scene
         {
             MainMenu,
             Sprint7Showcase,
             Game,
+            LoadingScene,
         }
 
         public static void Load(Scene scene) => SceneManager.LoadScene(scene.ToString());
@@ -25,13 +26,24 @@ namespace GlobalManager
                 yield return null;
         }
 
+        #region Loading Scene Load
+
+        public static Scene DefaultLoadingScene = Scene.LoadingScene;
+
+        public static void LoadLoading() => Load(DefaultLoadingScene);
+        public static AsyncOperation _LoadLoadingAsync() => _LoadAsync(DefaultLoadingScene);
+        public static IEnumerator LoadLoadingAsync() => LoadAsync(DefaultLoadingScene);
+
+        #endregion
+
         #region Game Load
 
-        [SerializeField] private static Scene DefaultGameScene;
+        private static Scene DefaultGameScene = Scene.Sprint7Showcase;
 
         public static void LoadGame() => Load(DefaultGameScene);
-        public static AsyncOperation _LoadGameAsync => _LoadAsync(DefaultGameScene);
-        public static IEnumerator LoadGameAsync => LoadAsync(DefaultGameScene);
+        public static AsyncOperation _LoadGameAsync() => _LoadAsync(DefaultGameScene);
+        public static IEnumerator LoadGameAsync() => LoadAsync(DefaultGameScene);
+        public static void LoadGameNetwork() => LoadNetwork(DefaultGameScene);
 
         #endregion
     }
