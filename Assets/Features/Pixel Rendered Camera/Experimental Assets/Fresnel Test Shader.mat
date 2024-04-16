@@ -37,12 +37,12 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _NoiseScale: 101.9
+    - _NoiseScale: 85.01
     - _NoiseSpeed: 0.2
     - _QueueControl: 0
     - _QueueOffset: 0
     m_Colors:
-    - _Color: {r: 0, g: 4, b: 3.8417635, a: 1}
+    - _Color: {r: 5.992156, g: 0, b: 0.05930576, a: 1}
     - _NoiseColor: {r: 0.388368, g: 0.8773585, b: 0.2441705, a: 1}
   m_BuildTextureStacks: []
 --- !u!114 &2679349119290147435

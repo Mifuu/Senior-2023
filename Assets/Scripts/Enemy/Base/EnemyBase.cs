@@ -248,11 +248,14 @@ namespace Enemy
             GameObject closestPlayer = null;
             float closestDistanceSqr = float.MaxValue;
 
+            Debug.LogError("All Players: " + allPlayers.Length + "");
+
             foreach (var player in allPlayers)
             {
                 if (!CheckIsNewPlayer(player)) continue;
 
                 float distanceSqr = (player.transform.position - transform.position).sqrMagnitude;
+                Debug.Log("Distance: " + distanceSqr + "");
                 if (distanceSqr <= closestDistanceSqr)
                 {
                     closestPlayer = player;
@@ -260,7 +263,8 @@ namespace Enemy
                 }
             }
             // Allow Enemy to search only to a certain distance
-            if (closestDistanceSqr > maxDistanceSquared) return null;
+            // if (closestDistanceSqr > maxDistanceSquared) return null;
+            Debug.LogError("Closest Player: " + closestPlayer + "," + closestDistanceSqr + "," + maxDistanceSquared + "");
             return closestPlayer;
         }
 
@@ -281,8 +285,10 @@ namespace Enemy
                 DesetupTargetPlayer();
 
             var newPlayer = FindTargetPlayer();
+
             if (newPlayer == null)
             {
+                Debug.LogError("New Player is Null ");
                 Die(null);
                 return;
             }
