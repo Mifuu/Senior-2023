@@ -36,7 +36,7 @@ namespace CloudService
         private string defaultMap = "DefaultMap";
         private Subject<int> currentPlayerNumbers = new Subject<int>(0);
         private bool hasPlayerConnected = false;
-        private int totalPlayerInCurrentMatch;
+        private int totalPlayerInCurrentMatch = -1;
 #endif
 
         public void Awake()
@@ -70,9 +70,8 @@ namespace CloudService
         {
 #if DEDICATED_SERVER
             if (Logger == null) Logger = CloudLogger.Singleton.Get("Matchmaker");
-            /* if (UnityServices.State != ServicesInitializationState.Initialized) */
-            /* { */
-            Logger.Log("initialize service not initialized");
+            Logger.Log("initialize service");
+
             MultiplayEventCallbacks multiplayEventCallbacks = new MultiplayEventCallbacks();
             multiplayEventCallbacks.Allocate += MultiplayEventCallbacks_Allocate;
             multiplayEventCallbacks.Deallocate += MultiplayEventCallbacks_Deallocate;
@@ -85,24 +84,8 @@ namespace CloudService
 
             var serverConfig = MultiplayService.Instance.ServerConfig;
             if (serverConfig.AllocationId != "")
-            {
                 // Already Allocated
-                var payloadAllocation = await MultiplayService.Instance.GetPayloadAllocationFromJsonAs<MatchmakingResults>();
-                totalPlayerInCurrentMatch = payloadAllocation.MatchProperties.Players.Count;
-                Logger.Log($"Players in Match - {totalPlayerInCurrentMatch}");
                 MultiplayEventCallbacks_Allocate(new MultiplayAllocation("", serverConfig.ServerId, serverConfig.AllocationId));
-            }
-
-            /* } */
-            /* else */
-            /* { */
-                /* Logger.Log("initialize service already initialize"); */
-                /* enabled = true; */
-                /* var serverConfig = MultiplayService.Instance.ServerConfig; */
-                /* if (serverConfig.AllocationId != "") */
-                /*     // Already Allocated */
-                /*     MultiplayEventCallbacks_Allocate(new MultiplayAllocation("", serverConfig.ServerId, serverConfig.AllocationId)); */
-            /* } */
 #endif
         }
 
@@ -169,7 +152,9 @@ namespace CloudService
 
 
 #if DEDICATED_SERVER
-        private void MultiplayEventCallbacks_Allocate(MultiplayAllocation allocation)
+        private void MultiplayEventCallbacks_Allocate(MultiplayAllocation allocation) => MultiplayEventCallbacks_AllocateAsync();
+
+        private async Task MultiplayEventCallbacks_AllocateAsync()
         {
             Logger.Log("MultiplayEventCallbacks_Allocate");
             if (alreadyAllocated)
@@ -180,6 +165,10 @@ namespace CloudService
 
             alreadyAllocated = true;
             enabled = true;
+
+            var payloadAllocation = await MultiplayService.Instance.GetPayloadAllocationFromJsonAs<MatchmakingResults>();
+            totalPlayerInCurrentMatch = payloadAllocation.MatchProperties.Players.Count;
+            Logger.Log($"Players in Match - {totalPlayerInCurrentMatch}");
 
             var serverConfig = MultiplayService.Instance.ServerConfig;
             Logger.Log($"Server ID - {serverConfig.ServerId}");
@@ -226,7 +215,7 @@ namespace CloudService
 
         private void DedicatedServer_ClientDisconnectCallback(ulong id)
         {
-            currentPlayerNumbers.Value --;
+            currentPlayerNumbers.Value--;
             if (hasPlayerConnected && currentPlayerNumbers.Value == 0)
             {
                 Logger.Log("All Players has disconnected, exiting");
