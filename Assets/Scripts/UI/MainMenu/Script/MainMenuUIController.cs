@@ -141,7 +141,9 @@ public class MainMenuUIController : MonoBehaviour
 
     private void ChangeFindGameButtonStatus(bool prev, bool current) => findGameButton.interactable = current;
     
+#if !DEDICATED_SERVER
     private void FindMatch() => CloudService.MatchMakingService.Singleton.BeginFindingMatch();
+#endif
 
     private void ShowQuitGameModal()
     {
