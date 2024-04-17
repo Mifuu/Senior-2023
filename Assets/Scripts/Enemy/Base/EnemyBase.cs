@@ -10,10 +10,11 @@ namespace Enemy
     {
         [Header("Preset Value")]
         [SerializeField] private EnemyTriggerCheck aggroDistanceTriggerCheck;
-        public NetworkVariable<float> networkMaxHealth = new NetworkVariable<float>(0f);
-        [field: SerializeField] public float maxHealth { get; set; }
-        public NetworkVariable<float> currentHealth { get; set; } = new NetworkVariable<float>(0.0f); // NetworkVariable must be initialized
         [SerializeField] private float maxDistanceSquared = 5000f;
+        [field: SerializeField] public float maxHealth { get; set; }
+
+        public NetworkVariable<float> networkMaxHealth = new NetworkVariable<float>(0f);
+        public NetworkVariable<float> currentHealth { get; set; } = new NetworkVariable<float>(0.0f); // NetworkVariable must be initialized
 
         #region State ScriptableObject Variable
 
@@ -47,6 +48,7 @@ namespace Enemy
         public EnemyStat stat;
         private bool initialSetupComplete = false;
         public Rigidbody rigidBody { get; set; }
+        private ulong targetPlayerNetworkId;
 
         [Header("Adjustable Parameter")]
         [Range(0f, 10f)]
@@ -304,14 +306,30 @@ namespace Enemy
             targetPlayer = null;
         }
 
+        private void HandleClientDisconnect(ulong playerID)
+        {
+            if (playerID == targetPlayerNetworkId)
+            {
+                NetworkManager.Singleton.OnClientDisconnectCallback -= HandleClientDisconnect;
+                OnTargetPlayerRefindRequired();
+            }
+        }
+
         private void SetupNewTargetPlayer(GameObject newTargetPlayer)
         {
-            targetPlayer = newTargetPlayer;
-            ChangeTargetPlayerClientRpc(newTargetPlayer.GetComponent<NetworkObject>());
-
-            // Setup target player, such as subscribe to player die event
-            if (targetPlayer.TryGetComponent<PlayerHealth>(out var playerHealth))
+            if (newTargetPlayer.TryGetComponent<PlayerHealth>(out var playerHealth) && newTargetPlayer.TryGetComponent<NetworkObject>(out var networkObject))
+            {
+                targetPlayer = newTargetPlayer;
                 playerHealth.OnPlayerDie += OnTargetPlayerRefindRequired;
+                ChangeTargetPlayerClientRpc(networkObject);
+                targetPlayerNetworkId = networkObject.NetworkObjectId;
+                NetworkManager.Singleton.OnClientDisconnectCallback += HandleClientDisconnect;
+            }
+            else
+            {
+                Debug.LogError("Target Player Setup Error");
+                Die(null);
+            }
         }
 
         private void AdjustMaxHealth(float prev, float current) => maxHealth = current;

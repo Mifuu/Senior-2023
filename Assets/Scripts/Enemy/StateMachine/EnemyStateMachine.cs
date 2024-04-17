@@ -34,6 +34,7 @@ namespace Enemy
 
         public void StartStateMachine()
         {
+            Debug.Log("Starting State Machine");
             if (stateMachineState.Value != AvailableStateMachineState.NotStarted)
             {
                 Debug.LogWarning("State Machine is already started");
@@ -41,11 +42,12 @@ namespace Enemy
             }
 
             if (!enemy.enabled) enemy.enabled = true;
-            if (!IsServer) return;
 
             stateMachineState.Value = AvailableStateMachineState.Running;
             // networkEnemyState.Value = startingState.stateId;
             CurrentEnemyState = startingState;
+
+            if (!IsServer) return;
             CurrentEnemyState.EnterState();
         }
 
@@ -106,7 +108,7 @@ namespace Enemy
         public override void OnNetworkSpawn()
         {
             base.OnNetworkSpawn();
-            // if (!IsServer) return;
+            if (!IsServer) return;
 
             networkEnemyState.OnValueChanged += SynchronizeState;
             if (isInitialized && startStateMachineOnInitialize)
