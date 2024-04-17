@@ -27,13 +27,13 @@ public class InputManager : MonoBehaviour
         shoot = GetComponent<PlayerShoot>();
         dash = GetComponent<PlayerDash>();
         interact = GetComponent<PlayerInteract>();
-        skillManager = transform.Find("SkillManager").GetComponent<SkillManager>();  
+        skillManager = transform.Find("SkillManager").GetComponent<SkillManager>();
 
         onFoot.Jump.performed += (ctx) => motor.Jump();
         onFoot.Shoot.started += (ctx) => StartShooting();
         onFoot.Shoot.canceled += (ctx) => StopShooting();
         onFoot.Dash.performed += ctx => dash.Dash(onFoot.Movement.ReadValue<Vector2>());
-        onFoot.NormalSkill.performed += (ctx) =>  skillManager.ActivateNormalSkill();
+        onFoot.NormalSkill.performed += (ctx) => skillManager.ActivateNormalSkill();
         onFoot.UltimateSkill.performed += (ctx) => skillManager.ActivateUltimateSkill();
         onFoot.Drop.performed += (_) => interact.DropHoldingGun();
     }
@@ -47,7 +47,8 @@ public class InputManager : MonoBehaviour
     public void InitializePlayerSwitchWeapon()
     {
         switchWeapon = transform.GetComponentInChildren<PlayerSwitchWeapon>();
-        onFoot.SwitchWeapon.performed += ctx => {
+        onFoot.SwitchWeapon.performed += ctx =>
+        {
             float value = ctx.action.ReadValue<float>();
             switchWeapon.SwitchWeapon(value);
         };
@@ -92,10 +93,18 @@ public class InputManager : MonoBehaviour
 
     private IEnumerator ContinuousShooting()
     {
-        while (true)  
+        while (true)
         {
-            shoot.ShootBullet();  
-            yield return null;  
+            shoot.ShootBullet();
+            yield return null;
         }
+    }
+
+    public void EnableInput(bool value)
+    {
+        if (value)
+            onFoot.Enable();
+        else
+            onFoot.Disable();
     }
 }

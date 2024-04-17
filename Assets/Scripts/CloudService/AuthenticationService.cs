@@ -1,7 +1,6 @@
 using ObserverPattern;
-using Unity.Services.Core;
-using System;
 using System.Threading.Tasks;
+using System;
 
 namespace CloudService
 {
@@ -9,16 +8,16 @@ namespace CloudService
     {
         public Subject<bool> isAuthenticated = new Subject<bool>(false);
         private CloudLogger.CloudLoggerSingular Logger;
+        public string playerName;
 
         public AuthenticationService()
         {
             Logger = CloudLogger.Singleton.Get("Authentication");
-            /* isServiceReady = new Subject<bool>(false); */
         }
 
         public override async Task Initialize()
         {
-            await InitializeUnityAuthentication();
+#if !DEDICATED_SERVER
             Unity.Services.Authentication.AuthenticationService.Instance.SignedIn += () =>
             {
                 // Shows how to get a playerID
@@ -43,26 +42,18 @@ namespace CloudService
             {
                 Logger.Log("Player session could not be refreshed and expired.");
             };
+#endif
         }
 
-        private async Task InitializeUnityAuthentication()
-        {
-            if (UnityServices.State == ServicesInitializationState.Initialized) return;
-            Logger.Log("initializing unity service");
-            InitializationOptions initializationOptions = new InitializationOptions();
-            await UnityServices.InitializeAsync(initializationOptions);
-            Logger.Log("initialization complete");
-            isServiceReady.Value = true;
-        }
 
 #if !DEDICATED_SERVER
-
         public async void AttempSignIn(string username, string password)
         {
             try
             {
                 Logger.Log("authenticating");
                 await Unity.Services.Authentication.AuthenticationService.Instance.SignInWithUsernamePasswordAsync(username, password);
+                playerName = await Unity.Services.Authentication.AuthenticationService.Instance.GetPlayerNameAsync();
                 Logger.Log("sign in successful");
                 isAuthenticated.Value = true;
             }
@@ -79,6 +70,7 @@ namespace CloudService
             {
                 Logger.Log("signing up user");
                 await Unity.Services.Authentication.AuthenticationService.Instance.SignUpWithUsernamePasswordAsync(username, password);
+                playerName = await Unity.Services.Authentication.AuthenticationService.Instance.GetPlayerNameAsync();
                 Logger.Log("signup successful");
             }
             catch (Exception e)
@@ -87,19 +79,8 @@ namespace CloudService
                 return;
             }
 
-            /* try */
-            /* { */
-            /*     await Unity.Services.Authentication.AuthenticationService.Instance.SignInWithUsernamePasswordAsync(username, password); */
-            /*     Logger.Log("auto sign in successful"); */
-            /*     isAuthenticated.Value = true; */
-            /* } */
-            /* catch (Exception e) */
-            /* { */
-            /*     Logger.LogError(e.Message, true); */
-            /* } */
-
             Logger.Log("auth client: authentication complete");
         }
-    }
 #endif
+    }
 }

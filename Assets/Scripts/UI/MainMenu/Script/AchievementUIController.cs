@@ -10,13 +10,17 @@ public class AchievementUIController : MonoBehaviour
     public void Awake()
     {
         CloudService.AchievementService.Singleton.isServiceReady.OnValueChanged += PopulateAchievementGrid;
+#if !DEDICATED_SERVER
         backButton.onClick.AddListener(() => MainMenuUIController.Singleton.menuState.Value = MainMenuUIController.MainMenuState.Main);
+#endif
     }
 
     public void OnDestroy()
     {
         CloudService.AchievementService.Singleton.isServiceReady.OnValueChanged -= PopulateAchievementGrid;
+#if !DEDICATED_SERVER
         backButton.onClick.RemoveAllListeners();
+#endif
     }
 
     public void PopulateAchievementGrid(bool prev, bool current)

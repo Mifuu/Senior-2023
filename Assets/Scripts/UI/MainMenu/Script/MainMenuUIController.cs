@@ -19,11 +19,9 @@ public class MainMenuUIController : MonoBehaviour
     [SerializeField] private Button creditButton;
     [SerializeField] private Button shopButton;
     [SerializeField] private Button settingButton;
-    [SerializeField] private GlobalManager.NetworkGameManager networkGameManager;
 
     [Header("Modal")]
     [SerializeField] private ModalController modal;
-    [SerializeField] private ModalSettingSO contentNotReadyModalSetting;
     private Action currentModalCleanup;
 
     [Header("Panel")]
@@ -47,6 +45,9 @@ public class MainMenuUIController : MonoBehaviour
 
     public void Awake()
     {
+#if DEDICATED_SERVER
+        Destroy(gameObject);
+#endif
         if (Singleton == null)
             Singleton = this;
         else
@@ -55,23 +56,21 @@ public class MainMenuUIController : MonoBehaviour
 
     public void Start()
     {
+#if !DEDICATED_SERVER
         if (!devMode)
         {
             foreach (Button button in devModeInclude)
                 button.gameObject.SetActive(false);
         }
 
-        if (networkGameManager == null)
-        {
-            Debug.LogError("NetworkGameManager is not found");
-            return;
-        }
-        
         if (quitGameButton != null)
             quitGameButton.onClick.AddListener(ShowQuitGameModal);
 
         if (findGameButton != null)
+        {
             findGameButton.interactable = false;
+            findGameButton.onClick.AddListener(FindMatch);
+        }
 
         if (achievementGameButton != null)
             achievementGameButton.onClick.AddListener(() => menuState.Value = MainMenuState.Achievement);
@@ -88,6 +87,7 @@ public class MainMenuUIController : MonoBehaviour
         CloudService.AuthenticationService.Singleton.isAuthenticated.OnValueChanged += ChangeFindGameButtonStatus;
         menuState.OnValueChanged += ChangeMenu;
         menuState.Value = MainMenuState.Authentication;
+#endif 
     }
 
     public void OnDestroy()
@@ -140,6 +140,10 @@ public class MainMenuUIController : MonoBehaviour
     }
 
     private void ChangeFindGameButtonStatus(bool prev, bool current) => findGameButton.interactable = current;
+    
+#if !DEDICATED_SERVER
+    private void FindMatch() => CloudService.MatchMakingService.Singleton.BeginFindingMatch();
+#endif
 
     private void ShowQuitGameModal()
     {
@@ -151,7 +155,7 @@ public class MainMenuUIController : MonoBehaviour
 
         currentModalCleanup = () =>
         {
-            modal.OnCancelButtonPressed -= QuitGame;            
+            modal.OnCancelButtonPressed -= QuitGame;
             modal.OnCancelButtonPressed -= CloseModal;
         };
 
