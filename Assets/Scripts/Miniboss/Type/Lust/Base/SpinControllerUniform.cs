@@ -14,7 +14,7 @@ namespace Enemy
         public override void OnNetworkSpawn()
         {
             base.OnNetworkSpawn();
-            if (!IsServer) enabled = false;
+            if (!IsServer) return;
             _isSpinningClockwise.Value = isSpinningClockwise;
         }
 

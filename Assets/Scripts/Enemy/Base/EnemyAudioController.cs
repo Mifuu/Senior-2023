@@ -77,10 +77,10 @@ namespace Enemy
             if (IsClient)
             {
                 _PlaySFXOnObject(listName, audioName, spawnPosition);
-                PlaySFXOnAllClientClientRpc(listName, audioName, spawnPosition, NetworkManager.Singleton.LocalClientId);
+                PlaySFXOnAllClientServerRpc(listName, audioName, spawnPosition);
             }
             else
-                PlaySFXOnAllClientServerRpc(listName, audioName, spawnPosition);
+                PlaySFXOnAllClientClientRpc(listName, audioName, spawnPosition, NetworkManager.Singleton.LocalClientId);
         }
 
         private void _PlaySFXOnObject(string listName, string audioName, Vector3 spawnPosition)
@@ -115,6 +115,8 @@ namespace Enemy
         [ClientRpc]
         private void PlaySFXOnAllClientClientRpc(NetworkString listName, NetworkString soundName, Vector3 position, ulong exceptClient)
         {
+            var bruh = exceptClient == NetworkManager.Singleton.LocalClientId ? "" : "NOT";
+            Debug.Log($"Playing {soundName} except {exceptClient} which is {bruh} this client");
             if (exceptClient == NetworkManager.Singleton.LocalClientId) return;
             _PlaySFXOnObject(listName, soundName, position);
         }
