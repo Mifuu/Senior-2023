@@ -12,21 +12,29 @@ namespace Enemy
         {
             base.OnNetworkSpawn();
             if (!IsServer) return;
-            enemy.OnEnemyDie += SpawnKey;
+            enemy.OnEnemyDie += SpawnKeyServerRpc;
         }
 
         public override void OnNetworkDespawn()
         {
             base.OnNetworkDespawn();
-            enemy.OnEnemyDie -= SpawnKey;
+            enemy.OnEnemyDie -= SpawnKeyServerRpc;
         }
 
-        private void SpawnKey()
+        [ServerRpc]
+        private void SpawnKeyServerRpc()
         {
             Debug.Log("Spawning Key");
             var keyInstance = Instantiate(keyPrefab, enemy.transform.position, enemy.transform.rotation);
-            if (keyInstance.TryGetComponent<NetworkObject>(out NetworkObject obj))
+            if (keyInstance.TryGetComponent(out NetworkObject obj))
+            {
                 obj.Spawn();
+            }
+            else
+            {
+                Debug.LogWarning("The spawned key prefab is missing a NetworkObject component.");
+                Destroy(keyInstance); 
+            }
         }
     }
 }
