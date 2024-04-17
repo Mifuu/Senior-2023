@@ -19,9 +19,11 @@ namespace CloudService
 
         public async override Task Initialize()
         {
+#if !DEDICATED_SERVER
             Logger.Log("initialization");
             await LoadAllAchievement();
             Logger.Log("initialization complete");
+#endif 
         }
 
         public async Task LoadAllAchievement()

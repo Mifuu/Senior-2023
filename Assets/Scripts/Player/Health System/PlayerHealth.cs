@@ -68,12 +68,16 @@ public class PlayerHealth : NetworkBehaviour, IDamageable
 
     IEnumerator RespawnCR()
     {
+        InputManager inputManager = GetComponent<InputManager>();
+
         // set panel
         GameplayUIController.Instance.RespawnTrigger(respawnTime);
+        inputManager.EnableInput(false);
 
         yield return new WaitForSeconds(respawnTime);
 
         // respawn
+        inputManager.EnableInput(true);
         isDead = false;
         currentHealth.Value = maxHealth;
 

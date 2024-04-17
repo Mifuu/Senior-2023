@@ -1,6 +1,9 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System;
+using Unity.Services.Core;
+using GlobalManager;
+using System.Collections;
 
 namespace CloudService
 {
@@ -11,15 +14,29 @@ namespace CloudService
         {
             Logger = CloudLogger.Singleton.Get("Manager");
         }
-
+#if !DEDICATED_SERVER
         ~CloudServiceManager()
         {
             AuthenticationService.Singleton.isAuthenticated.OnValueChanged -= OnAuthStatusChange;
         }
+#endif
+
+        private async Task InitializeUnityService()
+        {
+            if (UnityServices.State == ServicesInitializationState.Initialized) return;
+            Logger.Log("initialize unity service");
+            InitializationOptions initializationOptions = new InitializationOptions();
+            await UnityServices.InitializeAsync(initializationOptions);
+            Logger.Log("initialize unity service complete");
+            isServiceReady.Value = true;
+        }
 
         public override async Task Initialize()
         {
-            Logger.Log("step - initialize authentication service");
+            await InitializeUnityService();
+
+            Logger.Log("initialize service");
+#if !DEDICATED_SERVER
             try
             {
                 await AuthenticationService.Singleton.Initialize();
@@ -28,10 +45,38 @@ namespace CloudService
             {
                 Logger.LogError(e.Message, true);
             }
-            Logger.Log("step - initialize authentication service (complete)");
             AuthenticationService.Singleton.isAuthenticated.OnValueChanged += OnAuthStatusChange;
+#else
+            /* try */
+            /* { */
+            await InitializeServerComponent();
+            /* } */
+            /* catch (Exception e) */
+            /* { */
+            /*     Logger.LogError(e.Message, true); */
+            /* } */
+#endif
+            Logger.Log("initialize service - complete");
         }
 
+#if DEDICATED_SERVER
+        private async Task InitializeServerComponent()
+        {
+            Logger.Log($"Matchmaker: {MatchMakingService.Singleton != null}");
+            Logger.Log($"StatService: {StatService.Singleton != null}");
+            Loader.LoadLoading();
+            Logger.Log("Game Scene Loaded");
+
+            var initializer = new List<Task>()
+            {
+                StatService.Singleton.Initialize(),
+                MatchMakingService.Singleton.Initialize(),
+            };
+            await Task.WhenAll(initializer);
+        }
+#endif
+
+#if !DEDICATED_SERVER
         private async void OnAuthStatusChange(bool prev, bool current)
         {
             if (!current) return;
@@ -61,7 +106,7 @@ namespace CloudService
                 {
                     AchievementService.Singleton.Initialize(),
                     EconomyService.Singleton.Initialize(),
-                    MatchMakingService.Singleton.InitializeService(false, AuthenticationService.Singleton.isServiceReady.Value),
+                    MatchMakingService.Singleton.Initialize(),
                 };
                 await Task.WhenAll(initializer);
             }
@@ -73,5 +118,6 @@ namespace CloudService
             isServiceReady.Value = true;
             Logger.Log("End Post Authentication Initialize");
         }
+#endif
     }
 }

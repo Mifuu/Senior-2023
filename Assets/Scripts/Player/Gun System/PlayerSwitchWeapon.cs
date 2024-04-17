@@ -4,7 +4,7 @@ using UnityEngine;
 using Unity.Netcode;
 using UnityEngine.Events;
 using System.Linq;
-using Microsoft.Unity.VisualStudio.Editor;
+/* using Microsoft.Unity.VisualStudio.Editor; */
 
 public class PlayerSwitchWeapon : NetworkBehaviour
 {

@@ -18,7 +18,6 @@ public class ElementalShardManager : NetworkBehaviour
         else
         {
             Singleton = this;
-            DontDestroyOnLoad(this);
         }
     }
 
