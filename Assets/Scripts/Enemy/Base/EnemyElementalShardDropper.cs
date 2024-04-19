@@ -22,8 +22,9 @@ namespace Enemy
             enemy.OnEnemyDie -= SpawnShards;
         }
 
-        private void SpawnShards()
+        private void SpawnShards(GameObject killer)
         {
+            if (killer == null) return;
             var shardGameObject = ElementalShardManager.Singleton.GetShardOfElement(element.element);
             if (shardGameObject == null)
                 return;

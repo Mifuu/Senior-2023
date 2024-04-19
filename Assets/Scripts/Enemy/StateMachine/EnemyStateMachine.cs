@@ -5,7 +5,7 @@ namespace Enemy
 {
     public class EnemyStateMachine : NetworkBehaviour
     {
-        public enum AvailableEnemyState { None, Idle, Chase, Attack, Knockback }
+        public enum AvailableEnemyState { None, Idle, Chase, Attack, Knockback, Return }
         public enum AvailableStateMachineState { NotStarted, Running, Paused, Stopped }
 
         public EnemyState CurrentEnemyState { get; set; }
@@ -64,9 +64,9 @@ namespace Enemy
 
             if (stateMachineState.Value == AvailableStateMachineState.Paused && !isPause)
             {
-                temporaryStateHolder = AvailableEnemyState.Idle;
                 stateMachineState.Value = AvailableStateMachineState.Running;
                 networkEnemyState.Value = temporaryStateHolder;
+                temporaryStateHolder = AvailableEnemyState.Idle;
             }
         }
 
@@ -74,11 +74,11 @@ namespace Enemy
         {
             if (!IsServer) return;
 
-            if (stateMachineState.Value != AvailableStateMachineState.Running)
-            {
-                Debug.LogWarning("Can not stop state machine at current state");
-                return;
-            }
+            /* if (stateMachineState.Value != AvailableStateMachineState.Running) */
+            /* { */
+            /*     Debug.LogWarning("Can not stop state machine at current state"); */
+            /*     return; */
+            /* } */
 
             CurrentEnemyState.ExitState();
             stateMachineState.Value = AvailableStateMachineState.Stopped;
@@ -144,11 +144,13 @@ namespace Enemy
                 case AvailableEnemyState.Knockback:
                     newState = enemy.KnockbackState;
                     break;
+                case AvailableEnemyState.Return:
+                    newState = enemy.ReturnState;
+                    break;
                 case AvailableEnemyState.None:
                     return;
                 default:
-                    Debug.LogError("State Synchronization ID Error: " + current);
-                    return;
+                    throw new System.InvalidOperationException("State Synchronization ID Error: " + current);
             }
 
             CurrentEnemyState.ExitState();
