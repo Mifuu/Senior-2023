@@ -70,11 +70,6 @@ namespace Enemy
             SetSpawnGroupPosition(posList);
         }
 
-        public void SetEnemyList(List<GameObject> listOfEnemy)
-        {
-            this.enemyPrefabList = listOfEnemy;
-        }
-
         public void Spawn()
         {
             System.Random rnd = new System.Random();
@@ -124,7 +119,6 @@ namespace Enemy
             NavMeshHit hit;
             if (NavMesh.SamplePosition(spawnerTransform.position, out hit, 1000f, NavMesh.AllAreas))
             {
-                // Debug.Log("Personal Rotation: " + spawnerTransform.rotation);
                 var enemy = NetworkObjectPool.Singleton.GetNetworkObject(gameObject, hit.position, spawnerTransform.rotation);
 
                 var navmeshagent = enemy.GetComponent<NavMeshAgent>();
@@ -152,9 +146,6 @@ namespace Enemy
             NavMeshHit hit;
             if (NavMesh.SamplePosition(spawnerTransform.position, out hit, 1000f, NavMesh.AllAreas))
             {
-                // Debug.Log("Personal Rotation: " + spawnerTransform.rotation);
-                // Debug.Log("Personal Location: " + spawnerTransform.position);
-                // Debug.Log("Personal hit Location: " + hit.position);
                 var enemy = Instantiate(gameObject, hit.position, spawnerTransform.rotation);
 
                 var navmeshagent = enemy.GetComponent<NavMeshAgent>();
@@ -175,12 +166,12 @@ namespace Enemy
             return null;
         }
 
-        public void KillAllSpawnedEnemy()
+        public void KillAllSpawnedEnemy(GameObject killer)
         {
             foreach (var controlled in enemyPrefabList)
             {
                 if (controlled.TryGetComponent<EnemyBase>(out var controlledEnemy))
-                    controlledEnemy.Die(null);
+                    controlledEnemy.Die(killer);
             }
         }
 
@@ -198,9 +189,9 @@ namespace Enemy
             return spawnedEnemy;
         }
 
-        private Action GenerateEnemyDieCallback(EnemyBase enemy)
+        private Action<GameObject> GenerateEnemyDieCallback(EnemyBase enemy)
         {
-            void callback()
+            void callback(GameObject obj)
             {
                 OnEnemyDies?.Invoke(enemy);
                 spawnedEnemyRef.Remove(enemy);

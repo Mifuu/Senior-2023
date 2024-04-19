@@ -27,7 +27,7 @@ namespace Enemy
             currentHealth.Value = networkMaxHealth.Value;
             StateMachine.StopStateMachine();
             StateMachine.ResetStateMachine();
-            statueSpawnManager.KillAllSpawnedEnemy();
+            statueSpawnManager.KillAllSpawnedEnemy(null);
             statueSpawnManager.Spawn();
         }
     }
