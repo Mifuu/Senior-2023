@@ -8,7 +8,7 @@ using System.Linq;
 
 public class PlayerSwitchWeapon : NetworkBehaviour
 {
-    public NetworkVariable<int> currentGunIndex = new NetworkVariable<int> (0);
+    public NetworkVariable<int> currentGunIndex = new(0);
     public Gun[] guns = new Gun[3];
     public int maxGun = 3;
     public NetworkObject initialGun_1;
@@ -19,7 +19,10 @@ public class PlayerSwitchWeapon : NetworkBehaviour
     private InputManager inputManager;
     private PlayerInteract playerInteract;
     private PlayerUIUpdater playerUIUpdater;
+    private BuffManager buffManager;
     private NetworkObject gunToSpawn;
+
+    public NetworkVariable<float> gunShootingSpeedMultiplier = new(1f);
 
     void Start()
     {
@@ -28,10 +31,12 @@ public class PlayerSwitchWeapon : NetworkBehaviour
         inputManager = player.GetComponent<InputManager>();
         playerInteract = player.GetComponent<PlayerInteract>();
         playerUIUpdater = player.GetComponentInChildren<PlayerUIUpdater>();
+        buffManager = player.GetComponent<BuffManager>();
         playerShoot.InitializePlayerSwitchWeapon();
         inputManager.InitializePlayerSwitchWeapon();
         playerInteract.InitializePlayerSwitchWeapon();
         playerUIUpdater.InitializePlayerSwitchWeapon();
+        buffManager.InitializePlayerSwitchWeapon();
 
         gunToSpawn = initialGun_1;
         SpawnGunServerRpc(0);
@@ -46,12 +51,14 @@ public class PlayerSwitchWeapon : NetworkBehaviour
     {
         base.OnNetworkSpawn();
         currentGunIndex.OnValueChanged += UpdateWeapon;
+        gunShootingSpeedMultiplier.OnValueChanged += (prev, current) => SetHoldingGunShootingSpeedMultiplier();
     }
 
     public override void OnNetworkDespawn()
     {
         base.OnNetworkDespawn();
         currentGunIndex.OnValueChanged -= UpdateWeapon;
+        gunShootingSpeedMultiplier.OnValueChanged -= (prev, current) => SetHoldingGunShootingSpeedMultiplier();
     }
 
     [ServerRpc]
@@ -118,6 +125,8 @@ public class PlayerSwitchWeapon : NetworkBehaviour
             if( i == currentGunIndex.Value )
             {
                 guns[i].gameObject.SetActive(true);
+                SetHoldingGunShootingSpeedMultiplier(); // set the multiplier of the holding gun
+                Debug.Log("PlayerSwitchWeapon: gunShootingSpeedMultiplier is " + gunShootingSpeedMultiplier);
                 playerUIUpdater.UpdateSelectedGunSlotColor(i);
             }
             else
@@ -154,6 +163,11 @@ public class PlayerSwitchWeapon : NetworkBehaviour
         }
         GameObject currentGun = guns[currentGunIndex.Value].gameObject;
         return currentGun;
+    }
+
+    private void SetHoldingGunShootingSpeedMultiplier ()
+    {
+        guns[currentGunIndex.Value].shootingSpeedMultiplier = gunShootingSpeedMultiplier.Value;
     }
 
     /*
