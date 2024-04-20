@@ -86,6 +86,7 @@ namespace Enemy
             }
 
             stat.Level.Value = startingLevel;
+            GameplayUIBossHP.instance.OpenHealthBar(reportedHealth, phaseTwoThreshold, "Tossakan");
         }
 
         public override void OnNetworkDespawn()
@@ -97,6 +98,7 @@ namespace Enemy
             tossakanSpawnerRef.OnEnemySpawns -= SetupTossakanDamageable;
             tossakanSpawnerRef.OnEnemySpawns -= SetupTossakanAnimationEventEmitter;
             tossakanSpawnerRef.OnEnemySpawns -= SetupTossakanPuppet;
+            GameplayUIBossHP.instance.CloseHealthBar();
         }
 
         private void DebugHealth(float prev, float current)
@@ -130,7 +132,10 @@ namespace Enemy
             SpawnDamageFloatingClientRpc(Mathf.Round(damageAmount).ToString());
 
             if (currentHealth.Value <= 0f)
+            {
                 Die(dealer);
+                GameplayUI.GameplayUIController.Instance?.GameoverTrigger();
+            }
         }
 
         private void EnteringPhaseTwoSetup()
