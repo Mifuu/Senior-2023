@@ -17,8 +17,9 @@ public class CollectibleItem : InteractableItem
     private void OnTriggerEnter(Collider other)
     {
         // Check if the colliding object is the player
+        Debug.Log(transform.name + " collided with player");
         NetworkObject networkObject = other.GetComponent<NetworkObject>();
-        if (networkObject != null && networkObject.IsPlayerObject)
+        if (true)
         {
             Debug.Log($"Player collided with {name}");
 
@@ -52,6 +53,10 @@ public class CollectibleItem : InteractableItem
             {
                 Debug.LogError("Player inventory component not found on the colliding object.");
             }
+        }
+        else
+        {
+            Debug.Log("Collieded object is not player");
         }
     }
 }

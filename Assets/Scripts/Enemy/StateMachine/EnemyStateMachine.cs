@@ -130,11 +130,6 @@ namespace Enemy
         public void SynchronizeState(AvailableEnemyState _, AvailableEnemyState current)
         {
             EnemyState newState;
-            Debug.Log("Idle" + enemy.IdleState);
-            Debug.Log("Chase" + enemy.ChaseState);
-            Debug.Log("Attack" + enemy.AttackState);
-            Debug.Log("Return" + enemy.ReturnState);
-            Debug.Log("Knockback" + enemy.KnockbackState);
             switch (current)
             {
                 case AvailableEnemyState.Idle:

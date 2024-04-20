@@ -24,7 +24,7 @@ namespace Enemy
         private void SpawnKey(GameObject killer)
         {
             var keyInstance = Instantiate(keyPrefab, enemy.transform.position, enemy.transform.rotation);
-            if (keyInstance.TryGetComponent<NetworkObject>(out NetworkObject obj))
+            if (keyInstance.TryGetComponent(out NetworkObject obj))
                 obj.Spawn();
         }
     }

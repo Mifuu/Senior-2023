@@ -139,7 +139,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interactableItemPrefab: {fileID: 0}
-  promptMessage: Testt
+  promptMessage: Enter Boss Room
   canvasGroup: {fileID: 89474414367110592}
   statusMessage: {fileID: 7801862746822994432}
 --- !u!114 &5664743675603179466
