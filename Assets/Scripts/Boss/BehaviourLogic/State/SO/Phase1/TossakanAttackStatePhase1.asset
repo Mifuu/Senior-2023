@@ -14,11 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   allAttack:
   - {fileID: 11400000, guid: efb517626df3543468d67a3c24765f1b, type: 2}
+  setEnterTrigger: 0
+  enterTriggerName: 
+  setExitTrigger: 0
+  exitTriggerName: 
   weightedAttacks:
   - {fileID: 11400000, guid: 8719fb8683ea8554db025fe2e5ef5cdc, type: 2}
   - {fileID: 11400000, guid: bf6bfd83d5ae0614290c7d78c408a1b4, type: 2}
-  - {fileID: 11400000, guid: af71f2868eb3d8f40a9f1ea65ec12e15, type: 2}
-  - {fileID: 11400000, guid: b5e69bcdf3c51e541bdfe917b05c43ce, type: 2}
+  - {fileID: 11400000, guid: 308404c091bc0c64fa3597e07ae6b566, type: 2}
   emptyAttack: {fileID: 11400000, guid: efb517626df3543468d67a3c24765f1b, type: 2}
   autoAdjustWeight: 1
   tryKeepWeightBalance: 1

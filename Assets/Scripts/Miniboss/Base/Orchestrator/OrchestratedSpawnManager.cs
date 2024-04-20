@@ -7,7 +7,6 @@ namespace Enemy
     {
         [Header("Orchestrator")]
         [SerializeField] private bool spawnImmediately;
-        [SerializeField] private bool killOnBaseDies;
 
         public override void OnNetworkSpawn()
         {
@@ -25,14 +24,7 @@ namespace Enemy
             }
 
             enemyPrefabList = newEnemyPrefabList;
-            if (killOnBaseDies) enemy.OnEnemyDie += KillAllSpawnedEnemy;
             if (spawnImmediately) Spawn();
-        }
-
-        public override void OnNetworkDespawn()
-        {
-            base.OnNetworkDespawn();
-            if (killOnBaseDies) enemy.OnEnemyDie -= KillAllSpawnedEnemy;
         }
     }
 }

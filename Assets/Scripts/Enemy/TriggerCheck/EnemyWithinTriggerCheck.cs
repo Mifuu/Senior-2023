@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using Unity.Netcode;
 
 namespace Enemy
 {
@@ -37,6 +38,8 @@ namespace Enemy
             {
                 PlayerWithinTrigger.Add(collider.gameObject);
                 OnPlayerEnteringTrigger?.Invoke(collider.gameObject, PlayerWithinTrigger.Count);
+                if (collider.TryGetComponent<PlayerHealth>(out var health) && collider.TryGetComponent<NetworkObject>(out var networkObject))
+                    health.OnPlayerDie += CheckPlayerDied(networkObject);
             }
         }
 
@@ -55,6 +58,24 @@ namespace Enemy
                 PlayerWithinTrigger.Remove(collider.gameObject);
                 OnPlayerLeavingTrigger?.Invoke(collider.gameObject, PlayerWithinTrigger.Count);
             }
+        }
+
+        public Action CheckPlayerDied(NetworkObject networkObject)
+        {
+            return () =>
+            {
+                foreach (var obj in PlayerWithinTrigger)
+                {
+                    if (obj.TryGetComponent<NetworkObject>(out var nobj))
+                    {
+                        if (nobj.NetworkObjectId == networkObject.NetworkObjectId)
+                        {
+                            PlayerWithinTrigger.Remove(obj);
+                            break;
+                        }
+                    }
+                }
+            };
         }
     }
 }

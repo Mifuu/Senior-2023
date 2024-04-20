@@ -12,31 +12,26 @@ namespace Enemy
         {
             base.OnNetworkSpawn();
             if (!IsServer) return;
-            enemy.OnEnemyDie += SpawnShardsServerRpc;
+            enemy.OnEnemyDie += SpawnShards;
         }
 
         public override void OnNetworkDespawn()
         {
             base.OnNetworkDespawn();
             if (!IsServer) return;
-            enemy.OnEnemyDie -= SpawnShardsServerRpc;
+            enemy.OnEnemyDie -= SpawnShards;
         }
 
-        [ServerRpc]
-        private void SpawnShardsServerRpc()
+        private void SpawnShards(GameObject killer)
         {
+            if (killer == null) return;
             var shardGameObject = ElementalShardManager.Singleton.GetShardOfElement(element.element);
             if (shardGameObject == null)
                 return;
             var insGameObject = Instantiate(shardGameObject, enemy.transform.position, enemy.transform.rotation);
-            if (insGameObject.TryGetComponent(out NetworkObject obj))
+            if (insGameObject.TryGetComponent<NetworkObject>(out NetworkObject obj))
             {
                 obj.Spawn();
-            }
-            else
-            {
-                Debug.LogWarning("The spawned key prefab is missing a NetworkObject component.");
-                Destroy(insGameObject);
             }
         }
     }
