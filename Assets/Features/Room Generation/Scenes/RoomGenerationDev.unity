@@ -2152,10 +2152,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ramayana 1 Hall 4
       objectReference: {fileID: 0}
-    - target: {fileID: 5779286938638510722, guid: c2d2acca8202e4192999f67d2254a400, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 8469029734481733292, guid: c2d2acca8202e4192999f67d2254a400, type: 3}
       propertyPath: GlobalObjectIdHash
       value: 2480349563
@@ -3106,6 +3102,10 @@ PrefabInstance:
     - target: {fileID: 7249770433962050037, guid: 480581f9a83c84294aa8679a1e76f9f1, type: 3}
       propertyPath: m_Name
       value: Ramayana 1 Hall 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7249770433962050037, guid: 480581f9a83c84294aa8679a1e76f9f1, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
