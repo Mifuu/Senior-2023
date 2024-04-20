@@ -22,6 +22,8 @@ public class Gun : NetworkBehaviour
     [HideInInspector] public ElementAttachable elementAttachable;
     [HideInInspector] public DamageCalculationComponent playerDmgComponent;
 
+    [HideInInspector] public float shootingSpeedMultiplier = 1f;
+
     private bool canShoot = true;
     private bool isOwned = true;
 
@@ -116,7 +118,7 @@ public class Gun : NetworkBehaviour
     public IEnumerator ShootingDelay()
     {
         UpdateCanShoot(false);
-        yield return new WaitForSeconds(shootingDelay);
+        yield return new WaitForSeconds(shootingDelay * shootingSpeedMultiplier);
         UpdateCanShoot(true);
     }
 
