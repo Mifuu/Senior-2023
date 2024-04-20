@@ -125,7 +125,10 @@ namespace Enemy
             SpawnDamageFloatingClientRpc(Mathf.Round(damageAmount).ToString());
 
             if (currentHealth.Value <= 0f)
+            {
                 Die(dealer);
+                GameplayUI.GameplayUIController.Instance?.GameoverTrigger();
+            }
         }
 
         private void EnteringPhaseTwoSetup()

@@ -15,6 +15,8 @@ public class PlayerMotor : NetworkBehaviour
 
     [SerializeField] private Vector2 defaultPositionRange = new Vector2(-4, -4);
 
+    private GameplayUI.GameplayUIStack gameplayUIStack;
+
     void Start()
     {
         controller = GetComponent<CharacterController>();
@@ -28,7 +30,7 @@ public class PlayerMotor : NetworkBehaviour
     {
         isGrounded = controller.isGrounded;
         // Check if the "Alt" key is held down
-        if (Input.GetKey(KeyCode.LeftAlt) || Input.GetKey(KeyCode.RightAlt))
+        if (Input.GetKey(KeyCode.LeftAlt) || Input.GetKey(KeyCode.RightAlt) || GameplayUI.GameplayUIStack.Instance.Peek() == GameplayUI.PanelType.SkillCard)
         {
             // Make the cursor visible
             Cursor.lockState = CursorLockMode.None;

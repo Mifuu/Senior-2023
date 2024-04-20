@@ -49,14 +49,14 @@ public class BossRoomInteractable : InteractableItem
 
     void OnPlayerKeyUpdate(int previousValue, int newValue)
     {
-        statusMessage.text = "You have " + newValue + " keys";
+        statusMessage.text = "You have " + newValue + " keys out of 3";
     }
 
     protected override void Interact(GameObject PlayerObject)
     {
         Debug.Log("interacted with" + gameObject.name);
 
-        if (playerInventory.Key.Value >= 0)
+        if (playerInventory.Key.Value >= 3)
         {
             Debug.Log("TODO: Teleport To Boss Room");
             MultiplayerGameManager.Instance.TeleportToBossRoomServerRpc(NetworkManager.Singleton.LocalClientId);
