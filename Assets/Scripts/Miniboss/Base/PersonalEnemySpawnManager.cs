@@ -17,6 +17,7 @@ namespace Enemy
         [SerializeField] protected List<GameObject> enemyPrefabList;
         [SerializeField] private List<GameObject> SpawnGroupGameObject;
         [SerializeField] private bool useObjectPool = true;
+        [SerializeField] private bool manuallySetLevel;
 
         [Tooltip("How many TYPE of enemy would be used in one spawn cycle")]
         [SerializeField] public int randomEnemyTypeAmount;
@@ -24,6 +25,8 @@ namespace Enemy
         [SerializeField] public bool stratify;
         [Tooltip("Completely randomize each group, ignore other setting")]
         [SerializeField] public bool groupMaxRandom; // No implementation for this yet
+        [SerializeField] private bool killOnBaseDies;
+        [SerializeField] private bool killOnBaseNetworkDespawn;
 
         public List<EnemyBase> spawnedEnemyRef = new List<EnemyBase>();
         public NetworkVariable<int> currentAliveEnemy = new NetworkVariable<int>(0);
@@ -46,6 +49,19 @@ namespace Enemy
             base.OnNetworkSpawn();
             if (SpawnGroupGameObject != null) SetSpawnGroupPosition(SpawnGroupGameObject);
             vacantSpot = new Queue<Transform>();
+
+            if (killOnBaseDies) enemy.OnEnemyDie += KillAllSpawnedEnemy;
+            if (killOnBaseNetworkDespawn) enemy.OnEnemyNetworkDespawn += KillAllSpawnedEnemy;
+            if (!manuallySetLevel)
+                OnEnemySpawns += SetLevel;
+        }
+
+        public override void OnNetworkDespawn()
+        {
+            if (killOnBaseDies) enemy.OnEnemyDie -= KillAllSpawnedEnemy;
+            if (killOnBaseNetworkDespawn) enemy.OnEnemyNetworkDespawn -= KillAllSpawnedEnemy;
+            if (!manuallySetLevel)
+                OnEnemySpawns -= SetLevel;
         }
 
         public void SetSpawnGroupPosition(List<List<Transform>> positionList)
@@ -168,12 +184,14 @@ namespace Enemy
 
         public void KillAllSpawnedEnemy(GameObject killer)
         {
-            foreach (var controlled in enemyPrefabList)
+            foreach (var controlled in spawnedEnemyRef)
             {
                 if (controlled.TryGetComponent<EnemyBase>(out var controlledEnemy))
                     controlledEnemy.Die(killer);
             }
         }
+
+        public void KillAllSpawnedEnemy() => KillAllSpawnedEnemy(null);
 
         private GameObject GetRandomEnemyPrefab() => enemyPrefabList[UnityEngine.Random.Range(0, enemyPrefabList.Count)];
 
@@ -216,6 +234,19 @@ namespace Enemy
             {
                 yield return currentNum++;
                 if (currentNum >= maxExclusive) currentNum = 0;
+            }
+        }
+
+        public void SetLevel(List<EnemyBase> enemies)
+        {
+            if (!IsServer) return;
+            foreach (var e in enemies)
+            {
+                if (e.stat != null)
+                {
+                    Debug.Log("Setting enemy levels to " + enemy.stat.Level.Value);
+                    e.stat.Level.Value = enemy.stat.Level.Value;
+                }
             }
         }
     }

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1230190395149504246}
   - component: {fileID: 5875905805972504892}
   - component: {fileID: 6858769365416396555}
+  - component: {fileID: 1287825293354004996}
   m_Layer: 0
   m_Name: PlayArea
   m_TagString: Untagged
@@ -106,6 +107,37 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1287825293354004996
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 128900110274143042}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AgentTypeID: 0
+  m_CollectObjects: 0
+  m_Size: {x: 10, y: 10, z: 10}
+  m_Center: {x: 0, y: 2, z: 0}
+  m_LayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_UseGeometry: 0
+  m_DefaultArea: 0
+  m_GenerateLinks: 0
+  m_IgnoreNavMeshAgent: 1
+  m_IgnoreNavMeshObstacle: 1
+  m_OverrideTileSize: 0
+  m_TileSize: 256
+  m_OverrideVoxelSize: 0
+  m_VoxelSize: 0.1
+  m_MinRegionArea: 2
+  m_NavMeshData: {fileID: 23800000, guid: 070fc7864f623944eac1a5822bae06c6, type: 2}
+  m_BuildHeightMesh: 0
 --- !u!1 &152753730331782773
 GameObject:
   m_ObjectHideFlags: 0
@@ -487,14 +519,16 @@ MonoBehaviour:
   SpawnGroupGameObject:
   - {fileID: 6524849260657649324}
   useObjectPool: 0
+  manuallySetLevel: 0
   randomEnemyTypeAmount: 1
   stratify: 0
   groupMaxRandom: 0
-  willSpawnAssociator: 0
-  associatorPrefab: {fileID: 0}
+  killOnBaseDies: 1
+  killOnBaseNetworkDespawn: 1
+  spawnedEnemyRef: []
   currentAliveEnemy:
     m_InternalValue: 0
-  enemy: {fileID: 0}
+  enemy: {fileID: 8538494373384188985}
   spawnImmediately: 1
 --- !u!1 &1130962605883203796
 GameObject:
@@ -2085,14 +2119,16 @@ MonoBehaviour:
   - {fileID: 8478144152848670895}
   - {fileID: 548342128370699667}
   useObjectPool: 1
+  manuallySetLevel: 0
   randomEnemyTypeAmount: 2
   stratify: 1
   groupMaxRandom: 0
-  willSpawnAssociator: 0
-  associatorPrefab: {fileID: 0}
+  killOnBaseDies: 1
+  killOnBaseNetworkDespawn: 1
+  spawnedEnemyRef: []
   currentAliveEnemy:
     m_InternalValue: 0
-  enemy: {fileID: 0}
+  enemy: {fileID: 8538494373384188985}
 --- !u!1 &5126419731940952308
 GameObject:
   m_ObjectHideFlags: 0
@@ -2578,24 +2614,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0da650e023d00164ab2f960dd04a0a2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  deferSetup: 0
+  disableOnTargetNull: 0
+  disabledDistanceCheck: 1
   aggroDistanceTriggerCheck: {fileID: -3076547352952212448}
+  newTargetPlayerMaxDistanceSqr: 300
+  disabledReturnState: 1
+  maxDistanceSqrFromSpawnPoint: 300
+  spawnDistanceCheckTimeInterval: 5
+  pointOfOrigin: {x: 0, y: 0, z: 0}
+  <maxHealth>k__BackingField: 3000
   networkMaxHealth:
     m_InternalValue: 0
-  <maxHealth>k__BackingField: 3000
-  maxDistanceSquared: 5000
   EnemyAttackBase: {fileID: 11400000, guid: 70134ec6e7047e945bb890a8b0c1feca, type: 2}
   EnemyIdleBase: {fileID: 11400000, guid: 3a2b0b984dbb8ed469ee0993f50139f8, type: 2}
   EnemyChaseBase: {fileID: 11400000, guid: 0ec7162b776832b4bb94b82cc95a2e43, type: 2}
   EnemyKnockbackBase: {fileID: 11400000, guid: f1f965eb1beefd141929f6629dd44161, type: 2}
+  EnemyReturnBase: {fileID: 11400000, guid: a7554a758413dcb4a8685a14edbd7fc0, type: 2}
   targetPlayer: {fileID: 0}
   navMeshAgent: {fileID: 0}
   dealerPipeline: {fileID: 0}
   stat: {fileID: 0}
   navMeshAngularSpeedFactor: 5
   navMeshAcceleration: 2
-  animationEventEmitter: {fileID: 0}
   animator: {fileID: 0}
+  animationEventEmitter: {fileID: 0}
   damageFloatingSpawner: {fileID: 0}
+  soundListName: 
+  soundSpawnName: 
+  soundDeadName: 
   handSpawnSet: {fileID: 6478644033471789672}
   arrowSpawnSet: {fileID: 8801390547627988571}
   phaseTwoThreshold: 1500
@@ -2606,6 +2653,7 @@ MonoBehaviour:
   tossakanSpawnerRef: {fileID: 2657033551320056746}
   allTossakanPositionAnchor: {fileID: 5452632096987136602}
   staminaManager: {fileID: 3877894262525668896}
+  startingLevel: 100
   tossakanPuppet: {fileID: 0}
   currentPhase:
     m_InternalValue: 1
@@ -3137,14 +3185,16 @@ MonoBehaviour:
   - {fileID: 3714997440485370172}
   - {fileID: 8143064812552807614}
   useObjectPool: 0
+  manuallySetLevel: 0
   randomEnemyTypeAmount: 1
   stratify: 0
   groupMaxRandom: 0
-  willSpawnAssociator: 0
-  associatorPrefab: {fileID: 0}
+  killOnBaseDies: 1
+  killOnBaseNetworkDespawn: 1
+  spawnedEnemyRef: []
   currentAliveEnemy:
     m_InternalValue: 0
-  enemy: {fileID: 0}
+  enemy: {fileID: 8538494373384188985}
 --- !u!1 &8061375026710566897
 GameObject:
   m_ObjectHideFlags: 0

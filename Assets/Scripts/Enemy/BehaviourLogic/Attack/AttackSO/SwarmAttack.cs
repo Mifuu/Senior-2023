@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 namespace Enemy
 {
@@ -18,8 +19,11 @@ namespace Enemy
                     spawnManager = manager;
             }
 
-            if (spawnManager == null) 
+            if (spawnManager == null)
+            {
                 Debug.LogError($"Spawn Manager with id: {spawnManagerId} " + "is not found");
+                return;
+            }
         }
 
         public override void PerformAttack()

@@ -43,6 +43,11 @@ namespace Enemy
             damageCoroutine = OnLeerBecomeVisible();
         }
 
+        public void Update()
+        {
+            transform.LookAt(enemy.targetPlayer.transform);
+        }
+
         public void InitializeLeer(EnemyBase enemy)
         {
             this.enemy = enemy;

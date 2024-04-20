@@ -25,6 +25,9 @@ namespace Enemy
 
         [Header("Stamina")]
         [SerializeField] private BossStaminaManager staminaManager;
+        
+        [Header("Level Setup")]
+        [SerializeField] private int startingLevel;
 
         public EnemyBase tossakanPuppet;
         private EnemyAttackSOBase secondPhaseAttackInstance;
@@ -44,7 +47,7 @@ namespace Enemy
 
             currentHealth.OnValueChanged += CheckHealthForPhaseChange;
             currentHealth.OnValueChanged += UpdateReportedHealth;
-            // currentHealth.OnValueChanged += DebugHealth;
+            currentHealth.OnValueChanged += DebugHealth;
 
             tossakanSpawnerRef.OnEnemySpawns += SetupTossakanDamageable;
             tossakanSpawnerRef.OnEnemySpawns += SetupTossakanAnimationEventEmitter;
@@ -81,6 +84,8 @@ namespace Enemy
             {
                 t.LookAt(targetPlayer.transform);
             }
+
+            stat.Level.Value = startingLevel;
         }
 
         public override void OnNetworkDespawn()

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class WorldSpaceDamageableUI : MonoBehaviour
 {
@@ -13,6 +14,7 @@ public class WorldSpaceDamageableUI : MonoBehaviour
     private IDamageable damageable;
     [Header("Requirements")]
     public Slider healthBarSlider;
+    public TextMeshProUGUI levelText;
 
     void Update()
     {
@@ -25,11 +27,21 @@ public class WorldSpaceDamageableUI : MonoBehaviour
     void OnEnable()
     {
         damageable = damageableGameObject.GetComponent<IDamageable>();
-        damageable.currentHealth.OnValueChanged += (prev, current) => UpdateHealthBar();
+        damageable.currentHealth.OnValueChanged += UpdateHealthBar;
+        if (damageableGameObject.TryGetComponent<Enemy.EnemyStat>(out var stat))
+        {
+            PaintLevel(0, stat.Level.Value);
+            stat.Level.OnValueChanged += PaintLevel;
+        }
     }
 
-    public void UpdateHealthBar()
+    public void OnDisable()
     {
-        healthBarSlider.value = damageable.currentHealth.Value / damageable.maxHealth;
+        damageable.currentHealth.OnValueChanged -= UpdateHealthBar;
+        if (damageableGameObject.TryGetComponent<Enemy.EnemyStat>(out var stat))
+            stat.Level.OnValueChanged -= PaintLevel;
     }
+
+    public void UpdateHealthBar(float prev, float current) => healthBarSlider.value = current / damageable.maxHealth;
+    public void PaintLevel(int prev, int current) => levelText.text = "LV. " + current;
 }

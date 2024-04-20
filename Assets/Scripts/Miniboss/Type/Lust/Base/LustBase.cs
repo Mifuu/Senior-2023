@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 namespace Enemy
 {
@@ -8,18 +9,36 @@ namespace Enemy
         [SerializeField] private MinibossFightRangeController rangeController;
         [SerializeField] private OrchestratedSpawnManager statueSpawnManager;
 
+        public override void Awake()
+        {
+            base.Awake();
+            statueSpawnManager.OnEnemySpawns += SetupStatue;
+        }
+
+        public override void OnDestroy()
+        {
+            base.OnDestroy();
+            statueSpawnManager.OnEnemySpawns -= SetupStatue;
+        }
+
         public override void OnNetworkSpawn()
         {
             base.OnNetworkSpawn();
             rangeController.OnMinibossFightExit += ResetBossFight;
-            rangeController.OnMinibossFightEnter += StateMachine.StartStateMachine;
+            rangeController.OnMinibossFightEnter += StartBossFight;
         }
 
         public override void OnNetworkDespawn()
         {
             base.OnNetworkDespawn();
             rangeController.OnMinibossFightExit -= ResetBossFight;
-            rangeController.OnMinibossFightEnter -= StateMachine.StartStateMachine;
+            rangeController.OnMinibossFightEnter -= StartBossFight;
+        }
+
+        private void StartBossFight()
+        {
+            SetupBehaviour();
+            StateMachine.StartStateMachine();
         }
 
         private void ResetBossFight()
@@ -29,6 +48,12 @@ namespace Enemy
             StateMachine.ResetStateMachine();
             statueSpawnManager.KillAllSpawnedEnemy(null);
             statueSpawnManager.Spawn();
+        }
+
+        private void SetupStatue(List<EnemyBase> enemyBases) 
+        {
+            for (int i = 0; i < enemyBases.Count; i++)            
+                enemyBases[i].SetupBehaviour();
         }
     }
 }

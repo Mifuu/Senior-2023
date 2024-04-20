@@ -556,24 +556,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddead72d729e01543b7bc746f68d462d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  deferSetup: 0
+  disableOnTargetNull: 0
+  disabledDistanceCheck: 1
   aggroDistanceTriggerCheck: {fileID: 4152279539823919615}
+  newTargetPlayerMaxDistanceSqr: 300
+  disabledReturnState: 1
+  maxDistanceSqrFromSpawnPoint: 300
+  spawnDistanceCheckTimeInterval: 5
+  pointOfOrigin: {x: 0, y: 0, z: 0}
+  <maxHealth>k__BackingField: 5000
   networkMaxHealth:
     m_InternalValue: 0
-  <maxHealth>k__BackingField: 5000
-  maxDistanceSquared: 1e+10
   EnemyAttackBase: {fileID: 11400000, guid: 09fd4ae6f64a44843a49e9fc078c11ba, type: 2}
   EnemyIdleBase: {fileID: 11400000, guid: a9a0c9ac44d072346a62930caa44d284, type: 2}
   EnemyChaseBase: {fileID: 11400000, guid: d9cf7d91cfd0be449be3626703159f06, type: 2}
   EnemyKnockbackBase: {fileID: 11400000, guid: c107a0f1522a90c4db6e94196f232822, type: 2}
+  EnemyReturnBase: {fileID: 11400000, guid: a7554a758413dcb4a8685a14edbd7fc0, type: 2}
   targetPlayer: {fileID: 0}
   navMeshAgent: {fileID: 0}
   dealerPipeline: {fileID: 0}
   stat: {fileID: 0}
   navMeshAngularSpeedFactor: 10
   navMeshAcceleration: 2
-  animationEventEmitter: {fileID: 1412392925760578712}
   animator: {fileID: 0}
+  animationEventEmitter: {fileID: 1412392925760578712}
   damageFloatingSpawner: {fileID: 0}
+  soundListName: 
+  soundSpawnName: 
+  soundDeadName: 
 --- !u!114 &5575684663058277635
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1084,17 +1095,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: World Space Damageable UI
       objectReference: {fileID: 0}
+    - target: {fileID: 1866143202856262879, guid: 4d0110306e0504056b1fa1a01177d3d3, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1871497161588684984, guid: 4d0110306e0504056b1fa1a01177d3d3, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1871497161588684984, guid: 4d0110306e0504056b1fa1a01177d3d3, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1871497161588684984, guid: 4d0110306e0504056b1fa1a01177d3d3, type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2293299694721888237, guid: 4d0110306e0504056b1fa1a01177d3d3, type: 3}
       propertyPath: damageableGameObject
@@ -1142,15 +1157,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9145222390233457149, guid: 4d0110306e0504056b1fa1a01177d3d3, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9145222390233457149, guid: 4d0110306e0504056b1fa1a01177d3d3, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9145222390233457149, guid: 4d0110306e0504056b1fa1a01177d3d3, type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
