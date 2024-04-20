@@ -241,10 +241,10 @@ namespace Enemy
                 spawnDistanceCheckCoroutine = CheckDistanceFromSpawn();
                 if (!disabledReturnState && isActiveAndEnabled)
                     StartCoroutine(spawnDistanceCheckCoroutine);
+                enabled = true;
             }
 
             networkMaxHealth.OnValueChanged += AdjustMaxHealth;
-            enabled = true;
             // StateMachine.ChangeState(IdleState);
         }
 
