@@ -595,6 +595,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddead72d729e01543b7bc746f68d462d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  deferSetup: 0
+  disableOnTargetNull: 1
   disabledDistanceCheck: 1
   aggroDistanceTriggerCheck: {fileID: 3481429081725363270}
   newTargetPlayerMaxDistanceSqr: 2000
