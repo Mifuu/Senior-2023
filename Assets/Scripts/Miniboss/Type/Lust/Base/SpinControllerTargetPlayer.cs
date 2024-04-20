@@ -10,12 +10,18 @@ namespace Enemy
         public override void OnNetworkSpawn()
         {
             base.OnNetworkSpawn();
-            if (!IsServer) enabled = false;
+            enabled = !(!IsServer || enemy.targetPlayer == null);
+            enemy.OnTargetPlayerChanged += ChangeSpinStateOnTargetPlayer;
         }
 
-        public void FixedUpdate()
+        public override void OnNetworkDespawn()
         {
-            transform.LookAt(enemy.targetPlayer.transform);
+            base.OnNetworkDespawn();
+            enemy.OnTargetPlayerChanged -= ChangeSpinStateOnTargetPlayer;
         }
+
+        public void Awake() => enabled = false;
+        private void ChangeSpinStateOnTargetPlayer(GameObject targetPlayer) => enabled = targetPlayer != null;
+        public void FixedUpdate() => transform.LookAt(enemy.targetPlayer.transform);
     }
 }

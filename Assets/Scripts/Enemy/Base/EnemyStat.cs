@@ -50,7 +50,9 @@ namespace Enemy
         {
             base.OnNetworkSpawn();
             Level.OnValueChanged += SetStatOnCurrentLevel;
-            // OnStatChanged += OnStatChangeDebug;
+            if (Level.Value != 1)
+                SetStatOnCurrentLevel(1, Level.Value);
+             OnStatChanged += OnStatChangeDebug;
         }
 
         public override void OnNetworkDespawn()
@@ -58,7 +60,7 @@ namespace Enemy
             base.OnNetworkDespawn();
             Level.OnValueChanged -= SetStatOnCurrentLevel;
             Level.Value = 1;
-            // OnStatChanged -= OnStatChangeDebug;
+            OnStatChanged -= OnStatChangeDebug;
             ResetStat();
         }
 

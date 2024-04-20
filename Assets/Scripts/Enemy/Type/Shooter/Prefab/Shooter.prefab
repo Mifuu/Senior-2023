@@ -446,23 +446,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddead72d729e01543b7bc746f68d462d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  disabledDistanceCheck: 0
   aggroDistanceTriggerCheck: {fileID: 3481429081725363270}
+  newTargetPlayerMaxDistanceSqr: 2000
+  maxDistanceSqrFromSpawnPoint: 1000
+  spawnDistanceCheckTimeInterval: 5
+  pointOfOrigin: {x: 0, y: 0, z: 0}
+  <maxHealth>k__BackingField: 20
   networkMaxHealth:
     m_InternalValue: 0
-  <maxHealth>k__BackingField: 20
-  maxDistanceSquared: 3000
   EnemyAttackBase: {fileID: 11400000, guid: 70a4aec63fbf5074685a4882f0403396, type: 2}
   EnemyIdleBase: {fileID: 11400000, guid: c96b24f0a9afb2045a100da53e41650c, type: 2}
   EnemyChaseBase: {fileID: 11400000, guid: ab0c98647e011e64eb420d27c8d461ef, type: 2}
   EnemyKnockbackBase: {fileID: 11400000, guid: 072f4c517c2ae844aa0db35d032aea8f, type: 2}
+  EnemyReturnBase: {fileID: 11400000, guid: edd3f471f594b2543bf5a292656cfdec, type: 2}
   targetPlayer: {fileID: 0}
   navMeshAgent: {fileID: 0}
   dealerPipeline: {fileID: 0}
   stat: {fileID: 0}
   navMeshAngularSpeedFactor: 5
   navMeshAcceleration: 2
-  animationEventEmitter: {fileID: 4028881116827335030}
   animator: {fileID: 0}
+  animationEventEmitter: {fileID: 4028881116827335030}
   damageFloatingSpawner: {fileID: 6965627428739241833}
   soundListName: Shooter
   soundSpawnName: Spawn

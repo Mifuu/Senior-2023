@@ -116,7 +116,6 @@ namespace Enemy
         private void PlaySFXOnAllClientClientRpc(NetworkString listName, NetworkString soundName, Vector3 position, ulong exceptClient)
         {
             var bruh = exceptClient == NetworkManager.Singleton.LocalClientId ? "" : "NOT";
-            Debug.Log($"Playing {soundName} except {exceptClient} which is {bruh} this client");
             if (exceptClient == NetworkManager.Singleton.LocalClientId) return;
             _PlaySFXOnObject(listName, soundName, position);
         }
