@@ -89,7 +89,7 @@ namespace CloudService
         private void ShowErrorModal(string moduleName, string text)
         {
             var extramodal = Instantiate(modalPanelPrefab);
-            extramodal.transform.SetParent(canvas);
+            extramodal.transform.SetParent(canvas, false);
             extramodal.transform.localScale = new Vector3(1, 1, 1);
             ModalController.ModalSetting setting = new ModalController.ModalSetting();
             setting.header_Text = "Error: " + moduleName;

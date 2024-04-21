@@ -24,12 +24,14 @@ public abstract class ModalTrigger : MonoBehaviour
 
     public void OnTriggerEnter(Collider collider)
     {
+        if (!collider.CompareTag("Player")) return;
         if (useScriptableObject)
             modal.ShowModal(modalSO);
         else
             modal.ShowModal(modalSetting);
 
-        modal.OnCancelButtonPressed += OnConfirmButtonPress;
+        Cursor.visible = true;
+        modal.OnCancelButtonPressed += OnCancelButtonPress;
         modal.OnConfirmButtonPressed += OnConfirmButtonPress;
         modal.OnAlternateButtonPressed += OnAlternateButtonPress;
     }
@@ -42,7 +44,12 @@ public abstract class ModalTrigger : MonoBehaviour
         modal.HideModal();
     }
 
-    public abstract void OnConfirmButtonPress();
-    public abstract void OnCancelButtonPress();
-    public abstract void OnAlternateButtonPress();
+    public virtual void OnConfirmButtonPress() {}
+
+    public virtual void OnCancelButtonPress() 
+    {
+        Cursor.visible = false;
+    }
+
+    public virtual void OnAlternateButtonPress() {}
 }
