@@ -76,22 +76,17 @@ public class TestDebugGUI : MonoBehaviour
                 _PlayerLevel.AddExp(500);
             if (GUILayout.Button("Exp + 1000"))
                 _PlayerLevel.AddExp(1000);
+            if (GUILayout.Button("Exp + 5000"))
+                _PlayerLevel.AddExp(5000);
 
             GUILayout.Space(10);
             GUILayout.Label("Damage");
             if (GUILayout.Button("30m Radius - 500 HP"))
-            {
-                Collider[] colliders = Physics.OverlapSphere(_PlayerManager.transform.position, 30f, LayerMask.GetMask("Enemy"));
-                foreach (Collider collider in colliders)
-                {
-                    if (collider.TryGetComponent(out IDamageCalculatable damageable))
-                    {
-                        DamageInfo damageInfo = new(_PlayerManager.gameObject, 500);
-                        damageable.Damage(damageInfo);
-                        Debug.Log("Damage dealt to " + collider.gameObject.name + ": " + damageInfo.amount);
-                    }
-                }
-            }
+                DealDamage(30f, 500f);
+            if (GUILayout.Button("50m Radius - 1000 HP"))
+                DealDamage(50f, 1000f);
+            if (GUILayout.Button("100m Radius - 10000 HP"))
+                DealDamage(100f, 10000f);
 
             /* not working properly
             GUILayout.Space(10);
@@ -103,5 +98,19 @@ public class TestDebugGUI : MonoBehaviour
             */
         }
         GUILayout.EndArea();
+    }
+
+    private void DealDamage(float radius, float damage)
+    {
+        Collider[] colliders = Physics.OverlapSphere(_PlayerManager.transform.position, 30f, LayerMask.GetMask("Enemy"));
+        foreach (Collider collider in colliders)
+        {
+            if (collider.TryGetComponent(out IDamageCalculatable damageable))
+            {
+                DamageInfo damageInfo = new(_PlayerManager.gameObject, 500);
+                damageable.Damage(damageInfo);
+                Debug.Log("Damage dealt to " + collider.gameObject.name + ": " + damageInfo.amount);
+            }
+        }
     }
 }
