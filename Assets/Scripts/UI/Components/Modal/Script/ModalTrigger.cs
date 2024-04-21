@@ -24,13 +24,14 @@ public abstract class ModalTrigger : MonoBehaviour
 
     public void OnTriggerEnter(Collider collider)
     {
+        if (!collider.CompareTag("Player")) return;
         if (useScriptableObject)
             modal.ShowModal(modalSO);
         else
             modal.ShowModal(modalSetting);
 
         Cursor.visible = true;
-        modal.OnCancelButtonPressed += OnConfirmButtonPress;
+        modal.OnCancelButtonPressed += OnCancelButtonPress;
         modal.OnConfirmButtonPressed += OnConfirmButtonPress;
         modal.OnAlternateButtonPressed += OnAlternateButtonPress;
     }
