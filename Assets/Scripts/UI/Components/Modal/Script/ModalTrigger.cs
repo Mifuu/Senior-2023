@@ -29,6 +29,7 @@ public abstract class ModalTrigger : MonoBehaviour
         else
             modal.ShowModal(modalSetting);
 
+        Cursor.visible = true;
         modal.OnCancelButtonPressed += OnConfirmButtonPress;
         modal.OnConfirmButtonPressed += OnConfirmButtonPress;
         modal.OnAlternateButtonPressed += OnAlternateButtonPress;
@@ -42,7 +43,12 @@ public abstract class ModalTrigger : MonoBehaviour
         modal.HideModal();
     }
 
-    public abstract void OnConfirmButtonPress();
-    public abstract void OnCancelButtonPress();
-    public abstract void OnAlternateButtonPress();
+    public virtual void OnConfirmButtonPress() {}
+
+    public virtual void OnCancelButtonPress() 
+    {
+        Cursor.visible = false;
+    }
+
+    public virtual void OnAlternateButtonPress() {}
 }

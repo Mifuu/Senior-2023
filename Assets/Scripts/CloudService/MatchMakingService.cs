@@ -24,6 +24,7 @@ namespace CloudService
         public Action<Unity.Services.Matchmaker.Models.MultiplayAssignment.StatusOptions> OnMatchingStatusUpdate;
         [SerializeField] public string DefaultQueueName = "";
         private string matchMakerTicketId = "";
+        public event Action OnMatchingSuccess;
 
 #if DEDICATED_SERVER
         // private float autoAllocateTimer = 9999999f;
@@ -87,6 +88,7 @@ namespace CloudService
                 // Already Allocated
                 MultiplayEventCallbacks_Allocate(new MultiplayAllocation("", serverConfig.ServerId, serverConfig.AllocationId));
 #endif
+            isServiceReady.Value = true;
         }
 
 #if !DEDICATED_SERVER
@@ -129,6 +131,7 @@ namespace CloudService
                             isSearching.Value = false;
                             matchingSuccess = true;
                             matchMakerTicketId = "";
+                            OnMatchingSuccess?.Invoke();
                             break;
                         case MultiplayAssignment.StatusOptions.InProgress:
                             continue;
@@ -152,6 +155,7 @@ namespace CloudService
 
         public async Task StopFindingMatch()
         {
+            isSearching.Value = false;
             if (matchMakerTicketId != "")
                 await MatchmakerService.Instance.DeleteTicketAsync(matchMakerTicketId);
         }
