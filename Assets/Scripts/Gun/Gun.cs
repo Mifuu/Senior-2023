@@ -60,7 +60,7 @@ public class Gun : NetworkBehaviour
         //playerObject = transform.parent.parent.gameObject;
         playerEntity = playerObject.GetComponent<ElementalEntity>();
         playerDmgComponent = playerObject.GetComponent<DamageCalculationComponent>();
-        currentBullet = normalBullet;
+        OnElementChanged(elementAttachable.element);
     }
 
     public override void OnNetworkSpawn()
@@ -77,9 +77,9 @@ public class Gun : NetworkBehaviour
 
     private void OnElementChanged(ElementalType newElement)
     {
-        Debug.Log("Element changed to: " + newElement);
+        Debug.Log("Element changed to: " + elementAttachable.element);
 
-        switch (newElement)
+        switch (elementAttachable.element)
         {
             case ElementalType.Fire:
                 currentBullet = fireBullet;
@@ -97,7 +97,7 @@ public class Gun : NetworkBehaviour
                 currentBullet = normalBullet;
                 break;
             default:
-                Debug.LogWarning("Unhandled elemental type: " + newElement);
+                Debug.LogWarning("Unhandled elemental type: " + elementAttachable.element);
                 break;
         }
     }
