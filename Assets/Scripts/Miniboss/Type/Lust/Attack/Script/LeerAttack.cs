@@ -10,6 +10,8 @@ namespace Enemy
         [SerializeField] private float spawnHeightOffset;
         [Tooltip("Whether to wait for the Leer attack to ends to declare the ends of the attack")]
         [SerializeField] private bool waitForLeerToEnd;
+        [Header("Warning")]
+        [SerializeField] private TutorialTextController.TutorialSetting warningSetting;
         
         private LeerBase leerBase;
 
@@ -28,6 +30,7 @@ namespace Enemy
 
             leerBase.InitializeLeer(enemy);
             eye.Spawn();
+            TutorialTextController.Singleton.ShowTutorialText(warningSetting);
             
             if (waitForLeerToEnd)
             {

@@ -48,16 +48,8 @@ namespace GameplayUI
 
         public void BackInput()
         {
-            /*
-            if (uiStack.Count > 1)
-            {
-                Pop();
-            }
-            else
-            {
-                Push(PanelType.Pause);
-            }
-            */
+            if (stack.Peek() != PanelType.Play && stack.Peek() != PanelType.Gameover)
+                stack.Pop();
         }
 
         public void MapInput()
@@ -118,6 +110,12 @@ namespace GameplayUI
 
             stack.PopUntil(PanelType.Respawn);
             // stack.Pop();
+        }
+
+        public void GameoverTrigger()
+        {
+            if (stack.Peek() != PanelType.Gameover)
+                stack.Push(PanelType.Gameover);
         }
     }
 }

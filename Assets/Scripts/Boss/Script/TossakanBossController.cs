@@ -25,6 +25,9 @@ namespace Enemy
 
         [Header("Stamina")]
         [SerializeField] private BossStaminaManager staminaManager;
+        
+        [Header("Level Setup")]
+        [SerializeField] private int startingLevel;
 
         public EnemyBase tossakanPuppet;
         private EnemyAttackSOBase secondPhaseAttackInstance;
@@ -44,7 +47,7 @@ namespace Enemy
 
             currentHealth.OnValueChanged += CheckHealthForPhaseChange;
             currentHealth.OnValueChanged += UpdateReportedHealth;
-            // currentHealth.OnValueChanged += DebugHealth;
+            currentHealth.OnValueChanged += DebugHealth;
 
             tossakanSpawnerRef.OnEnemySpawns += SetupTossakanDamageable;
             tossakanSpawnerRef.OnEnemySpawns += SetupTossakanAnimationEventEmitter;
@@ -81,6 +84,9 @@ namespace Enemy
             {
                 t.LookAt(targetPlayer.transform);
             }
+
+            stat.Level.Value = startingLevel;
+            GameplayUIBossHP.instance.OpenHealthBar(reportedHealth, phaseTwoThreshold, "Tossakan");
         }
 
         public override void OnNetworkDespawn()
@@ -92,6 +98,7 @@ namespace Enemy
             tossakanSpawnerRef.OnEnemySpawns -= SetupTossakanDamageable;
             tossakanSpawnerRef.OnEnemySpawns -= SetupTossakanAnimationEventEmitter;
             tossakanSpawnerRef.OnEnemySpawns -= SetupTossakanPuppet;
+            GameplayUIBossHP.instance.CloseHealthBar();
         }
 
         private void DebugHealth(float prev, float current)
@@ -125,7 +132,10 @@ namespace Enemy
             SpawnDamageFloatingClientRpc(Mathf.Round(damageAmount).ToString());
 
             if (currentHealth.Value <= 0f)
+            {
                 Die(dealer);
+                GameplayUI.GameplayUIController.Instance?.GameoverTrigger();
+            }
         }
 
         private void EnteringPhaseTwoSetup()
