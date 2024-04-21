@@ -121,7 +121,7 @@ GameObject:
   - component: {fileID: -7999168358961105545}
   - component: {fileID: -5375088644206210197}
   m_Layer: 6
-  m_Name: Bullet
+  m_Name: Bullet_Water
   m_TagString: Attack
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -267,7 +267,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   vfxHit: {fileID: 0}
-  speed: 800
+  speed: 650
   lifetime: 5
 --- !u!1 &6127754639014077554
 GameObject:
@@ -374,34 +374,34 @@ TrailRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 1, g: 1, b: 0.6392157, a: 1}
-      key1: {r: 1, g: 1, b: 1, a: 1}
-      key2: {r: 0, g: 0, b: 0, a: 0}
-      key3: {r: 0, g: 0, b: 0, a: 0}
+      key0: {r: 0.149, g: 0.241, b: 0.78, a: 1}
+      key1: {r: 0.5411765, g: 1, b: 1, a: 1}
+      key2: {r: 0.23887502, g: 0.8301887, b: 0.8201664, a: 1}
+      key3: {r: 0, g: 0, b: 0, a: 1}
       key4: {r: 0, g: 0, b: 0, a: 0}
       key5: {r: 0, g: 0, b: 0, a: 0}
       key6: {r: 0, g: 0, b: 0, a: 0}
       key7: {r: 0, g: 0, b: 0, a: 0}
-      ctime0: 38357
-      ctime1: 65535
-      ctime2: 0
+      ctime0: 578
+      ctime1: 27949
+      ctime2: 65535
       ctime3: 0
       ctime4: 0
       ctime5: 0
       ctime6: 0
       ctime7: 0
       atime0: 0
-      atime1: 65535
-      atime2: 0
-      atime3: 0
+      atime1: 33346
+      atime2: 65535
+      atime3: 65535
       atime4: 0
       atime5: 0
       atime6: 0
       atime7: 0
       m_Mode: 0
       m_ColorSpace: 0
-      m_NumColorKeys: 2
-      m_NumAlphaKeys: 2
+      m_NumColorKeys: 3
+      m_NumAlphaKeys: 3
     numCornerVertices: 0
     numCapVertices: 8
     alignment: 0
