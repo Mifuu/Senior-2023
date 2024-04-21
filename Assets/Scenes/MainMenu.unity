@@ -6407,6 +6407,7 @@ MonoBehaviour:
   creditButton: {fileID: 363812000}
   shopButton: {fileID: 40358831}
   settingButton: {fileID: 33716767}
+  loadSceneButton: {fileID: 147894365}
   modal: {fileID: 1883724880}
   authPanel: {fileID: 1198585930}
   mainMenuPanel: {fileID: 536505351}

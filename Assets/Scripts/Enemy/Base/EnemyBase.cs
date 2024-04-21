@@ -273,8 +273,8 @@ namespace Enemy
 
             if (dealer != null)
             {
-                var gaugeValue = GaugeSystem.Singleton.AddGauge("Kill", (int)stat.BaseEXP.Value);
-                dealer.GetComponent<PlayerLevel>()?.AddExp(gaugeValue);
+                /* var gaugeValue = GaugeSystem.Singleton.AddGauge("Kill", (int) stat.BaseEXP.Value); */
+                dealer.GetComponent<PlayerLevel>()?.AddExp(stat.BaseEXP.Value);
             }
 
             audioController?.PlaySFXAtObject(soundDeadName, transform.position);
