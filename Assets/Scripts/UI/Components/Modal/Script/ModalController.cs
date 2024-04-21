@@ -56,6 +56,7 @@ public class ModalController : MonoBehaviour
         confirmButton.onClick.AddListener(InvokeConfirmButtonPress);
         cancelButton.onClick.AddListener(InvokeCancelButtonPress);
         alternateButton.onClick.AddListener(InvokeAlternateButtonPress);
+        gameObject.SetActive(false);
     }
 
     public void OnDestroy()
