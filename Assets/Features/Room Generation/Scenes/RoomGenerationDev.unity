@@ -2336,6 +2336,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ramayana 1 Spawn 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4497323378029832235, guid: c2449fd09b74b426a8b28b0c86bc038a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7509450837360587924, guid: c2449fd09b74b426a8b28b0c86bc038a, type: 3}
       propertyPath: GlobalObjectIdHash
       value: 1841472960
@@ -3270,7 +3274,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4753679330649469837, guid: 94b8af2922f754747b51c4dc205be97a, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9165201792446905270, guid: 94b8af2922f754747b51c4dc205be97a, type: 3}
       propertyPath: GlobalObjectIdHash
@@ -3544,6 +3548,10 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 2147483647
       objectReference: {fileID: 0}
+    - target: {fileID: 894781292983784050, guid: ca5c0655b5ffb4ab484ad0c966d41ffa, type: 3}
+      propertyPath: spawnOnStart
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 961960646699575092, guid: ca5c0655b5ffb4ab484ad0c966d41ffa, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 2147483647
@@ -3570,7 +3578,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1408041022832439749, guid: ca5c0655b5ffb4ab484ad0c966d41ffa, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1408041022832439749, guid: ca5c0655b5ffb4ab484ad0c966d41ffa, type: 3}
       propertyPath: m_StaticEditorFlags

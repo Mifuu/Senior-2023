@@ -24,6 +24,7 @@ namespace RoomGeneration
         private int spawnCount = 0;
         public EnemyRandomPool enemyPrefabPool;
         public bool spawnAtCenter;
+        public bool spawnOnStart;
 
         // playtime cache
         List<RoomSpawnerCollider> roomSpawnerColliders = new List<RoomSpawnerCollider>();
@@ -56,6 +57,12 @@ namespace RoomGeneration
                 RoomSpawnerCollider roomSpawnerCollider = box.AddComponent<RoomSpawnerCollider>();
                 roomSpawnerCollider.Init(this);
                 roomSpawnerColliders.Add(roomSpawnerCollider);
+            }
+
+            if (spawnOnStart)
+            {
+                SpawnEnemies();
+                timeSincePlayerExit = 0.1f;
             }
         }
 
