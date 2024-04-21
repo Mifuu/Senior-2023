@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 using ObserverPattern;
+using GlobalManager;
 
 public class MainMenuUIController : MonoBehaviour
 {
@@ -19,6 +20,7 @@ public class MainMenuUIController : MonoBehaviour
     [SerializeField] private Button creditButton;
     [SerializeField] private Button shopButton;
     [SerializeField] private Button settingButton;
+    [SerializeField] private Button loadSceneButton;
 
     [Header("Modal")]
     [SerializeField] private ModalController modal;
@@ -83,6 +85,9 @@ public class MainMenuUIController : MonoBehaviour
 
         if (settingButton != null)
             settingButton.onClick.AddListener(() => menuState.Value = MainMenuState.Setting);
+
+        if (loadSceneButton != null)
+            loadSceneButton.onClick.AddListener(() => Loader.Load(Loader.Scene.Sprint7Showcase));
 
         CloudService.AuthenticationService.Singleton.isAuthenticated.OnValueChanged += ChangeFindGameButtonStatus;
         menuState.OnValueChanged += ChangeMenu;

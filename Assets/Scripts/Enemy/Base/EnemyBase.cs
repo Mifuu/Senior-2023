@@ -272,7 +272,10 @@ namespace Enemy
             if (!IsServer || !isActiveAndEnabled) return;
 
             if (dealer != null)
-                dealer.GetComponent<PlayerLevel>()?.AddExp(stat.BaseEXP.Value);
+            {
+                var gaugeValue = GaugeSystem.Singleton.AddGauge("Kill", (int)stat.BaseEXP.Value);
+                dealer.GetComponent<PlayerLevel>()?.AddExp(gaugeValue);
+            }
 
             audioController?.PlaySFXAtObject(soundDeadName, transform.position);
             DesetupTargetPlayer();

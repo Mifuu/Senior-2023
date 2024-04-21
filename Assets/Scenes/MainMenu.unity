@@ -6399,7 +6399,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   devMode: 0
   devModeInclude:
-  - {fileID: 147894365}
   - {fileID: 363812000}
   selectedScene: 1
   findGameButton: {fileID: 1233138102}
