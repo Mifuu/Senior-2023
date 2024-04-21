@@ -11,6 +11,7 @@ public class BuffManager : NetworkBehaviour
     private PlayerMotor playerMotor;
     private PlayerStat playerStat;
     private SkillManager skillManager;
+    private PlayerSwitchWeapon gunHolder;
 
     #region SkillCard Network Variables
     public NetworkVariable<float> AtkBuff_SkillCard { get; set; } = new NetworkVariable<float>(1f);
@@ -22,6 +23,11 @@ public class BuffManager : NetworkBehaviour
     public NetworkVariable<float> SkillCooldownBuff_SkillCard { get; set; } = new NetworkVariable<float>(1f);
     #endregion
 
+    #region Player Skills Variables
+    public NetworkVariable<float> ShootingSpeedBuff_NormalSkill { get; set; } = new NetworkVariable<float>(0f);
+
+    #endregion
+
     #region BuffTotal variables
     public float AtkBuffTotal { get; private set; } = 1f; 
     public float DefBuffTotal { get; private set; } = 1f;
@@ -30,6 +36,7 @@ public class BuffManager : NetworkBehaviour
     public float JumpBuffTotal { get; private set; } = 0f;
     public float DashBuffTotal { get; private set; } = 0f;
     public float SkillCooldownBuffTotal { get; private set; } = 0f;
+    public float ShootingSpeedBuffTotal { get; private set; } = 1f;
     #endregion
 
     public struct Stats
@@ -62,7 +69,7 @@ public class BuffManager : NetworkBehaviour
     }
     public event Action OnBuffChanged;
 
-    // Start is called before the first frame update
+
     void Start()
     {
         playerHealth = FindObjectOfType<PlayerHealth>();
@@ -80,8 +87,15 @@ public class BuffManager : NetworkBehaviour
         DashBuff_SkillCard.OnValueChanged += (prev, current) => RecalculateDashBuffTotal();
         SkillCooldownBuff_SkillCard.OnValueChanged += (prev, current) => RecalculateSkillCooldownBuffTotal();
 
+        ShootingSpeedBuff_NormalSkill.OnValueChanged += (prev, current) => RecalculateShootingSpeedBuffTotal();
+
         // Initial calculation
         RecalculateAllBuffTotals();
+    }
+
+    public void InitializePlayerSwitchWeapon()
+    {
+        gunHolder = transform.GetComponentInChildren<PlayerSwitchWeapon>();
     }
 
     #region Recalculate Functions
@@ -147,6 +161,16 @@ public class BuffManager : NetworkBehaviour
         SkillCooldownBuffTotal = SkillCooldownBuff_SkillCard.Value;
         skillManager.SetSkillCooldownMultiplier(SkillCooldownBuffTotal);
         OnBuffChanged?.Invoke();
+    }
+
+    private void RecalculateShootingSpeedBuffTotal()
+    {
+        if (!IsOwner) return;
+        ShootingSpeedBuffTotal = 1 + ShootingSpeedBuff_NormalSkill.Value;
+        gunHolder.gunShootingSpeedMultiplier.Value = ShootingSpeedBuffTotal;
+        OnBuffChanged?.Invoke();
+        Debug.Log("Buff Manager: ShootingSpeedBuffTotal is " + ShootingSpeedBuffTotal);
+        Debug.Log("Buff Manager: ShootingSpeedBuff_NormalSkill is " + ShootingSpeedBuff_NormalSkill.Value);
     }
     #endregion
 
