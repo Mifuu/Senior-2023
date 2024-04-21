@@ -9697,7 +9697,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 133532}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.000000012964949, y: 0.8050504, z: -0.000000017594918, w: 0.5932065}
+  m_LocalRotation: {x: 0, y: 0.8050491, z: 0, w: 0.5932082}
   m_LocalPosition: {x: 4.138, y: 0, z: 0}
   m_LocalScale: {x: 3.5, y: 3.5, z: 3.5}
   m_ConstrainProportionsScale: 1
@@ -9705,7 +9705,7 @@ Transform:
   - {fileID: 457458}
   - {fileID: 1022116593339689538}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 107.23, z: 0}
 --- !u!33 &3381524
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -9771,7 +9771,7 @@ MonoBehaviour:
   interactableItemPrefab: {fileID: 133532}
   promptMessage: Infuse gun with earth element [ 20 earth shards ]
   totemType: 2
-  requireShard: 2
+  requireShard: 20
 --- !u!114 &8231820724813565716
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9811,7 +9811,7 @@ MeshCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 5
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: 1ba1ca7f46bcbd4409f255c9512af146, type: 3}
 --- !u!1 &135182
