@@ -19,7 +19,10 @@ namespace Enemy
         public void Awake()
         {
             if (associatorPrefab == null)
+            {
+                Debug.LogError("Associator Prefab is null");
                 Destroy(this);
+            }
         }
 
         public override void OnNetworkSpawn()
@@ -76,7 +79,7 @@ namespace Enemy
 
         private void SpawnAssociator(EnemyBase leafEnemy)
         {
-            if (vfxMap.ContainsKey(leafEnemy)) return; 
+            if (vfxMap.ContainsKey(leafEnemy)) return;
             var centerLocation = Vector3.Lerp(enemy.transform.position, leafEnemy.transform.position, 0.5f);
             centerLocation.y += yRaise;
             var associatorInstance = Instantiate(associatorPrefab, centerLocation, Quaternion.identity);

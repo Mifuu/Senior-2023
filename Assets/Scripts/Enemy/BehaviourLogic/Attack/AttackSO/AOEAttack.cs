@@ -8,6 +8,7 @@ namespace Enemy
         [Header("AOE Attack Attribute")]
         [SerializeField] private GameObject AOEGameObject;
         [SerializeField] private bool waitForAOEToEnd = false;
+        [SerializeField] private float maxSqrDistance = 1000f;
 
         private EnemyAOEBase aoeBase;
 
@@ -15,6 +16,13 @@ namespace Enemy
         {
             base.PerformAttack();
             if (!enemy.IsServer) return;
+
+            if ((enemy.transform.position - enemy.targetPlayer.transform.position).sqrMagnitude > maxSqrDistance)
+            {
+                EmitAttackEndsEvent();
+                return;
+            }
+
             var aoe = NetworkObjectPool.Singleton.GetNetworkObject(AOEGameObject, enemy.transform.position, AOEGameObject.transform.rotation);
             aoeBase = aoe.gameObject.GetComponent<EnemyAOEBase>();
 

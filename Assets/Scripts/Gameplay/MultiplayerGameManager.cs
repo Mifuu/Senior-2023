@@ -138,7 +138,7 @@ public class MultiplayerGameManager : Singleton<MultiplayerGameManager>
 
         if (bossRooms[playerIds.IndexOf(id)] != null)
         {
-            bossRooms[playerIds.IndexOf(id)].Despawn();
+            bossRooms[playerIds.IndexOf(id)].Despawn(true);
             bossRooms[playerIds.IndexOf(id)] = null;
         }
     }

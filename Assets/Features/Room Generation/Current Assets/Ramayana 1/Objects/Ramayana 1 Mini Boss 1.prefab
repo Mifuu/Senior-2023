@@ -6636,6 +6636,7 @@ MonoBehaviour:
   maxFailAttempts: 32
   enemyPrefabPool: {fileID: 11400000, guid: a4f4bf007b74a426a9297cd224be8e69, type: 2}
   spawnAtCenter: 1
+  spawnOnStart: 1
   timeSincePlayerExit: -1
   timeSinceSpawn: -1
   respawnTime: 60
