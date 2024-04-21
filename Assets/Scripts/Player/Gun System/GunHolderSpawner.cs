@@ -8,7 +8,7 @@ public class GunHolderSpawner : NetworkBehaviour
 {
     //[SerializeField] public PlayerSwitchWeapon gunHolder;
     [SerializeField] public GameObject player;
-    private GameObject gunHolder;
+    [SerializeField] private GameObject gunHolder;
    
     void Start()
     {

@@ -1,22 +1,25 @@
 using System.Collections;
+using Unity.Netcode;
 using UnityEngine;
 
-public class SkillManager : MonoBehaviour
+public class SkillManager : NetworkBehaviour
 {
-    [SerializeField] private Transform normalTransform;
-    [SerializeField] private Transform ultimateTransform;
+    // [SerializeField] private Transform normalTransform;
+   // [SerializeField] private Transform ultimateTransform;
 
-    private Skill normalSkill;
-    private Skill ultimateSkill;
+    [SerializeField] private Skill normalSkill;
+    [SerializeField] private Skill ultimateSkill;
+    public BuffManager buffManager;
 
     private bool normalSkillReady = true;
     private bool ultimateSkillReady = true;
 
     public void Awake()
     {
-        normalSkill = normalTransform.GetComponent<Skill>();
-        ultimateSkill = ultimateTransform.GetComponent<Skill>();
+        //normalSkill = normalTransform.GetComponent<Skill>();
+        //ultimateSkill = ultimateTransform.GetComponent<Skill>();
         //Debug.Log(normalSkill.name);
+        buffManager = transform.parent.GetComponent<BuffManager>();
     }
 
     public void SetSkillCooldownMultiplier(float multiplier)
@@ -42,6 +45,8 @@ public class SkillManager : MonoBehaviour
 
     public void ActivateNormalSkill()
     {
+        if (!IsOwner) return;
+
         //Debug.Log("SkillManaget: Try to activate Normal skill");
         if (normalSkillReady)
         {
@@ -67,23 +72,39 @@ public class SkillManager : MonoBehaviour
 
     public void ActivateUltimateSkill()
     {
-        //Debug.Log("SkillManaget: Try to activate Ultimate skill");
-        if (ultimateSkill != null&& ultimateSkillReady)
+        if (!IsOwner) return;
+
+        //Debug.Log("SkillManaget: Try to activate Ultimate Skil");
+        if (ultimateSkillReady)
         {
+            //Debug.Log("SkillManaget: Try to activate Normal skill success");
             ultimateSkill.Activate();
             ultimateSkillReady = false;
             StartCoroutine(UltimateSkillCooldown());
         }
+        else
+        {
+            // Log a message indicating why the condition was not met
+            if (ultimateSkill == null)
+            {
+                Debug.LogWarning("UltimateSkill component is null.");
+            }
+
+            if (!ultimateSkillReady)
+            {
+                Debug.LogWarning("Ultimate Skill is not ready.");
+            }
+        }
     }
 
-    // Example coroutine for normal skill cooldown
+    // Coroutine for normal skill cooldown
      private IEnumerator NormalSkillCooldown()
      {
          yield return new WaitForSeconds(normalSkill.Cooldown);
          normalSkillReady = true;
      }
 
-     //Example coroutine for ultimate skill cooldown
+     // Coroutine for ultimate skill cooldown
      private IEnumerator UltimateSkillCooldown()
      {
          yield return new WaitForSeconds(ultimateSkill.Cooldown);
