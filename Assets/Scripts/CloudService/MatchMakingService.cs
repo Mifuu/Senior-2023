@@ -128,6 +128,7 @@ namespace CloudService
                         case MultiplayAssignment.StatusOptions.Found:
                             isSearching.Value = false;
                             matchingSuccess = true;
+                            matchMakerTicketId = "";
                             break;
                         case MultiplayAssignment.StatusOptions.InProgress:
                             continue;
@@ -147,6 +148,12 @@ namespace CloudService
                 if (matchingSuccess)
                     StartCoroutine(ClientConnectToMultiplayServer(assignment));
             }
+        }
+
+        public async Task StopFindingMatch()
+        {
+            if (matchMakerTicketId != "")
+                await MatchmakerService.Instance.DeleteTicketAsync(matchMakerTicketId);
         }
 #endif
 
