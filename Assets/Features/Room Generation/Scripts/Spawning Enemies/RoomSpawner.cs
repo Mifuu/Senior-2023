@@ -173,6 +173,10 @@ namespace RoomGeneration
 
                         enemies.Add(enemy.GetComponent<EnemyBase>());
 
+                        // set enemy level
+                        var s = enemy.GetComponent<Enemy.EnemyStat>();
+                        s.SetEnemyLevel(GetEnemyLevel(spawnPosition.magnitude));
+
                         // GameObject e = Instantiate(enemyPrefab, spawnPosition, Quaternion.identity);
                         // e.GetComponent<NetworkObject>().Spawn();
 
@@ -196,6 +200,13 @@ namespace RoomGeneration
                     continue;
                 }
             }
+        }
+
+        private int GetEnemyLevel(float distanceFromCenter)
+        {
+            float l = Mathf.Lerp(75, 1, distanceFromCenter / 250);
+            l = Mathf.Clamp(l, 1, 75);
+            return Mathf.RoundToInt(l);
         }
 
         private bool IsInRoomBoxes(Vector3 position)
