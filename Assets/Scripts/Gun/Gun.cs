@@ -10,18 +10,24 @@ public class Gun : NetworkBehaviour
 {
     [SerializeField] private float raycastHitRange = 999f;
     [SerializeField] private float shootingDelay = 0.1f;
-    [SerializeField] public Transform bullet;
+    [SerializeField] public Transform normalBullet;
     [SerializeField] public Transform bulletSpawnPosition;
     [SerializeField] public GunInteractable gunInteractable;
     [SerializeField] public MuzzleFlash muzzleFlash;
     [SerializeField] public Sprite gunSprite;
-
+    [SerializeField] private Transform fireBullet;
+    [SerializeField] private Transform waterBullet;
+    [SerializeField] private Transform earthBullet;
+    [SerializeField] private Transform windBullet;
 
     [HideInInspector] public GameObject playerObject;
     [HideInInspector] public ElementalEntity playerEntity;
     [HideInInspector] public ElementAttachable elementAttachable;
     [HideInInspector] public DamageCalculationComponent playerDmgComponent;
 
+    [HideInInspector] public float shootingSpeedMultiplier = 1f;
+
+    private Transform currentBullet;
     private bool canShoot = true;
     private bool isOwned = true;
 
@@ -54,6 +60,46 @@ public class Gun : NetworkBehaviour
         //playerObject = transform.parent.parent.gameObject;
         playerEntity = playerObject.GetComponent<ElementalEntity>();
         playerDmgComponent = playerObject.GetComponent<DamageCalculationComponent>();
+        currentBullet = normalBullet;
+    }
+
+    public override void OnNetworkSpawn()
+    {
+        base.OnNetworkSpawn();
+        elementAttachable.ElementChanged += OnElementChanged;
+    }
+
+    public override void OnNetworkDespawn()
+    {
+        base.OnNetworkDespawn();
+        elementAttachable.ElementChanged -= OnElementChanged;
+    }
+
+    private void OnElementChanged(ElementalType newElement)
+    {
+        Debug.Log("Element changed to: " + newElement);
+
+        switch (newElement)
+        {
+            case ElementalType.Fire:
+                currentBullet = fireBullet;
+                break;
+            case ElementalType.Water:
+                currentBullet = waterBullet;
+                break;
+            case ElementalType.Earth:
+                currentBullet = earthBullet;
+                break;
+            case ElementalType.Wind:
+                currentBullet = windBullet;
+                break;
+            case ElementalType.None:
+                currentBullet = normalBullet;
+                break;
+            default:
+                Debug.LogWarning("Unhandled elemental type: " + newElement);
+                break;
+        }
     }
 
     // This is the old code for shooting slow bullet 
@@ -116,7 +162,7 @@ public class Gun : NetworkBehaviour
     public IEnumerator ShootingDelay()
     {
         UpdateCanShoot(false);
-        yield return new WaitForSeconds(shootingDelay);
+        yield return new WaitForSeconds(shootingDelay * shootingSpeedMultiplier);
         UpdateCanShoot(true);
     }
 
@@ -124,7 +170,7 @@ public class Gun : NetworkBehaviour
     public void SpawnFastBulletServerRpc(ulong playerId, Vector3 bulletSpawnPosition, Quaternion bulletRotation)
     {
         Debug.Log("Spawn fast bullet");
-        var bulletObj = Instantiate(bullet, bulletSpawnPosition, bulletRotation);
+        var bulletObj = Instantiate(currentBullet, bulletSpawnPosition, bulletRotation);
         var bulletComponent = bulletObj.GetComponent<BulletProjectileEffect>();
         bulletComponent.PlayerId = playerId; // Pass the player's network object ID
         var networkBulletObj = bulletObj.GetComponent<NetworkObject>();
@@ -134,7 +180,7 @@ public class Gun : NetworkBehaviour
     [ServerRpc]
     private void SpawnSlowBulletServerRpc(ulong playerId, Vector3 bulletSpawnPosition, Quaternion bulletRotation)
     {
-        var bulletObj = Instantiate(bullet, bulletSpawnPosition, bulletRotation);
+        var bulletObj = Instantiate(currentBullet, bulletSpawnPosition, bulletRotation);
 
         var bulletComponent = bulletObj.GetComponent<BulletProjectile>();
         bulletComponent.PlayerId = playerId; // Pass the player's network object ID
@@ -148,7 +194,7 @@ public class Gun : NetworkBehaviour
     [ServerRpc]
     private void SpawnBulletPoolServerRpc(Vector3 bulletSpawnPosition, Quaternion bulletRotation)
     {
-        var bulletObj = NetworkObjectPool.Singleton.GetNetworkObject(bullet.gameObject, bulletSpawnPosition, bulletRotation);
+        var bulletObj = NetworkObjectPool.Singleton.GetNetworkObject(currentBullet.gameObject, bulletSpawnPosition, bulletRotation);
         bulletObj.Spawn();
     }
 }
