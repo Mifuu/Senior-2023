@@ -101,7 +101,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interactableItemPrefab: {fileID: 105756}
-  promptMessage: Infuse gun with Wind element [ 20 wind shards ]
+  promptMessage: '[F] Infuse gun with Wind element [ 20 wind shards ]'
   totemType: 3
   requireShard: 20
 --- !u!114 &6090743330532357989
