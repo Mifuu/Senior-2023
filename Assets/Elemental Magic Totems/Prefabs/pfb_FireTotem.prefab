@@ -9684,7 +9684,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interactableItemPrefab: {fileID: 124340}
-  promptMessage: Infuse gun with Fire element [ 20 fire shards ]
+  promptMessage: '[F] Infuse gun with Fire element [ 20 fire shards ]'
   totemType: 1
   requireShard: 20
 --- !u!114 &6951768765673362736
