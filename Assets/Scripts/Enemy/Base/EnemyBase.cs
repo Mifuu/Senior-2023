@@ -234,14 +234,17 @@ namespace Enemy
 
             if (IsServer)
             {
+                enabled = enabled && true;
                 networkMaxHealth.Value = maxHealth;
                 currentHealth.Value = maxHealth;
                 OnTargetPlayerRefindRequired();
                 audioController?.PlaySFXAtObject(soundSpawnName, transform.position);
-                spawnDistanceCheckCoroutine = CheckDistanceFromSpawn();
+
                 if (!disabledReturnState && isActiveAndEnabled)
+                {
+                    spawnDistanceCheckCoroutine = CheckDistanceFromSpawn();
                     StartCoroutine(spawnDistanceCheckCoroutine);
-                enabled = true;
+                }
             }
 
             networkMaxHealth.OnValueChanged += AdjustMaxHealth;
@@ -339,7 +342,7 @@ namespace Enemy
                 if (newTarget == null) return;
                 OnTargetPlayerChanged -= Setup;
                 SetupNewTargetPlayer(newTarget);
-                enabled = true;
+                enabled = enabled && true;
             }
 
             OnTargetPlayerChanged += Setup;
