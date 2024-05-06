@@ -63,13 +63,13 @@ namespace CloudService
         private async Task InitializeServerComponent()
         {
             Logger.Log($"Matchmaker: {MatchMakingService.Singleton != null}");
-            Logger.Log($"StatService: {StatService.Singleton != null}");
+            /* Logger.Log($"StatService: {StatService.Singleton != null}"); */
             Loader.LoadLoading();
             Logger.Log("Game Scene Loaded");
 
             var initializer = new List<Task>()
             {
-                StatService.Singleton.Initialize(),
+                /* StatService.Singleton.Initialize(), */
                 MatchMakingService.Singleton.Initialize(),
             };
             await Task.WhenAll(initializer);
@@ -88,17 +88,17 @@ namespace CloudService
             Logger.Log("Begin Post Authentication Initialize");
             Logger.Log($"Achievement check: {AchievementService.Singleton != null}");
             Logger.Log($"Economy check: {EconomyService.Singleton != null}");
-            Logger.Log($"StatService check: {StatService.Singleton != null}");
+            /* Logger.Log($"StatService check: {StatService.Singleton != null}"); */
             Logger.Log($"MatchMakingService check: {MatchMakingService.Singleton != null}");
 
-            try
-            {
-                await StatService.Singleton.Initialize();
-            }
-            catch (Exception e)
-            {
-                Logger.LogError(e.Message, true);
-            }
+            /* try */
+            /* { */
+            /*     await StatService.Singleton.Initialize(); */
+            /* } */
+            /* catch (Exception e) */
+            /* { */
+            /*     Logger.LogError(e.Message, true); */
+            /* } */
 
             try
             {

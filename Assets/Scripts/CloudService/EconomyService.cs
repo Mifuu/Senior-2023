@@ -24,7 +24,6 @@ namespace CloudService
             await Unity.Services.Economy.EconomyService.Instance.Configuration.SyncConfigurationAsync();
             Logger.Log("initialization");
             purchaseDefinitions = Unity.Services.Economy.EconomyService.Instance.Configuration.GetVirtualPurchases();
-            Debug.Log("purchase definition count: " + purchaseDefinitions.Count);
             isServiceReady.Value = true;
             Logger.Log("initialization complete");
 #endif

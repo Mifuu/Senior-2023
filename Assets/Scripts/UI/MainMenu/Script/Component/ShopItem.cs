@@ -8,19 +8,39 @@ public class ShopItem : MonoBehaviour
     [SerializeField] private Image image;
     [SerializeField] private TextMeshProUGUI titleObj;
     [SerializeField] private TextMeshProUGUI descriptionObj;
-    [SerializeField] private TextMeshProUGUI status;
+    [SerializeField] private Button purchaseButton;
 
-    VirtualPurchaseDefinition purschaseDefinition;
+    VirtualPurchaseDefinition purchaseDefinition;
+
+    public void Awake()
+    {
+        purchaseButton.onClick.AddListener(MakePurchase);
+    }
+
+    public void OnDestroy()
+    {
+        purchaseButton.onClick.RemoveAllListeners();
+    }
 
     public void SetDetail(VirtualPurchaseDefinition purchaseDefinition)
     {
-        this.purschaseDefinition = purchaseDefinition;
+        this.purchaseDefinition = purchaseDefinition;
         Rerender();
     }
 
-    public void Rerender()
+    public async void Rerender()
     {
-        titleObj.text = purschaseDefinition.Name;
-        descriptionObj.text = purschaseDefinition.Costs[0].Amount.ToString();
+        titleObj.text = purchaseDefinition.Name;
+        descriptionObj.text = purchaseDefinition.Costs[0].Amount.ToString();
+        purchaseButton.interactable = await purchaseDefinition.CanPlayerAffordPurchaseAsync();
     }
+
+#if !DEDICATED_SERVER
+    public async void MakePurchase()
+    {
+        MakeVirtualPurchaseResult result = await Unity.Services.Economy.EconomyService
+            .Instance.Purchases.MakeVirtualPurchaseAsync(purchaseDefinition.Id);
+        Rerender();
+    }
+#endif
 }
