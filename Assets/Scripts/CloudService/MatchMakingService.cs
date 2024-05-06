@@ -37,7 +37,8 @@ namespace CloudService
         private string defaultMap = "DefaultMap";
         private Subject<int> currentPlayerNumbers = new Subject<int>(0);
         private bool hasPlayerConnected = false;
-        private int totalPlayerInCurrentMatch = -1;
+        public int totalPlayerInCurrentMatch = -1;
+        public List<Unity.Services.Matchmaker.Models.Player> listOfPlayers = new Subject<List<Player>>(new List<Player>());
 #endif
 
         public void Awake()
@@ -179,6 +180,7 @@ namespace CloudService
 
             var payloadAllocation = await MultiplayService.Instance.GetPayloadAllocationFromJsonAs<MatchmakingResults>();
             totalPlayerInCurrentMatch = payloadAllocation.MatchProperties.Players.Count;
+            listOfPlayers = payloadAllocation.MatchProperties.Players;
             Logger.Log($"Players in Match - {totalPlayerInCurrentMatch}");
 
             var serverConfig = MultiplayService.Instance.ServerConfig;
@@ -226,9 +228,15 @@ namespace CloudService
 
         private void DedicatedServer_ClientDisconnectCallback(ulong id)
         {
+            void Quit(bool _, bool __) => Application.Quit(0);
+            
             currentPlayerNumbers.Value--;
             if (hasPlayerConnected && currentPlayerNumbers.Value == 0)
             {
+                if (StatService.Singleton.hasOperationFinished.Value)
+                    Quit(false, false);
+                else
+                    StatService.Singleton.hasOperationFinised.OnValueChanged += Quit;
                 Logger.Log("All Players has disconnected, exiting");
                 Application.Quit(0);
             }

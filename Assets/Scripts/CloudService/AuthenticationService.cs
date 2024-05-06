@@ -1,6 +1,7 @@
 using ObserverPattern;
 using System.Threading.Tasks;
 using System;
+using Unity.Services.Authentication;
 
 namespace CloudService
 {
@@ -9,6 +10,7 @@ namespace CloudService
         public Subject<bool> isAuthenticated = new Subject<bool>(false);
         private CloudLogger.CloudLoggerSingular Logger;
         public string playerName;
+        public Unity.Services.Authentication.PlayerInfo currentPlayer;
 
         public AuthenticationService()
         {
@@ -26,6 +28,7 @@ namespace CloudService
                 // Shows how to get an access token
                 Logger.Log($"Access Token: {Unity.Services.Authentication.AuthenticationService.Instance.AccessToken}");
                 MainMenuUIController.Singleton.menuState.Value = MainMenuUIController.MainMenuState.Main;
+                currentPlayer = Unity.Services.Authentication.AuthenticationService.Instance.PlayerInfo;
             };
 
             Unity.Services.Authentication.AuthenticationService.Instance.SignInFailed += (err) =>
@@ -36,6 +39,7 @@ namespace CloudService
             Unity.Services.Authentication.AuthenticationService.Instance.SignedOut += () =>
             {
                 Logger.Log("Player signed out.");
+                currentPlayer = null;
             };
 
             Unity.Services.Authentication.AuthenticationService.Instance.Expired += () =>
