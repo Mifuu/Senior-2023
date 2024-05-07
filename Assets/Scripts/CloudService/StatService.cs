@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using Unity.Services.CloudSave;
 using Unity.Services.CloudSave.Models.Data.Player;
 using ObserverPattern;
+using UnityEngine.Networking;
+using System.Collections;
 
 namespace CloudService
 {
@@ -12,12 +14,12 @@ namespace CloudService
     {
         private CloudLogger.CloudLoggerSingular Logger;
         public static StatService Singleton;
+        private HashSet<string> listOfAllStatName;
+
         [SerializeField] private List<BaseStatCollector> statCollectors;
 
-#if DEDICATED_SERVER
-
         private Dictionary<string, Dictionary<string, object>> allPlayersFullData = new Dictionary<string, Dictionary<string, object>>();
-        public Dictionary<ulong, string> networkIdMapper;
+        public Dictionary<ulong, string> networkIdMapper = new Dictionary<ulong, string>();
 
         public Subject<bool> hasOperationFinished = new Subject<bool>(false);
 
@@ -25,41 +27,70 @@ namespace CloudService
         {
             if (Singleton == null)
             {
-                Logger = CloudLogger.Singleton.Get("Stat");
                 Singleton = this;
+                Logger = CloudLogger.Singleton.Get("Stat");
+                for (int i = 0; i < statCollectors.Count; i++)
+                    statCollectors[i] = Instantiate(statCollectors[i]);
+                listOfAllStatName = PullStatIdFromCollector();
             }
             else
                 Destroy(this);
         }
 
-        public async override void OnNetworkSpawn()
+        public override void OnNetworkSpawn()
         {
-            NetworkManager.Singleton.OnClientConnectedCallback += CreateMapper;
-            NetworkManager.Singleton.OnClientDisconnectCallback += FinalizeStat;
-            await GetAllPlayerData();
+#if DEDICATED_SERVER
+            Logger.Log("initialization");
+            /* NetworkManager.Singleton.OnClientConnectedCallback += CreateMapper; */
+            NetworkManager.Singleton.OnClientDisconnectCallback += (id) => FinalizeStat(id);
+            CreateMapper();
+            /* GetAllPlayerData(); */
+            Logger.Log("initialization complete");
+#endif
         }
 
         private async Task GetAllPlayerData()
         {
+#if DEDICATED_SERVER
+            Logger.Log("getting all the player data rn");
+            HashSet<string> listOfStat = PullStatIdFromCollector();
             List<Task> allTasks = new List<Task>();
-            foreach (var player in CloudService.MatchMakingService.listOfAllPlayers)
-                allTasks.Add(GetPlayerData(player.Id));
+            foreach (var player in networkIdMapper.Values)
+                allTasks.Add(GetPlayerData(player, listOfStat));
             await Task.WhenAll(allTasks);
+            Logger.Log("Finished getting all the player daata");
+#endif
         }
 
         [ClientRpc]
-        private NetworkString GetPlayerIDClientRpc(ClientRpcParams rpcParams = default)
+        private void GetPlayerIDClientRpc()
         {
-            if (CloudService.AuthenticationService.Singleton.currentPlayer == null)
-                return "";
-            return CloudService.AuthenticationService.Singleton.currentPlayer.Id;
+            Logger.Log("My id is: " + Unity.Services.Authentication.AuthenticationService.Instance.PlayerId);
+            SetPlayerIDServerRpc(Unity.Services.Authentication.AuthenticationService.Instance.PlayerId);
+        }
+
+        [ServerRpc(RequireOwnership = false)]
+        private void SetPlayerIDServerRpc(NetworkString playerId, ServerRpcParams rpcParams = default)
+        {
+            Logger.Log("getting the id from server rpc: " + playerId);
+#if DEDICATED_SERVER
+            Logger.Log("Adding: " + rpcParams.Receive.SenderClientId + ", playerId: " + playerId);
+            networkIdMapper.Add(rpcParams.Receive.SenderClientId, playerId);
+
+            if (networkIdMapper.Count >= CloudService.MatchMakingService.Singleton.totalPlayerInCurrentMatch)
+                GetAllPlayerData();
+            /* GetPlayerData(playerId, listOfAllStatName); */
+#endif
+            Logger.Log("Finishing the set player id server rpc");
         }
 
         private async Task GetPlayerData(string playerKey, HashSet<string> statList)
         {
-            var playerData = await CloudSaveService.Instance.Data.Player.LoadAllAsync(
-                new LoadAllOptions(new PublicReadAccessClassOptions(playerKey)));
+            Logger.Log($"getting player data with id {playerKey}");
+            var playerData = await CloudSaveService.Instance.Data.Player.LoadAsync(statList,
+                new LoadOptions(new PublicReadAccessClassOptions(playerKey)));
 
+            Logger.Log("player Data: " + playerData);
             var data = new Dictionary<string, object>();
             foreach (KeyValuePair<string, Unity.Services.CloudSave.Models.Item> pair in playerData)
                 data.Add(pair.Key, pair.Value.Value);
@@ -67,22 +98,17 @@ namespace CloudService
             await PushPlayerDataToCollector();
         }
 
-        private void CreateMapper(ulong playerId)
+        private void CreateMapper()
         {
             if (!IsServer) return;
-            var id = GetPlayerIDClientRpc(new ClientRpcParams
-            {
-                Send = new ClientRpcSendParams
-                {
-                    TargetClientIds = new ulong[] { playerId }
-                }
-            });
-
-            networkIdMapper.Add(playerId, id);
+            Logger.Log("Creating Mapper");
+            // Logger.Log("GetPlayerIDCLientRPC playerID: " + playerId);
+            GetPlayerIDClientRpc();
         }
 
         private HashSet<string> PullStatIdFromCollector()
         {
+            Logger.Log("Pulling the stat id from collector");
             HashSet<string> allStatName = new HashSet<string>();
             foreach (var collector in statCollectors)
             {
@@ -98,6 +124,8 @@ namespace CloudService
 
         private async Task PushPlayerDataToCollector()
         {
+#if DEDICATED_SERVER
+            Logger.Log("Pushing player data to collector");
             Dictionary<string, List<BaseStatCollector.NetworkStat>> stats = new Dictionary<string, List<BaseStatCollector.NetworkStat>>();
             List<Task> uploadToCloud = new List<Task>();
             foreach (var collector in statCollectors)
@@ -111,33 +139,53 @@ namespace CloudService
                 }
             }
             await Task.WhenAll(uploadToCloud);
+            Logger.Log("Finished Pushing player data to collector");
+#endif
         }
 
         private async Task SetCloudStat(string playerId, Dictionary<string, object> stats)
         {
-            // TODO: How do the server write the player's data?
-            await Unity.Services.CloudSave.CloudSaveService.Instance.Data.Player.SaveAsync(stats,
-                    new Unity.Services.CloudSave.Models.Data.Player.SaveOptions(new PublicWriteAccessClassOptions()));
+            // Web request must be used to save each player data to cloud save
+#if ENABLE_UCS_SERVER 
+            Logger.Log("Setting the stat on the cloud");
+            var envId = CloudServiceManager.Singleton.environmentID;
+            var projectId = CloudServiceManager.Singleton.projectId;
+            var payload = JsonUtility.ToJson(stats);
+            var token = Unity.Services.Authentication.Server.ServerAuthenticationService.Instance.AccessToken;
+            using (UnityWebRequest www = UnityWebRequest.
+                    Post($"https://services.api.unity.com/cloud-save/v1/data/projects/{projectId}/environments/{envId}/players/{playerId}/items", payload, "application/json"))
+            {
+                www.SetRequestHeader("Authentication", $"Bearer {token}");
+                www.SendWebRequest();
+                if (www.result != UnityWebRequest.Result.Success)
+                {
+                    Logger.LogError(www.error, true);
+                }
+                else
+                {
+                    Logger.Log("stat save successfully");
+                }
+            }
+#endif
         }
 
         private async Task FinalizeStat(ulong networkId)
         {
+#if DEDICATED_SERVER
+            Logger.Log("Finalizing Stat");
             foreach (var collector in statCollectors)
             {
                 await SetCloudStat(networkIdMapper[networkId], collector.PushStatToStatService(networkIdMapper[networkId]));
-                await AchievementService.Singleton.UpdateAchievementServerSide();
+                await AchievementService.Singleton.UpdateAchievementServerSide(networkIdMapper[networkId]);
             }
 
-            if (CloudService.MatchMakingService.totalPlayerInCurrentMatch <= 0)
+            if (CloudService.MatchMakingService.Singleton.totalPlayerInCurrentMatch <= 0)
                 hasOperationFinished.Value = true;
-        }
-
 #endif
+        }
 
         public async Task Initialize()
         {
-            Logger.Log("initialization");
-            Logger.Log("initialization complete");
         }
     }
 }

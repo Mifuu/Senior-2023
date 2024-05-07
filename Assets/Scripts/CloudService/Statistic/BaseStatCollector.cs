@@ -4,14 +4,24 @@ using System.Collections.Generic;
 
 public class BaseStatCollector : ScriptableObject
 {
+    public static BaseStatCollector Singleton;
+
     [Serializable]
     public struct NetworkStat
     {
         [SerializeField] public string name;
-        [SerializeField] public object defaultValue;
+        [SerializeField] public int defaultValue;
     }
 
     [SerializeField] public List<NetworkStat> listOfStats;
+
+    public void Awake()
+    {
+        if (Singleton == null)
+            Singleton = this;
+        else 
+            Destroy(this);
+    }
 
 #if DEDICATED_SERVER
 

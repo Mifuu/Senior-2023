@@ -38,7 +38,7 @@ namespace CloudService
         private Subject<int> currentPlayerNumbers = new Subject<int>(0);
         private bool hasPlayerConnected = false;
         public int totalPlayerInCurrentMatch = -1;
-        public List<Unity.Services.Matchmaker.Models.Player> listOfPlayers = new Subject<List<Player>>(new List<Player>());
+        public List<Unity.Services.Matchmaker.Models.Player> listOfPlayers = new List<Player>();
 #endif
 
         public void Awake()
@@ -236,7 +236,7 @@ namespace CloudService
                 if (StatService.Singleton.hasOperationFinished.Value)
                     Quit(false, false);
                 else
-                    StatService.Singleton.hasOperationFinised.OnValueChanged += Quit;
+                    StatService.Singleton.hasOperationFinished.OnValueChanged += Quit;
                 Logger.Log("All Players has disconnected, exiting");
                 Application.Quit(0);
             }

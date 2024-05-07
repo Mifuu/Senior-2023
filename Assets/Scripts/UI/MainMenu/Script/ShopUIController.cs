@@ -12,6 +12,7 @@ public class ShopUIController : MonoBehaviour
     public void Awake()
     {
         CloudService.EconomyService.Singleton.isServiceReady.OnValueChanged += PopulateShopItems;
+        if (CloudService.EconomyService.Singleton.isServiceReady.Value) PopulateShopItems(true, true);
 #if !DEDICATED_SERVER
         backButton.onClick.AddListener(() => MainMenuUIController.Singleton.menuState.Value = MainMenuUIController.MainMenuState.Main);
 #endif
