@@ -17,4 +17,4 @@ MonoBehaviour:
   nextLevelPrefab: {fileID: 7737883019265630326, guid: 1907c35dbb76f99449147d97b1f3d742, type: 3}
   name: Skill Cooldown Reduciton Lv.2
   description: Reduce skill cooldown by 8%
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: a33f17ac9eac71846b242882f4df1aaf, type: 3}
