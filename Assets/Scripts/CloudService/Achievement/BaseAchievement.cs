@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Linq;
+using UnityEngine.UI;
 
 public abstract class BaseAchievement : ScriptableObject
 {
@@ -9,16 +10,19 @@ public abstract class BaseAchievement : ScriptableObject
     public abstract bool CheckAchievementServerSide(Dictionary<string, Unity.Services.CloudSave.Models.Item> dict, out string achievementId);
 
     // Frontend
+    [Header("Description")]
     [SerializeField] public new string name;
     [SerializeField] public string description;
-    [SerializeField] public Sprite icon;
+    [SerializeField] public Image icon;
 
+    [Header("Reward")]
     [SerializeField] public int rewardAmount;
     [SerializeField] public string rewardCurrencyId;
 
+    [Header("Display")]
     [SerializeField] public List<AchievementDisplay> displays;
 
-    public AchievementStatus status = AchievementStatus.Ongoing;
+    [HideInInspector] public AchievementStatus status = AchievementStatus.Ongoing;
 
     public void CheckAchievementClientSide(List<AchievementClaimable> unlocked)
     {
@@ -46,6 +50,7 @@ public abstract class BaseAchievement : ScriptableObject
             return claimable;
         });
         status = AchievementStatus.Claimed;
+        await CloudService.AchievementService.Singleton.FetchCompletedAchievement();
     }
 }
 

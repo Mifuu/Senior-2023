@@ -9,12 +9,15 @@ public class ShopItem : MonoBehaviour
     [SerializeField] private TextMeshProUGUI titleObj;
     [SerializeField] private TextMeshProUGUI descriptionObj;
     [SerializeField] private Button purchaseButton;
+    [SerializeField] private TextMeshProUGUI buttonTextObj;
 
     VirtualPurchaseDefinition purchaseDefinition;
 
     public void Awake()
     {
+#if !DEDICATED_SERVER
         purchaseButton.onClick.AddListener(MakePurchase);
+#endif
     }
 
     public void OnDestroy()
@@ -33,6 +36,7 @@ public class ShopItem : MonoBehaviour
         titleObj.text = purchaseDefinition.Name;
         descriptionObj.text = purchaseDefinition.Costs[0].Amount.ToString();
         purchaseButton.interactable = await purchaseDefinition.CanPlayerAffordPurchaseAsync();
+        buttonTextObj.text = purchaseDefinition.Costs[0].Amount.ToString() + " " + purchaseDefinition.Costs[0].Item.GetReferencedConfigurationItem().Name;
     }
 
 #if !DEDICATED_SERVER

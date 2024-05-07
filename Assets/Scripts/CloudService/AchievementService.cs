@@ -1,82 +1,54 @@
 using System.Threading.Tasks;
 using UnityEngine;
 using Unity.Services.CloudSave;
+using Unity.Services.CloudSave.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using ObserverPattern;
+using Unity.Services.CloudSave.Models.Data.Player;
+using UnityEngine.Networking;
 
 namespace CloudService
 {
-    public class AchievementService : BaseCloudServiceSingleton<AchievementService>
+    public class AchievementService : MonoBehaviour
     {
+        public static AchievementService Singleton;
         private CloudLogger.CloudLoggerSingular Logger;
-        /* public List<Achievement> achievementsList; */
 
-        public List<AchievementClaimable> listOfCompletedAchievement;
-        public List<BaseAchievement> listOfAllAchievement;
+        public List<AchievementClaimable> listOfCompletedAchievement = new List<AchievementClaimable>();
+        public AchievementList achievementList;
+        public Subject<bool> isServiceReady = new Subject<bool>(false);
 
-        public AchievementService()
+        public void Awake()
         {
-            Logger = CloudLogger.Singleton.Get("Achievement");
-            /* achievementsList = new List<Achievement>(); */
+            if (Singleton == null)
+            {
+                DontDestroyOnLoad(this);
+                Singleton = this;
+            }
+            else
+                Destroy(this);
         }
 
-        public async override Task Initialize()
+        public async Task Initialize()
         {
+            Logger = CloudLogger.Singleton.Get("Achievement");
 #if !DEDICATED_SERVER
             Logger.Log("initialization");
-            /* await LoadAllAchievement(); */
+            await FetchCompletedAchievement();
+            isServiceReady.Value = true;
             Logger.Log("initialization complete");
 #endif 
         }
 
-        /* public async Task LoadAllAchievement() */
-        /* { */
-        /*     Logger.Log("Loading all achievement"); */
-        /*     var achievementData = await CloudSaveService.Instance.Data.Custom.LoadAllAsync("achievement"); */
-        /*     foreach (var achievement in achievementData) */
-        /*     { */
-        /*         var acObj = ConvertDictToAchievementObj(achievement.Value.Value.GetAs<Dictionary<string, string>>()); */
-        /*         achievementsList.Add(acObj); */
-        /*     } */
-        /*     Logger.Log("Finished loading achievement"); */
-        /*     isServiceReady.Value = true; */
-        /* } */
-
-        /* public Achievement ConvertDictToAchievementObj(Dictionary<string, string> dict) */
-        /* { */
-        /*     foreach (KeyValuePair<string, string> entry in dict) */
-        /*         Debug.Log($"{entry.Key}={entry.Value}"); */
-
-        /*     var achieve = new Achievement(); */
-        /*     dict.TryGetValue("id", out achieve.id); */
-        /*     dict.TryGetValue("name", out achieve.name); */
-        /*     dict.TryGetValue("description", out achieve.description); */
-        /*     dict.TryGetValue("icon", out achieve.icon); */
-
-        /*     dict.TryGetValue("rewardCurrencyID", out achieve.rewardCurrencyID); */
-        /*     dict.TryGetValue("statFieldName", out achieve.statFieldName); */
-        /*     dict.TryGetValue("condition", out achieve.condition); */
-        /*     dict.TryGetValue("conditionValue", out achieve.conditionValue); */
-        /*     dict.TryGetValue("category", out achieve.category); */
-
-        /*     if (dict.TryGetValue("rewardAmount", out var rewardAmount)) */
-        /*     { */
-        /*         if (Int32.TryParse(rewardAmount, out var rewardAmountInt)) */
-        /*             achieve.rewardAmount = rewardAmountInt; */
-        /*     } */
-        /*     else */
-        /*         achieve.rewardAmount = 100; */
-
-        /*     return achieve; */
-        /* } */
-
-        // TODO: This should be a function that writes to one player achievement
-        // How do i write to the data of just one player?
-        public async Task UpdateAchievementServerSide()
+        public async Task UpdateAchievementServerSide(string playerId)
         {
-            var playerDatas = await Unity.Services.CloudSave.CloudSaveService.Instance.Data.Player.LoadAllAsync();
-            var achievementData = await Unity.Services.CloudSave.CloudSaveService.Instance.Data.Player.LoadAsync(new HashSet<string>() { "achievement" });
+#if ENABLE_UCS_SERVER
+            var playerDatas = await Unity.Services.CloudSave.CloudSaveService.Instance.Data.Player.LoadAllAsync(new LoadAllOptions(new PublicReadAccessClassOptions(playerId)));
+            var achievementData = await Unity.Services.CloudSave.CloudSaveService
+                .Instance.Data.Player.LoadAsync(new HashSet<string>() { "achievement" }, 
+                    new LoadOptions(new PublicReadAccessClassOptions(playerId)));
             List<AchievementClaimable> claimables;
 
             if (achievementData.TryGetValue("achievement", out var achievement))
@@ -84,35 +56,41 @@ namespace CloudService
             else
                 claimables = new List<AchievementClaimable>();
 
-            foreach (var ac in listOfAllAchievement)
+            foreach (var ac in achievementList.allAchievement)
             {
                 if (!ac.CheckAchievementServerSide(playerDatas, out var achievementId)) continue;
                 claimables.Add(new AchievementClaimable(achievementId, false));
             }
 
-            await Unity.Services.CloudSave.CloudSaveService.Instance.Data.Player.SaveAsync(new Dictionary<string, object> { { "achievement", claimables } });
+           // Are you fucking kidding me?
+            var envId = CloudServiceManager.Singleton.environmentID;
+            var projectId = CloudServiceManager.Singleton.projectId;
+            var payload = JsonUtility.ToJson(new Dictionary<string, object>() {{ "achievement", claimables }});
+            var token = Unity.Services.Authentication.Server.ServerAuthenticationService.Instance.AccessToken;
+            using (UnityWebRequest www = UnityWebRequest.
+                    Post($"https://services.api.unity.com/cloud-save/v1/data/projects/{projectId}/environments/{envId}/players/{playerId}/items", payload, "application/json"))
+            {
+                www.SetRequestHeader("Authentication", $"Bearer {token}");
+                www.SendWebRequest();
+                if (www.result != UnityWebRequest.Result.Success)
+                {
+                    Logger.LogError(www.error, true);
+                }
+                else
+                {
+                    Logger.Log("achievement save successfully");
+                }
+            }
+            /* await Unity.Services.CloudSave.CloudSaveService.Instance.Data.Player.SaveAsync(new Dictionary<string, object> { { "achievement", claimables } }); */
+#endif
         }
 
-        public void FetchCompletedAchievement()
+        public async Task FetchCompletedAchievement()
         {
-
+            var playerData = await Unity.Services.CloudSave.CloudSaveService.Instance.Data.Player.LoadAllAsync();
+            if (playerData.TryGetValue("achievement", out var achievement))
+                listOfCompletedAchievement = achievement.Value.GetAs<List<AchievementClaimable>>();
+            achievementList.allAchievement.ForEach((a) => a.CheckAchievementClientSide(listOfCompletedAchievement));
         }
     }
-
-    /* public struct Achievement */
-    /* { */
-    /*     public string id; */
-    /*     public string name; */
-    /*     public string description; */
-    /*     public string icon; */
-
-    /*     public int rewardAmount; */
-    /*     public string rewardCurrencyID; */
-
-    /*     public string statFieldName; */
-    /*     public string condition; */
-    /*     public string conditionValue; */
-
-    /*     public string category; */
-    /* } */
 }

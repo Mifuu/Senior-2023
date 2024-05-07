@@ -94,6 +94,14 @@ public class PlayerStat : NetworkBehaviour
 
     #endregion
 
+    public NetworkVariable<ulong> playerId = new NetworkVariable<ulong>();
+
+    [ServerRpc]
+    public void SetPlayerIdServerRpc(ServerRpcParams rpcParams = default)
+    {
+        playerId.Value = rpcParams.Receive.SenderClientId; 
+    }
+        
     // NOTE: In Level Changed - Stats Upgrade Event, 
     // OnStatsChanged will be called ONCE even if multiple stats are changed
     public event Action OnStatsChanged;
@@ -112,6 +120,7 @@ public class PlayerStat : NetworkBehaviour
     public override void OnNetworkSpawn()
     {
         base.OnNetworkSpawn();
+        SetPlayerIdServerRpc();
         if (!IsServer || isStatsReady) return;
 
         BaseStat[(int)StatsEnum.ATK] = defaultATK;

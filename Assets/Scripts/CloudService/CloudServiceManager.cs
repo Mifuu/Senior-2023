@@ -10,6 +10,8 @@ namespace CloudService
     public class CloudServiceManager : BaseCloudServiceSingleton<CloudServiceManager>
     {
         public CloudLogger.CloudLoggerSingular Logger;
+        public string projectId = "8e9d7dbc-33a3-40fa-8ba2-2f4374a76f0c";
+        public string environmentID = "production";
         public CloudServiceManager()
         {
             Logger = CloudLogger.Singleton.Get("Manager");

@@ -19,7 +19,12 @@ namespace CloudService
 
         public override async Task Initialize()
         {
-#if !DEDICATED_SERVER
+            Logger.Log("initializing");
+#if ENABLE_UCS_SERVER
+            await Unity.Services.Authentication.Server.ServerAuthenticationService.Instance.SignInFromServerAsync();
+#endif
+
+#if !DEDICATED_SERVER 
             Unity.Services.Authentication.AuthenticationService.Instance.SignedIn += () =>
             {
                 // Shows how to get a playerID
@@ -46,6 +51,7 @@ namespace CloudService
             {
                 Logger.Log("Player session could not be refreshed and expired.");
             };
+            Logger.Log("initializing complete");
 #endif
         }
 
