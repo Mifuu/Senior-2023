@@ -62,6 +62,13 @@ public class MultiplayerGameManager : Singleton<MultiplayerGameManager>
 
     void OnLevelGenerated()
     {
+        StartCoroutine(OnLevelGeneratedCR());
+    }
+
+    IEnumerator OnLevelGeneratedCR()
+    {
+        yield return new WaitForSeconds(0.2f);
+
         NetworkDebugManager.LogMessage("[MGM] Spawning players...");
 
         // spawning player in the correct position
@@ -76,11 +83,11 @@ public class MultiplayerGameManager : Singleton<MultiplayerGameManager>
         {
             ulong id = ids[i];
 
-            Vector3 spawnPosition = Vector3.zero;
+            Vector3 spawnPosition = Vector3.zero + Vector3.up * 4;
             if (spawnTransform.Count > i)
                 spawnPosition = spawnTransform[i].position;
             else
-                Debug.LogWarning("No spawn position... Spawning at 0,0,0");
+                Debug.LogWarning("No spawn position... Spawning at 0,4,0");
 
             // SpawnPlayerClientRpc(spawnPosition, id);
             GameObject player = Instantiate(playerPrefab, spawnPosition, Quaternion.identity);
