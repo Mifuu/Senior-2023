@@ -226,7 +226,7 @@ namespace RoomGeneration
             {
                 // random vacant door
                 // random door data
-                // GeneratedDoorData targetDoor = GetRandom(vacantDoors);\
+                // GeneratedDoorData targetDoor = GetRandom(vacantDoors);
                 GeneratedDoorData targetDoor = vacantDoors[0];
                 latestTargetDoorPos = V3Multiply(targetDoor.worldCoord, roomSet.snapValue.value);
 
