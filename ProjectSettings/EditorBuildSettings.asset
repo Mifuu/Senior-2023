@@ -11,7 +11,7 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/LoadingScene.unity
     guid: 5de019e124df8a94dad9cbd004ac303a
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Sprint7Showcase.unity
     guid: b9fb887058847430faf8acd0c598f37e
   - enabled: 0
@@ -62,4 +62,7 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/TossakanDev.unity
     guid: 7cfd5d1b920042d43bcc2f8b100ffe8a
+  - enabled: 1
+    path: Assets/Scenes/Sprint7Offline.unity
+    guid: 19e661372582640688785a447e9e90b4
   m_configObjects: {}
