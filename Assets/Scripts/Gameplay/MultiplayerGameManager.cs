@@ -62,13 +62,6 @@ public class MultiplayerGameManager : Singleton<MultiplayerGameManager>
 
     void OnLevelGenerated()
     {
-        StartCoroutine(OnLevelGeneratedCR());
-    }
-
-    IEnumerator OnLevelGeneratedCR()
-    {
-        yield return new WaitForSeconds(0.2f);
-
         NetworkDebugManager.LogMessage("[MGM] Spawning players...");
 
         // spawning player in the correct position
