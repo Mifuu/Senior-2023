@@ -293,7 +293,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8744258767095443269
 Transform:
   m_ObjectHideFlags: 0
@@ -564,9 +564,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddead72d729e01543b7bc746f68d462d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  deferSetup: 0
+  disableOnTargetNull: 0
   disabledDistanceCheck: 0
   aggroDistanceTriggerCheck: {fileID: 4147657378863911738}
   newTargetPlayerMaxDistanceSqr: 2000
+  disabledReturnState: 0
   maxDistanceSqrFromSpawnPoint: 1000
   spawnDistanceCheckTimeInterval: 5
   pointOfOrigin: {x: 0, y: 0, z: 0}
@@ -772,7 +775,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d52bb18434f18b4391b8af7c7d25928, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  element: 1
 --- !u!114 &2058201522602770553
 MonoBehaviour:
   m_ObjectHideFlags: 0

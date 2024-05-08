@@ -283,6 +283,7 @@ namespace Enemy
 
             currentHealth.Value -= damageAmount;
             SpawnDamageFloatingClientRpc(Mathf.Round(damageAmount).ToString());
+            Debug.Log("Enemy script: Received " + damageAmount + " damage");
 
             if (currentHealth.Value <= 0f)
                 Die(dealer);

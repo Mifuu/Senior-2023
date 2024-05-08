@@ -492,7 +492,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interactableItemPrefab: {fileID: 142658}
-  promptMessage: Infuse gun with water element [ 20 water shards ]
+  promptMessage: '[F] Infuse gun with water element [ 20 water shards ]'
   totemType: 0
   requireShard: 20
 --- !u!114 &-14733382367707733
