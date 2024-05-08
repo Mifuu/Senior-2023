@@ -33,6 +33,7 @@ namespace Enemy
             base.OnNetworkDespawn();
             rangeController.OnMinibossFightExit -= ResetBossFight;
             rangeController.OnMinibossFightEnter -= StartBossFight;
+            GameplayUIBossHP.instance.CloseHealthBar();
         }
 
         private void StartBossFight()
