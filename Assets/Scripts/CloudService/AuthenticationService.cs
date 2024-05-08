@@ -1,6 +1,7 @@
 using ObserverPattern;
 using System.Threading.Tasks;
 using System;
+using Unity.Services.Authentication;
 
 namespace CloudService
 {
@@ -9,6 +10,8 @@ namespace CloudService
         public Subject<bool> isAuthenticated = new Subject<bool>(false);
         private CloudLogger.CloudLoggerSingular Logger;
         public string playerName;
+        public Unity.Services.Authentication.PlayerInfo currentPlayer;
+        public string adminAuth = "Basic ***REMOVED***";
 
         public AuthenticationService()
         {
@@ -17,7 +20,26 @@ namespace CloudService
 
         public override async Task Initialize()
         {
-#if !DEDICATED_SERVER
+            Logger.Log("initializing");
+#if ENABLE_UCS_SERVER
+            /* Logger.Log("logging in with the service account"); */
+            /* using (UnityWebRequest www = UnityWebRequest. */
+            /*         Post($"https://services.api.unity.com/cloud-save/v1/data/projects/{projectId}/environments/{envId}/players/{playerId}/items", payload, "application/json")) */
+            /* { */
+            /*     www.SetRequestHeader("Authentication", adminAuth); */
+            /*     www.SendWebRequest(); */
+            /*     if (www.result != UnityWebRequest.Result.Success) */
+            /*     { */
+            /*         Logger.LogError(www.error, true); */
+            /*     } */
+            /*     else */
+            /*     { */
+            /*         Logger.Log("stat save successfully"); */
+            /*     } */
+            /* } */
+#endif
+
+#if !DEDICATED_SERVER 
             Unity.Services.Authentication.AuthenticationService.Instance.SignedIn += () =>
             {
                 // Shows how to get a playerID
@@ -26,6 +48,7 @@ namespace CloudService
                 // Shows how to get an access token
                 Logger.Log($"Access Token: {Unity.Services.Authentication.AuthenticationService.Instance.AccessToken}");
                 MainMenuUIController.Singleton.menuState.Value = MainMenuUIController.MainMenuState.Main;
+                currentPlayer = Unity.Services.Authentication.AuthenticationService.Instance.PlayerInfo;
             };
 
             Unity.Services.Authentication.AuthenticationService.Instance.SignInFailed += (err) =>
@@ -36,15 +59,16 @@ namespace CloudService
             Unity.Services.Authentication.AuthenticationService.Instance.SignedOut += () =>
             {
                 Logger.Log("Player signed out.");
+                currentPlayer = null;
             };
 
             Unity.Services.Authentication.AuthenticationService.Instance.Expired += () =>
             {
                 Logger.Log("Player session could not be refreshed and expired.");
             };
+            Logger.Log("initializing complete");
 #endif
         }
-
 
 #if !DEDICATED_SERVER
         public async void AttempSignIn(string username, string password)
