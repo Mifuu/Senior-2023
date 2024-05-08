@@ -63,7 +63,7 @@ public class ElementAppliable : NetworkBehaviour
         currentAppliedElement.Value = defaultElement;
         if (TryGetComponent<ElementAttachable>(out var attachable))
         {
-            currentAppliedElement.Value = attachable.element;
+            currentAppliedElement.Value = attachable.networkElement.Value;
         }
     }
 

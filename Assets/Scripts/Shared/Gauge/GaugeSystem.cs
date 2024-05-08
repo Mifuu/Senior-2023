@@ -46,9 +46,9 @@ public class GaugeSystem : NetworkBehaviour
         currentGaugeRange = currentLevel.upperBound;
 
         // Debug Only
-        OnGaugeLevelChanged += DebugLevelChange;
-        isGaugeVisible.OnValueChanged += DebugVisibleChange;
-        OnNewWordQueued += Debug.Log;
+        /* OnGaugeLevelChanged += DebugLevelChange; */
+        /* isGaugeVisible.OnValueChanged += DebugVisibleChange; */
+        /* OnNewWordQueued += Debug.Log; */
     }
 
     public void FixedUpdate()
@@ -78,13 +78,26 @@ public class GaugeSystem : NetworkBehaviour
     #endregion
 
     // Gauge Number could also be negative in case of player getting hit
-    public float AddGauge(string newWord, int gaugeNumberAdded)
+    [ClientRpc]
+    public void AddGaugeClientRpc(ulong playerId, string newWord, int gaugeNumberAdded, ClientRpcParams clientRpcParams = default)
     {
         OnNewWordQueued?.Invoke(newWord);
         currentGaugeNumber = Math.Clamp(currentGaugeNumber + gaugeNumberAdded, 0, maximumGaugeValue);
         AdjustGauge(true);
-        return listOfGaugeLevel[currentGaugeLevelPointer].expMultiplier;
+        AddExpServerRpc(playerId, gaugeNumberAdded * GetCurrentGaugeLevelMultiplier());
     }
+
+    [ServerRpc(RequireOwnership = false)]
+    public void AddExpServerRpc(ulong playerId, float value)
+    {
+        if (NetworkManager.Singleton.ConnectedClients.TryGetValue(playerId, out var playerClient))
+        {
+            if (playerClient.PlayerObject.TryGetComponent<PlayerLevel>(out var level))
+                level.AddExp(value);
+        }
+    }
+
+    public float GetCurrentGaugeLevelMultiplier() => listOfGaugeLevel[currentGaugeLevelPointer].expMultiplier;
 
     private void SetVisibilty(bool value)
     {
@@ -135,23 +148,23 @@ public class GaugeSystem : NetworkBehaviour
 
     #region Testing Area
 
-    [ContextMenu("Add 80 Gauge Number")]
-    private void TestAddGauge() => AddGauge("Test", 80);
+    /* [ContextMenu("Add 80 Gauge Number")] */
+    /* private void TestAddGauge() => AddGauge("Test", 80); */
 
-    [ContextMenu("Add 300 Gauge Number")]
-    private void TestAddGauge2() => AddGauge("Test", 300);
+    /* [ContextMenu("Add 300 Gauge Number")] */
+    /* private void TestAddGauge2() => AddGauge("Test", 300); */
 
-    [ContextMenu("Add 1500 Gauge Number")]
-    private void TestAddGauge3() => AddGauge("Test", 1500);
+    /* [ContextMenu("Add 1500 Gauge Number")] */
+    /* private void TestAddGauge3() => AddGauge("Test", 1500); */
 
-    [ContextMenu("Delete 80 Gauge Number")]
-    private void TestAddGauge4() => AddGauge("Test", -80);
+    /* [ContextMenu("Delete 80 Gauge Number")] */
+    /* private void TestAddGauge4() => AddGauge("Test", -80); */
 
-    [ContextMenu("Delete 300 Gauge Number")]
-    private void TestAddGauge5() => AddGauge("Test", -300);
+    /* [ContextMenu("Delete 300 Gauge Number")] */
+    /* private void TestAddGauge5() => AddGauge("Test", -300); */
 
-    [ContextMenu("Delete 1500 Gauge Number")]
-    private void TestAddGauge6() => AddGauge("Test", -1500);
+    /* [ContextMenu("Delete 1500 Gauge Number")] */
+    /* private void TestAddGauge6() => AddGauge("Test", -1500); */
 
     #endregion
 }

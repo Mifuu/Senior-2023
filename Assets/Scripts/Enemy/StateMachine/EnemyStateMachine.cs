@@ -27,6 +27,7 @@ namespace Enemy
 
         public void Initialize(EnemyState startingState)
         {
+            enemy.enabled = false;
             this.startingState = startingState;
             this.isInitialized = true;
             if (startStateMachineOnInitialize) StartStateMachine();
@@ -74,15 +75,10 @@ namespace Enemy
         {
             if (!IsServer) return;
 
-            /* if (stateMachineState.Value != AvailableStateMachineState.Running) */
-            /* { */
-            /*     Debug.LogWarning("Can not stop state machine at current state"); */
-            /*     return; */
-            /* } */
-
             CurrentEnemyState.ExitState();
             stateMachineState.Value = AvailableStateMachineState.Stopped;
             networkEnemyState.Value = AvailableEnemyState.Idle;
+            enemy.enabled = false;
         }
 
         public void ResetStateMachine()

@@ -66,7 +66,7 @@ public class Gun : NetworkBehaviour
 
     private void OnElementChanged(ElementalType newElement)
     {
-        Debug.Log("Element changed to: " + elementAttachable.element);
+        Debug.Log("Element changed to: " + elementAttachable.networkElement);
 
         switch (elementAttachable.element)
         {
@@ -86,7 +86,7 @@ public class Gun : NetworkBehaviour
                 currentBullet = normalBullet;
                 break;
             default:
-                Debug.LogWarning("Unhandled elemental type: " + elementAttachable.element);
+                Debug.LogWarning("Unhandled elemental type: " + elementAttachable.networkElement);
                 break;
         }
     }
