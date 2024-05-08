@@ -39,6 +39,7 @@ namespace Enemy
         {
             SetupBehaviour();
             StateMachine.StartStateMachine();
+            GameplayUIBossHP.instance.OpenHealthBar(currentHealth, maxHealth, "Lust");
         }
 
         private void ResetBossFight()
@@ -48,11 +49,12 @@ namespace Enemy
             StateMachine.ResetStateMachine();
             statueSpawnManager.KillAllSpawnedEnemy(null);
             statueSpawnManager.Spawn();
+            GameplayUIBossHP.instance.CloseHealthBar();
         }
 
-        private void SetupStatue(List<EnemyBase> enemyBases) 
+        private void SetupStatue(List<EnemyBase> enemyBases)
         {
-            for (int i = 0; i < enemyBases.Count; i++)            
+            for (int i = 0; i < enemyBases.Count; i++)
                 enemyBases[i].SetupBehaviour();
         }
     }
