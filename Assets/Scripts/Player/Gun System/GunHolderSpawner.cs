@@ -12,21 +12,22 @@ public class GunHolderSpawner : NetworkBehaviour
    
     void Start()
     {
-        gunHolder = Resources.Load<GameObject>("GunHolder");
+        if (!IsOwner)
+        if (gunHolder == null)
+        {
+            Debug.LogError("GunHolderSpawner: gunholder is null");
+            return;
+        }
+        //gunHolder = Resources.Load<GameObject>("GunHolder");
         SpawnGunHolderServerRpc();
     }
 
     [ServerRpc]
     private void SpawnGunHolderServerRpc()
     {
-        if (!IsOwner) return;
-        if (gunHolder == null)
-        {
-            Debug.LogError("GunHolderSpawner: gunholder is null");
-        }
         var gunHolderObj = Instantiate(gunHolder, transform.position, transform.rotation);
         var gunHolderNetworkObj = gunHolderObj.GetComponent<NetworkObject>();
         gunHolderNetworkObj.Spawn();
-        gunHolderNetworkObj.transform.SetParent(player.transform);
+        gunHolderNetworkObj.TrySetParent(player.transform);
     }
 }
