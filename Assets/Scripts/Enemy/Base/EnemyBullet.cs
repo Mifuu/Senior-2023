@@ -135,5 +135,10 @@ namespace Enemy
             bulletCountdownCoroutine = null;
             target = null;
         }
+
+        public void ChangeHoming(bool homing)
+        {
+            isHomingCapable = homing;
+        }
     }
 }
