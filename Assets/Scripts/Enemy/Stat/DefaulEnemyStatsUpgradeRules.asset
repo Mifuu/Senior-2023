@@ -13,83 +13,28 @@ MonoBehaviour:
   m_Name: DefaulEnemyStatsUpgradeRules
   m_EditorClassIdentifier: 
   upgradeDetails:
-  - Method: 1
-    Stats: 00000000
-    Amount: 1
-    LevelLowerBoundInclusive: 1
-    LevelUpperBoundExclusive: 6
-  - Method: 1
-    Stats: 00000000
-    Amount: 2
-    LevelLowerBoundInclusive: 6
-    LevelUpperBoundExclusive: 11
-  - Method: 1
-    Stats: 00000000
-    Amount: 3
-    LevelLowerBoundInclusive: 11
-    LevelUpperBoundExclusive: 16
-  - Method: 1
-    Stats: 00000000
-    Amount: 5
-    LevelLowerBoundInclusive: 16
-    LevelUpperBoundExclusive: 21
-  - Method: 1
-    Stats: 00000000
-    Amount: 3
-    LevelLowerBoundInclusive: 21
-    LevelUpperBoundExclusive: 9999
-  - Method: 1
-    Stats: 01000000
-    Amount: 1
-    LevelLowerBoundInclusive: 1
-    LevelUpperBoundExclusive: 6
-  - Method: 1
-    Stats: 01000000
-    Amount: 2
-    LevelLowerBoundInclusive: 6
-    LevelUpperBoundExclusive: 11
-  - Method: 1
-    Stats: 01000000
-    Amount: 3
-    LevelLowerBoundInclusive: 11
-    LevelUpperBoundExclusive: 21
-  - Method: 1
-    Stats: 01000000
-    Amount: 2
-    LevelLowerBoundInclusive: 21
-    LevelUpperBoundExclusive: 31
-  - Method: 1
-    Stats: 01000000
-    Amount: 1
-    LevelLowerBoundInclusive: 31
-    LevelUpperBoundExclusive: 9999
   - Method: 2
-    Stats: 02000000
+    Stats: 000000000100000003000000
+    Amount: 1.05
+    LevelLowerBoundInclusive: 1
+    LevelUpperBoundExclusive: 50
+  - Method: 2
+    Stats: 0200000004000000
     Amount: 1.02
     LevelLowerBoundInclusive: 1
-    LevelUpperBoundExclusive: 11
+    LevelUpperBoundExclusive: 50
   - Method: 2
-    Stats: 020000000300000004000000
-    Amount: 1.015
-    LevelLowerBoundInclusive: 11
-    LevelUpperBoundExclusive: 21
-  - Method: 2
-    Stats: 020000000300000004000000
-    Amount: 1.01
-    LevelLowerBoundInclusive: 21
-    LevelUpperBoundExclusive: 31
-  - Method: 2
-    Stats: 020000000300000004000000
-    Amount: 1.005
-    LevelLowerBoundInclusive: 31
-    LevelUpperBoundExclusive: 9999
-  - Method: 2
-    Stats: 020000000300000004000000
-    Amount: 1.005
-    LevelLowerBoundInclusive: 31
-    LevelUpperBoundExclusive: 9999
-  - Method: 1
     Stats: 05000000
-    Amount: 1
+    Amount: 1.1
     LevelLowerBoundInclusive: 1
-    LevelUpperBoundExclusive: 9999
+    LevelUpperBoundExclusive: 50
+  - Method: 2
+    Stats: 000000000100000003000000
+    Amount: 1.03
+    LevelLowerBoundInclusive: 51
+    LevelUpperBoundExclusive: 1000
+  - Method: 2
+    Stats: 0200000004000000
+    Amount: 1.01
+    LevelLowerBoundInclusive: 51
+    LevelUpperBoundExclusive: 1000
