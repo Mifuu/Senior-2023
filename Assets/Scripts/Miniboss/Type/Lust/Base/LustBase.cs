@@ -26,7 +26,6 @@ namespace Enemy
             base.OnNetworkSpawn();
             rangeController.OnMinibossFightExit += ResetBossFight;
             rangeController.OnMinibossFightEnter += StartBossFight;
-            GameplayUIBossHP.instance.OpenHealthBar(currentHealth, maxHealth, "Lust");
         }
 
         public override void OnNetworkDespawn()
@@ -34,13 +33,13 @@ namespace Enemy
             base.OnNetworkDespawn();
             rangeController.OnMinibossFightExit -= ResetBossFight;
             rangeController.OnMinibossFightEnter -= StartBossFight;
-            GameplayUIBossHP.instance.CloseHealthBar();
         }
 
         private void StartBossFight()
         {
             SetupBehaviour();
             StateMachine.StartStateMachine();
+            GameplayUIBossHP.instance.OpenHealthBar(currentHealth, maxHealth, "Lust");
         }
 
         private void ResetBossFight()
@@ -50,6 +49,7 @@ namespace Enemy
             StateMachine.ResetStateMachine();
             statueSpawnManager.KillAllSpawnedEnemy(null);
             statueSpawnManager.Spawn();
+            GameplayUIBossHP.instance.CloseHealthBar();
         }
 
         private void SetupStatue(List<EnemyBase> enemyBases)
