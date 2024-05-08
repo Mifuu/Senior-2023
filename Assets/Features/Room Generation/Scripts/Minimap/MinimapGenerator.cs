@@ -8,7 +8,7 @@ namespace RoomGeneration.Minimap
     {
         public static Texture2D GenerateTexture(RoomGenerator roomGenerator, MinimapSettings settings)
         {
-            int[,] indexGrid = GetIndexGrid(roomGenerator, settings.defaultGridSize);
+            int[,] indexGrid = GetIndexGrid(roomGenerator, MinimapDisplay.DEFAULT_GRID_SIZE);
             Texture2D texture = CreateTextureFromIndexGrid(indexGrid, settings, roomGenerator);
             return texture;
         }
@@ -207,9 +207,6 @@ namespace RoomGeneration.Minimap
     [System.Serializable]
     public class MinimapSettings
     {
-        [Header("Map Size")]
-        public int defaultGridSize = 40;
-
         [Header("Scales")]
         public int unitSize = 17;
         public int outlineSize = 1;

@@ -381,9 +381,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddead72d729e01543b7bc746f68d462d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  name: Mage
+  deferSetup: 0
+  disableOnTargetNull: 0
   disabledDistanceCheck: 0
   aggroDistanceTriggerCheck: {fileID: 7161197138267151029}
   newTargetPlayerMaxDistanceSqr: 2000
+  disabledReturnState: 0
   maxDistanceSqrFromSpawnPoint: 1000
   spawnDistanceCheckTimeInterval: 5
   pointOfOrigin: {x: 0, y: 0, z: 0}
@@ -555,7 +559,7 @@ MonoBehaviour:
   defaultBaseDMGReceiveFactor: 1
   defaultElementalDmg: 1
   defaultElementalRES: 1
-  defaultBaseEXP: 20
+  defaultBaseEXP: 80
   Level:
     m_InternalValue: 1
 --- !u!114 &-8698348121100161140
@@ -589,7 +593,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d52bb18434f18b4391b8af7c7d25928, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  element: 1
+  initialElement: 0
+  randomElement: 1
+  networkElement:
+    m_InternalValue: 0
 --- !u!114 &-1952474762954063180
 MonoBehaviour:
   m_ObjectHideFlags: 0

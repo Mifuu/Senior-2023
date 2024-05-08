@@ -32,7 +32,6 @@ namespace Enemy
             SpawnAll(spawnManager.spawnedEnemyRef); // In case the enemy is already spawned
             spawnManager.OnEnemySpawns += SpawnAll;
             spawnManager.OnEnemyDies += DespawnAssociator;
-            rangeController.OnMinibossFightExit += PlayAllAssociator;
             rangeController.OnMinibossFightEnter += StopAllAssociator;
         }
 
@@ -50,14 +49,32 @@ namespace Enemy
 
         private void PlayAllAssociator()
         {
+            Debug.Log("Playing all " + vfxMap.Values.Count + " Ass");
             foreach (VisualEffect vfx in vfxMap.Values)
-                vfx.Play();
+            {
+                if (vfx != null)
+                {
+                    vfx.Play();
+                }
+            }
+
+            if (IsServer)
+                PlayVfxClientRpc();
         }
 
         private void StopAllAssociator()
         {
+            Debug.Log("Stopping all " + vfxMap.Values.Count + " Ass");
             foreach (VisualEffect vfx in vfxMap.Values)
-                vfx.Stop();
+            {
+                if (vfx != null)
+                {
+                    vfx.Stop();
+                }
+            }
+
+            if (IsServer)
+                StopVfxClientRpc();
         }
 
         private void DespawnAssociator(EnemyBase enemy)
@@ -90,6 +107,45 @@ namespace Enemy
             associatorInstance.transform.eulerAngles = new Vector3(0, associatorInstance.transform.eulerAngles.y, associatorInstance.transform.eulerAngles.z);
 
             vfxMap.Add(leafEnemy, associatorInstance);
+            if (leafEnemy.TryGetComponent<NetworkObject>(out var leaf) && associatorInstance.TryGetComponent<NetworkObject>(out var ass))
+                SyncVfxMapClientRpc(leaf, ass);
+        }
+
+        [ClientRpc]
+        private void SyncVfxMapClientRpc(NetworkObjectReference leafRef, NetworkObjectReference assRef)
+        {
+            if (leafRef.TryGet(out var networkLeaf) && assRef.TryGet(out var networkAss))
+            {
+                if (networkLeaf.TryGetComponent<EnemyBase>(out var enemy) && networkAss.TryGetComponent<VisualEffect>(out var associator))
+                {
+                    vfxMap.Add(enemy, associator);
+                }
+            }
+        }
+
+        [ClientRpc]
+        private void DeleteVfxMapClientRpc(NetworkObjectReference enemyRef)
+        {
+            if (enemyRef.TryGet(out var network))
+            {
+                if (network.TryGetComponent<EnemyBase>(out var enemy) && vfxMap.TryGetValue(enemy, out var vfx))
+                {
+                    vfx.GetComponent<NetworkObject>()?.Despawn(true);
+                    vfxMap.Remove(enemy);
+                }
+            }
+        }
+
+        [ClientRpc]
+        private void PlayVfxClientRpc()
+        {
+            PlayAllAssociator();
+        }
+
+        [ClientRpc]
+        private void StopVfxClientRpc()
+        {
+            StopAllAssociator();
         }
     }
 }
