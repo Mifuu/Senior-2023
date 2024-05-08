@@ -15,8 +15,8 @@ public class PlayerHealth : NetworkBehaviour, IDamageable
     [SerializeField] public NetworkVariable<float> HealthBuffMultiplier { get; set; } = new NetworkVariable<float>(1.0f);
 
     private float _maxHealth;
-    private bool isDead = false;
-    public NetworkVariable<float> currentHealth { get; set; } = new NetworkVariable<float>(0.0f);
+    private NetworkVariable<bool> isDead = new NetworkVariable<bool>(false);
+    public NetworkVariable<float> currentHealth { get; set; } = new NetworkVariable<float>(10.0f);
     public event Action OnPlayerDie;
 
     private void Start()
@@ -24,18 +24,11 @@ public class PlayerHealth : NetworkBehaviour, IDamageable
         if (!IsOwner) return;
         // Initialize current health to FinalMaxHealth on start
         maxHealth = BaseMaxHealth.Value;
-        InitializePlayerHealthServerRpc();
         RecalculateFinalMaxHealthServerRpc();
         // Recalculate maxhealth everytime BaseMaxHealth or HealthBuffMultiplier values changed
         BaseMaxHealth.OnValueChanged += (prev, current) => RecalculateFinalMaxHealthServerRpc();
         HealthBuffMultiplier.OnValueChanged += (prev, current) => RecalculateFinalMaxHealthServerRpc();
 
-    }
-
-    [ServerRpc]
-    private void InitializePlayerHealthServerRpc()
-    {
-        currentHealth.Value = BaseMaxHealth.Value;
     }
 
     [ServerRpc]
@@ -51,7 +44,7 @@ public class PlayerHealth : NetworkBehaviour, IDamageable
 
     public void Damage(float damageAmount, GameObject dealer)
     {
-        if (isDead) return;
+        if (isDead.Value) return;
 
         if (IsServer)
             currentHealth.Value -= damageAmount;
@@ -61,7 +54,11 @@ public class PlayerHealth : NetworkBehaviour, IDamageable
         if (currentHealth.Value <= 0f)
         {
             DieClientRpc();
-            isDead = true;
+
+            if (IsServer)
+                isDead.Value = true;
+            else
+                SetIsDeadServerRpc(true);
         }
 
         BloodVignetteVFX.SimpleBloodVignette();
@@ -71,6 +68,12 @@ public class PlayerHealth : NetworkBehaviour, IDamageable
     void ApplyDamageServerRpc(float damageAmount)
     {
         currentHealth.Value -= damageAmount;
+    }
+
+    [ServerRpc]
+    void SetIsDeadServerRpc(bool value)
+    {
+        isDead.Value = value;
     }
 
     [ClientRpc]
@@ -94,16 +97,12 @@ public class PlayerHealth : NetworkBehaviour, IDamageable
         GameplayUIController.Instance.RespawnTrigger(respawnTime);
         inputManager.EnableInput(false);
 
-        Debug.Log("TEST RESPAWNCR 1");
-
         yield return new WaitForSeconds(respawnTime);
 
         // respawn
         inputManager.EnableInput(true);
-        isDead = false;
+        SetIsDeadServerRpc(false);
         SetPlayerHealthServerRpc(maxHealth);
-
-        Debug.Log("TEST RESPAWNCR");
 
         MultiplayerGameManager.Instance.TeleportPlayerToSpawnServerRpc(NetworkObject.OwnerClientId);
     }

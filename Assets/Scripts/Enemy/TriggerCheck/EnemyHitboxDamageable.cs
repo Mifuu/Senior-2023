@@ -34,7 +34,6 @@ namespace Enemy
         {
             var trueDamageAmount = CalculateDamage(damageInfo);
             // DebugDamageInfo(damageInfo);
-            Debug.Log("dealt damage of " + trueDamageAmount);
             enemy.Damage(trueDamageAmount, damageInfo.dealer);
             enemy.OnTargetPlayerChangeRequired(damageInfo.dealer);
         }
