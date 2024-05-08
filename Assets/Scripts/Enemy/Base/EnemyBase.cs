@@ -130,7 +130,7 @@ namespace Enemy
 
         #region Cheat
 
-        private bool enableKillTimer = true;
+        private bool enableKillTimer = false;
 
         #endregion
 
