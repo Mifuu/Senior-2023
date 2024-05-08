@@ -155,8 +155,8 @@ public class MultiplayerGameManager : Singleton<MultiplayerGameManager>
     [ServerRpc(RequireOwnership = false)]
     public void TeleportToBossRoomServerRpc(ulong id)
     {
-        if (NetworkManager.Singleton.LocalClientId == id)
-        {
+        /* if (NetworkManager.Singleton.LocalClientId == id) */
+        /* { */
             Debug.Log("Index: " + playerIds.IndexOf(id) + " Coords: " + bossRoomCoords[playerIds.IndexOf(id)]);
             if (bossRooms[playerIds.IndexOf(id)] != null)
             {
@@ -169,7 +169,7 @@ public class MultiplayerGameManager : Singleton<MultiplayerGameManager>
             n.Spawn();
             bossRooms[playerIds.IndexOf(id)] = n;
             TeleportToBossRoomClientRpc(id, bossRoomCoords[playerIds.IndexOf(id)]);
-        }
+        /* } */
     }
 
     [ClientRpc]
