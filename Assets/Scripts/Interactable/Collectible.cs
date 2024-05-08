@@ -19,7 +19,7 @@ public class CollectibleItem : InteractableItem
         // Check if the colliding object is the player
         Debug.Log(transform.name + " collided with player");
         NetworkObject networkObject = other.GetComponent<NetworkObject>();
-        if (true)
+        if (other.CompareTag("Player"))
         {
             Debug.Log($"Player collided with {name}");
 
