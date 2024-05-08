@@ -14,6 +14,7 @@ public class BaseStatCollector : ScriptableObject
     }
 
     [SerializeField] public List<NetworkStat> listOfStats;
+    private Dictionary<string, object> valueDict = new Dictionary<string, object>();
 
     public void Awake()
     {
@@ -23,11 +24,9 @@ public class BaseStatCollector : ScriptableObject
             Destroy(this);
     }
 
-#if DEDICATED_SERVER
+    public Dictionary<string, object> PushStatToStatService() => valueDict;
 
-    private Dictionary<string, Dictionary<string, object>> playerStats;
-
-    public List<NetworkStat> PullStatFromStatService(string playerId, Dictionary<string, object> statDicts)
+    public List<NetworkStat> PullStatFromStatService(Dictionary<string, object> statDicts)
     {
         List<NetworkStat> nonExistingStat = new List<NetworkStat>();
         Dictionary<string, object> stat = new Dictionary<string, object>();
@@ -39,29 +38,21 @@ public class BaseStatCollector : ScriptableObject
                 nonExistingStat.Add(focusedStat);
         }
 
-        playerStats.Add(playerId, stat);
         return nonExistingStat;
     }
 
-    public Dictionary<string, object> PushStatToStatService(string playerId) => playerStats[playerId];
-
-    public bool Set<T>(ulong playerNetworkId, string key, T value)
+    public bool Set<T>(string key, T value)
     {
-        var playerId = CloudService.StatService.Singleton.networkIdMapper[playerNetworkId];
-        if (!playerStats.TryGetValue(playerId, out Dictionary<string, object> returnedPlayerStat) 
-                || !returnedPlayerStat.TryGetValue(key, out object returnedValue)) return false;
-        playerStats[playerId][key] = value;
+        if (valueDict.TryGetValue(key, out object returnedValue)) return false;
+        valueDict[key] = value;
         return true;
     }
 
-    public bool Set<T>(ulong playerNetworkId, string key, Func<T, T> action) 
+    public bool Set<T>(string key, Func<T, T> action) 
     {
-        var playerId = CloudService.StatService.Singleton.networkIdMapper[playerNetworkId];
-        if (!playerStats.TryGetValue(playerId, out Dictionary<string, object> returnedPlayerStat)
-                    || !returnedPlayerStat.TryGetValue(key, out object value)) return false;
+        if (valueDict.TryGetValue(key, out object value)) return false;
         var result = action((T) value);
-        playerStats[playerId][key] = result;
+        valueDict[key] = result;
         return true;
     }
-#endif
 }
