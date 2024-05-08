@@ -25,7 +25,7 @@ namespace RoomGeneration.Minimap
         }
 
         [Header("Default Values")]
-        public const int DEFAULT_GRID_SIZE = 150;
+        public const int DEFAULT_GRID_SIZE = 80;
 
         [Header("Requirements")]
         public RoomGenerator roomGenerator;
@@ -48,6 +48,16 @@ namespace RoomGeneration.Minimap
             // RoomGenNetworkManager.Instance.onGenerateLevel += Generate;
         }
 
+        void Update()
+        {
+            if (!IsServer) return;
+
+            if (Input.GetKeyDown(KeyCode.K))
+            {
+                Generate();
+            }
+        }
+
         public void Generate()
         {
             texture = MinimapGenerator.GenerateTexture(roomGenerator, settings);
@@ -62,7 +72,11 @@ namespace RoomGeneration.Minimap
 
             MinimapInfoNetwork m = new MinimapInfoNetwork(gridSize, texture);
             Debug.Log($"[MinimapDisplay.Generate] gridSize: {gridSize}, textureBytes: {m.TextureBytes.Length}, compressedTextureBytes: {m.CompressedTextureBytes.Length}");
-            if (IsServer) SetMinimapClientRpc(m);
+            if (IsServer) 
+            {
+                Debug.Log("SetMinimapClientRpc()");
+                SetMinimapClientRpc(m);
+            }
         }
 
         [ClientRpc]
