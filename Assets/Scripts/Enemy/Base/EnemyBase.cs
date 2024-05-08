@@ -128,6 +128,12 @@ namespace Enemy
 
         #endregion
 
+        #region Cheat
+
+        private bool enableKillTimer = true;
+
+        #endregion
+
         private bool initialSetupComplete = false;
         private ulong targetPlayerNetworkId;
 
@@ -234,18 +240,30 @@ namespace Enemy
 
             if (IsServer)
             {
+                enabled = enabled && true;
                 networkMaxHealth.Value = maxHealth;
                 currentHealth.Value = maxHealth;
                 OnTargetPlayerRefindRequired();
                 audioController?.PlaySFXAtObject(soundSpawnName, transform.position);
-                spawnDistanceCheckCoroutine = CheckDistanceFromSpawn();
+
                 if (!disabledReturnState && isActiveAndEnabled)
+                {
+                    spawnDistanceCheckCoroutine = CheckDistanceFromSpawn();
                     StartCoroutine(spawnDistanceCheckCoroutine);
-                enabled = true;
+                }
+
+                if (enableKillTimer)
+                    StartCoroutine(ScheduleSelfKill());
             }
 
             networkMaxHealth.OnValueChanged += AdjustMaxHealth;
             // StateMachine.ChangeState(IdleState);
+        }
+
+        private IEnumerator ScheduleSelfKill()
+        {
+            yield return new WaitForSeconds(5);
+            Die(targetPlayer);
         }
 
         private void ServerDesetup()
@@ -271,10 +289,21 @@ namespace Enemy
         {
             if (!IsServer || !isActiveAndEnabled) return;
 
-            if (dealer != null)
+            if (dealer != null && dealer.TryGetComponent<PlayerHealth>(out var h) && dealer.TryGetComponent<PlayerStat>(out var playerStat))
             {
-                /* var gaugeValue = GaugeSystem.Singleton.AddGauge("Kill", (int) stat.BaseEXP.Value); */
-                dealer.GetComponent<PlayerLevel>()?.AddExp(stat.BaseEXP.Value);
+                Debug.Log("Die Player ID: " + playerStat.playerId.Value);
+                GaugeSystem.Singleton.AddGaugeClientRpc(playerStat.playerId.Value, "Kill", (int)stat.BaseEXP.Value, new ClientRpcParams
+                {
+                    Send = new ClientRpcSendParams
+                    {
+                        TargetClientIds = new ulong[] { playerStat.playerId.Value }
+                    }
+                });
+
+                /* dealer.GetComponent<PlayerLevel>()?.AddExp(stat.BaseEXP.Value); */
+#if DEDICATED_SERVER
+                KillStatCollector.Singleton.Set<int>(playerStat.playerId.Value, "kill", (prev) => prev+1);
+#endif
             }
 
             audioController?.PlaySFXAtObject(soundDeadName, transform.position);
@@ -339,7 +368,7 @@ namespace Enemy
                 if (newTarget == null) return;
                 OnTargetPlayerChanged -= Setup;
                 SetupNewTargetPlayer(newTarget);
-                enabled = true;
+                enabled = enabled && true;
             }
 
             OnTargetPlayerChanged += Setup;

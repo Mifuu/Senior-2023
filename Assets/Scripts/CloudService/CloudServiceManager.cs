@@ -10,6 +10,8 @@ namespace CloudService
     public class CloudServiceManager : BaseCloudServiceSingleton<CloudServiceManager>
     {
         public CloudLogger.CloudLoggerSingular Logger;
+        public string projectId = "***REMOVED***";
+        public string environmentID = "production";
         public CloudServiceManager()
         {
             Logger = CloudLogger.Singleton.Get("Manager");
@@ -36,7 +38,6 @@ namespace CloudService
             await InitializeUnityService();
 
             Logger.Log("initialize service");
-#if !DEDICATED_SERVER
             try
             {
                 await AuthenticationService.Singleton.Initialize();
@@ -45,6 +46,7 @@ namespace CloudService
             {
                 Logger.LogError(e.Message, true);
             }
+#if !DEDICATED_SERVER
             AuthenticationService.Singleton.isAuthenticated.OnValueChanged += OnAuthStatusChange;
 #else
             /* try */
@@ -63,13 +65,13 @@ namespace CloudService
         private async Task InitializeServerComponent()
         {
             Logger.Log($"Matchmaker: {MatchMakingService.Singleton != null}");
-            Logger.Log($"StatService: {StatService.Singleton != null}");
+            /* Logger.Log($"StatService: {StatService.Singleton != null}"); */
             Loader.LoadLoading();
             Logger.Log("Game Scene Loaded");
 
             var initializer = new List<Task>()
             {
-                StatService.Singleton.Initialize(),
+                /* StatService.Singleton.Initialize(), */
                 MatchMakingService.Singleton.Initialize(),
             };
             await Task.WhenAll(initializer);
@@ -88,17 +90,17 @@ namespace CloudService
             Logger.Log("Begin Post Authentication Initialize");
             Logger.Log($"Achievement check: {AchievementService.Singleton != null}");
             Logger.Log($"Economy check: {EconomyService.Singleton != null}");
-            Logger.Log($"StatService check: {StatService.Singleton != null}");
+            /* Logger.Log($"StatService check: {StatService.Singleton != null}"); */
             Logger.Log($"MatchMakingService check: {MatchMakingService.Singleton != null}");
 
-            try
-            {
-                await StatService.Singleton.Initialize();
-            }
-            catch (Exception e)
-            {
-                Logger.LogError(e.Message, true);
-            }
+            /* try */
+            /* { */
+            /*     await StatService.Singleton.Initialize(); */
+            /* } */
+            /* catch (Exception e) */
+            /* { */
+            /*     Logger.LogError(e.Message, true); */
+            /* } */
 
             try
             {
