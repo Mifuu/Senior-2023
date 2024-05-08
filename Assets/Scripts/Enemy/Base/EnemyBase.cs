@@ -335,7 +335,10 @@ namespace Enemy
             }
 
             if (TryGetComponent<NetworkObject>(out var enemyNetworkObject))
-                enemyNetworkObject.Despawn();
+            {
+                enemyNetworkObject.Despawn(true);
+                Debug.Log(gameObject +  " has despawn");
+            }
         }
 
         [ClientRpc]
