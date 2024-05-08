@@ -7,6 +7,7 @@ using Unity.Services.CloudSave.Models.Data.Player;
 using ObserverPattern;
 using UnityEngine.Networking;
 using System.Collections;
+using System;
 
 namespace CloudService
 {
@@ -87,15 +88,21 @@ namespace CloudService
         private async Task GetPlayerData(string playerKey, HashSet<string> statList)
         {
             Logger.Log($"getting player data with id {playerKey}");
-            var playerData = await CloudSaveService.Instance.Data.Player.LoadAsync(statList,
-                new LoadOptions(new PublicReadAccessClassOptions(playerKey)));
-
-            Logger.Log("player Data: " + playerData);
-            var data = new Dictionary<string, object>();
-            foreach (KeyValuePair<string, Unity.Services.CloudSave.Models.Item> pair in playerData)
-                data.Add(pair.Key, pair.Value.Value);
-            allPlayersFullData.Add(playerKey, data);
-            await PushPlayerDataToCollector();
+            try
+            {
+                var playerData = await CloudSaveService.Instance.Data.Player.LoadAsync(statList,
+                    new LoadOptions(new PublicReadAccessClassOptions(playerKey)));
+                Logger.Log("player Data: " + playerData);
+                var data = new Dictionary<string, object>();
+                foreach (KeyValuePair<string, Unity.Services.CloudSave.Models.Item> pair in playerData)
+                    data.Add(pair.Key, pair.Value.Value);
+                allPlayersFullData.Add(playerKey, data);
+                await PushPlayerDataToCollector();
+            }
+            catch (Exception r)
+            {
+                Logger.LogError(r.ToString());
+            }
         }
 
         private void CreateMapper()
@@ -152,10 +159,12 @@ namespace CloudService
             var projectId = CloudServiceManager.Singleton.projectId;
             var payload = JsonUtility.ToJson(stats);
             var token = Unity.Services.Authentication.Server.ServerAuthenticationService.Instance.AccessToken;
+            try 
+            {
             using (UnityWebRequest www = UnityWebRequest.
                     Post($"https://services.api.unity.com/cloud-save/v1/data/projects/{projectId}/environments/{envId}/players/{playerId}/items", payload, "application/json"))
             {
-                www.SetRequestHeader("Authentication", $"Bearer {token}");
+                www.SetRequestHeader("Authentication", AuthenticationService.Singleton.adminAuth);
                 www.SendWebRequest();
                 if (www.result != UnityWebRequest.Result.Success)
                 {
@@ -165,6 +174,11 @@ namespace CloudService
                 {
                     Logger.Log("stat save successfully");
                 }
+            }
+            }
+            catch (Exception e)
+            {
+                Logger.LogError(e.ToString());
             }
 #endif
         }
