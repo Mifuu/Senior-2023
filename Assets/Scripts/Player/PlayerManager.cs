@@ -67,6 +67,12 @@ public class PlayerManager : Singleton<PlayerManager>
         }
     }
 
+    [ServerRpc]
+    public void TeleportServerRpc(Vector3 pos)
+    {
+        Teleport(pos);
+    }
+
     public void SetSpawnPoint(Vector3 pos)
     {
         spawnPoint = pos;
@@ -75,5 +81,11 @@ public class PlayerManager : Singleton<PlayerManager>
     public void TeleportToSpawnPoint()
     {
         Teleport(spawnPoint);
+    }
+
+    [ServerRpc]
+    public void TeleportToSpawnPointServerRpc()
+    {
+        TeleportToSpawnPoint();
     }
 }

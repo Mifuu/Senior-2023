@@ -51,25 +51,38 @@ public class PlayerHealth : NetworkBehaviour, IDamageable
 
     public void Damage(float damageAmount, GameObject dealer)
     {
-        if (!IsServer) return;
-
         if (isDead) return;
 
-        currentHealth.Value -= damageAmount;
+        if (IsServer)
+            currentHealth.Value -= damageAmount;
+        else
+            ApplyDamageServerRpc(damageAmount);
 
         if (currentHealth.Value <= 0f)
         {
-            Die(dealer);
+            DieClientRpc();
+            isDead = true;
         }
 
         BloodVignetteVFX.SimpleBloodVignette();
     }
 
-    public void Die(GameObject killer)
+    [ServerRpc] 
+    void ApplyDamageServerRpc(float damageAmount)
+    {
+        currentHealth.Value -= damageAmount;
+    }
+
+    [ClientRpc]
+    void DieClientRpc()
+    {
+        Die(null);
+    }
+
+    public void Die(GameObject obj)
     {
         Debug.Log("Player Script: Player has died!");
         OnPlayerDie?.Invoke();
-        isDead = true;
         StartCoroutine(RespawnCR());
     }
 
@@ -81,25 +94,26 @@ public class PlayerHealth : NetworkBehaviour, IDamageable
         GameplayUIController.Instance.RespawnTrigger(respawnTime);
         inputManager.EnableInput(false);
 
+        Debug.Log("TEST RESPAWNCR 1");
+
         yield return new WaitForSeconds(respawnTime);
 
         // respawn
         inputManager.EnableInput(true);
         isDead = false;
-        currentHealth.Value = maxHealth;
+        SetPlayerHealthServerRpc(maxHealth);
 
-        if (TryGetComponent<PlayerManager>(out var playerManager))
-        {
-            if (MultiplayerGameManager.Instance)
-            {
-                MultiplayerGameManager.Instance.RespawnPlayerServerRpc(NetworkObject.OwnerClientId);
-            }
-            else
-            {
-                playerManager.TeleportToSpawnPoint();
-            }
-        }
+        Debug.Log("TEST RESPAWNCR");
+
+        MultiplayerGameManager.Instance.TeleportPlayerToSpawnServerRpc(NetworkObject.OwnerClientId);
     }
+
+    [ServerRpc]
+    void SetPlayerHealthServerRpc(float health)
+    {
+        currentHealth.Value = health;
+    }
+
 
     public float GetCurrentHealth()
     {
