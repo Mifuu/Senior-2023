@@ -36,11 +36,6 @@ public class MultiplayerGameManager : Singleton<MultiplayerGameManager>
         {
             timeSinceStart += Time.deltaTime;
         }
-
-        if (Input.GetKey(KeyCode.K))
-        {
-            TeleportPlayerClientRpc(1, Vector3.zero);
-        }
     }
 
     public void StartGame()
