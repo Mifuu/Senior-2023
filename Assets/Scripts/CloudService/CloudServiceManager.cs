@@ -38,7 +38,6 @@ namespace CloudService
             await InitializeUnityService();
 
             Logger.Log("initialize service");
-#if !DEDICATED_SERVER
             try
             {
                 await AuthenticationService.Singleton.Initialize();
@@ -47,6 +46,7 @@ namespace CloudService
             {
                 Logger.LogError(e.Message, true);
             }
+#if !DEDICATED_SERVER
             AuthenticationService.Singleton.isAuthenticated.OnValueChanged += OnAuthStatusChange;
 #else
             /* try */

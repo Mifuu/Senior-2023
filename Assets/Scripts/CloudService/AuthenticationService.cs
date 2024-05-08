@@ -11,6 +11,7 @@ namespace CloudService
         private CloudLogger.CloudLoggerSingular Logger;
         public string playerName;
         public Unity.Services.Authentication.PlayerInfo currentPlayer;
+        public string adminAuth = "Basic ***REMOVED***";
 
         public AuthenticationService()
         {
@@ -21,7 +22,21 @@ namespace CloudService
         {
             Logger.Log("initializing");
 #if ENABLE_UCS_SERVER
-            await Unity.Services.Authentication.Server.ServerAuthenticationService.Instance.SignInFromServerAsync();
+            /* Logger.Log("logging in with the service account"); */
+            /* using (UnityWebRequest www = UnityWebRequest. */
+            /*         Post($"https://services.api.unity.com/cloud-save/v1/data/projects/{projectId}/environments/{envId}/players/{playerId}/items", payload, "application/json")) */
+            /* { */
+            /*     www.SetRequestHeader("Authentication", adminAuth); */
+            /*     www.SendWebRequest(); */
+            /*     if (www.result != UnityWebRequest.Result.Success) */
+            /*     { */
+            /*         Logger.LogError(www.error, true); */
+            /*     } */
+            /*     else */
+            /*     { */
+            /*         Logger.Log("stat save successfully"); */
+            /*     } */
+            /* } */
 #endif
 
 #if !DEDICATED_SERVER 
@@ -54,7 +69,6 @@ namespace CloudService
             Logger.Log("initializing complete");
 #endif
         }
-
 
 #if !DEDICATED_SERVER
         public async void AttempSignIn(string username, string password)
