@@ -247,6 +247,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d52bb18434f18b4391b8af7c7d25928, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  initialElement: 4
+  randomElement: 0
+  networkElement:
+    m_InternalValue: 4
 --- !u!114 &-4998842472402133711
 MonoBehaviour:
   m_ObjectHideFlags: 0

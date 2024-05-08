@@ -458,6 +458,8 @@ MonoBehaviour:
     Amount: 0.01
     LevelLowerBoundInclusive: 11
     LevelUpperBoundExclusive: 20
+  playerId:
+    m_InternalValue: 0
 --- !u!114 &3372938233736518167
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -537,6 +539,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d52bb18434f18b4391b8af7c7d25928, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  initialElement: 0
+  randomElement: 0
+  networkElement:
+    m_InternalValue: 0
 --- !u!65 &2851988463865443915
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -634,7 +640,7 @@ Transform:
   m_GameObject: {fileID: 4983654777501466718}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.522, z: 0}
+  m_LocalPosition: {x: 0, y: 0.8, z: 0.181}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -790,6 +796,7 @@ GameObject:
   - component: {fileID: 5219349918333646396}
   - component: {fileID: 5187360903207510546}
   - component: {fileID: 3537393669586952025}
+  - component: {fileID: 3326345827136767124}
   m_Layer: 14
   m_Name: SkillManager
   m_TagString: Untagged
@@ -825,7 +832,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   normalSkill: {fileID: 3537393669586952025}
-  ultimateSkill: {fileID: 0}
+  ultimateSkill: {fileID: 3326345827136767124}
   buffManager: {fileID: 3917260383959487730}
 --- !u!114 &3537393669586952025
 MonoBehaviour:
@@ -841,6 +848,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillDuration: 6
   shootingSpeedMultiplier: -0.5
+--- !u!114 &3326345827136767124
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5370073473869432004}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e758010628a4f040a0ef878837b3e16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6950338913258170516
 GameObject:
   m_ObjectHideFlags: 0
@@ -1097,17 +1116,41 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5337336228896262560}
     m_Modifications:
+    - target: {fileID: 2918650007548612101, guid: 21f50f289ed7e6e40a3332533e4ed2a4, type: 3}
+      propertyPath: initialElement
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2918650007548612101, guid: 21f50f289ed7e6e40a3332533e4ed2a4, type: 3}
+      propertyPath: networkElement.m_InternalValue
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3698321342377734857, guid: 21f50f289ed7e6e40a3332533e4ed2a4, type: 3}
+      propertyPath: initialElement
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3698321342377734857, guid: 21f50f289ed7e6e40a3332533e4ed2a4, type: 3}
+      propertyPath: networkElement.m_InternalValue
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4895130387348624648, guid: 21f50f289ed7e6e40a3332533e4ed2a4, type: 3}
+      propertyPath: initialElement
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4895130387348624648, guid: 21f50f289ed7e6e40a3332533e4ed2a4, type: 3}
+      propertyPath: networkElement.m_InternalValue
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 5237264887726730377, guid: 21f50f289ed7e6e40a3332533e4ed2a4, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.315
       objectReference: {fileID: 0}
     - target: {fileID: 5237264887726730377, guid: 21f50f289ed7e6e40a3332533e4ed2a4, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.302
+      value: 0.58
       objectReference: {fileID: 0}
     - target: {fileID: 5237264887726730377, guid: 21f50f289ed7e6e40a3332533e4ed2a4, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.354
+      value: 0.53499997
       objectReference: {fileID: 0}
     - target: {fileID: 5237264887726730377, guid: 21f50f289ed7e6e40a3332533e4ed2a4, type: 3}
       propertyPath: m_LocalRotation.w
