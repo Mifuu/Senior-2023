@@ -21,25 +21,32 @@ public class PlayerHealth : NetworkBehaviour, IDamageable
 
     private void Start()
     {
+        if (!IsOwner) return;
         // Initialize current health to FinalMaxHealth on start
-        RecalculateFinalMaxHealth();
-        currentHealth.Value = maxHealth;
-
+        maxHealth = BaseMaxHealth.Value;
+        InitializePlayerHealthServerRpc();
+        RecalculateFinalMaxHealthServerRpc();
         // Recalculate maxhealth everytime BaseMaxHealth or HealthBuffMultiplier values changed
-        BaseMaxHealth.OnValueChanged += (prev, current) => RecalculateFinalMaxHealth();
-        HealthBuffMultiplier.OnValueChanged += (prev, current) => RecalculateFinalMaxHealth();
+        BaseMaxHealth.OnValueChanged += (prev, current) => RecalculateFinalMaxHealthServerRpc();
+        HealthBuffMultiplier.OnValueChanged += (prev, current) => RecalculateFinalMaxHealthServerRpc();
 
     }
 
-    private void RecalculateFinalMaxHealth()
+    [ServerRpc]
+    private void InitializePlayerHealthServerRpc()
     {
-        if (IsOwner)
-        {
-            _maxHealth = maxHealth;
-            maxHealth = BaseMaxHealth.Value * HealthBuffMultiplier.Value;
-            currentHealth.Value += maxHealth - _maxHealth;
-            Debug.Log("Player Health: " + "max health = " + maxHealth + " Multiplier = " + HealthBuffMultiplier.Value);
-        }
+        currentHealth.Value = BaseMaxHealth.Value;
+    }
+
+    [ServerRpc]
+    private void RecalculateFinalMaxHealthServerRpc()
+    {
+
+        _maxHealth = maxHealth;
+        maxHealth = BaseMaxHealth.Value * HealthBuffMultiplier.Value;
+        currentHealth.Value += maxHealth - _maxHealth;
+        Debug.Log("Player Health: " + "max health = " + maxHealth + " Multiplier = " + HealthBuffMultiplier.Value);
+ 
     }
 
     public void Damage(float damageAmount, GameObject dealer)
