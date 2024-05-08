@@ -186,6 +186,7 @@ namespace Enemy
         {
             foreach (var controlled in spawnedEnemyRef)
             {
+                Debug.Log("Killing: " + controlled);
                 if (controlled.TryGetComponent<EnemyBase>(out var controlledEnemy))
                     controlledEnemy.Die(killer);
             }
