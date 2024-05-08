@@ -22,7 +22,7 @@ public class LevelSystem
         level = 1;
         exp = 0f;
         expToNextLevel = 100f;
-        expToNextLevelScaleFactor = 1.1f;
+        expToNextLevelScaleFactor = 1.05f;
         skillCardPoint = 0;
     }
 
@@ -62,7 +62,7 @@ public class LevelSystem
     public void IncreaseExpToNextLevel()
     {
         expToNextLevel *= expToNextLevelScaleFactor;
-        expToNextLevelScaleFactor += 0.02f;
+        expToNextLevelScaleFactor += 0.005f;
     }
 
 }
