@@ -55,7 +55,10 @@ namespace Enemy
         private void SetupStatue(List<EnemyBase> enemyBases)
         {
             for (int i = 0; i < enemyBases.Count; i++)
-                enemyBases[i].SetupBehaviour();
+            {
+                if (enemyBases[i] != null)
+                    enemyBases[i].SetupBehaviour();
+            }
         }
     }
 }

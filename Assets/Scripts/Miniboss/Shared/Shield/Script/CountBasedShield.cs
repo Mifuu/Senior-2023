@@ -27,10 +27,12 @@ namespace Enemy
         public override void OnNetworkSpawn()
         {
             base.OnNetworkSpawn();
-            if (!IsServer) return;
-            shieldHealthCount.Value = maxHealthCount;
+            if (IsServer)
+            {
+                shieldHealthCount.Value = maxHealthCount;
+                shieldUp.Value = true;
+            }
             shieldHealthCount.OnValueChanged += CheckHealth;
-            shieldUp.Value = true;
             shieldUp.OnValueChanged += ChangeShieldState;
         }
 
@@ -39,6 +41,7 @@ namespace Enemy
             base.OnNetworkDespawn();
             if (!IsServer) return;
             shieldHealthCount.OnValueChanged -= CheckHealth;
+            shieldUp.OnValueChanged -= ChangeShieldState;
         }
 
         public void DamageShield(int count)

@@ -27,7 +27,12 @@ public class ElementalShardManager : NetworkBehaviour
             shardDict.Add(map.type, map.shardPrefab);
     }
 
-    public GameObject GetShardOfElement(ElementalType element) => shardDict[element];
+    public GameObject GetShardOfElement(ElementalType element)
+    {
+        if (shardDict.TryGetValue(element, out var go))
+            return go;
+        return null;
+    }
 }
 
 [Serializable]
