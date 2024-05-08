@@ -32,9 +32,9 @@ namespace Enemy
 
         public void Damage(DamageInfo damageInfo)
         {
-            if (!IsServer) return;
             var trueDamageAmount = CalculateDamage(damageInfo);
             // DebugDamageInfo(damageInfo);
+            Debug.Log("dealt damage of " + trueDamageAmount);
             enemy.Damage(trueDamageAmount, damageInfo.dealer);
             enemy.OnTargetPlayerChangeRequired(damageInfo.dealer);
         }

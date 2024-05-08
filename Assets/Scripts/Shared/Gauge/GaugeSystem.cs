@@ -84,7 +84,11 @@ public class GaugeSystem : NetworkBehaviour
         OnNewWordQueued?.Invoke(newWord);
         currentGaugeNumber = Math.Clamp(currentGaugeNumber + gaugeNumberAdded, 0, maximumGaugeValue);
         AdjustGauge(true);
-        AddExpServerRpc(playerId, gaugeNumberAdded * GetCurrentGaugeLevelMultiplier());
+        // AddExpServerRpc(playerId, gaugeNumberAdded * GetCurrentGaugeLevelMultiplier());
+        float value = gaugeNumberAdded * GetCurrentGaugeLevelMultiplier();
+        
+        if (NetworkManager.Singleton.LocalClientId == playerId && PlayerManager.thisClient.TryGetComponent<PlayerLevel>(out var level))
+            level.AddExp(value);
     }
 
     [ServerRpc(RequireOwnership = false)]
