@@ -36,6 +36,7 @@ public class SkillCardUI : MonoBehaviour
     private void Start()
     {
         gameplayUIController = transform.parent.GetComponent<GameplayUIController>();
+        PlayerManager.thisClient.gameObject.GetComponent<PlayerInventory>().ApplyUpgradeOptions();
     }
 
     public void SetCardSlotUI(int slotIndex, string name, string description, Sprite image, UnityAction chooseCard)
@@ -58,9 +59,9 @@ public class SkillCardUI : MonoBehaviour
         {
             Debug.Log("cardSlotUIs is: " + cardSlotUIs);
             Debug.Log(slot.upgradeButton);
-            
+
             slot.upgradeButton.onClick.RemoveAllListeners();
         }
     }
-    
+
 }

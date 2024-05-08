@@ -74,7 +74,15 @@ public class PlayerInventory : NetworkBehaviour
     {
         playerSkillCard = GetComponent<PlayerSkillCard>();
         playerLevel = GetComponent<PlayerLevel>();
-        RemoveAndApplyUpgrades();
+        // RemoveAndApplyUpgrades();
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.N))
+        {
+            RemoveAndApplyUpgrades();
+        }
     }
 
     #region Skill Card Functions
@@ -115,7 +123,7 @@ public class PlayerInventory : NetworkBehaviour
         }
     }
 
-    void ApplyUpgradeOptions()
+    public void ApplyUpgradeOptions()
     {
         if (!IsOwner) return;
 

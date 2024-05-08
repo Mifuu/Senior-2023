@@ -1,28 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Unity.Netcode;
+using ObserverPattern;
 using UnityEngine.Events;
 using System.Linq;
+using Unity.Netcode;
 /* using Microsoft.Unity.VisualStudio.Editor; */
 
 public class PlayerSwitchWeapon : NetworkBehaviour
 {
-    public NetworkVariable<int> currentGunIndex = new(0);
+    public Subject<int> currentGunIndex = new(0);
     public Gun[] guns = new Gun[3];
     public int maxGun = 3;
-    public NetworkObject initialGun_1;
-    public NetworkObject initialGun_2;
-    public NetworkObject initialGun_3;
     private GameObject player;
     private PlayerShoot playerShoot;
     private InputManager inputManager;
     private PlayerInteract playerInteract;
     private PlayerUIUpdater playerUIUpdater;
     private BuffManager buffManager;
-    private NetworkObject gunToSpawn;
+    //private Playergunenabler playerGunEnabler;
 
-    public NetworkVariable<float> gunShootingSpeedMultiplier = new(1f);
+    public Subject<float> gunShootingSpeedMultiplier = new(1f);
 
     void Start()
     {
@@ -32,52 +30,16 @@ public class PlayerSwitchWeapon : NetworkBehaviour
         playerInteract = player.GetComponent<PlayerInteract>();
         playerUIUpdater = player.GetComponentInChildren<PlayerUIUpdater>();
         buffManager = player.GetComponent<BuffManager>();
+       // playerGunEnabler = player.GetComponent<Playergunenabler>();
         playerShoot.InitializePlayerSwitchWeapon();
         inputManager.InitializePlayerSwitchWeapon();
         playerInteract.InitializePlayerSwitchWeapon();
         playerUIUpdater.InitializePlayerSwitchWeapon();
         buffManager.InitializePlayerSwitchWeapon();
-
-        gunToSpawn = initialGun_1;
-        SpawnGunServerRpc(0);
-        gunToSpawn = initialGun_2;
-        SpawnGunServerRpc(1);
-        gunToSpawn = initialGun_3;
-        SpawnGunServerRpc(2);
         UpdateGunList();
-    }
 
-    public override void OnNetworkSpawn()
-    {
-        base.OnNetworkSpawn();
         currentGunIndex.OnValueChanged += UpdateWeapon;
         gunShootingSpeedMultiplier.OnValueChanged += (prev, current) => SetHoldingGunShootingSpeedMultiplier();
-    }
-
-    public override void OnNetworkDespawn()
-    {
-        base.OnNetworkDespawn();
-        currentGunIndex.OnValueChanged -= UpdateWeapon;
-        gunShootingSpeedMultiplier.OnValueChanged -= (prev, current) => SetHoldingGunShootingSpeedMultiplier();
-    }
-
-    [ServerRpc]
-    private void SpawnGunServerRpc(int index)
-    {
-        Debug.Log($"try to spawn gun {gunToSpawn.name}");
-        if (gunToSpawn == null)
-        {
-            Debug.LogError("PlayerSwitchWeapon Script: gunToSpawn is null");
-            return;
-        }
-
-        if (index < guns.Length)
-        {
-            var gunNetworkObj = Instantiate(gunToSpawn, transform.position, transform.rotation);
-            gunNetworkObj.Spawn();
-            gunNetworkObj.transform.SetParent(transform); // Set the player as the parent of the gun
-            guns[index] = gunNetworkObj.GetComponent<Gun>();
-        }
     }
 
     public void UpdateGunList()
@@ -118,7 +80,7 @@ public class PlayerSwitchWeapon : NetworkBehaviour
 
     void SelectWeapon()
     {
-        if (!IsOwner) return;
+        //if (!IsOwner) return;
         
         for (int i = 0; i < guns.Length; i++)
         {
@@ -138,7 +100,7 @@ public class PlayerSwitchWeapon : NetworkBehaviour
 
     public void SwitchWeapon(float index)
     {
-        if (!IsOwner) return;
+        //if (!IsOwner) return;
         
         Debug.Log("Player Script: Switch activate");
         AdjustCurrentGunIndex();
@@ -169,12 +131,4 @@ public class PlayerSwitchWeapon : NetworkBehaviour
     {
         guns[currentGunIndex.Value].shootingSpeedMultiplier = gunShootingSpeedMultiplier.Value;
     }
-
-    /*
-    [ServerRpc]
-    public void ChangeSelectedWeaponServerRPC(int index)
-    {
-        currentGunIndex.Value = index;
-    }
-    */
 }

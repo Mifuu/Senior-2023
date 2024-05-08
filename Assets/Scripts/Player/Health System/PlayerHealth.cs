@@ -21,48 +21,68 @@ public class PlayerHealth : NetworkBehaviour, IDamageable
 
     private void Start()
     {
+        if (!IsOwner) return;
         // Initialize current health to FinalMaxHealth on start
-        RecalculateFinalMaxHealth();
-        currentHealth.Value = maxHealth;
-
+        maxHealth = BaseMaxHealth.Value;
+        InitializePlayerHealthServerRpc();
+        RecalculateFinalMaxHealthServerRpc();
         // Recalculate maxhealth everytime BaseMaxHealth or HealthBuffMultiplier values changed
-        BaseMaxHealth.OnValueChanged += (prev, current) => RecalculateFinalMaxHealth();
-        HealthBuffMultiplier.OnValueChanged += (prev, current) => RecalculateFinalMaxHealth();
+        BaseMaxHealth.OnValueChanged += (prev, current) => RecalculateFinalMaxHealthServerRpc();
+        HealthBuffMultiplier.OnValueChanged += (prev, current) => RecalculateFinalMaxHealthServerRpc();
 
     }
 
-    private void RecalculateFinalMaxHealth()
+    [ServerRpc]
+    private void InitializePlayerHealthServerRpc()
     {
-        if (IsOwner)
-        {
-            _maxHealth = maxHealth;
-            maxHealth = BaseMaxHealth.Value * HealthBuffMultiplier.Value;
-            currentHealth.Value += maxHealth - _maxHealth;
-            Debug.Log("Player Health: " + "max health = " + maxHealth + " Multiplier = " + HealthBuffMultiplier.Value);
-        }
+        currentHealth.Value = BaseMaxHealth.Value;
+    }
+
+    [ServerRpc]
+    private void RecalculateFinalMaxHealthServerRpc()
+    {
+
+        _maxHealth = maxHealth;
+        maxHealth = BaseMaxHealth.Value * HealthBuffMultiplier.Value;
+        currentHealth.Value += maxHealth - _maxHealth;
+        Debug.Log("Player Health: " + "max health = " + maxHealth + " Multiplier = " + HealthBuffMultiplier.Value);
+ 
     }
 
     public void Damage(float damageAmount, GameObject dealer)
     {
-        if (!IsServer) return;
-
         if (isDead) return;
 
-        currentHealth.Value -= damageAmount;
+        if (IsServer)
+            currentHealth.Value -= damageAmount;
+        else
+            ApplyDamageServerRpc(damageAmount);
 
         if (currentHealth.Value <= 0f)
         {
-            Die(dealer);
+            DieClientRpc();
+            isDead = true;
         }
 
         BloodVignetteVFX.SimpleBloodVignette();
     }
 
-    public void Die(GameObject killer)
+    [ServerRpc] 
+    void ApplyDamageServerRpc(float damageAmount)
+    {
+        currentHealth.Value -= damageAmount;
+    }
+
+    [ClientRpc]
+    void DieClientRpc()
+    {
+        Die(null);
+    }
+
+    public void Die(GameObject obj)
     {
         Debug.Log("Player Script: Player has died!");
         OnPlayerDie?.Invoke();
-        isDead = true;
         StartCoroutine(RespawnCR());
     }
 
@@ -74,25 +94,26 @@ public class PlayerHealth : NetworkBehaviour, IDamageable
         GameplayUIController.Instance.RespawnTrigger(respawnTime);
         inputManager.EnableInput(false);
 
+        Debug.Log("TEST RESPAWNCR 1");
+
         yield return new WaitForSeconds(respawnTime);
 
         // respawn
         inputManager.EnableInput(true);
         isDead = false;
-        currentHealth.Value = maxHealth;
+        SetPlayerHealthServerRpc(maxHealth);
 
-        if (TryGetComponent<PlayerManager>(out var playerManager))
-        {
-            if (MultiplayerGameManager.Instance)
-            {
-                MultiplayerGameManager.Instance.RespawnPlayerServerRpc(NetworkObject.OwnerClientId);
-            }
-            else
-            {
-                playerManager.TeleportToSpawnPoint();
-            }
-        }
+        Debug.Log("TEST RESPAWNCR");
+
+        MultiplayerGameManager.Instance.TeleportPlayerToSpawnServerRpc(NetworkObject.OwnerClientId);
     }
+
+    [ServerRpc]
+    void SetPlayerHealthServerRpc(float health)
+    {
+        currentHealth.Value = health;
+    }
+
 
     public float GetCurrentHealth()
     {

@@ -21,6 +21,7 @@ public class MultiplayerGameManager : Singleton<MultiplayerGameManager>
     [Header("Readonly")]
     [ReadOnly] public List<PlayerManager> playerManagers = new List<PlayerManager>();
     [ReadOnly] public List<ulong> playerIds = new List<ulong>();
+    [ReadOnly] public Dictionary<ulong, Vector3> playerSpawnPoints = new Dictionary<ulong, Vector3>();
     [ReadOnly] public Vector3[] bossRoomCoords = { new Vector3(-4000, 0, -4000), new Vector3(4000, 0, -4000), new Vector3(-4000, 0, 4000), new Vector3(4000, 0, 4000) };
     NetworkObject[] bossRooms = { null, null, null, null };
 
@@ -34,6 +35,11 @@ public class MultiplayerGameManager : Singleton<MultiplayerGameManager>
         if (timeSinceStart >= 0)
         {
             timeSinceStart += Time.deltaTime;
+        }
+
+        if (Input.GetKey(KeyCode.K))
+        {
+            TeleportPlayerClientRpc(1, Vector3.zero);
         }
     }
 
@@ -70,17 +76,21 @@ public class MultiplayerGameManager : Singleton<MultiplayerGameManager>
         List<Transform> spawnTransform = roomGenerator.GetSpawnTransforms();
 
         IReadOnlyList<ulong> ids = NetworkManager.Singleton.ConnectedClientsIds;
+        playerSpawnPoints = new Dictionary<ulong, Vector3>();
 
         // Iterate over each client
         for (int i = 0; i < ids.Count; i++)
         {
             ulong id = ids[i];
 
-            Vector3 spawnPosition = Vector3.zero;
+            Vector3 spawnPosition = Vector3.zero + Vector3.up * 4;
             if (spawnTransform.Count > i)
+            {
                 spawnPosition = spawnTransform[i].position;
+                playerSpawnPoints.Add(id, spawnPosition);
+            }
             else
-                Debug.LogWarning("No spawn position... Spawning at 0,0,0");
+                Debug.LogWarning("No spawn position... Spawning at 0,4,0");
 
             // SpawnPlayerClientRpc(spawnPosition, id);
             GameObject player = Instantiate(playerPrefab, spawnPosition, Quaternion.identity);
@@ -130,11 +140,20 @@ public class MultiplayerGameManager : Singleton<MultiplayerGameManager>
             PlayerManager.thisClient.SetSpawnPoint(pos);
         }
     }
-
-    [ServerRpc]
-    public void RespawnPlayerServerRpc(ulong id)
+    
+    [ClientRpc]
+    public void TeleportPlayerToSpawnClientRpc(ulong id)
     {
-        RespawnPlayerClientRpc(id);
+        if (NetworkManager.Singleton.LocalClientId == id)
+        {
+            PlayerManager.thisClient.Teleport(PlayerManager.thisClient.spawnPoint);
+        }
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    public void TeleportPlayerToSpawnServerRpc(ulong id)
+    {
+        TeleportPlayerClientRpc(id, playerSpawnPoints[id]);
 
         if (bossRooms[playerIds.IndexOf(id)] != null)
         {

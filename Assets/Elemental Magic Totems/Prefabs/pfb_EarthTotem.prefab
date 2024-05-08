@@ -9769,7 +9769,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interactableItemPrefab: {fileID: 133532}
-  promptMessage: Infuse gun with earth element [ 20 earth shards ]
+  promptMessage: '[F] Infuse gun with earth element [ 20 earth shards ]'
   totemType: 2
   requireShard: 20
 --- !u!114 &8231820724813565716
