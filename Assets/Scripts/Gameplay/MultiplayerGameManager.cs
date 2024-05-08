@@ -152,7 +152,7 @@ public class MultiplayerGameManager : Singleton<MultiplayerGameManager>
         }
     }
 
-    [ServerRpc]
+    [ServerRpc(RequireOwnership = false)]
     public void TeleportToBossRoomServerRpc(ulong id)
     {
         if (NetworkManager.Singleton.LocalClientId == id)
