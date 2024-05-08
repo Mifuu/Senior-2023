@@ -10,11 +10,11 @@ public class Gun : NetworkBehaviour
 {
     [SerializeField] private float raycastHitRange = 999f;
     [SerializeField] private float shootingDelay = 0.1f;
-    [SerializeField] public Transform normalBullet;
-    [SerializeField] public Transform bulletSpawnPosition;
-    [SerializeField] public GunInteractable gunInteractable;
-    [SerializeField] public MuzzleFlash muzzleFlash;
-    [SerializeField] public Sprite gunSprite;
+    public Transform normalBullet;
+    public Transform bulletSpawnPosition;
+    public GunInteractable gunInteractable;
+    public MuzzleFlash muzzleFlash;
+    public Sprite gunSprite;
     [SerializeField] private Transform fireBullet;
     [SerializeField] private Transform waterBullet;
     [SerializeField] private Transform earthBullet;

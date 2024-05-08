@@ -10,7 +10,7 @@ namespace RoomGeneration
     public class RoomSpawner : NetworkBehaviour
     {
         // Debug
-        public static List<Vector3> checkPoses = new List<Vector3>();
+        public static List<Vector3> checkPoses = new();
 
         [Header("Requirements")]
         public RoomDataPlotter roomDataPlotter;
@@ -19,7 +19,7 @@ namespace RoomGeneration
         [Header("Settings")]
         public LayerMask raycastMask;
         public float distanceFromRaycast = 2;
-        public Vector2Int spawnCountRange = new Vector2Int(10, 10);
+        public Vector2Int spawnCountRange = new(10, 10);
         public int maxFailAttempts = 32;
         private int spawnCount = 0;
         public EnemyRandomPool enemyPrefabPool;
@@ -27,7 +27,7 @@ namespace RoomGeneration
         public bool spawnOnStart;
 
         // playtime cache
-        List<RoomSpawnerCollider> roomSpawnerColliders = new List<RoomSpawnerCollider>();
+        List<RoomSpawnerCollider> roomSpawnerColliders = new();
 
         public bool HasPlayer { get => playerEnterCount > playerExitCount; }
         [ReadOnly]
@@ -45,7 +45,7 @@ namespace RoomGeneration
         Coroutine respawnCoroutine;
 
         [Header("Debug")]
-        public List<EnemyBase> enemies = new List<EnemyBase>();
+        public List<EnemyBase> enemies = new();
 
         void Start()
         {
@@ -142,7 +142,7 @@ namespace RoomGeneration
             Vector3 raycastOrigin = transform.position;
             spawnCount = Random.Range(spawnCountRange.x, spawnCountRange.y);
 
-            RaycastHit hit = new RaycastHit();
+            RaycastHit hit = new();
             int failAttempts = 0;
             for (int i = 0; i < spawnCount; i++)
             {

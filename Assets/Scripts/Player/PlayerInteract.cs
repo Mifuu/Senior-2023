@@ -86,6 +86,9 @@ public class PlayerInteract : NetworkBehaviour
                 Vector3 aimDir = (cam.transform.forward).normalized;
                 Quaternion gunRotation = Quaternion.LookRotation(aimDir, Vector3.up);
                 ElementalType gunElement = switchWeapon.guns[currentGunIndex].GetComponent<ElementAttachable>().element;
+                GameObject gunToDestroy = switchWeapon.guns[currentGunIndex].gameObject;
+                switchWeapon.guns[currentGunIndex].transform.SetParent(null);
+                Destroy(gunToDestroy);
                 DropHoldingGunServerRpc(spawnPosition, gunRotation, gunElement);
             }
         }
@@ -100,10 +103,13 @@ public class PlayerInteract : NetworkBehaviour
     {
         // destroy the gun that player is holding
         int currentGunIndex = switchWeapon.currentGunIndex.Value;
-        NetworkObject gunToDestroy = switchWeapon.guns[currentGunIndex].NetworkObject;
+        //NetworkObject gunToDestroy = switchWeapon.guns[currentGunIndex].NetworkObject;
         GameObject gunToDrop = switchWeapon.guns[currentGunIndex].gunInteractable.gameObject;
+        /*
         gunToDestroy.transform.SetParent(null);
         gunToDestroy.Despawn(true);
+        */
+       
 
         // spawn the counterpart of the gun infront of the player
         var gunObject = Instantiate(gunToDrop.gameObject, playerPosition, playerRotation);

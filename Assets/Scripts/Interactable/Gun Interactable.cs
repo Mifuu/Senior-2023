@@ -37,12 +37,28 @@ public class GunInteractable : InteractableItem
         }
     }
 
+    private void SpawnGunCounterpartFull(PlayerSwitchWeapon gunHolder)
+    {
+        int currentIndex = gunHolder.currentGunIndex.Value;
+        var gunObject = Instantiate(gunCounterpart.gameObject, gunHolder.transform.position, gunHolder.transform.rotation, gunHolder.transform);
+        gunObject.GetComponent<ElementAttachable>().element = gunElement;
+        //gunObject.transform.SetParent(gunHolder.transform);
+        gunObject.transform.SetSiblingIndex(currentIndex);
+    }
+
+    private void SpawnGunCounterpart(PlayerSwitchWeapon gunHolder)
+    {
+        var gunObject = Instantiate(gunCounterpart.gameObject, gunHolder.transform.position, gunHolder.transform.rotation, gunHolder.transform);
+        gunObject.GetComponent<ElementAttachable>().element = gunElement;
+        //gunObject.transform.SetParent(gunHolder.transform);
+        gunHolder.UpdateGunList();
+    }
+
     [ServerRpc(RequireOwnership = false)]
     public void SelfDespawnServerRpc()
     {
         NetworkObject.Despawn(true);
     }
-
     
     [ServerRpc]
     public void SpawnGunCounterpartServerRpc()
@@ -65,26 +81,31 @@ public class GunInteractable : InteractableItem
         if (gunHolder.IsFull())
         {
             Debug.Log("gunHolder is full, player drop current gun to pick up");
-            int currentIndex = gunHolder.currentGunIndex.Value;
-            var gunObject = Instantiate(gunCounterpart.gameObject, gunHolder.transform.position, gunHolder.transform.rotation);
-            gunObject.GetComponent<ElementAttachable>().element = gunElement; 
-            var gunNetworkObj = gunObject.GetComponent<NetworkObject>();
-            gunNetworkObj.Spawn();
+            ///int currentIndex = gunHolder.currentGunIndex.Value;
+            ///var gunObject = Instantiate(gunCounterpart.gameObject, gunHolder.transform.position, gunHolder.transform.rotation);
+            ///gunObject.GetComponent<ElementAttachable>().element = gunElement; 
+            ///var gunNetworkObj = gunObject.GetComponent<NetworkObject>();
+            ///gunNetworkObj.Spawn();
             PlayerInteract playerInteract = playerObject.GetComponent<PlayerInteract>();
             playerInteract.DropHoldingGun();
-            gunNetworkObj.transform.SetParent(gunHolder.transform);
-            gunNetworkObj.transform.SetSiblingIndex(currentIndex);
+            SpawnGunCounterpartFull(gunHolder);
+            ///gunNetworkObj.transform.SetParent(gunHolder.transform);
+            ///gunNetworkObj.transform.SetSiblingIndex(currentIndex);
+            ///gunObject.transform.SetParent(gunHolder.transform);
+            ///gunObject.transform.SetSiblingIndex(currentIndex);
         }
         else
         {
             Debug.Log("gunHolder is not full, player pick up a gun and place it in the last slot");
             // spawn the counterpart of the gun infront of the player
-            var gunObject = Instantiate(gunCounterpart.gameObject, gunHolder.transform.position, gunHolder.transform.rotation);
-            gunObject.GetComponent<ElementAttachable>().element = gunElement;
-            var gunNetworkObj = gunObject.GetComponent<NetworkObject>();
-            gunNetworkObj.Spawn();
-            gunNetworkObj.transform.SetParent(gunHolder.transform);
-            gunHolder.UpdateGunList();
+            ////var gunObject = Instantiate(gunCounterpart.gameObject, gunHolder.transform.position, gunHolder.transform.rotation);
+            ////gunObject.GetComponent<ElementAttachable>().element = gunElement;
+            ///var gunNetworkObj = gunObject.GetComponent<NetworkObject>();
+            ///gunNetworkObj.Spawn();
+            ///gunNetworkObj.transform.SetParent(gunHolder.transform);
+            ////gunObject.transform.SetParent(gunHolder.transform);
+            ////gunHolder.UpdateGunList();
+            SpawnGunCounterpart(gunHolder);
         }
         SelfDespawnServerRpc();
         Debug.Log($"Gun interactable try to spawn {gunCounterpart.name}");

@@ -179,7 +179,7 @@ GameObject:
   - component: {fileID: 23860282398207496}
   - component: {fileID: -4898735189294992123}
   - component: {fileID: -1479189985387134789}
-  - component: {fileID: 1379593740503761900}
+  - component: {fileID: -2316726865702820952}
   m_Layer: 7
   m_Name: AK74
   m_TagString: Untagged
@@ -301,7 +301,7 @@ MonoBehaviour:
   elementAttachable: {fileID: 0}
   playerDmgComponent: {fileID: 0}
   shootingSpeedMultiplier: 1
---- !u!114 &1379593740503761900
+--- !u!114 &-2316726865702820952
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

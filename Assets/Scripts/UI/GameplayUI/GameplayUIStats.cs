@@ -9,8 +9,7 @@ public class GameplayUIStats : MonoBehaviour
 
     void OnEnable()
     {
-        BuffManager b = PlayerManager.thisClient.gameObject.GetComponent<BuffManager>();
-        if (b != null)
+        if (PlayerManager.thisClient.gameObject.TryGetComponent<BuffManager>(out var b))
         {
             BuffManager.Stats stats = b.GetStats();
 
