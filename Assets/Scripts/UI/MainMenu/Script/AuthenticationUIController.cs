@@ -11,8 +11,16 @@ public class AuthenticationUIController : MonoBehaviour
     private Subject<bool> isOnLogin = new Subject<bool>(true);
 
     public void OnUsernameChanged(string value) => username = value;
-    public void OnPasswordChange(string value) => password = value;
-    public void OnConfirmPasswordChange(string value) => confirmPassword = value;
+    public void OnPasswordChange(string value)
+    {
+        password = value;
+        CheckPasswordMatch();
+    }
+    public void OnConfirmPasswordChange(string value)
+    {
+        confirmPassword = value;
+        CheckPasswordMatch();
+    }
 
     [SerializeField] private Button switchButton;
     [SerializeField] private Button confirmButton;
@@ -66,6 +74,11 @@ public class AuthenticationUIController : MonoBehaviour
             switchButton.GetComponentInChildren<TextMeshProUGUI>().text = "Go to Sign In";
             rectTransform.sizeDelta = new Vector2(1000, 800);
         }
+    }
+
+    private void CheckPasswordMatch()
+    {
+        confirmButton.interactable = password == confirmPassword;
     }
 #endif
 }
