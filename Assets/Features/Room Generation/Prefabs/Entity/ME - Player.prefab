@@ -46,4 +46,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   iconPrefab: {fileID: 6593139854808045831, guid: 7638ce2dcd2fc49b688815eb2ff562ba, type: 3}
   trackType: 1
-  isAnchor: 0
+  isAnchor: 1
