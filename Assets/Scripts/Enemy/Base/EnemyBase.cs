@@ -9,6 +9,9 @@ namespace Enemy
     [RequireComponent(typeof(EnemyStat))]
     public class EnemyBase : NetworkBehaviour, IDamageable
     {
+        [Header("Name")]
+        [SerializeField] public new string name;
+
         [Header("Setup")]
         [SerializeField] private bool deferSetup;
         [Tooltip("If false, enemy will be killed instantly when target is null")]
@@ -291,8 +294,7 @@ namespace Enemy
 
             if (dealer != null && dealer.TryGetComponent<PlayerHealth>(out var h) && dealer.TryGetComponent<PlayerStat>(out var playerStat))
             {
-                Debug.Log("Die Player ID: " + playerStat.playerId.Value);
-                GaugeSystem.Singleton.AddGaugeClientRpc(playerStat.playerId.Value, "Kill", (int)stat.BaseEXP.Value, new ClientRpcParams
+                GaugeSystem.Singleton.AddGaugeClientRpc(playerStat.playerId.Value, "Kill " + name, (int)stat.BaseEXP.Value, new ClientRpcParams
                 {
                     Send = new ClientRpcSendParams
                     {
@@ -301,9 +303,9 @@ namespace Enemy
                 });
 
                 /* dealer.GetComponent<PlayerLevel>()?.AddExp(stat.BaseEXP.Value); */
-#if DEDICATED_SERVER
-                KillStatCollector.Singleton.Set<int>(playerStat.playerId.Value, "kill", (prev) => prev+1);
-#endif
+/* #if DEDICATED_SERVER */
+/*                 KillStatCollector.Singleton.Set<int>(playerStat.playerId.Value, "kill", (prev) => prev+1); */
+/* #endif */
             }
 
             audioController?.PlaySFXAtObject(soundDeadName, transform.position);
