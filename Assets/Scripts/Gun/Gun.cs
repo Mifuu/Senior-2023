@@ -56,23 +56,12 @@ public class Gun : NetworkBehaviour
     private void Awake()
     {
         elementAttachable = GetComponent<ElementAttachable>();
-        playerObject = PlayerManager.thisClient.gameObject;
-        //playerObject = transform.parent.parent.gameObject;
+        //playerObject = PlayerManager.thisClient.gameObject;
+        playerObject = transform.parent.parent.gameObject;
         playerEntity = playerObject.GetComponent<ElementalEntity>();
         playerDmgComponent = playerObject.GetComponent<DamageCalculationComponent>();
         OnElementChanged(elementAttachable.element);
-    }
-
-    public override void OnNetworkSpawn()
-    {
-        base.OnNetworkSpawn();
         elementAttachable.ElementChanged += OnElementChanged;
-    }
-
-    public override void OnNetworkDespawn()
-    {
-        base.OnNetworkDespawn();
-        elementAttachable.ElementChanged -= OnElementChanged;
     }
 
     private void OnElementChanged(ElementalType newElement)
