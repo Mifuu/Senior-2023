@@ -77,7 +77,7 @@ public class BulletProjectile : NetworkBehaviour
         };
         damageInfo = component.GetFinalDealthDamageInfo(damageInfo);
         damageable.Damage(damageInfo); // Pass the player GameObject to the Damage method
-        Debug.Log("Damage dealt to " + other.name + ": "  + damageInfo.amount);
+        Debug.Log("Damage dealt to " + other.name + ": "  + damageInfo.amount + " by bullet");
         //Instantiate(vfxHit, transform.position, Quaternion.identity);
 
         // Destroy(gameObject);

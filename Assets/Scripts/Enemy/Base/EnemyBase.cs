@@ -272,18 +272,33 @@ namespace Enemy
             DesetupTargetPlayer();
         }
 
+        [ServerRpc(RequireOwnership = false)]
+        public virtual void DamageServerRpc(float damageAmount, NetworkObjectReference dealer)
+        {
+            Damage(damageAmount, dealer);
+        }
+
         public virtual void Damage(float damageAmount, GameObject dealer)
         {
+            if (!IsServer) 
+            {
+                DamageServerRpc(damageAmount, dealer.GetComponent<NetworkObject>());
+                return;
+            }
+
             if (!IsServer || !isActiveAndEnabled) return;
             if (dealer != null)
                 if (dealer.TryGetComponent<EnemyBase>(out EnemyBase enemy)) return; // Prevent Friendly fire
 
             currentHealth.Value -= damageAmount;
             SpawnDamageFloatingClientRpc(Mathf.Round(damageAmount).ToString());
+
             Debug.Log("Enemy script: Received " + damageAmount + " damage");
 
             if (currentHealth.Value <= 0f)
+            {
                 Die(dealer);
+            }
         }
 
         public void Die(GameObject dealer)
