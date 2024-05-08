@@ -58,7 +58,7 @@ namespace Enemy
                 }
             }
 
-            if (IsServer)
+            if (IsServer && !IsClient)
                 PlayVfxClientRpc();
         }
 
@@ -73,7 +73,7 @@ namespace Enemy
                 }
             }
 
-            if (IsServer)
+            if (IsServer && !IsClient)
                 StopVfxClientRpc();
         }
 

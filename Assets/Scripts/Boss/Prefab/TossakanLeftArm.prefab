@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8676829194391752597}
   - component: {fileID: 15446414172430453}
   - component: {fileID: 2872224367688616593}
-  m_Layer: 12
+  m_Layer: 17
   m_Name: Arm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -101,7 +101,7 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
@@ -116,7 +116,10 @@ GameObject:
   - component: {fileID: 9196718024417298435}
   - component: {fileID: 8601602399690217447}
   - component: {fileID: 6415597459361304471}
-  m_Layer: 12
+  - component: {fileID: 4453644563209315368}
+  - component: {fileID: 9222111383591842672}
+  - component: {fileID: 439728104371021682}
+  m_Layer: 17
   m_Name: TossakanLeftArm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -174,6 +177,52 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TransitionStateInfoList: []
   m_Animator: {fileID: 8601602399690217447}
+--- !u!65 &4453644563209315368
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1934753738074868919}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 18.836407, y: 125.44589, z: 20.49288}
+  m_Center: {x: 0.31193924, y: 85.19823, z: -0.39167595}
+--- !u!114 &9222111383591842672
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1934753738074868919}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0ddac8ca7987304d8e00c3581c06baf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  simpleDamageFactor: 1
+--- !u!114 &439728104371021682
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1934753738074868919}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd02a2c949744e04386c48728eca2192, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7031863893522680593
 GameObject:
   m_ObjectHideFlags: 0
@@ -185,9 +234,7 @@ GameObject:
   - component: {fileID: 1646029043118434595}
   - component: {fileID: 881150251174280113}
   - component: {fileID: 3707212310452526768}
-  - component: {fileID: -8027252560784165259}
-  - component: {fileID: 4867343575290071746}
-  m_Layer: 12
+  m_Layer: 17
   m_Name: TossakanLeftArm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -242,37 +289,3 @@ MonoBehaviour:
   SpawnWithObservers: 1
   DontDestroyWithOwner: 0
   AutoObjectParentSync: 1
---- !u!65 &-8027252560784165259
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7031863893522680593}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 18.836407, y: 125.44589, z: 20.49288}
-  m_Center: {x: 0.31193924, y: 85.19823, z: -0.39167595}
---- !u!114 &4867343575290071746
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7031863893522680593}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a0ddac8ca7987304d8e00c3581c06baf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  simpleDamageFactor: 1
