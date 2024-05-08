@@ -17,6 +17,7 @@ public class ElementalReactionCollectible : NetworkBehaviour
     private void OnTriggerEnter(Collider other)
     {
         Debug.Log("Picking Up Orb Collectible");
+        Debug.Log("IsServer?: " + IsServer);
         if (!IsServer) return;
         NetworkObject networkObject = other.GetComponent<NetworkObject>();
         if (networkObject != null && networkObject.TryGetComponent<PlayerStat>(out var stat))
