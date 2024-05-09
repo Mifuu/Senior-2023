@@ -22,6 +22,16 @@ public class AuthenticationUIController : MonoBehaviour
         CheckPasswordMatch();
     }
 
+    private void CheckPasswordMatch()
+    {
+        confirmButton.interactable = isOnLogin.Value || (password == confirmPassword);
+    }
+
+    private void CheckIsOnLogin(bool prev, bool current)
+    {
+        confirmButton.interactable = current || (password == confirmPassword);
+    }
+
     [SerializeField] private Button switchButton;
     [SerializeField] private Button confirmButton;
     [SerializeField] private GameObject confirmPasswordGroup;
@@ -34,6 +44,7 @@ public class AuthenticationUIController : MonoBehaviour
         isOnLogin.OnValueChanged += SwitchPage;
         switchButton.onClick.AddListener(OnSwitchButtonPressed);
         confirmButton.onClick.AddListener(OnConfirmButtonPressed);
+        isOnLogin.OnValueChanged += CheckIsOnLogin;
 #endif
     }
 
@@ -43,6 +54,7 @@ public class AuthenticationUIController : MonoBehaviour
         isOnLogin.OnValueChanged -= SwitchPage;
         switchButton.onClick.RemoveAllListeners();
         confirmButton.onClick.RemoveAllListeners();
+        isOnLogin.OnValueChanged -= CheckIsOnLogin;
 #endif
     }
 
@@ -74,11 +86,6 @@ public class AuthenticationUIController : MonoBehaviour
             switchButton.GetComponentInChildren<TextMeshProUGUI>().text = "Go to Sign In";
             rectTransform.sizeDelta = new Vector2(1000, 800);
         }
-    }
-
-    private void CheckPasswordMatch()
-    {
-        confirmButton.interactable = password == confirmPassword;
     }
 #endif
 }

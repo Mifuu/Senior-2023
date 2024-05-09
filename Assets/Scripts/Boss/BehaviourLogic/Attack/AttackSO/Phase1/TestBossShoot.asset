@@ -12,7 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21722969ee54e7a4696d2d2680d00c7d, type: 3}
   m_Name: TestBossShoot
   m_EditorClassIdentifier: 
-  bulletPrefab: {fileID: 7423775656597082803, guid: a9d6a8d354ce5f04db13ecc3a0a44954, type: 3}
+  setPerformAttack: 0
+  performAttackTriggerName: 
+  bulletPrefab: {fileID: 7423775656597082803, guid: 871b3c2c99b7bd0459af57ba0557365b, type: 3}
   bulletAmount: 60
   preShootDelay: 1
   bulletDelay: 0.1
+  shootSound: {fileID: 0}
