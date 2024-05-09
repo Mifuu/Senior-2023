@@ -228,15 +228,9 @@ namespace CloudService
 
         private void DedicatedServer_ClientDisconnectCallback(ulong id)
         {
-            void Quit(bool _, bool __) => Application.Quit(0);
-            
             currentPlayerNumbers.Value--;
             if (hasPlayerConnected && currentPlayerNumbers.Value == 0)
             {
-                if (StatService.Singleton.hasOperationFinished.Value)
-                    Quit(false, false);
-                else
-                    StatService.Singleton.hasOperationFinished.OnValueChanged += Quit;
                 Logger.Log("All Players has disconnected, exiting");
                 Application.Quit(0);
             }
