@@ -36,6 +36,11 @@ public class MultiplayerGameManager : Singleton<MultiplayerGameManager>
         {
             timeSinceStart += Time.deltaTime;
         }
+
+        if (Input.GetKey(KeyCode.LeftControl) && Input.GetKey(KeyCode.R))
+        {
+            if (!IsServer) ResetPlayerSpawnServerRpc();
+        }
     }
 
     public void StartGame()
@@ -77,6 +82,9 @@ public class MultiplayerGameManager : Singleton<MultiplayerGameManager>
         for (int i = 0; i < ids.Count; i++)
         {
             ulong id = ids[i];
+
+            if (id == NetworkManager.Singleton.LocalClientId && !IsClient)
+                continue;
 
             Vector3 spawnPosition = Vector3.zero + Vector3.up * 4;
             if (spawnTransform.Count > i)
@@ -135,7 +143,7 @@ public class MultiplayerGameManager : Singleton<MultiplayerGameManager>
             PlayerManager.thisClient.SetSpawnPoint(pos);
         }
     }
-    
+
     [ClientRpc]
     public void TeleportPlayerToSpawnClientRpc(ulong id)
     {
@@ -171,18 +179,18 @@ public class MultiplayerGameManager : Singleton<MultiplayerGameManager>
     {
         /* if (NetworkManager.Singleton.LocalClientId == id) */
         /* { */
-            Debug.Log("Index: " + playerIds.IndexOf(id) + " Coords: " + bossRoomCoords[playerIds.IndexOf(id)]);
-            if (bossRooms[playerIds.IndexOf(id)] != null)
-            {
-                bossRooms[playerIds.IndexOf(id)].Despawn();
-                bossRooms[playerIds.IndexOf(id)] = null;
-            }
+        Debug.Log("Index: " + playerIds.IndexOf(id) + " Coords: " + bossRoomCoords[playerIds.IndexOf(id)]);
+        if (bossRooms[playerIds.IndexOf(id)] != null)
+        {
+            bossRooms[playerIds.IndexOf(id)].Despawn();
+            bossRooms[playerIds.IndexOf(id)] = null;
+        }
 
-            GameObject o = Instantiate(bossRoomPrefab, bossRoomCoords[playerIds.IndexOf(id)], Quaternion.identity);
-            NetworkObject n = o.GetComponent<NetworkObject>();
-            n.Spawn();
-            bossRooms[playerIds.IndexOf(id)] = n;
-            TeleportToBossRoomClientRpc(id, bossRoomCoords[playerIds.IndexOf(id)]);
+        GameObject o = Instantiate(bossRoomPrefab, bossRoomCoords[playerIds.IndexOf(id)], Quaternion.identity);
+        NetworkObject n = o.GetComponent<NetworkObject>();
+        n.Spawn();
+        bossRooms[playerIds.IndexOf(id)] = n;
+        TeleportToBossRoomClientRpc(id, bossRoomCoords[playerIds.IndexOf(id)]);
         /* } */
     }
 
@@ -191,5 +199,33 @@ public class MultiplayerGameManager : Singleton<MultiplayerGameManager>
     {
         if (NetworkManager.Singleton.LocalClientId == id)
             PlayerManager.thisClient.Teleport(coord);
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    void ResetPlayerSpawnServerRpc()
+    {
+        RoomGeneration.RoomGenerator roomGenerator = roomGenNetworkManager.roomGenerator;
+        List<Transform> spawnTransform = roomGenerator.GetSpawnTransforms();
+
+        IReadOnlyList<ulong> ids = NetworkManager.Singleton.ConnectedClientsIds;
+        playerSpawnPoints = new Dictionary<ulong, Vector3>();
+
+        for (int i = 0; i < playerManagers.Count; i++)
+        {
+            PlayerManager p = playerManagers[i];
+            ulong id = p.OwnerClientId;
+
+            Vector3 spawnPosition = Vector3.zero + Vector3.up * 4;
+            if (spawnTransform.Count > i)
+            {
+                spawnPosition = spawnTransform[i].position;
+                playerSpawnPoints.Add(id, spawnPosition);
+            }
+            else
+                Debug.LogWarning("No spawn position... Spawning at 0,4,0");
+
+            TeleportPlayerClientRpc(id, spawnPosition);
+            SetPlayerSpawnPointClientRpc(id, spawnPosition);
+        }
     }
 }
