@@ -25,7 +25,7 @@ namespace Enemy
 
         [Header("Stamina")]
         [SerializeField] private BossStaminaManager staminaManager;
-        
+
         [Header("Level Setup")]
         [SerializeField] private int startingLevel;
 
@@ -131,10 +131,11 @@ namespace Enemy
 
             SpawnDamageFloatingClientRpc(Mathf.Round(damageAmount).ToString());
 
-            if (currentHealth.Value <= 0f)
+            if (currentHealth.Value <= 1f)
             {
+                Debug.Log("Boss Dead");
+                GameplayUI.GameplayUIController.Instance.GameoverTrigger();
                 Die(dealer);
-                GameplayUI.GameplayUIController.Instance?.GameoverTrigger();
             }
         }
 

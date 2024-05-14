@@ -41,6 +41,11 @@ public class MultiplayerGameManager : Singleton<MultiplayerGameManager>
         {
             if (!IsServer) ResetPlayerSpawnServerRpc();
         }
+
+        if (Input.GetKeyDown(KeyCode.U))
+        {
+            if (IsClient) TeleportToBossRoomServerRpc(NetworkManager.Singleton.LocalClientId);
+        }
     }
 
     public void StartGame()

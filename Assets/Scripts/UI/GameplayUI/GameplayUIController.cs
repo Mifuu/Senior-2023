@@ -114,8 +114,8 @@ namespace GameplayUI
 
         public void GameoverTrigger()
         {
-            if (stack.Peek() != PanelType.Gameover)
-                stack.Push(PanelType.Gameover);
+            Debug.Log("trigger gameover");
+            stack.Push(PanelType.Gameover);
         }
     }
 }
